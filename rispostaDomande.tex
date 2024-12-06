@@ -1,0 +1,39 @@
+\section{Risposte alle domande}
+\paragraph{Sai dirmi se la convergenza lineare e' assimilabile all'ordine di convergenza p = 1?}
+No, la convergenza lineare non è assimilabile all'ordine di convergenza p = 1.\\
+La convergenza lineare si verifica quando l'errore tra la soluzione esatta di un problema e l'approssimazione calcolata con un metodo numerico si riduce ad un tasso costante. In particolare, il tasso di riduzione dell'errore è proporzionale all'errore attuale, ovvero la successione degli errori si riduce linearmente.\\
+L'ordine di convergenza p, invece, si riferisce al tasso di riduzione dell'errore attuale rispetto all'errore precedente. In particolare, se il tasso di riduzione dell'errore è proporzionale alla potenza p dell'errore attuale, allora si dice che il metodo ha ordine di convergenza p.\\
+Quindi, la convergenza lineare si verifica quando il tasso di riduzione dell'errore è costante, mentre l'ordine di convergenza p si riferisce alla velocità con cui l'errore diminuisce man mano che ci si avvicina alla soluzione esatta.\\
+In generale, è possibile avere convergenza lineare con ordine di convergenza $p>1$, così come è possibile avere convergenza non lineare con ordine di convergenza p = 1. Quindi, convergenza lineare e ordine di convergenza p sono due concetti distinti e non sono assimilabili.
+
+\paragraph{convergenza lineare e p = 1 sono legati?}
+Sì, convergenza lineare e ordine di convergenza p = 1 sono legati.\\
+La convergenza lineare di un metodo numerico si verifica quando il tasso di riduzione dell'errore è costante e quindi quando la successione degli errori si riduce linearmente. In altre parole, se l'errore attuale è dato da $e_k$, allora l'errore dopo una iterazione è approssimativamente dato da $e_k+1 = c * e_k$, dove $c$ è una costante.\\
+L'ordine di convergenza p di un metodo numerico si riferisce invece al tasso di riduzione dell'errore attuale rispetto all'errore precedente. In particolare, se il tasso di riduzione dell'errore è proporzionale alla potenza p dell'errore attuale, allora si dice che il metodo ha ordine di convergenza p. Per $\rho=1$, il tasso di riduzione dell'errore attuale è proporzionale all'errore attuale, ovvero:
+$|e_k+1| / |e_k| = c$
+dove c è una costante. Questa è la definizione di convergenza lineare.\\
+Quindi, in sintesi, un metodo numerico ha convergenza lineare se e solo se ha ordine di convergenza $\rho=1$.
+
+\paragraph{Differenza tra convergenza ed ordine di convergenza}
+La convergenza di un metodo numerico si riferisce alla proprietà del metodo di produrre una successione di approssimazioni che tendono a una soluzione esatta dell'equazione o del problema che si sta risolvendo. In altre parole, un metodo è convergente se, con un numero sufficiente di iterazioni, le approssimazioni diventano sempre più accurate e si avvicinano sempre di più alla soluzione esatta.
+
+L'ordine di convergenza, d'altra parte, è una misura quantitativa della velocità con cui il metodo converge alla soluzione. In particolare, l'ordine di convergenza di un metodo numerico è definito come il numero p tale che l'errore di approssimazione ad ogni iterazione si riduce in modo proporzionale a una potenza di p.
+
+Ad esempio, un metodo con un ordine di convergenza p=1 si dice che converge linearmente, il che significa che l'errore si riduce di una quantità costante ad ogni iterazione. Un metodo con un ordine di convergenza p=2 si dice che converge quadraticamente, il che significa che l'errore si riduce di una quantità proporzionale al quadrato della differenza tra l'approssimazione corrente e la soluzione esatta ad ogni iterazione.
+
+In sintesi, la convergenza si riferisce alla proprietà del metodo di avvicinarsi alla soluzione esatta, mentre l'ordine di convergenza indica la velocità con cui il metodo lo fa.
+
+\paragraph{Differenze ci sono tra la formula di Simpson e la formula di Simpson composita}
+La formula di Simpson è un metodo numerico di quadratura che permette di approssimare l'integrale di una funzione mediante l'uso di un polinomio di secondo grado. In particolare, la formula di Simpson richiede di valutare la funzione integranda in tre punti equidistanti. La formula di Simpson è particolarmente utile per approssimare l'integrale di funzioni "regolari" (cioè sufficientemente lisce).
+
+La formula di Simpson composita, invece, è una versione "estesa" della formula di Simpson. Essa suddivide l'intervallo di integrazione in sottointervalli più piccoli, e applica la formula di Simpson a ciascun sottointervallo. In questo modo, l'errore di approssimazione può essere reso arbitrariamente piccolo aumentando il numero di sottointervalli utilizzati.
+
+In sintesi, la principale differenza tra la formula di Simpson e la formula di Simpson composita è che la prima viene applicata direttamente all'intervallo di integrazione, mentre la seconda viene applicata ad ogni sottointervallo in cui l'intervallo di integrazione è stato suddiviso. La formula di Simpson composita è in genere più precisa della formula di Simpson, ma richiede di valutare la funzione integranda in un maggior numero di punti.
+
+\paragraph{Perché le ascisse di Chebychev possono essere definite anche come segue: $x_i=\cos(\frac{(2i+1)\pi}{(2(n+1))}),\; i=0,\hdots,n.$}
+
+\noindent (Su wikipedia sono diverse) Le ascisse di Chebyshev definite come $x_i=\cos(\frac{(2i+1)\pi}{2(n+1)})$ possono essere utilizzate per la costruzione di formule di quadratura e per l'interpolazione polinomiale.
+
+\noindent La motivazione dietro questa definizione è data dal fatto che i polinomi di Chebyshev di prima specie, definiti come $T_k(x)=\cos(k\cos^{-1} x)$, sono ortogonali rispetto alla misura di peso $w(x)=\frac{1}{\sqrt{1-x^2}}$ sull'intervallo $[-1,1]$.
+
+\noindent In particolare, l'utilizzo delle ascisse di Chebyshev definite come $x_i=\cos\left(\frac{(2i+1)\pi}{2(n+1)}\right)$ consente di minimizzare l'effetto di Runge nell'interpolazione polinomiale su un intervallo. Infatti, come noto, l'interpolazione polinomiale sui nodi equispaziati può portare ad un aumento dell'errore di interpolazione ai bordi dell'intervallo. Le ascisse di Chebyshev sono distribuite in modo tale da concentrarsi maggiormente verso i bordi dell'intervallo, riducendo l'effetto di Runge e migliorando l'accuratezza dell'interpolazione polinomiale.

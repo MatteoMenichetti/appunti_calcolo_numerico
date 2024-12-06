@@ -1,0 +1,298 @@
+\section{Esercitazione capitolo 3}
+\subsection{A.A. 2022/23}
+\begin{enumerate}
+    \item  Scrivere una function Matlab che risolva efficientemente un sistema triangolare inferiore.
+    \item Definire la fattorizzazione $LU$ di una matrice nonsingolare. Dimostrare che, se fattorizzabile, la fattorizzazione $LU$ di una matrice è unica.
+    \item  Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice?
+    \item Definire cosa si intende per matrice a diagonale dominante. Dimostrare che una matrice diagonale dominante è fattorizzabile $LU$.
+    \item  Definire cosa si intende per matrice simmetrica e definita positiva (sdp). Dimostrare che una matrice sdp è fattorizzabile $LU$ .
+    \item Dimostrare che una matrice simmetrica e definita positiva è fattorizzabile nella forma $LDL^T$, con $L$ triangolare inferiore a diagonale unitaria, e $D$ matrice diagonale.
+    \item  Definire cosa si intende per norma indotta su matrice. Dare qualche esempio di tali norme.
+    \item  Definire cosa è il numero di condizionamento di una matrice. Spiegarne il significato.
+    \item Definire la soluzione nel senso dei minimi quadrati di un sistema lineare sovra-determinato a rango pieno. Dimostrarne l’esistenza ed unicità.
+    \item Calcolare la matrice elementare di Householder $H$ relativa al vettore: 
+    \begin{equation*}
+       \boldsymbol z = \begin{pmatrix}
+        -1\\
+        2\\
+        -2
+    \end{pmatrix}.
+    \end{equation*}
+    Quanto vale il prodotto $H\boldsymbol z$?
+    \item Definire il metodo di Newton per sistemi nonlineari, e dettagliarne l’implementazione.
+\end{enumerate}
+
+\paragraph{1.}\footnote{Slide 3 PDF 14.} La function è implementata nell'Algoritmo \ref{alg:trilow}.
+
+\begin{algorithm}
+\caption{Implementazione efficiente risolutore sistema triangolare inferiore.}\label{alg:trilow}
+    \begin{lstlisting}[style=Matlab-editor]
+    function y = trilow(L, b)
+    %   
+    %   y = trilow(L, b)
+    %
+    %   Risolve un sistema triangolare inferiore
+    %
+    % Input:
+    %   L   -  matrice dei coefficienti;
+    %   b  -   termine noto;
+    %   
+    % Output:
+    %   y   -   vettore soluzione.
+    %
+    % Le prossime tre righe sono controlli iniziali.
+    [m,n] = size(L);
+    if m ~= n, error('Matrice non quadrata'), end
+    if n~= length(b), error('Termine noto non consistente'), end
+
+    y=b(:); %trasformazione di b in vettore colonna
+    
+    for i = 1 : n
+        if L(i,i) == 0, error('Matrice singolare'), end
+        y(i) = y(i)/L(i,i);
+        y(i+1:n) = y(i+1:n) - L(i+1:n, i)*y(i):
+    end
+    return
+    \end{lstlisting}
+\end{algorithm}
+
+\paragraph{2.}\footnote{Slide 3 PDF 14.} Sia $A\in\mathbb R^{n\times n},\, \det(A).$
+
+\noindent (Risposta alla prima parte di domanda:) $A$ è fattorizzabile $LU$, se $A=LU$, con:
+\begin{itemize}
+    \item $L$ triangolare inferiore a diagonale unitaria:
+    \item $U$ triangolare superiore.
+\end{itemize}
+
+\noindent (Risposta alla seconda parte) Unicità della fattorizzazione: È necessario dimostrare che se $A=L_1U_1$ è un'ulteriore fattorizzazione $LU$ di $A$, allora $L=L_1,\, U=U_1.$ Infatti:
+\begin{equation*}
+    0\neq\det(A)=\det(LU)=\underbrace{\det(L)}_{\footnotemark}\det(U)=\det(U).
+\end{equation*}
+\footnotetext{Uguale ad 1 perché a diagonale unitaria 1.}
+
+\noindent Pertanto, da $LU=L_1U_1$, segue che, moltiplicando a destra per $U^{-1},\, L=L_1U_1U^{-1}.$ Da questa, moltiplicando a sinistra per $L_1^{-1},$ segue che:
+\begin{equation}\label{eq:LL=UU}
+    L_1^{-1}L=U_1U^{-1}.
+\end{equation}
+
+\noindent È possibile osservare ciò che segue:
+\begin{itemize}
+    \item $L_1^{-1}$ è una matrice triangolare inferiore a diagonale unitaria;
+    \item  $U^{-1}$ è una matrice triangolare superiore.
+\end{itemize}
+
+\noindent Quindi $L_1^{-1}L$ è una matrice triangolare inferiore a diagonale unitaria e $U_1U^{-1}$ è una matrice triangolare superiore. Pertanto, le due matrici in (\ref{eq:LL=UU}) sono diagonali. Poichè la diagonale di $L_1^{-1}L$ è unitaria, questa è la matrice indentità. Dalle uguaglianze allora 
+\begin{itemize}
+    \item $L_1^{-1}L=I$,
+    \item $U_1U^{-1}=I$,
+\end{itemize}
+segue che $L=L_1\wedge U_1=U$, ovvero la fattorizzazione $LU$ è unica. \qed
+
+\paragraph{IMPORTANTE:} I passaggi come quelli sopra è necessario che siano il piu' dettagliati possibile affinché Luigi sappia che abbiamo studiato.
+
+\paragraph{3.} Sia $A\in\mathbb R^{n\times n}, \det(A)\neq 0.$ Denotando con $A_k$ la sottomatrice principale di ordine $k$ di $A$, allora:
+\begin{equation*}
+    A=LU\iff\forall k=1,\hdots, n\, :\,\det(A_k)\neq 0.
+\end{equation*}
+Questa ultima riga non è sufficiente, è necessario specificare $A\in\mathbb R^{n\times n}.$
+
+\paragraph{4.}\footnote{Slide 6 PDF 14.} Sia $\boldsymbol{A\in\mathbb R^{n\times n}}$. Allora $A=(a_{ij})$ è:
+\begin{itemize}
+    \item \textbf{diagonale dominante per righe}, se
+    \begin{equation}\label{eq:ddRighe}
+        |a_{ii}|>\sum_{j\neq i, j=1}^n|a_{ij}|,\quad\forall i=1,\hdots,n;
+    \end{equation}
+    \item \textbf{diagonale dominante per colonne}, se $|a_{jj}|>\sum_{i\neq j, i=1}^n |a_{ij}|,\;\forall j=1,\hdots,n.$
+\end{itemize}
+Valgono le seguenti proprietà:
+\begin{itemize}
+    \item[\textbf{P1)}] $A$ è d.d. per righe $\iff A^T$ è d.d. per colonne;
+    \item[\textbf{P2)}] Se $A$ è d.d. per righe (o colonne), allora, detta $A_k$ la sottomatrice principale di ordine $k$ di $A$, essa sarà d.d. per righe (o colonne). (Dimostrazione:) Infatti, dato un generico $k\in\{1,\hdots,n\},$ risulterà che dalla (\ref{eq:ddRighe}) segue che $\forall i=1\hdots,k:$
+    \begin{equation*}
+         |a_{ii}|>\sum_{j\neq i, j=1}^n|a_{ij}|\geq \sum_{j\neq i, j=1}^k|a_{ij}|,
+    \end{equation*}
+    ovvero, $A_k$ è diagonale d.d. per righe. Analogamente per $A$ d.d. per colonne.\qed
+    \item[\textbf{P3)}] Se $A$ è d.d. per righe (o per colonne), allora $A$ è non singolare. Infatti, se $A$ fosse singolare, esisterebbe $\uline{x}\in\mathbb R^n,\, x\neq 0\,:\, A\uline{x}=\uline 0$. Questa equazione vale per ogni multiplo di $\uline x$ quindi è possibile normalizzare $\uline x$ in modo che $x_k=\underset{i=1,\hdots,n}{\max}|x_i|=1$. Pertanto, la $k$-esima equazione di $A\uline x=\uline 0$ diviene: $\sum_{j=1}^na_{kj}x_j=0.$ Da questo segue che $a_{kk}\,x_k=-\sum_{j=1,j\neq k}^n a_{kj}x_j.$ Pertanto:
+    \begin{equation*}
+        |a_{kk}|=|a_{kk}x_k|=\left|\sum_{j=1,j\neq k}^n a_{kj}x_j\right|\leq\sum_{j=1,j\neq k}^n |a_{kj}|\cdot\underbrace{|x_j|}_{\leq 1}\leq\sum_{j=1,j\neq k}^n |a_{kj}|,
+    \end{equation*}
+    il che contradice l'ipotesi d.d. per righe sulla riga $k$. Se A è d.d. per colonne, il tutto è riapplicato a $A^T$, che sarà d.d. per righe (per \textbf{P1)}).
+\end{itemize}
+
+\noindent Dalle proprietà \textbf{P2)} e \textbf{P3)}, segue che:
+\begin{itemize}
+    \item $A$ è d.d. per righe (o colonne) $\iff\forall k=1,\hdots,n;$
+    \item $A_k$ è d.d. per righe (o colonne) $\iff\forall k=1,\hdots,n;$
+    \item $\det(A_k)\neq 0\iff A$ è fattorizzabile $LU.$
+\end{itemize}
+
+\paragraph{5.}\footnote{Slide 9 PDF 14.} Sia $A\in\mathbb R^{n\times n}.$ A è simmetrica e definita positiva (sdp) se:
+\begin{itemize}
+    \item $A=A^T$ ($A$ è simmetrica);
+    \item $\forall \uline x\in\mathbb R^n\backslash\{\uline 0\}\,:\, \uline x^T A \uline x > 0$ ($A$ è definita positiva).
+\end{itemize}
+Per dimostrare che, se $A$ è sdp, allora $A=LU$, sarà dimostrato che:
+\begin{enumerate}
+    \item $\forall k=1,\hdots, n$, $A_k$, detta sottomatrice principale di $A$ di ordine $k$, è sdp;
+    \item $A$ sdp $\Rightarrow A$ è nonsingolare.
+\end{enumerate}
+
+\noindent Riguardo la 2), se $A$ non fosse singolare, allora $\exists\,\uline x\in\mathbb R^n\backslash\{\uline 0\}\, : \, A\uline x=\uline 0\Rightarrow\uline x^T A \uline x = 0,$ contraddicendo la definita positiva di A.
+Pertanto, $A$ è nonsingolare.
+
+\noindent Riguardo la 1): 
+\begin{equation}\label{eq:ACompSimm}
+\forall k=1,\hdots,n:\; 
+A=\left[\begin{array}{c|c}
+       A_k & B\\
+       \hline
+       C& D
+    \end{array}
+    \right],\text{ con } D\in\mathbb R^{(n-k)\times (n-k)}.    
+\end{equation}
+Dalla simmetria di $A$, segue che 
+$A^T=\left[
+\begin{array}{c|c}
+    A_k & C^T\\
+    \hline
+    B^T & D^T
+\end{array}
+\right]=A.$ Uguagliando i blocchi omologhi allora:
+\begin{equation*}
+    A_k=A_k^T,\; B=C^T,\; D=D^T\;\rightarrow A_k \text{ è simmetrica.}
+\end{equation*}
+
+\noindent Rimane da dimostrare che, $\forall \uline y\in\mathbb R^k\backslash\{\uline 0\}\,:\, \uline y^TA_k\uline y > 0.$ A questo fine, assegnato un generico $\uline y\in\mathbb R^k\backslash\{\uline 0\}$, è considerato il vettore $\uline x=
+\begin{pmatrix}
+    \uline y\\
+    \uline 0
+\end{pmatrix}\in\mathbb R^n$. Chiaramente $\uline x\neq 0$. Dato che $A$ è sdp allora da (\ref{eq:ACompSimm}) segue che:
+\begin{equation*}
+    0<\uline x^T A \uline x = (\uline y^T\; \uline 0^T)\,\left[\begin{array}{c|c}
+       A_k & B\\
+       \hline
+       C& D
+    \end{array}
+    \right]
+    \begin{pmatrix}
+        \uline y\\
+        \uline 0
+    \end{pmatrix} = 
+    (\uline y^T\; \uline 0^T)
+    \begin{bmatrix}
+        A_k \uline y\\
+        C \uline y
+    \end{bmatrix} = \uline y^T A_k \uline y.
+\end{equation*}\qed
+
+\paragraph{6.}\footnote{Slide 11 PDF 14.}
+È noto che, se $A$ è sdp, allora $A=LU$ ed è noto che la fattorizzazione $LU$ è unica. Pertanto, osservando il fattore $U$ può essere scritto come $D\widehat{U}$, con $D$ diagonale ed $\widehat{U}$ triangolare superiore a diagonale unitaria, segue che $A=LU=LD\widehat{U}$. Essendo $A=A^T\Rightarrow A=LD\widehat{U}=(LD\widehat{U})^T=A^T.$ Segue che $LD\widehat{U}=\widehat{U}^TDL^T.$
+
+\noindent Essendo:
+\begin{itemize}
+    \item $\widehat{U}^T$ triangolare inferiore a diagonale unitaria,
+    \item $DL^T$ triangolare superiore,
+\end{itemize}
+per l'unicità della fattorizzazione $LU$ segue che $L=\widehat{U}^T$. Da questo è possibile concludere che $A=LDL^T.$\qed
+
+\paragraph{7.}\footnote{Slide 12 PDF 14.} Sia $||\cdot||$ una norma assegnata su vettore. È definito, data $A\in\mathbb R^{m\times n}$, la sua norma indotta dalla norma su vettore considerata: $||A||=\underset{\uline x\in\mathbb R^n, ||x||=1}{\max}||A\uline x||$.
+
+\begin{remark}
+    $||A\uline x||$ è la norma di un vettore di $\mathbb R^m.$
+\end{remark}
+
+\noindent Alcuni esempi: se $A=(a_{ij})\in\mathbb R^{m\times n},$ allora:
+\begin{itemize}
+    \item $||A||_1=\underset{j=1,\hdots,n}{\max}\sum_{i=1}^m|a_{ij}|;$
+    \item $||A||_\infty=\underset{i=1,\hdots,m}{\max}\sum_{j=1}^n|a_{ij}|.$
+\end{itemize}
+
+\paragraph{8.}\footnote{Slide 12 PDF 14.} Sia $A\in\mathbb R^{n\times n},\;\det(A).$ Il suo numero di condizione, assegnato ad una generica norma indotta da una corrispondente norma su matrice, è definito come $\kappa(A)=||A||\cdot||A^{-1}||.$ Questo misura il condizionamento del sistema lineare $A\uline x= \uline b.$ Infatti, considerando perturbazioni $\Delta A$ e $\Delta\uline b$ su $A$ e $\uline b$, rispetivamente, è ottenuto $(A+\Delta A)(\uline x+\Delta\uline x)= \uline b+\Delta\uline b,$ con $\Delta\uline x$ perturbazione sul risultato. Vale che:
+\begin{equation*}
+    \frac{||\Delta\uline x||}{||\uline x||}\leq\kappa(A)\left(\frac{||\Delta\uline b||}{||\uline b||}+\frac{||\Delta A||}{||A||}\right)\qed
+\end{equation*}
+
+\paragraph{9.}\footnote{Slide 13 PDF 14.} Sia $A\in\mathbb R^{m\times n},$ con $m>n=rank(A).$ È definita \textbf{soluzione nel senso dei minimi quadrati} del sistema lineare $\boldsymbol{A\uline x=\uline b},$ il vettore $\boldsymbol{\uline x}$ \textbf{che minimizza la norma euclidea (al quadrato) del corrispondente vettore residue} $\boldsymbol{\uline r=A\uline x-\uline b}.$ \footnote{Necessario specificare la parte in grassetto affinché la risposta sia corretta.}
+
+\noindent Il motivo della scelta della norma euclidea è dovuto al fatto che questa è invariante per moltiplicazione del vettore in argomento per una matrice ortogonale $Q$:
+\begin{equation*}
+    ||Q\uline v||_2^2=(Q\uline v)^T(Q\uline v)=\uline v^T \underbrace{Q^TQ}_{\footnotemark}=\uline v^T\uline v=||\uline V||_2^2.
+\end{equation*}\footnotetext{Uguale ad $I$ perché $Q$ è ortogonale.}
+La soluzione ai minimi quadrati di $A\uline x=\uline b$ è ottenuta osservando che, se $A\in\mathbb{m\times n},\; m>n=rank(A)$, allora esistono:
+\begin{itemize}
+    \item $Q\in\mathbb R^{m\times m},\; Q$ ortogonale ;
+    \item $\widehat{R}\in\mathbb R^{n\times n},\;\widehat{R}$ triangolare superiore e nonsingolare,
+\end{itemize}
+tali che.: $A=QR,$ con $R=\begin{pmatrix}
+    \widehat{R}\\
+    0
+\end{pmatrix}\in\mathbb R^{m\times n}.$ Per minimizzare:
+\begin{equation*}
+    \begin{matrix}
+        ||\uline r||_2^2&=&||A\uline x-\uline b||_2^2&=&||QR\uline x-\uline b||_2^2 &=& ||Q(R\uline x - Q^T\uline b)||_2^2&\overset{\footnotemark}{=}&||R\uline x-\uline g||_2^2\\
+        &\overset{\footnotemark}{=}&
+        \Biggl|\Biggl|\begin{bmatrix}
+            \widehat{R}\\
+            0
+        \end{bmatrix}\uline x
+        - \begin{bmatrix}
+            \uline g_1\\
+            \uline g_2
+        \end{bmatrix}\Biggl|\Biggl|_2^2&=&\Biggl|\Biggl|\begin{bmatrix}
+            \widehat{R}\uline x -\uline g_1\\
+            -\uline g_1
+        \end{bmatrix}\Biggl|\Biggl|_2^2 &=& \left|\left|\widehat{R}\uline x - \uline g_1\right|\right|_2^2 + \left|\left|\uline g_2\right|\right|_2^2 &=& \left|\left|\uline g_2\right|\right|_2^2\\
+        &&&&&&&=& \min!
+    \end{matrix}
+\end{equation*}
+
+\addtocounter{footnote}{-1}
+\footnotetext{Ponendo $\uline g=Q^T\uline b$ e sfruttando l'invarianza di $||\cdot||_2$.}
+
+\stepcounter{footnote}
+\footnotetext{$\uline g_1\in\mathbb R^n$.}
+
+\noindent Scegliendo $\uline{x}$ come soluzione del sistema lineare $\widehat{R}\,\uline x=\uline g_1$, che esiste, ed è unica, essendo $\widehat{R}$ non singolare.
+
+\paragraph{10.}\footnote{Slide 15 PDF 14.} È noto che $H\boldsymbol{\uline z}=\alpha\uline e_1\in\mathbb R^3, $ con $\alpha=\pm\left|\left|\uline z\right|\right|_2=\pm 3.$ La matrice $H$ è nella forma
+\begin{equation*}
+    H=I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T,
+\end{equation*}
+con
+\begin{equation*}
+    \uline v=\uline z-\alpha \uline e_1=
+    \begin{bmatrix}
+        -1-\alpha\\
+        2\\
+        -2
+    \end{bmatrix}=
+    \begin{bmatrix}
+        -1-3\\
+        2\\
+        -2
+    \end{bmatrix}
+\end{equation*}
+avendo scelto \textbf{$\boldsymbol{\alpha=3}$, in modo che la prima componente di $\boldsymbol{\uline v}$ sia ottenuta sommando quantità concordi.} Segue che $\boldsymbol{H\uline z= 3\uline e_1}$. Il vettore di Householder è $\uline v=\begin{bmatrix}
+    -4\\
+    2\\
+    -2
+\end{bmatrix},$ dal quale è ottenuto che
+\begin{equation*}
+    H=I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T=I-\frac{2}{24}\uline v \uline v^T=I-\frac{1}{12}\uline v\, \uline v^T.
+\end{equation*}
+
+\paragraph{11.}\footnote{Slide 17 PDF 14.} Sia $f\,:\,\mathbb R^m\rightarrow\mathbb R^m,$ è definito il metodo di Newton per risolvere $f(\uline x)=\uline 0$ fondamentalmente dall'iterazione seguente:
+\begin{equation}\label{eq:passoFondamNewt}
+    \uline x_{n+1}=\uline x_n - J_f(\uline x_n)^{-1}f(\uline x_n),\; n=0,1\hdots
+\end{equation}
+essendo $J_f(\uline x_n)$ la matrice Jacobiana di $f(\uline x)$ calcolata in $\uline x_n$. Nella pratica (\ref{eq:passoFondamNewt}) è implementata con l'obbiettivo di risolvere il sistema lineare $J_f(\uline x_n)\Delta \uline x_n=-f(\uline x_n)$ aggiornando $\uline x_{n+1}=\uline x_n+\Delta\uline x_n,\, n=0,1,\hdots\boldsymbol .$ Pertanto, il costo per iterazione è il seguente:
+\begin{enumerate}
+    \item 1 valutazione di $J_f$ e la sua fattorizzazione;
+    \item 1 valutazione di $f$ e soluzione per i fattori di $J_f$;
+    \item 1 axpy per aggiornare l'approssimazione corrente.
+\end{enumerate}
+Come criterio d'arresto è possibile utlizzare il seguente:
+\begin{equation*}
+    ||\Delta\uline x_n./(1+|\uline x|)||\leq tol, 
+\end{equation*}
+per una tolleranza $tol$ specificata.

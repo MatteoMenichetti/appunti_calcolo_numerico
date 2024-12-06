@@ -1,0 +1,657 @@
+\section{Aritmetica finita}
+Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R^n$. L'utilizzo di un metodo numerico fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
+
+È possibile misurare l'errore introdotto dall'approssimazione attraverso:
+\begin{itemize}
+    \item Errore Assoluto: $\Delta x = \Tilde{x}-x$;
+    \item Errore Relativo: $\varepsilon_x=\frac{\Tilde{x}-x}{x}$. 
+\end{itemize}
+
+È possibile notare ciò che segue:
+\begin{equation*}
+    \begin{matrix}
+        \varepsilon_x=\frac{\Delta x}{x}=\frac{\Tilde{x}-x}{x}\Rightarrow \Tilde{x}=(1+\varepsilon_x)x\\
+        \Tilde{x}=x+\Delta x
+    \end{matrix}
+\end{equation*}
+
+Esempi di errore:
+\begin{itemize}
+    \item $\Delta x = 10^{-3},\, x=10^{-3}\Rightarrow \varepsilon_x = 1;$
+    \item  $\Delta x = 10^{-3},\, x=10^{-6}\Rightarrow\varepsilon_x = 10^{-9};$
+    \item $x=\pi,\,\Tilde{x}=3.14 \Rightarrow\Delta x \approx -1.6\cdot 10^{-3}.$
+\end{itemize}
+
+Gli errori assimilabili ad un metodo numerico sono individuabili in tre categorie distinte:
+\begin{enumerate}
+    \item Errori di discretizzazione;
+    \item Errori di convergenza;
+    \item Errori di round-off.
+\end{enumerate}
+
+\subsection{Errori di discretizzazione}\footnote{Slide 2 PDF lez1, PG 4.}
+Al fine di ottenere un metodo numerico che possa essere risolto da un calcolatore è necessario trasformare il \underline{problema \textbf{continuo}}\footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb R\rightarrow\mathbb R$.} in \underline{problema \textbf{discreto}} \footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb N\rightarrow\mathbb N$.}. È possibile notare che questo tipo di errore è dovuto alla definizione del metodo numerico utilizzato.
+
+Supposto il problema da risolvere sia il calcolo della derivata $f'(x_0)$, dove $f:\mathbb R\rightarrow\mathbb R,\, x_0\in (a,b),\, f\in C^{(2)}[a,b]$, allora è possibile utilizzare lo sviluppo di Taylor di secondo ordine, per ottenere $f'(x_0)$, nel seguente modo:
+
+Sia
+\begin{equation*}
+    f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(\xi)}{2}(x-x_0)^2,\; \xi\in(x,x_0),
+\end{equation*}
+allora segue che, sostituendo $x=x_0+h$ (con $h>0$ è quantità piccola ma finita), da
+\begin{equation*}
+    f(x_0+h)=f(x_0)+f'(x_0)(\cancel{x_0}+h-\cancel{x_0})+\frac{f''(\xi)}{2}(\cancel{x_0}+h-\cancel{x_0})^2\overset{\footnotemark}{=}f(x_0)+f'(x_0)h+\frac{f''(\xi)}{2}h^2,\; \xi\in(x_0,x_0+h)
+\end{equation*}
+
+\footnotetext{Tramite lo sviluppo di Taylor di $f(x)$ di punto iniziale $x_0$ con resto al secondo ordine, è ottenuto $f(x_0)+f'(x_0)h+\frac{f''(\xi)}{2}h^2\rightarrow f'(x_0)=\frac{f(x_0+h)-f(x_0)}{h}-\frac{f''(\xi)}{2}h$, spostando i membri e dividendo per $h$ come in (\ref{eq:approxF'ErrDiscr}). La serie è: $\sum_{n=0}^\infty\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$.}
+
+\noindent il problema dell'approssimazione della derivata può essere risolto mediante l'utilizzo del seguente rapporto incrementale:
+\begin{equation}\label{eq:approxF'ErrDiscr}
+    f'(x_0)=\frac{f(x_0+h)-f(x_0)}{h}-\frac{f''(\xi)}{2}h=f'(x_0)-\frac{f''(\xi)}{2}h\approx\frac{f(x_0+h)-f(x_0)}{h}=\varphi(x_0),\; \xi\in(x_0,x_0+h).
+\end{equation}
+Pertanto, l'errore di discretizzazione è denotato come segue:
+\begin{equation*}
+    |f'(x_0)-\varphi(x_0)|=\frac{|f''(\xi)|}{2}h=O(h)\leq kh.
+\end{equation*}
+
+\subsection{Errori di convergenza}
+\footnote{Slide 4 PDF lez1, PG 5.} I metodi numerici sono spesso iterativi, questo significa che non forniscono un risultato diretto ma una serie di risultati intermedi, una successione di approssimazioni del tipo $\{x_n\}$, definiti mediante una procedura iterativa
+\begin{equation}\label{eq:approxProcIterat}
+    x_n=\Phi(x_{n-1}),\quad n=1,2,\hdots,
+\end{equation}
+dove $n$ è il numero di iterazioni. Il metodo in questione converge se
+\begin{equation}
+    \lim_{n\rightarrow\infty}x_n=x^*,
+\end{equation}
+dove $x^*$ è la soluzione esatta. La soluzione del problema quindi è fornita con infinite iterazioni.
+
+È necessario definire un criterio d'arresto per la procedura (\ref{eq:approxProcIterat}), ovvero un numero finito di iterazioni $n$ affinché il metodo numerico sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
+
+L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto è stabilito arrestando l'iterazione quando $n=N$ in modo che $x_N$ sia sufficientemente accurata. Un'approssimazione è sufficientemente accurata se $|x_N-x^*|\leq\varepsilon,$ con $\varepsilon$ la tolleranza stabilita.
+
+È possibile affermare che questo tipo di errore è dovuto dal metodo numerico utilizzato.
+
+\begin{example}
+    La procedura iterativa che definisce un metodo convergente per calcolare $\sqrt{2}$ è
+    \begin{equation}\label{eq:approxRad2ProcIterat}
+        x_{n+1}=\frac{1}{2}\left(x_n+\frac{2}{x_n}\right),\quad n=0,1,2,\hdots,\quad x_0=2.
+    \end{equation}
+\end{example}
+
+\paragraph{Precisazione sui due errori precedenti:} Gli errori di discretizzazione e di convergenza sono dovuti al metodo numerico applicato, il primo, ed alla sua modalità di utilizzo, il secondo tipo di errore.
+
+\subsection{Errori di round-off}\footnote{Slide 6 PDF lez1, PG 6.}
+Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato. Questi errori sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
+
+Saranno trattati i due casi seguenti:
+\begin{itemize}
+    \item numeri interi,
+    \item numeri reali.
+\end{itemize}
+
+In entrambi i casi è utilizzata una notazione posizionale che utilizza potenze di base $b\in\mathbb N\; (b\geq 2).$
+
+\subsubsection{Numeri interi}\footnote{Slide 6 PDF lez1, PG 7.}
+Un numero intero è memorizzato come stringa del tipo
+\begin{equation}\label{eq:rapprNumInt}
+    \alpha_0\,\alpha_1\cdots\alpha_N,\; N\in\mathbb N\text{ numero di cifre},
+\end{equation}
+in cui, assegnata la base $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i\in\{0,1,\hdots, b-1\}_{i=1,\hdots,N}.$
+
+È possibile rapprensentare la stringa (\ref{eq:rapprNumInt}) come segue:
+\begin{equation}\label{eq:rapprNumIntCompl}
+    n=\begin{cases}
+        \sum_{i=1}^N\alpha_i b^{N-i}, &\text{ se } \alpha_0=+\\
+        \\
+        \sum_{i=1}^N\alpha_i b^{N-i} -b^N, &\text{ se } \alpha_0=-
+    \end{cases}
+\end{equation}
+
+Tramite la notazione (\ref{eq:rapprNumInt})-(\ref{eq:rapprNumIntCompl}) è possibile rappresentare \textbf{senza errore} tutti i numeri interi dell'insieme
+\begin{equation}\label{eq:insNumIntRappr}
+    \{-b^N,\,b^N-1\}.
+\end{equation}
+
+\textbf{Dettagli aggiuntivi:}
+\begin{itemize}
+    \item Per motivi di efficienza è assunto, anche in seguito, che le basi utilizzate siano pari. In particolare, nel caso della base binaria, i numeri negativi sono efficientemente rappresentati utilizzando il complemento 2;
+    \item Il caso in cui è necessario rappresentare un numero all'esterno dell'insieme (\ref{eq:insNumIntRappr}) crea una condizione di errore non facilmente diagnosticabile. 
+\end{itemize}
+
+\begin{example}
+    $b=10,\, N=4,\, \underset{+}{\alpha_0}\underset{1}{\alpha_1}\underset{7}{\alpha_2}\underset{4}{\alpha_3}\underset{2}{\alpha_4}=n=1\cdot 10^3+7\cdot 10^2+4\cdot 10^1+2\cdot 10^0.$
+\end{example}
+
+\subsubsection{Numeri reali}\footnote{Slide 8 PDF lez1, PG 7.}
+Un numero "reale" è memorizzato in un calcolatore mediante una stringa del tipo
+\begin{equation}\label{eq:rapprNumRea}
+    \alpha_0\cdots\alpha_m\beta_1\cdots\beta_s,
+\end{equation}
+in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\{0,\hdots,b-1\}_{i=1,\hdots,m,\, j=1,\hdots,s}.$
+\begin{definition}[Notazione scientifica normalizzata]
+    La stringa (\ref{eq:rapprNumRea}), sotto la condizione $\alpha_1\neq 0$, rappresentabile come la notazione scientifica normalizzata in base $b$ nella seguente forma
+    \begin{equation}\label{eq:rapprSciNorm}
+        r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
+    \end{equation}
+    con fissati $\overset{\footnotemark}{\nu}\in\mathbb N$ shift, $m$ il numero di cifre della mantissa ed $s$ il numero di cifre dell'esponente. Le quantità
+    \begin{equation}\label{eq:mantExpRea}
+        \boldsymbol\rho = \sum_{i=1}^m\alpha_ib^{1-i},\quad \boldsymbol\eta = e-\nu,
+    \end{equation}
+    sono rispettivamente \textbf{mantissa} ed \textbf{esponente} del numero reale.
+\end{definition}
+\footnotetext{Utile per rappresentare i numeri minori di 1.}
+
+\begin{example}\footnote{Slide 10 PDF lez1.}
+    Dati $b=10,\, m=3,\, s=2,\, \nu=0,$ allora è possibile rappresentare il seguente numero:
+    \begin{equation*}
+        \underset{+}{\alpha_0}\underset{3}{\alpha_1}\underset{4}{\alpha_2}\underset{7}{\alpha_3}\underset{1}{\beta_1}\underset{1}{\beta_2}=\boldsymbol r=+\left(\sum_{i=1}^3\alpha_i10^{1-i}\right)10^{e}=+(3\cdot 10^0+4\cdot 10^{-1}+7\cdot 10^{-2})\cdot 10^{1\times 10^{2-1} + 1\times 10^{2-2}}=\boldsymbol{+3.47\cdot 10^{11}},
+    \end{equation*}
+    dove $e=\sum_{j=1}^2\beta_j10^{2-j}=10+1=11.$
+\end{example}
+\begin{example}
+    \footnote{Slide 1 PDF 2.} Supposto l'utilizzo della notazione denormalizzata,
+    \begin{equation*}
+        \alpha_1=0,\, b=10,\, m=5,\, s=5,\, \nu=2,\, x=1.543\cdot 10^\eta,
+    \end{equation*}
+    con $\eta=e-\nu=e-2=1$, quindi $e=3$. Inoltre, la rappresentazione di $x$ non è unica, è possibile la seguente: $x=0.1543\cdot 10^2.$ 
+\end{example}
+
+\begin{definition}\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
+    L'insieme di numeri di macchina, o floating-point, è definito come:
+    \begin{equation}
+        M = \underset{\footnotemark}{\{0\}}\cup \{\text{Numeri rappresentabili come (\ref{eq:rapprSciNorm}) (fissati }m,s,\nu, b) \}.
+    \end{equation}
+\end{definition}
+\footnotetext{Aggiunto perché nella notazione scientifica normalizzata non è rappresentabile.}
+
+\begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.1 PG 8.}
+$\boldsymbol M$ ha un numero \textbf{finito} di elementi. (Ovvero: $M$ è un insieme discreto.)
+\end{theorem}
+
+\begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.2 PG 8.}
+$\boldsymbol{1\leq |\rho|}=\sum_{i=1}^m \alpha_i\, b^{1-i}\boldsymbol{<b}$
+\end{theorem}
+\begin{proof}
+    Dalle (\ref{eq:rapprNumRea})-(\ref{eq:mantExpRea}) segue che ($|\rho|\geq 1$)
+    \begin{equation*}
+        |\underset{\text{mantissa}}{\rho}|= \underset{\footnotemark}{\neqto{\alpha_1}{0}}.\,\underset{\footnotemark}{\uline{\alpha_2\cdots\alpha_m}}\geq\alpha_1.\underbrace{0\cdots 0}_{m-1}=\alpha_1\geq 1.\footnotemark
+    \end{equation*}
+    Inoltre (è necessario dimostrare che $|\rho|<b$):
+    \begin{equation*}
+        |\rho|=\alpha_1.\alpha_2\cdots\alpha_m\overset{\footnotemark}{\leq}(b-1).\overbrace{(b-1)\cdots (b-1)}^{m-1}=b(\overbrace{1-b^{-m}}^{<1})<b.
+    \end{equation*}
+\end{proof}
+\addtocounter{footnote}{-3}
+\footnotetext{Per la definizione di notazione scientifica normalizzata.}
+
+\stepcounter{footnote}
+\footnotetext{Ogni $\alpha_i\in\{0, b-1\}$ ed ipotizzando che siano tutti 0 allora accade ciò che segue.}
+
+\stepcounter{footnote}
+\footnotetext{Dimostrando $|\rho|\geq 1$.}
+
+\stepcounter{footnote}
+\footnotetext{$\forall i\in\{1,\hdots,m\},\, 1\leq\alpha_i\leq b\rightarrow\text{ sostituzione degli } \alpha_i \text{ con } b-1$.}
+
+\begin{example}
+    $b=10,\, m=4,\, 9.999=10\cdot(1-0.0001)=10\cdot\underbrace{(1-10^{-9})}_{0.9999}.$
+\end{example}
+
+\begin{theorem}\label{th:maxMinNumMacc}\footnote{Slide 3 PDF lez2, Teorema 1.3 PG 8.}
+    Il più piccolo ed il più grande numero macchina positivi e diversi da 0 sono, rispettivamente:
+    \begin{equation}\label{eq:minMaxNrPrecMacc}
+        \begin{matrix}
+            r_1 &=& b^{-\nu},&\\
+            r_2 &=& (1-b^{-m})b^\varphi,& \varphi=b^s-\nu
+        \end{matrix}
+    \end{equation}
+    con $\boldsymbol{b^s}$ \textbf{massimo numero ottenibile con} la notazione \textbf{(\ref{eq:rapprNumRea})}.
+\end{theorem}
+
+\begin{remark}\footnote{Slide 4 PDF lez2, Osservazione 1.2 PG 9.}
+    Lo shift è scelto in modo che $r_1\approx r_2^{-1}$, ovvero $\nu\approx b^{\frac{s}{2}}$.
+\end{remark}
+
+\begin{definition}[Reali rappresentabili]
+    Dato il Teorema \ref{th:maxMinNumMacc} e sia 
+\begin{equation}\label{eq:insDomFFloaPoint}
+    I=[-r_2,-r_1]\cup \{0\}\cup [r_1,r_2],
+\end{equation}
+    dove $[-r_2,-r_1]$ e $[r_1,r_2]$ sono insiemi infiniti. $I$ è l'insieme dei numeri reali rappresentabili con $s,\,m,\,\nu$ fissati.
+\end{definition}
+
+\begin{definition}[\textbf{Insieme numeri macchina}]
+    $\boldsymbol{M\subseteq I}$ è l'\textbf{insieme dei numeri di macchina} ed è un sottoinsieme finito di $\boldsymbol I$.
+\end{definition}
+
+\begin{definition}[\textbf{Funzione floating}]
+    La funzione floating è definita come
+    \begin{equation*}
+        \begin{matrix}
+        fl&:&I&\rightarrow& M\\
+        &&x&\mapsto& fl(x)
+        \end{matrix}
+    \end{equation*}
+    dove, in generale, $\boldsymbol{fl(x)\neq x}$. 
+\end{definition}
+
+La funzione floating $fl$ trasforma un numero reale in numero macchina (con l'aggiunta di un errore, dato che $fl(x)\neq x$). Un numero per il quale non è introdotto un errore nella rappresentazione è 0 ($\boldsymbol{fl(0)=0}$). Quindi, i numeri tra $[-r_2,-r_1]$ e $[r_1,r_2]$ possono essere rappresentati con la funzione $fl$, la quale associa ad ogni $i\in I$ una rappresentazione macchina. 
+
+\textbf{L'utilizzo della funzione floating introduce errori di rappresentazione del tipo round-off}, data la rappresentazione non precisa (come specificato nella definizione $fl(x)\neq x$).
+
+Dato $x\in I$, ovvero un numero esatto, definito come (\ref{eq:rapprSciNorm}), della forma 
+\begin{equation}\label{eq:numEsatto}
+    x=(\alpha_0\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)\,b^{e-\nu}\in I,
+\end{equation}
+esistono due possibili implementazioni della funzione $fl(x)=(\alpha_0\underbrace{\alpha_1.\alpha_2\cdots\alpha_{m-1}}_{m-1}\Tilde{\alpha}_m)b^{e-\nu}$ per approssimare $\Tilde{\alpha}_m$:
+\begin{itemize}
+    \item \textbf{rappresentazione con troncamento,} \begin{equation}\label{eq:troncamento}
+        \Tilde{\alpha}_m=\alpha_m.
+    \end{equation}
+    Quindi vengono ignorate le cifre successive alla $m-$esima.
+    \item \textbf{rappresentazione con arrotondamento,}
+    \begin{align}
+        \Tilde{\alpha}_m=
+        \begin{cases}
+            \alpha_m, &\text{ se }\alpha_{m+1}<\frac{b}{2}\\
+            \alpha_m+1, &\text{ se }\alpha_{m+1}\geq\frac{b}{2}
+        \end{cases}
+    \end{align}
+    Nel caso in cui $\Tilde{\alpha}_m\geq b$ allora ci sarà un riporto delle cifre precedenti alla $m$-esima.
+\end{itemize}
+Principalmente sarà usata la rappresentazione con arrotondamento, utilizzando alcune sofisticazioni.
+
+\begin{example}\footnote{Slide 6 PDF lez3.}
+    $b=10,\, m=2,\, s=2$
+    \begin{center}
+        \begin{tabular}{c|cc}
+        & TRONCAMENTO & ARROTONDAMENTO\\
+        \hline
+        $x=3.14$ & $3.1$ & $3.1\quad 4<\frac{10}{2}=5$\\\\
+        $x=3.18$ & $3.1$ & $3.2 \quad 8 \geq \frac{10}{2}=5$
+        \end{tabular}
+    \end{center}
+\end{example}
+
+Il seguente Teorema è importante, afferma che il massimo errore relativo da poter commettere (con base, mantissa, ecc. fissati) è $u$ ed è possibile esprimere con questo ultimo valore la precisione della rappresentazione. La precisione dipende fortemente dal numero di cifre rappresentate (maggiore è il numero di cifre maggiore è la precisione).
+
+\begin{theorem}\footnote{Slide 6 PDF lez3, Teorema 1.4 PG 10.}\label{th:precMaccFL}
+    Se $x\in I,\, x\neq 0\Rightarrow fl(x)=x(1+\varepsilon_x),$ con $ |\varepsilon_x|\leq u$, dove
+    \begin{align}\label{eq:precMacc}
+        u=
+        \begin{cases}
+            b^{1-m}, &\text{ in caso di troncamento};\\
+            \frac{1}{2}b^{1-m}, &\text{ in caso di arrotondamento}.
+        \end{cases}
+    \end{align} 
+\end{theorem}
+\begin{proof}
+    È riportato il caso del troncamento, simili argomenti sono applicati all'arrotondamento.
+    
+    $x=(\alpha_0\,\alpha_1.\cdots\alpha_m\cdots)\,b^{e-\nu}$ ed $fl(x)$ sono dati, da (\ref{eq:numEsatto}) e (\ref{eq:troncamento}) con la normalizzazione $\alpha_1\neq 0$, allora:
+    \begin{equation*}
+        \begin{matrix}
+        |\varepsilon_x|&=&\frac{fl(x)-x}{x}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu}-(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu)}\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
+        &=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m)-(\alpha_1.\alpha_2\cdots\alpha_m\cdots)|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\
+        &\overset{\footnotemark}{=}&\frac{0.00\cdots\alpha_{m+1}\cdots}{\alpha_1.\alpha_2\cdots\alpha_{m+1}\cdots}&\leq& 0.00\cdots\alpha_{m+1}\cdots &\overset{\footnotemark}{=}&(\alpha_{m+1}.\alpha_{m+2}\cdots)\, b^{-m}\\
+        &&&\leq&((b-1).(b-1)\cdots)\, b^{-m}&<&b\, b^{-m}&=& b^{1-m}
+    \end{matrix}
+    \end{equation*}
+\end{proof}
+\begin{definition}[\textbf{Precisione macchina}]
+    $\boldsymbol u$ è detto \textbf{precisione macchina}.
+\end{definition}
+$u$ è il più piccolo reale, diverso da 0, in notazione scientifica che sommato ad $n$ numero qualsiasi dà un numero diverso da $n$. Infatti, qualsiasi numero più piccolo di $u$ è considerato 0 (?).
+
+\addtocounter{footnote}{-2}
+\footnotetext{È ignorato $\alpha_0$ perché, dato il valore assoluto, il segno è ininfluente.}
+
+\stepcounter{footnote}
+\footnotetext{Al numeratore è presente il risultato della sottrazione precendente passaggio. Al denominatore è presente un termine sicuramente diverso da 0, se $\alpha_1\neq 0$, quindi il denominatore $\left(\frac{1}{\alpha_1.\cdots\alpha_m\cdots}\right)$ può essere maggiorato da 1, permettendo una successiva maggiorazione.}
+
+\stepcounter{footnote}
+\footnotetext{Spostamento degli $\alpha_{m+1}\cdots$ a sinistra della virgola.}
+
+\begin{definition}[\textbf{Errore relativo di rappresentazione}]
+    $\boldsymbol{\varepsilon_x}\overset{\footnotemark}{\boldsymbol =}\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} relativo ad $x$.
+\end{definition}
+\footnotetext{Derivato da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precMaccFL}.}
+
+Per rappresentare un elemento di $I$ (vedere (\ref{eq:insDomFFloaPoint})), attraverso la funzione floating point, è commesso, al più, un errore relativo $\varepsilon_x$ maggiorato dalla precisione macchina $u$, quindi $u$ è un limite per l'errore.
+
+\subsubsection{Overflow e Underflow}\footnote{Slide 8 PDF lez2, PG 11.}
+Può capitare di dover rappresentare numeri reali non contenuti in $I$, in questo caso è sollevata una condizione d'errore. Le condizioni d'errore derivate dalla rappresentazione di un reale $x\notin I$, con $I$ definito come in (\ref{eq:insDomFFloaPoint}), sono:
+\begin{itemize}
+    \item $\boldsymbol{|x|>r_2}\Rightarrow$ overflow. Tale condizione è rappresentata in base al sistema di calcolo utilizzato (esempio: nello standard IEEE 754 il simbolo \textbf{Inf} rappresenta $\infty$);
+    \item $\boldsymbol{0<|x|<r_1}\Rightarrow$ underflow. In questo caso esitono due tipi di recovery, indipendenti ed associate al sistema di calcolo utilizzato (ed è possibile utilizzare solo una delle due):
+    \begin{itemize}
+        \item $fl(x)=0$;
+        \item gradual underflow: non è più richiesto $\alpha_1\neq 0$, quindi è utilizzata la notazione scientifica denormalizzata per rappresentare i numeri di macchina $M$, invalidando il Teorema \ref{th:precMaccFL}. 
+    \end{itemize}
+\end{itemize}
+
+\begin{example}
+    $b=10,\; \nu=30,\; m=4\, \Rightarrow r_1=10^{-30}.\; x=10^{-32}$ può essere espresso in aritmetica finita come $x=0.0010\times 10^{-30}$ (gradual underflow).
+\end{example}
+
+L'implementazione della funzione $fl$ può essere riassunta come segue:
+\begin{align*}
+    fl(x)=\begin{cases}
+        0, &\text{ se } x=0;\\
+        \Tilde{x}\equiv x(1+\varepsilon_x),\; |\varepsilon_x|\leq u &\text{ se } r_1\leq|x|\leq r_2\\
+        underflow, &\text{ se } 0<|x|<r_1\\
+        overflow, &\text{ se } |x|>r_2
+    \end{cases}
+\end{align*}
+
+\begin{remark}\label{rem:epsRMaxRmin}
+    Può essere utile vedere \textit{eps, realmin} e \textit{realmax} di Matlab:
+\end{remark}
+
+\begin{itemize}
+    \item $eps =  2.2204e-16$, rappresenta la distanza fra 1 ed il numero in doppia precisione più vicino ad 1. In Matlab $1 - eps = 9.999999999999998e-01$, mentre $1 - 1e-17 = 1$;
+    \item $realmin = 2.2251e-308$ è il più piccolo numero finito rappresentabile con la funzione di floating point nello standard IEEE in doppia precisione;
+    \item $realmax = 1.7977e+308$ è il più grande numero finito rappresentabile con la funzione di floating point in nello standard IEEE in doppia precisione.
+\end{itemize}
+
+\subsubsection{Standard IEEE 754}\footnote{Slide 1 PDF lez3, PG 11.}
+Nella Sezione è trattato lo standard ANSI/IEEE 754-1985, per la rappresentazione di numeri reali sugli elaboratori. Questo standard è stato definito per poter garantire che programmi identici, eseguiti su piattaforme di calcolo differenti, producano gli stessi risultati ed è adottato dalla maggior parte dei calcolatori esistesti. 
+
+Lo standard IEEE 754 è particolarmente adatto alla base binaria ($b=2$).
+
+La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento. Inoltre, $fl$ è round to even, ovvero: dato il numero macchina $fl(x)$ che più si avvicina ad $x$, allora, in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precMaccFL} rimane valido. 
+
+I formati di base per i dati trattati e previsti dallo standard sono:
+\begin{itemize}
+    \item singola precisione (32 bit),
+    \item doppia precisione (64 bit).
+\end{itemize}
+
+Per entrambi i formati la mantissa è assunta in base 2 e vale quanto segue:
+\begin{itemize}
+    \item $\rho=1.f$ nel caso della notazione scientifica normalizzata ($\alpha_1\neq 0$);
+    \item $\rho=0.f$ nel caso della notazione scientifica denormalizzata ($\alpha_1=0$, quindi lo standard implementa il gradual-underflow).
+\end{itemize}
+
+Per entrambe le notazioni non sarà memorizzata la prima cifra, sarà memorizzata solo la frazione $f$, con un evidente risparmio di 1 bit. Il tipo di notazione sarà dedotto dalle convenzioni fra poco definite.
+
+\paragraph{Singola precisione.}\footnote{Slide 2 PDF lez3, PG 12.}
+La lunghezza della mantissa $\rho$ è suddivisa fra 32 bit $\begin{cases}
+    1, &\text{ segno};\\
+    23, &\text{ frazione};\\
+    8, &\text{ esponente};
+\end{cases}\Rightarrow \overset{\footnotemark}{m=24},\, s=8$. Inoltre, è possibile configurare shift, mantissa ed esponente (ovvero $e\in\mathbb N$) come segue:
+\footnotetext{Lunghezza della mantissa.}
+
+\begin{itemize}
+    \item se $0<e<255=2^8-1,$ la notazione è normalizzata, $\nu=127=2^7-1$;
+    \item se $e=0,\, f\neq 0$, la notazione è denormalizzata, $\nu=126$ (caso gradual-underflow);
+    \item se $e=0,\, f=0\rightarrow 0$ con eventuale segno (non rappresentabile con notazione scientifica normalizzata);
+    \item se $e=255,\,\alpha_0=0,\,f=0\rightarrow +Inf$ (rappresenta l'overflow);
+    \item se $e=255,\,\alpha_0=1,\,f=0\rightarrow -Inf$ (rappresenta l'underflow);
+    \item se $e=255, \,f\neq 0 \rightarrow$ NaN (Not a Number, esempio divisione per $0,\, 0/0,\, Inf-Inf,\, 0\times Inf$).
+\end{itemize}
+Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/normalizata).
+
+\paragraph{Doppia precisione.}\footnote{Slide 3 PDF lez3, PG 13.}
+La lunghezza della mantissa $\rho$ è suddivisa fra 64 bit $\begin{cases}
+    1, &\text{ segno};\\
+    52, &\text{ frazione};\\
+    11, &\text{ esponente};
+\end{cases}\Rightarrow m=53,\; s=11$.
+Inoltre, è possibile configurare shift, mantissa ed esponente come segue:
+\begin{itemize}
+    \item se $0<e<2047=2^{11}-1,$ la notazione è normalizzata, $\nu=1023=2^{10}-1$;
+    \item se $e=0,\,f\neq 0$, la notazione è denormalizzata, $\nu=1022$ (caso gradual-underflow);
+    \item se $e=0,\,f=0\rightarrow 0$ con eventuale segno;
+    \item se $e=2047,\,\alpha_0=0,\,f=0\rightarrow +Inf$;
+    \item se $e=2047,\,\alpha_0=1,\,f=0\rightarrow -Inf$;
+    \item se $e=2047,\,f\neq 0 \rightarrow$ NaN.
+\end{itemize}
+In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precMaccFL}) e le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
+
+\subsubsection{Aritmetica Finita}\footnote{Slide 4 PDF lez3, PG 13.}
+È interessante capire cosa accade in aritmetica finita quando sono svolte operazioni su numeri macchina. Date le implementazioni delle operazioni algebriche ($+,\, -,\,\times,\, \slash$) in aritmetica finita, è necessario distinguere tra numeri reali ed interi.
+
+\paragraph{Numeri interi:} Se operandi e risultato appartengono all'insieme dei numeri di macchina (\ref{eq:insNumIntRappr}), le operazioni coincidono con le corrispondenti algebriche.
+
+\paragraph{Numeri reali:} In questo caso le operazioni ed il risultato sono, rispettivamente, definite tra numeri macchina e numero macchina.
+
+Un esempio di implementazione della somma algebrica in aritmetica finita, sia $\oplus$, risulta essere il seguente:
+\begin{equation*}
+    x\oplus y\overset{\footnotemark}{=}fl(fl(x)+fl(y)),\quad x,y\in\mathbb R.
+\end{equation*}
+\footnotetext{È necessaria la doppia applicazione della funzione di floating $fl$ perché $x$ e $y$ non sono numeri macchina e la somma di numeri macchina non è un numero macchina.}
+
+\begin{remark}\footnote{Slide 5 PDF lez3, Osservazione 1.7 PG 13}
+    Non sempre le proprietà algebriche delle operazioni coincidono con quelle in aritmetica finita. Generalemente proprietà distributiva, associativa, ecc, non valgono.
+\end{remark}
+
+\begin{example}
+    Dato $r_2$ definito come in (\ref{eq:minMaxNrPrecMacc}) e 2 (numero intero), allora:
+    \begin{equation*}
+        fl(r_2)=r_2,\; f(2)=2,\; (r_2-r_2)\times 2= r_2\times 2- r_2\times 2=0. 
+    \end{equation*}
+    \begin{equation*}
+        \begin{matrix}
+            (r_2\ominus r_2)\otimes 2 \overset{?}{=}r_2\otimes 2\ominus r_2\otimes 2\\
+            (r_2\ominus r_2)\otimes 2 = fl(fl(\equalto{\underbrace{r_2-r_2}}{0})\cdot2)=fl(0\cdot 2)=fl(0)=0\overset{\footnotemark}{\neq} NaN \underset{\footnotemark}{=}fl(fl(r_2\cdot 2)-fl({r_2\cdot 2}))= r_2\otimes 2\ominus r_2\otimes 2.
+        \end{matrix}
+    \end{equation*}
+
+    \addtocounter{footnote}{-1}
+    \footnotetext{Non c'è la distributiva.}
+
+    \stepcounter{footnote}
+    \footnotetext{L'overflow non manitiene l'ordine, quindi l'applicazione di operazioni sull'infinito non è permesso ed è ottenuto NaN come risultato perché $+Inf=r_2\cdot 2>r_2$.}
+    
+\end{example}
+\begin{example}
+    Dato $r_2=\overbrace{9.999\cdots 9}^{m}\cdot 10^{10^s-1-\nu}$, ovvero definito come in (\ref{eq:minMaxNrPrecMacc}) ed $1=1.000\cdots 0\cdot 10^0\overset{\footnotemark}{=}\underbrace{0.000\cdots 0}_{m}\cdots 1\cdot 10^{10^s-1-\nu}$,  allora:\footnotetext{Quando è applicata $fl$, a meno di scegliere $s$ molto piccolo l'1 è molto dopo gli $m$ 0.}
+    \begin{equation*}
+        \begin{matrix}
+            r_2-r_2+1=(r_2-r_2)+1=r_2-(r_2-1)\\
+            (r_2\ominus r_2)\oplus 1 \overset{?}{=} r_2\ominus(r_2\ominus1)\\
+            (r_2\ominus r_2)\oplus=fl(fl(r_2-r_2)+1)=fl(0+1)=1\overset{\footnotemark}{\neq} 0=fl(r_2-r_2)\overset{\footnotemark}{=}fl(r_2-fl(r_2-1))=r_2\ominus(r_2\ominus 1).
+        \end{matrix}
+    \end{equation*}
+    \addtocounter{footnote}{-1}
+    \footnotetext{Non c'è l'associatività.}
+
+    \stepcounter{footnote}
+    \footnotetext{$fl(r_2-1)=r_2$ perché $2^{64}, 2^{52}$ o qualsivoglia sia il numero da rappresentare, è così grande che non cambia quando viene rappresentato, se gli è sottratto 1.}
+\end{example}
+
+\subsection{Condizionamento di un problema}\footnote{Slide 7-10 PDF lez3 + lez4, PG 14-18.}
+Con "problema" non è fatto riferimento al metodo di calcolo, ma ad un generico problema matematico schematizzabile con 
+\begin{equation}\label{eq:probCond}
+    y=f(x),
+\end{equation}
+dove:
+\begin{itemize}
+    \item $x\in\mathbb R$, sono i dati in ingresso;
+    \item $f:\mathbb R\rightarrow\mathbb R,\; f\in C^2$, la descrizione formale del problema;
+    \item $y\in\mathbb R$, denota la soluzione al problema.
+\end{itemize}
+
+Un metodo numerico che risolve il problema (\ref{eq:probCond}), ovvero lo approssima, può essere formalizzato come
+\begin{equation}\label{eq:approxProbCond}
+    \Tilde{y}=\Tilde{f}(\Tilde{x}),
+\end{equation}
+in cui:
+\begin{itemize}
+    \item $\Tilde{x}\in\mathbb R$ denota i dati in ingresso affetti da errore, ovvero perturbati (questi sono sempre affetti da errore di rappresentazione);
+    \item $\Tilde{f}$ denota il metodo numerico implementato utilizzando aritmetica finita, introducendo così possibili errori discretizzazione e/o convergenza;
+    \item $\Tilde{y}\in\mathbb R$ denota la soluzione, il dato in uscita, affetta da errore (ovvero sarà perturbata). 
+\end{itemize}
+
+È interessante studiare l'errore $(y-\Tilde{y})$ del metodo numerico (\ref{eq:approxProbCond}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del metodo numerico è spesso complesso (non rientra nel corso).
+
+Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:probCond}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del metodo numerico. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
+
+Formalmente è studiato
+\begin{equation}\label{eq:probCondStud}
+    \Tilde{y}=f(\Tilde{x}),
+\end{equation}
+quindi il condizionamento del problema è lo studio della relazione fra l'errore sui dati iniziali $(x-\Tilde{x})$ e l'errore sulla soluzione $(y-\Tilde{y})$. Ciò è interessante per evitare che un piccolo errore sui dati iniziali porti ad un errore grande nella soluzione e per questo il problema è detto:
+\begin{itemize}
+    \item ben condizionato, se l'errore sui dati iniziali è "poco" amplificato;
+    \item malcondizionato, se l'errore sui dati iniziali è molto amplificato.
+\end{itemize}
+
+Data $y=f(x),\, y\in C^2$ e gli errori relativi \begin{equation*}
+    \Tilde{x}=x(1+\varepsilon_x),\quad \Tilde{y}=y(1+\varepsilon_y),
+\end{equation*}
+allora è possibile sviluppare (\ref{eq:probCondStud}), tramite lo sviluppo di Taylor al secondo ordine centrato in $x$ (dati esatti), come segue:
+\begin{equation}\label{eq:svilProbCondStud}
+    \Tilde{y}=f(\Tilde{x})=f(x)+f'(x)(\cancel{x}+x\varepsilon_x-\cancel{x})+\frac{f''(\xi)}{2}(\cancel{x}+x\varepsilon_x-\cancel{x})^2\Rightarrow y(1+\varepsilon_y)=\Tilde{y}\overset{f(x)=y}{=}y+f'(x)\, x\varepsilon_x+\underbrace{\frac{f''(\xi)}{2}x^2\varepsilon_x^2}_{O(\varepsilon_x^2)}.
+\end{equation}
+
+Tenendo di conto di (\ref{eq:svilProbCondStud}), allora
+\begin{equation*}
+    \cancel{y}+y\,\varepsilon_y=\cancel{y}+f'(x)x\,\varepsilon_x+O(\varepsilon_x^2)\rightarrow y\,\varepsilon_y=f'(x)\,x\,\varepsilon_x+O(\varepsilon_x^2)\Rightarrow y\,\varepsilon_y \overset{\footnotemark}{\approx}f'(x)\,x\,\varepsilon_x \rightarrow |\varepsilon_y|\approx \left|f'(x)\frac{x}{y}\right|\cdot|\varepsilon_x|\equiv\kappa |\varepsilon_x|.
+\end{equation*}
+
+\footnotetext{$O(\varepsilon_x^2)$ è di ordine 2 quindi è trascurabile rispetto a $f'(x)\,\varepsilon_x$, allora è possibile l'approssimazione.}
+
+\begin{definition}[Numero di condizionamento della radice]
+    Il fattore $\kappa$ misura quanto gli errori iniziali possono amplificarsi sul risultato ed è noto come numero di condizione del problema (\ref{eq:probCond}).
+\end{definition}
+
+È possibile distinguere i seguenti casi:
+\begin{itemize}
+    \item $\kappa\approx 1\Rightarrow |\varepsilon_y|\overset{\footnotemark}{\approx}|\varepsilon_x|\rightarrow$ il problema è ben condizionato;
+    \item $k>>1\Rightarrow |\varepsilon_y|>>|\varepsilon_x|\rightarrow$ il problema è mal condizionato.
+\end{itemize}
+
+\footnotetext{Gli errori sono dello stesso ordine di grandezza.}
+
+È possibile notare ciò che segue:
+\begin{enumerate}
+    \item nel caso in cui è utilizzata precisione macchina $u$ e $\kappa\approx u^{-1}$, qualunque risultato sarà privo di significato, in quanto i dati sono affetti da errore di rappresentazione, per cui $|\varepsilon_x|\approx u$. Inoltre, se $|\varepsilon_y|\approx u^{-1}\,u=1$, è presente una completa una perdita di informazione ed il problema risulta malcondizionato, l'errore $\varepsilon_y$ è dello stesso ordine del risultato;
+    \item nel caso di problemi malcondizionati, l'unica possibilità per ottenere un risultato attendibile è quello di riformulare il problema in modo che abbia proprietà di condizionamento favorevoli;
+    \item nel caso di problemi ben condizionati, occorre scegliere metodi ben condizionati che preservino il buon condizionamento del problema originario (tali metodi sono detti metodi numericamente stabiliti).
+\end{enumerate}
+
+Il limite fra problema ben e malcondizionato non è preciso, è necessario un criterio per distinguere i due casi. È possibile affermare che se il numero di condizionamento è di ordine unità ($\kappa\in[1,10]$) allora è ben condizionato, in altri casi il problema rimane ben condizionato anche se il numero di condizionamento è dell'ordine delle decine (ovvero quando l'errore iniziale viene amplificato di ordine 10 sul risultato).
+
+\paragraph{Osservazione qualitativa:} Valutare quantitativamente il numero di condizionamento è importante ed è necessario osservare come $\kappa$ varia all'aumentare della dimensione del problema (se è costante entro certi limiti è buono).
+
+\paragraph{Condizionamento della somma algebrica:} Il problema è studiare il condizionamento di
+\begin{equation}\label{eq:probSomAlg}
+    y=x_1+x_2\neq 0,\quad x_1,x_2\in\mathbb R,
+\end{equation}
+dove $x_1,\, x_2$ sono gli addendi esatti ed $y$ la soluzione esatta.
+
+Dati gli errori relativi sui dati iniziali $\varepsilon_1=\frac{\Tilde{x}_1-x_1}{x_1}$ e $\varepsilon_2=\frac{\Tilde{x}_2-x_2}{x_2}$, con $\Tilde{x}_1=x_1(1+\boldsymbol{\varepsilon_1})$ e $\Tilde{x}_2=x_2(1+\boldsymbol{\varepsilon_2})$ addendi perturbati, assumendo che non venga introdotto alcun nuovo errore nel calcolo di (\ref{eq:probSomAlg}), allora, con
+\begin{equation*}
+    \Tilde{y}=\Tilde{x}_1+\Tilde{x}_2=y(1+\boldsymbol{\varepsilon_y})\quad\text{e}\quad\varepsilon_y=\frac{\Tilde{x}_1+\Tilde{x}_2-(x_1+x_2)}{x_1+x_2},
+\end{equation*}
+è ottenuto quanto segue:
+\begin{equation*}
+   \begin{matrix}
+        y(1+\varepsilon_y)&=&\Tilde{y}&=&\Tilde{x}_1+\Tilde{x}_2&=&x_1(1+\varepsilon_1)+x_2(1+\varepsilon_2)&=&x_1+x_1\varepsilon_1+x_2+x_2\varepsilon_2\\
+        &\rightarrow& y+y\varepsilon_y&=&\underbrace{x_1+x_2}_{y}+x_1\varepsilon_1+x_2\varepsilon_2\\
+        &\rightarrow& \cancel{y}+y\varepsilon_y &=& \cancel{y}+x_1\varepsilon_1+x_2\varepsilon_2\\
+        &\rightarrow& y\varepsilon_y &=& x_1\varepsilon_1+x_2\varepsilon_2 \\
+        &\rightarrow& \varepsilon_y &=& \frac{x_1\varepsilon_1+x_2\varepsilon_2}{x_1+x_2}.
+   \end{matrix}
+\end{equation*}
+
+Considerando (\ref{eq:probSomAlg}), è ottenuto quanto segue:
+\begin{equation*}
+        \begin{matrix}
+            \boldsymbol{|\varepsilon_y|} &=&\frac{|x_1\varepsilon_1+x_2\varepsilon_2|}{|x_1+x_2|} &\leq& \frac{|x_1\varepsilon_1|+|x_2\varepsilon_2|}{|x_1+x_2|}&=& \frac{|x_1||\varepsilon_1|+|x_2||\varepsilon_2|}{|x_1+x_2|}\\
+            && &\leq& \frac{|x_1|\varepsilon_x+|x_2|\varepsilon_x}{|x_1+x_2|}\\
+            && &=& \underbrace{\frac{|x_1|+|x_2|}{|x_1+x_2|}}_{\boldsymbol k}\boldsymbol{\varepsilon_x} &\equiv& \boldsymbol{\kappa\varepsilon_x}
+        \end{matrix}
+\end{equation*}
+allora,
+\begin{equation*}
+    |\varepsilon_y| \leq \frac{|x_1|+|x_2|}{|x_1+x_2|}\varepsilon_x, \quad \underset{\footnotemark}{\varepsilon_x}=\max\left\{|\varepsilon_1|,|\varepsilon_2|\right\}
+\end{equation*}
+\footnotetext{Errore relativo sui dati iniziali.}
+
+Pertanto, il numero di condizionamento della somma algebrica è esprimibile come
+\begin{equation*}
+    \kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}.
+\end{equation*}
+Seguono due casi significativi:
+\begin{itemize}
+    \item se $\boldsymbol{x_1\, x_2>0}\Rightarrow|x_1|+|x_2|=|x_1+x_2|\Rightarrow \boldsymbol{k=1}$, quindi è concluso che la somma di numeri concordi di segno è sempre ben condizionata;
+    \item se $\boldsymbol{x_1\approx -x_2}\Rightarrow\begin{matrix}
+        |x_1+x_2| << 1\\
+        |x_1|+|x_2| \approx 2|x_1|
+    \end{matrix}\Rightarrow \boldsymbol{k>>1}$, quindi il problema è malcondizionato quando è svolta la somma di due numeri quasi opposti. In aritmetica finita questo malcondizionamento porta al fenomeno della \textbf{cancellazione numerica}.
+\end{itemize}
+
+\begin{example}
+    \footnote{Slide 6 PDF lez4.} Dati $x_1=1.000,\, \Tilde{x}_1=1.000,\, y=-0.001=-10^{-3},\, x_2=-1.000,\,\Tilde{x}_2=-0.999,\, \Tilde{y}=0.001=10^{-3}$, allora,
+    \begin{equation*}
+        \begin{matrix}
+            \boldsymbol\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}=\frac{1+1.001}{10^{-3}}=\frac{2.001}{10^{-3}}=\boldsymbol{2.001\cdot 10^3}\\
+            \boldsymbol{|\varepsilon_1|}=\frac{|\Tilde{x}_1-x_1|}{|x_1|}=\frac{0}{1}=0,\quad \boldsymbol{|\varepsilon_2|}=\frac{|\Tilde{x}_2-x_2|}{|x_2|}=\frac{|-0.999+1.001|}{1.001}=\frac{2\cdot 10^{-3}}{1.001}\boldsymbol{\approx 2\cdot 10^{-3}}\\
+            \boldsymbol{\varepsilon_x}=\max\{0,2\cdot10^{-3}\}\boldsymbol{=2\cdot 10^{-3}}\quad\boldsymbol{|\varepsilon_y|}=\frac{|10^{-3}+10^{-3}|}{|10^{-3}}=\frac{2\cdot \cancel{10^{-3}}}{\cancel{10^{-3}}}\boldsymbol{=2}
+        \end{matrix}
+    \end{equation*}
+\end{example}
+
+\paragraph{Condizionamento della moltiplicazione:}\footnote{Slide 7 PDF lez4, PG 17.} È esaminato il condizionamento del problema
+\begin{equation}\label{eq:probMol}
+        y=x_1x_2\neq 0,\quad x_1,x_2\in\mathbb R,
+\end{equation}
+con $x_1$ e $x_2$ dati esatti ed $y$ soluzione esatta. 
+
+Siano $\Tilde{x}_1=x_1(1+\boldsymbol{\varepsilon_1})$ e $\Tilde{x}_2=x_2(2+\boldsymbol{\varepsilon_2})$ i dati perturbati, $\Tilde{y}=\Tilde{x}_1\Tilde{x}_2=y(1+\boldsymbol{\varepsilon_y})$ il risultato perturbato, $\varepsilon_1$ e $\varepsilon_2$ gli errori relativi sui dati ed $e_y$ l'errore sul risultato. È ottenuto quanto segue:
+\begin{equation*}
+    \begin{matrix}
+        \boldsymbol{y(1+\varepsilon_y)}&=&\Tilde{y}&=&\Tilde{x}_1\Tilde{x}_2&=&x_1(1+\varepsilon_1)x_2(1+\varepsilon_2)\\
+        &=&(x_1+x_1\varepsilon_1)(x_2+x_2\varepsilon_2) &=&x_1x_2+x_1x_2\varepsilon_2+x_1x_2\varepsilon_1+x_1x_2\varepsilon_1\varepsilon_2&=&x_1x_2(1+\varepsilon_2+\varepsilon_1+\varepsilon_1\varepsilon_2)\\
+        &\overset{\footnotemark}{\boldsymbol{\approx}}&\boldsymbol{x_1x_2(1+\varepsilon_1+\varepsilon_2)}&=&x_1x_2+x_1x_2(\varepsilon_1+\varepsilon_2).
+    \end{matrix}
+\end{equation*}
+
+\footnotetext{Dati $\varepsilon_1<1,\,\varepsilon_2<1\Rightarrow \varepsilon_1\varepsilon_2<\varepsilon_1,\,\varepsilon_1\varepsilon_2<\varepsilon_2$, quindi $\varepsilon_1\varepsilon_2$ è trascurabile rispetto a $\varepsilon_1,\varepsilon_2$.}
+
+Pertanto, è ottenuto ciò che segue:
+\begin{equation*}
+    \begin{matrix}
+        y(1+\varepsilon_y) &\approx& x_1x_2+x_1x_2(\varepsilon_1+\varepsilon_2) &\overset{x_1x_2=y}{=}& y+y(\varepsilon_1+\varepsilon_2)\\
+        &\Rightarrow&\cancel{y}+\frac{\cancel{y}\varepsilon_y}{\cancel{y}}&\approx&\cancel{y}+\frac{\cancel{y}(\varepsilon_1+\varepsilon_2)}{\cancel{y}}\\
+        &\Rightarrow& |\varepsilon_y| &\approx& |\varepsilon_1+\varepsilon_2| &\leq& |\varepsilon_1|+|\varepsilon_2|\\
+        &\Rightarrow& |\varepsilon_y| &\leq& |\varepsilon_1 + \varepsilon_2| &\leq& |\varepsilon_1|+|\varepsilon_2| &=& 2\varepsilon_x.
+    \end{matrix}
+\end{equation*}
+
+Quindi,
+\begin{equation*}
+    |\varepsilon_y|\leq 2\varepsilon_x,\quad \varepsilon_x=\max\{|\varepsilon_1|,|\varepsilon_2|\},
+\end{equation*}
+il numero di condizionamento è $\kappa=2$, quindi la moltiplicazione è sempre ben condizionata.
+
+\paragraph{Condizionamento della divisione:}\footnote{Slide 9 PDF lez4, PG 18.} È esaminato il condizionamento del problema
+\begin{equation}\label{eq:probDiv}
+        y=\frac{x_1}{x_2},\quad x_1,x_2\in\mathbb R,\quad x_1x_2\neq 0
+\end{equation}
+con $x_1$ e $x_2$ dati esatti ed $y$ soluzione esatta.
+
+Siano $\Tilde{x}_1=x_1(1+\varepsilon_1)$ e $ \Tilde{x}_2=x_2(1+\varepsilon_2)$ i dati perturbati,  $\Tilde{y}= y(1+\varepsilon_y)=\frac{\Tilde{x}_1}{\Tilde{x}_2}$ il risultato perturbato. Considerando lo sviluppo di Taylor centrato in 0, è possibile la seguente approssimazione:
+\begin{equation*}
+    f(x)=\frac{1}{1+x}\approx f(0)+f'(0)(x-0)=1-x,\quad f'(x)=-\frac{1}{(1+x)^2}\Rightarrow \varepsilon<1,\;f(\varepsilon)=\boldsymbol{\frac{1}{1+\varepsilon}\approx1-\varepsilon}
+\end{equation*}
+dalla quale è ottenuto
+\begin{equation*}
+    \begin{matrix}
+        y(1+\varepsilon_y)=\Tilde{y}=\frac{\Tilde{x}_1}{\Tilde{x}_2}&=&\frac{x_1(1+\varepsilon_1)}{x_2(1+\varepsilon_2)}&=&\frac{x_1(1+\varepsilon_1)}{x_2}\cdot\boldsymbol{\frac{1}{1+\varepsilon_2}}\\
+        &\approx&\frac{x_1}{x_2}(1+\varepsilon_1)\boldsymbol{(1-\varepsilon_2)}&=&\frac{x_1}{x_2}(1+\varepsilon_1-\varepsilon_2-\varepsilon_1\varepsilon_2) &\overset{\footnotemark}{\approx}&\frac{x_1}{x_2}(1+\varepsilon_1-\varepsilon_2)\\
+        &\Rightarrow&  y+y\varepsilon_y&=&y(1+\varepsilon_y)&\approx&y(1+\varepsilon_1-\varepsilon_2)\\
+        &&&\Rightarrow& \cancel{y}+\frac{\cancel{y}\varepsilon_y}{\cancel{y}}&\approx&\cancel{y}+\frac{\cancel{y}(\varepsilon_1-\varepsilon_2)}{\cancel{y}}\\
+        &&&\rightarrow& \varepsilon_y &\approx& (\varepsilon_1-\varepsilon_2).
+    \end{matrix}
+\end{equation*}
+\footnotetext{Come per il condizionamento della moltiplicazione: Dati $\varepsilon_1<1,\,\varepsilon_2<1\Rightarrow \varepsilon_1\varepsilon_2<\varepsilon_1,\,\varepsilon_1\varepsilon_2<\varepsilon_2$, quindi $\varepsilon_1\varepsilon_2$ è trascurabile rispetto a $\varepsilon_1,\varepsilon_2$.}
+Pertanto, è possibile ottenere
+\begin{equation*}
+    |\varepsilon_y|\approx|\varepsilon_1-\varepsilon_2|\leq |\varepsilon_1|+|\varepsilon_2|\leq 2\varepsilon_x,\quad \varepsilon_x=\max\{|\varepsilon_1|,|\varepsilon_2|\},
+\end{equation*}
+Il numero di condizionamento è $\kappa=2$, quindi la divisione è sempre ben condizionata.
