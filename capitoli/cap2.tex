@@ -199,7 +199,7 @@ Tale valore amplifica (di un fattore $\kappa$) l'errore $x_i-x^*$ commesso su $x
 
 \paragraph{N.B.:} È necessario osservare che il condizionamento riguarda il problema e non il metodo numerico.
 
-\begin{definition}[Radice con molteplicità $m$]\label{def:radiciMultiple}
+\begin{definition}[Radice con molteplicità $m$]\label{def:radice_molteplicita_m}
 	\footnote{PG 25, slide 7 PDF lez 7.} $x^*$ è una radice del problema (\ref{eq:radixEQ}) ed ha molteplicità esatta $m\geq 1$, se è verificato quanto segue:
 	\begin{equation*}
 		f(x^*)=f'(x^*)=f''(x^*)=\hdots=f^{(m-1)}(x^*)=0,\, f^{(m)}(x^*)\neq 0.
@@ -853,20 +853,57 @@ L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale p
 \end{remark}
 
 \begin{algorithm}
-	\caption{Implementazione del metodo delle secanti.}\label{alg:metSec}
+	\caption{Implementazione del metodo delle secanti.}\label{alg:metodo_secanti}
 	\begin{lstlisting}[style=Matlab-editor]
-		function x = secanti(f, f1, x0, tol, itmax)
-		fx = feval(f, x0);
-		f1x = feval(f1, x0);
-		x = x0 - fx/f1x;
-		for i = 1 : itmax
-		if abs(x-x0) <= tolx, break, end
-		fx0 = fx;
-		fx = feval(f, x);
-		x1 = (fx*x0 - fx0*x)/(fx - fx0);
-		x0 = x;
-		x = x1;
+		function xstar = secanti(fun, x0, x1, tol, itmax)
+		% 
+		% xstar = secanti(f, x0, x1, tol, itmax)
+		% 
+		% Calcola una approssimazione della radice di f(x) con tolleranza tol.
+		% 
+		% Input:
+		%     f - identidicatore della function che implementa f(x);
+		%     x0, x1 - punti iniziali;
+		%     tol - accuratezza richiesta (default tol = 10^(-6));
+		%     itmax - numero massimo di iterazioni (default itmax = 1000).
+		% 
+		% Output:
+		%     xstar - approssimazione della soluzione.
+		if nargin < 3
+		error('numero di argomenti in ingresso errato')
+		elseif nargin == 3
+		tol =1e-6; itmax = 1000;
+		elseif nargin == 4
+		itmax = 1000;
 		end
-		if abs(x-x0) > tolx, warning('metodo non converge'), end
+		
+		if tol <= 0, error('tolleranza errata'); end
+		
+		if itmax <= 0, error('itmax errato'); end
+		
+		f0 = feval(fun, x0);
+		f1 = feval(fun, x1);
+		
+		for i = 1:itmax
+		if f0 == f1 && f1 ~= 0
+		error('il metodo non converge');
+		end
+		
+		xstar = (x0*f1 - x1*f0)/(f1 - f0);
+		
+		delta = abs(xstar - x1);
+		
+		if delta <= tol * (1 + abs(xstar))
+		break
+		elseif i < itmax
+		x0 = x1; xstar = x1;
+		f0 = f1; f1 = feval(fun,x1);
+		end
+		end
+		
+		if delta > tol * (1+abs(xstar))
+		warning('accuratezza richiesta non raggiunta');
+		end
+		return
 	\end{lstlisting}
 \end{algorithm}
