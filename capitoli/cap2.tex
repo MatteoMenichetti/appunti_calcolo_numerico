@@ -870,39 +870,37 @@ L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale p
 		% Output:
 		%     xstar - approssimazione della soluzione.
 		if nargin < 3
-		error('numero di argomenti in ingresso errato')
+			error('numero di argomenti in ingresso errato')
 		elseif nargin == 3
-		tol =1e-6; itmax = 1000;
+			tol =1e-6; itmax = 1000;
 		elseif nargin == 4
-		itmax = 1000;
+			itmax = 1000;
 		end
 		
 		if tol <= 0, error('tolleranza errata'); end
-		
 		if itmax <= 0, error('itmax errato'); end
 		
 		f0 = feval(fun, x0);
 		f1 = feval(fun, x1);
 		
 		for i = 1:itmax
-		if f0 == f1 && f1 ~= 0
-		error('il metodo non converge');
-		end
-		
-		xstar = (x0*f1 - x1*f0)/(f1 - f0);
-		
-		delta = abs(xstar - x1);
-		
-		if delta <= tol * (1 + abs(xstar))
-		break
-		elseif i < itmax
-		x0 = x1; xstar = x1;
-		f0 = f1; f1 = feval(fun,x1);
-		end
+			if f0 == f1 && f1 ~= 0
+				error('il metodo non converge');
+			end
+			
+			xstar = (x0*f1 - x1*f0)/(f1 - f0);
+			delta = abs(xstar - x1);
+			
+			if delta <= tol * (1 + abs(xstar))
+				break
+			elseif i < itmax
+				x0 = x1; xstar = x1;
+				f0 = f1; f1 = feval(fun,x1);
+			end
 		end
 		
 		if delta > tol * (1+abs(xstar))
-		warning('accuratezza richiesta non raggiunta');
+			warning('accuratezza richiesta non raggiunta');
 		end
 		return
 	\end{lstlisting}

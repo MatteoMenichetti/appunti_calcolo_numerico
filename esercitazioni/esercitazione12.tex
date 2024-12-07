@@ -141,10 +141,10 @@ $\begin{cases}
 \end{equation*}
 Il corrispondente errore relativo è dato da:
 \begin{equation*}
-	\varepsilon_x = \frac{\Delta x}{x} = \frac{2    \cdot10^{-3}}{2.71828}\approx 7\cdot 10^{-4}.
+	\varepsilon_x = \frac{\Delta x}{x} = \frac{2 \cdot10^{-3}}{2.71828\hdots}\approx 7\cdot 10^{-4}.
 \end{equation*}
 
-\paragraph{2.} \footnote{Da Teorema \ref{th:precisione_macchina_FL}.} Se si utilizza un'aritmetica finita in base $b$, con $m$ cifre per la mantissa, la corrispondente precisione di macchina è definita da:
+\paragraph{2.} \footnote{Dal Teorema \ref{th:precisione_macchina_FL}.} Se si utilizza un'aritmetica finita in base $b$, con $m$ cifre per la mantissa, la corrispondente precisione di macchina è definita da:
 \begin{equation*}
 	u=
 	\begin{cases}
@@ -152,7 +152,7 @@ Il corrispondente errore relativo è dato da:
 		\frac{1}{2}b^{1-m}, &\text{ in caso di arrotondamento}.
 	\end{cases}
 \end{equation*}
-Il suo significato è il seguente: dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina, maggiora uniformemente l'errore relativo di rappresentazione
+Il suo significato è il seguente: dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina \gls{maggiora uniformemente} l'errore relativo di rappresentazione
 \begin{equation*}
 	\frac{|x-fl(x)|}{|x|}\leq u\quad (\text{se } x\neq 0).
 \end{equation*}
@@ -193,8 +193,7 @@ Pertanto, il numero di condizionamento della somma algebrica è
 \begin{equation*}
 	\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|},
 \end{equation*}
-che non è limitato superiormente se $x_1$ e $x_2$ sono quasi opposti. In questo caso, il malcondizionamento del problema si manifesta, utilizzando un'aritmetica finita, nel fatto che, anche partendo da addendi con tutte le cifre significative corrette, si può ottenere un risultato con molte meno cifre significative corrette.
-\paragraph{Nota:} È possibile fare un esempio di malcondizionamento di una somma algebrica.
+che non è limitato superiormente se $x_1$ e $x_2$ sono quasi opposti. In questo caso, il malcondizionamento del problema si manifesta, utilizzando un'aritmetica finita, nel fatto che, anche partendo da addendi con tutte le cifre significative corrette, si può ottenere un risultato con molte meno cifre significative corrette. (È possibile fare un esempio di malcondizionamento di una somma algebrica.)
 
 \paragraph{5.} Se consideriamo un metodo iterativo per determinare una conveniente approssimazione dello zero di una funzione, sia esso $x^*$, allora, dette $x_1, x_2,\hdots, x_n$ le apporssimazioni generate, il metodo avrà ordine di convergenza $p$ se, detto $e_n=x_n-x^*$ l'errore al passo $n$, si ha che  $p$ è il più alto valore per cui
 \begin{equation*}
@@ -203,13 +202,13 @@ che non è limitato superiormente se $x_1$ e $x_2$ sono quasi opposti. In questo
 $c$ si dice costante asintotica dell'errore.
 \paragraph{N.B.:} È necessario conoscere l'ordine di convergenza dei metodi studiati.
 
-\paragraph{6. } Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato $2^{-1}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
+\paragraph{6. } Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato da $2^{-i}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
 \begin{equation*}
 	2^-1\cdot 2^3\leq 10^{-3}\approx 2^{-10},
 \end{equation*}
 si ottiene $2^{-i}\leq 2^{-13}$, ovvero $i=13$ passi.
 
-\paragraph{7.} Il metodo di Newton si deriva ricercando, ad ogni iterazione, la radice dell'approssimazione lineare della funzione nel punto corrente. Se ci trociamo nel punto $x_1$, allora
+\paragraph{7.} Il metodo di Newton si deriva ricercando, ad ogni iterazione, la radice dell'approssimazione lineare della funzione nel punto corrente. Se ci troviamo nel punto $x_1$, allora
 \begin{equation*}
 	f(x)\cong f(x_i)+(x-x_i)f'(x_i),
 \end{equation*}
@@ -222,14 +221,14 @@ si ottiene:
 \begin{equation*}
 	x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)},\quad i=0,1,\hdots\, .
 \end{equation*}
-Per quanto riguarda la seconda parte, supponiamo $\boldsymbol{x_i\rightarrow\overline{x}},\, i\rightarrow +\infty$, radice semplice di $f(x)$. Pertanto, $\boldsymbol{f'(\overline{x})\neq 0}$. Si ottiene:
+Per quanto riguarda la seconda parte, supponiamo $\boldsymbol{x_i\rightarrow\overline{x},\, i\rightarrow +\infty}$, radice semplice di $f(x)$. Pertanto, $\boldsymbol{f'(\overline{x})\neq 0}$. Si ottiene:
 \begin{equation*}
 	0=f(\overline{x})=f(x_i)+(\overline{x}-x_i)f'(x_i)+\frac{(\overline{x}-x_i)^2}{2}f''(\boldsymbol{\xi_i}),\quad \boldsymbol{\xi_i\in I(x_i,\overline{x})}.
 \end{equation*}
 Definendo $\boldsymbol{\overline{x}-x_i = e_i}$, l'errore al passo $i$, si ottiene, quindi:
 \begin{equation*}
 	\begin{matrix}
-		0 &=& f(x_i)+(\overline(x)-x_i)f'(x_i)+\frac{(\overline{x}-x_i)^2}{2}f''(\xi_i) &=& \left[\overbrace{\frac{f(x_i)}{f'(x_i)}-x_i}^{-x_{i+i}} - \overline{x}\right]f'(x_i) + \frac{(\overline{x}-x_i)^2}{2} f''(\xi_i)\\
+		0 &=& f(x_i)+(\overline{x}-x_i)f'(x_i)+\frac{(\overline{x}-x_i)^2}{2}f''(\xi_i) &=& \left[\overbrace{\frac{f(x_i)}{f'(x_i)}-x_i}^{-x_{i+i}} + \overline{x}\right]f'(x_i) + \frac{(\overline{x}-x_i)^2}{2} f''(\xi_i)\\
 		&=& \underbrace{\left[\overline{x}-x_{i+1}\right]}_{e_{i+1}} f'(x_i) + \frac{(\overbrace{\overline{x}-x_i}^{e_i})^2}{2} f''(\xi_i) &=& e_{i+1} f'(x_i) + \frac{e_i^2}{2} f''(\xi_i).
 	\end{matrix}
 \end{equation*}
@@ -237,8 +236,7 @@ Pertanto,
 \begin{equation*}
 	\frac{|e_{i+1}|}{|e_i|^2}=\frac{1}{2}\frac{|f''(\xi_i)|}{|f'(\xi)|}\underset{i\rightarrow+\infty}{\longrightarrow}\frac{1}{2}\frac{|f''(\overline{x})|}{|f'(\overline{x})|},
 \end{equation*}
-che è finito, poiché $f'(\overline{x})\neq 0$.\\
-Pertanto, si ha convergenza quadratica.
+che è finito, poiché $f'(\overline{x})\neq 0$. Pertanto, si ha convergenza quadratica.
 
 \paragraph{Suggerimento:} Riguardare la derivazione del metodo di accelerazione di Aitken.
 
@@ -253,27 +251,30 @@ Nel nostro caso,
 e, quindi, $|f'(0)|=1$.\\
 Il numero di condizionamento della radice nulla è $\kappa=1$.
 
-\paragraph{9.}\footnote{Dalla Definizione \ref{def:radice_molteplicita_m}.} Diremo che $\overline{x}$ è radice di molteplicità $m$ di $f(x)$ se
+\paragraph{9.}\footnote{Dalla Definizione \ref{def:radice_molteplicita_m} di radice di molteplicità $m$.} Diremo che $\overline{x}$ è radice di molteplicità $m$ di $f(x)$ se
 \begin{equation*}
 	f(\overline{x})=f'(\overline{x})=f''(\overline{x})=\hdots=f^{(m-1)}(\overline{x})=0,\, f^{(m)}(\overline{x})\neq 0.
 \end{equation*}
 La radice $\overline{x}$ si dice semplice se $m=1$, multipla se $m>1$.
 \begin{equation*}
 	\begin{matrix}
-		m=0 & f(x) = x\cdot\cos x-\sin x + \frac{x^3}{3} & \rightarrow & f(0)=0 ;\\
-		m=1 & f'(x) = \cancel{\cos x} - x \sin x - \cancel{\cos x} + x^2 & \rightarrow & f'(0)=0 ;\\
-		m=2 & f''(x) = -\sin x - \cos x + 2x & \rightarrow & f''(0)=0 ;\\
-		m=3 & f'''(x) = -\cos x -\cos x + x\sin x  + 2 & \rightarrow & f'''(0)=0 ;\\
-		m=4 & f^{(4)}(x) = 2\sin x + \sin x + x\cos x & \rightarrow & f^{(4)}(0)=0 ;\\
+		m=0 & f(x) = x\cdot\cos x-\sin x + \frac{x^3}{3} & \rightarrow & f(0)=0 ;\\\\
+		m=1 & f'(x) = \cancel{\cos x} - x \sin x - \cancel{\cos x} + x^2 & \rightarrow & f'(0)=0 ;\\\\
+		m=2 & f''(x) = -\sin x - x\cos x + 2x & \rightarrow & f''(0)=0 ;\\\\
+		m=3 & f'''(x) = -\cos x -\cos x + x\sin x  + 2 & \rightarrow & f'''(0)=0 ;\\\\
+		m=4 & f^{(4)}(x) = 2\sin x + \sin x + x\cos x & \rightarrow & f^{(4)}(0)=0 ;\\\\
 		m=5 & f^{(5)}(x) = 3\cos x + \cos x - x\sin x & \rightarrow & f^{(5)}(0)=4\neq 0 .
 	\end{matrix}
 \end{equation*}
 Pertanto, la molteplicità della radice è $m=5$.\\
-Il numero di condizionamento di $\overline{x}$, radice di $f$, è $\kappa = \frac{1}{|f'(\overline{x})|}$. Se la radice è multipla allora $f'(\overline{x})=0$ allora $\kappa=+\infty$.
+Il numero di condizionamento di $\overline{x}$, radice di $f$, è $\kappa = \frac{1}{|f'(\overline{x})|}$. Se la radice è multipla allora $f'(\overline{x})=0$ allora $\kappa=\infty$.
 
-\paragraph{10.} Ricordiamo che il metodo delle secanti è un metodo a 2 passi, definito dall'iterazione:
+\paragraph{10.} Il metodo delle secanti è un metodo a 2 passi definito dalla seguente iterazione:
 \begin{equation*}
-	x_{i+1}=x_i-\frac{f(x_i)}{\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}}=x_i-(x_i-x_{i-1})\cdot\frac{f(x_i)}{f(x_i)-f(x_{i-1})}=x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})},\quad i=1,2,\hdots
+	\begin{matrix}
+		x_{i+1} &=& x_i-\frac{f(x_i)}{\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}} &=& x_i-(x_i-x_{i-1})\cdot\frac{f(x_i)}{f(x_i)-f(x_{i-1})}&=&\\\\
+		&=& x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})} &=& \frac{x_{i-1}f(x_i)-x_i f(x_{i-1})}{f(x_i)-f(x_{i-1})},\quad i=1,2,\hdots.
+	\end{matrix}
 \end{equation*}
 
 Per l'implementazione vedere l'Algoritmo \ref{alg:metodo_secanti}.

@@ -109,9 +109,15 @@
     description = {Nel calcolo infinitesimale, un funzione $f(x)$ è lineare se è una funzione polinomiale di grado zero o uno, del tipo $f(x)=mx+c$ con $m,c\in\mathbb R$ costanti reali. Se il coefficiente angolare (o gradiente) $m>0$ allora la funzione è strettamente crescente, se $m<0$ è strettamente decrescente. Nel piano cartesiano vengono visualizzate come equazione $y=mx+c$. Il concetto può estendersi a funzioni di più variabili reali, ovvero: $f(x,y)=mx+ny+c$. Esempi: $f(x)=2x+1,\, f(x)=9$}
 }
 
+\newglossaryentry{maggiora uniformemente}{
+	name = maggiora uniformemente,
+	description={Una funzione $f\colon D\subseteq\mathbb R\rightarrow\mathbb{R}$ è maggiorata unifomemente se comunque fissato un valore $\varepsilon>0$ è possibile determinare $\delta=\delta(\varepsilon) > 0$ tale che $\forall x\in D$ che soddisfano $|x| < \delta$ allora $f(x) < \varepsilon$}
+}
+
 \makeatletter
 \renewcommand{\ALG@name}{Algoritmo}
 \makeatother
+
 \begin{document}
 
 \title{Appunti Calcolo Numerico}
@@ -121,6 +127,8 @@
 \noindent Questi appunti sono da intendersi come base di studio. Eventuali errori di battitura, anche nella notazione matematica, possono essere corretti avvertendo.
 
 \tableofcontents
+
+\clearpage
 
 \printglossary
 
