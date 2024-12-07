@@ -158,7 +158,7 @@ Il suo significato è il seguente: dato $x\in\mathbb R$ e detto $fl(x)$ il corri
 \end{equation*}
 $fl(x)$ è normalizzato se la prima cifra della mantissa è diversa da 0.
 
-\paragraph{N.B.:} \textbf{Siete tenuti a conoscere la precisione macchina della singola e doppia precisione.}
+\paragraph{N.B.:} \textbf{È necessario conoscere la precisione macchina della singola e doppia precisione.}
 
 \paragraph{3.}
 \begin{itemize}
@@ -174,4 +174,31 @@ da cui, dividendo per $2h$, si ottiene
 	\frac{f(x+h)-f(x-h)}{2h}=f'(x)+o(h^2).
 \end{equation*}
 
-\paragraph{4.} Questo fenomeno è la manifestazione del malcondizionamento della somma algebrica
+\paragraph{4.}\footnote{Vedere Sezione \ref{sssec:condizionamento_somma_algebrica}.} Questo fenomeno è la manifestazione del malcondizionamento della somma algebrica, in caso di addendi di segno discorde. Infatti, se $\tilde x_1 = x_1 (1+\varepsilon_1)$ e $\tilde x_2 = x_2 (1 + \varepsilon_2)$ sono gli addendi perturbati, allora $\tilde y = y (1 + \varepsilon_y)$ sarà il corrispondente risultato perturbato:
+\begin{equation*}
+	\begin{matrix}
+		y &=& x_1 + x_2\\
+		\tilde y &=& \tilde x_1 + \tilde x_2 &=& x_1(1+\varepsilon_1) + x_2 (1+\varepsilon_2) &=& \underbrace{x_1 + x_2}_{y} + x_1 \varepsilon_1 + x_2 \varepsilon_2.
+	\end{matrix}
+\end{equation*}
+Da questo si ricava:
+\begin{equation*}
+	\boldsymbol{\varepsilon_y} = \frac{x_1\varepsilon_1+x_2\varepsilon_2}{x_1+x_2}= \boldsymbol{\frac{x_1\varepsilon_1+x_2\varepsilon_2}{y}},
+\end{equation*}
+da cui:
+\begin{equation*}
+	|\varepsilon_y|\leq \frac{|x_1|+|x_2|}{|x_1+x_2|} \cdot \max{\{|\varepsilon_1|,|\varepsilon_2|\}}.
+\end{equation*}
+Pertanto, il numero di condizionamento della somma algebrica è
+\begin{equation*}
+	\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|},
+\end{equation*}
+che non è limitato superiormente se $x_1$ e $x_2$ sono quasi opposti. In questo caso, il malcondizionamento del problema si manifesta, utilizzando un'aritmetica finita, nel fatto che, anche partendo da addendi con tutte le cifre significative corrette, si può ottenere un risultato con molte meno cifre significative corrette.
+\paragraph{Nota:} È possibile fare un esempio di malcondizionamento di una somma algebrica.
+
+\paragraph{5.} Se consideriamo un metodo iterativo per determinare una conveniente approssimazione dello zero di una funzione, sia esso $x^*$, allora, dette $x_1, x_2,\hdots, x_n$ le apporssimazioni generate, il metodo avrà ordine di convergenza $p$ se, detto $e_n=x_n-x^*$ l'errore al passo $n$, si ha che  $p$ è il più alto valore per cui
+\begin{equation*}
+	\lim_{n\rightarrow\infty}\frac{|e_{n+1}}{|e_n|^p}=c<+\infty.
+\end{equation*}
+$c$ si dice costante asintotica dell'errore.
+\paragraph{N.B.:} È necessario conoscere l'ordine di convergenza dei metodi studiati.
