@@ -8,12 +8,16 @@ dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\ul
 Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sisLinSovr} e nella \ref{ssec:risSistNonLin}. Inizialmente, fino alla Sezione \ref{ssec:sisLinSovr}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
 
 \begin{definition}[Matrice nonsingolare]
-    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se $rank(A)=n$ (quindi $\det(A)\neq 0$) ed il sistema (\ref{eq:sistEqLin}) ha soluzione unica del tipo
+    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se $rank(A)=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistEqLin}) ha soluzione unica del tipo
     \begin{equation}\label{eq:solSistQuad}
         \uline x = A^{-1} \uline b.
     \end{equation}
 \end{definition}
 La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
+
+\begin{definition}[Matrice singolare]
+	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $rank(A)\neq n$, \textbf{quindi} $\boldsymbol{\det(A) = 0}$.
+\end{definition}
 
 \begin{remark}
     Con "costo computazionale" è da intendersi in termini di occupazione di memoria e numero di operazioni floating-point richieste.
@@ -101,6 +105,7 @@ Questo caso è a sua volta diviso in due, in quanto è necessario specificare do
     Se $A$ è contemporanemente triangolare inferiore e superiore, allora è diagonale.
 \end{remark}
 
+\subsubsubsection{Caso triangolare inferiore}
 Nel caso in cui $A$ è triangolare inferiore, il sistema lineare (\ref{eq:sistEqLin}) è della forma
 \begin{equation*}
     \begin{matrix}
@@ -112,13 +117,13 @@ Nel caso in cui $A$ è triangolare inferiore, il sistema lineare (\ref{eq:sistEq
     \end{matrix}
 \end{equation*}
 e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in avanti:
-\begin{equation}\label{eq:solSistTriangInf}
+\begin{equation}\label{eq:soluzione_sistema_triangolare_inferiore}
     x_i=\frac{b_i-\overbrace{\sum_{j=1}^{i-1}a_{ij}x_j}^{\text{0 se $i=1$}}}{a_{ii}},\quad i=1,\hdots,n.
 \end{equation}
 
 Anche in questo caso l'algoritmo è ben definito sotto l'ipotesi $\det(A)\neq 0\; (\iff a_{ii}\neq 0,\; i=1,\hdots, n)$.
 
-Esaminando il costo computazionale per risolvere il sistema lineare (\ref{eq:sistEqLin}), mediante (\ref{eq:solSistTriangInf}), allora: per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da \begin{equation*}
+Esaminando il costo computazionale per risolvere il sistema lineare (\ref{eq:sistEqLin}), mediante (\ref{eq:soluzione_sistema_triangolare_inferiore}), allora: per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da \begin{equation*}
     \sum_{i=1}^n(2i-1)=2\sum_{i=1}^n (i)-n= \cancel{2}\cdot\frac{n(n+1)}{\cancel{2}}-n=\boldsymbol{n^2\; flops}.
 \end{equation*}
 
@@ -127,7 +132,7 @@ L'occupazione di memoria è dovuta alla porzione triangolare della matrice ed ai
     \sum_{i=1}^n i = \frac{n(n+1)}{2}+ \overset{\text{vettori}}{2n}\approx \frac{n^2}{2}\text{ locazioni di memoria.}
 \end{equation*}
 
-È possibile codificare di soluzione al sistema triangolare inferiore (\ref{eq:solSistTriangInf}) con l'Algoritmo \ref{alg:calcSistTriangInf}. Per accedere alla matrice per colonne è sufficiente scambiare i cicli (vedere Algoritmo \ref{alg:calcSistTriangInf1}).
+\paragraph{Implementazione risolutore sistema lineare con A triangolare inferiore:} È possibile codificare la soluzione al sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) con l'Algoritmo \ref{alg:calcSistTriangInf}. Per accedere alla matrice per colonne è sufficiente scambiare i cicli (vedere Algoritmo \ref{alg:calcSistTriangInf1}). Un'implementazione efficiente della soluzione di un sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) e' l'Algoritmo \ref{alg:trilow}, il quale risolve il problema in modo vettoriale e per colonne.
 
 Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangInf} è un prodotto scalare (\textit{scal}). Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangInf1} è una \textit{axpy} (ovvero un'operazione del tipo vettore = scalare $\times$ vettore + vettore). Pertanto, è necessario osservare che il risultato di \textit{scal} e \textit{axpy} è simile ma non uguale, le operazioni sono diverse ed in arimetica finita l'errore si propaga.
 
@@ -161,6 +166,7 @@ Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangInf} è un prodotto scala
     \end{lstlisting}
 \end{algorithm}
 
+\subsubsubsection{Caso triangolare superiore}
 Nel caso in cui $A$ sia triangolare superiore, ovvero
 \begin{equation*}
     A= 
@@ -186,7 +192,7 @@ e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in 
     x_i=\frac{b_i-\overbrace{\sum_{j=i+1}^{i-1}a_{ij}x_j}^{\text{0 se $i=1$}}}{a_{ii}},\quad i=n, n-1, \hdots, 1.
 \end{equation}
 
-La codifica di questo algoritmo (vedi Algoritmo  \ref{alg:calcSistTriangSup}) segue condiderazioni simili a quelle viste per il caso triangolare inferiore riguardo ai costi.
+\paragraph{Implementazione della soluzione al sistema triangolare superiore:} La codifica di questo algoritmo (vedi Algoritmo  \ref{alg:calcSistTriangSup}) segue condiderazioni simili a quelle viste per il caso triangolare inferiore riguardo ai costi. Un'implementazione efficiente che risove un sistema triangolare superiore, in modo vettoriale e per colonne, e' dato dall'Algoritmo \ref{alg:triu}.
 
 \begin{algorithm}\caption{Sistema triangolare superiore.}
 \label{alg:calcSistTriangSup}
@@ -212,6 +218,38 @@ La codifica di questo algoritmo (vedi Algoritmo  \ref{alg:calcSistTriangSup}) se
         end
     end
     \end{lstlisting}
+\end{algorithm}
+
+\begin{algorithm}
+	\caption{Implementazione efficiente (vettoriale per colonne) risolutore sistema triangolare superiore.}\label{alg:triu}
+	\begin{lstlisting}[style=Matlab-editor]
+		function y = triu(U, b)
+		%   
+		%   y = triu(U, b)
+		%
+		%   Risolve un sistema triangolare superiore
+		%
+		% Input:
+		%   U   -  matrice dei coefficienti;
+		%   b  -   termine noto;
+		%   
+		% Output:
+		%   y   -   vettore soluzione.
+		%
+		% Le prossime tre righe sono controlli iniziali.
+		[m,n] = size(U);
+		if m ~= n, error('Matrice non quadrata'), end
+		if n~= length(b), error('Termine noto non consistente'), end
+		
+		y=b(:); %trasformazione di b in vettore colonna
+		
+		for i = 1 : n
+		if U(i,i) == 0, error('Matrice singolare'), end
+		y(i) = y(i)/U(i,i);
+		y(1:i-1) = y(1:i-1) - L(1:i-1)*y(i):
+		end
+		return
+	\end{lstlisting}
 \end{algorithm}
 
 \paragraph{Nota sul ciclo interno dell'Algoritmo \ref{alg:calcSistTriangSup}:} \footnote{Slide 3 PDF 2.}
@@ -263,6 +301,38 @@ Pertanto, sono enunciate alcune importante proprietà (enunciati$\backslash$lemm
     \end{equation*}
     \footnotetext{$ii$ perché le moltiplicazioni sono svolte tra $a$ con indici precedenti ad $ii$ sono per 0 (ovvero gli $(i-1)\cdot 0$), così anche per le $b$ con indici maggiori di $ii$.}
 \end{proof}
+
+\begin{algorithm}
+	\caption{Implementazione efficiente risolutore sistema triangolare inferiore.}\label{alg:trilow}
+	\begin{lstlisting}[style=Matlab-editor]
+		function y = trilow(L, b)
+		%   
+		%   y = trilow(L, b)
+		%
+		%   Risolve un sistema triangolare inferiore
+		%
+		% Input:
+		%   L   -  matrice dei coefficienti;
+		%   b  -   termine noto;
+		%   
+		% Output:
+		%   y   -   vettore soluzione.
+		%
+		% Le prossime tre righe sono controlli iniziali.
+		[m,n] = size(L);
+		if m ~= n, error('Matrice non quadrata'), end
+		if n~= length(b), error('Termine noto non consistente'), end
+		
+		y=b(:); %trasformazione di b in vettore colonna
+		
+		for i = 1 : n
+		if L(i,i) == 0, error('Matrice singolare'), end
+		y(i) = y(i)/L(i,i);
+		y(i+1:n) = y(i+1:n) - L(i+1:n, i)*y(i):
+		end
+		return
+	\end{lstlisting}
+\end{algorithm}
 
 \subsubsection{Caso \texorpdfstring{$\boldsymbol A$}{A} ortogonale}
 \begin{definition}
@@ -846,18 +916,18 @@ La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \re
     \end{lstlisting}
 \end{algorithm}
 
-\subsection{Matrici a diagonale dominante}\label{ssec:matrDD}
-\begin{definition}[Matrici diagonale dominante]\footnote{Slide 3 PDF 5, Definizione 3.2 PG 55.}
+\subsection{Matrici a diagonale dominante}\label{ssec:matrici_diagonale_dominante}
+\begin{definition}[Matrice diagonale dominante]\label{def:matrice_diagonale_dominante}\footnote{Slide 3 PDF 5, Definizione 3.2 PG 55.}
     Sia $A=(a_{ij})\in\mathbb R^{n\times n}$, questa è
     \begin{itemize}
         \item \textbf{diagonale dominante per righe}, se:
-        \begin{equation}\label{eq:matrDDr}
-            |a_{ii}|>\sum_{j=1,\, j\neq i}^n |a_{ij}|,\quad 
+        \begin{equation}\label{eq:matrice_diagonale_dominante_righe}
+            |a_{ii}|>\sum_{\underset{j\neq i}{j=1}}^n |a_{ij}|,\quad 
             \forall i=1,\hdots, n;
         \end{equation}
         \item \textbf{diagonale dominante per colonne}, se:
         \begin{equation*}
-            |a_{ii}|>\sum_{k=1,\; k\neq i}^n|a_{ki}|,\quad \forall i=1,\hdots,n.
+            |a_{ii}|>\sum_{\undeset{k\neq i}{k=1}}^n|a_{ki}|,\quad \forall i=1,\hdots,n.
         \end{equation*}
     \end{itemize}
 \end{definition}

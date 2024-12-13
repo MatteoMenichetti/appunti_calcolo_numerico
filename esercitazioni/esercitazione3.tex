@@ -24,38 +24,6 @@
 
 \paragraph{1.}\footnote{Slide 3 PDF 14.} La function è implementata nell'Algoritmo \ref{alg:trilow}.
 
-\begin{algorithm}
-\caption{Implementazione efficiente risolutore sistema triangolare inferiore.}\label{alg:trilow}
-    \begin{lstlisting}[style=Matlab-editor]
-    function y = trilow(L, b)
-    %   
-    %   y = trilow(L, b)
-    %
-    %   Risolve un sistema triangolare inferiore
-    %
-    % Input:
-    %   L   -  matrice dei coefficienti;
-    %   b  -   termine noto;
-    %   
-    % Output:
-    %   y   -   vettore soluzione.
-    %
-    % Le prossime tre righe sono controlli iniziali.
-    [m,n] = size(L);
-    if m ~= n, error('Matrice non quadrata'), end
-    if n~= length(b), error('Termine noto non consistente'), end
-
-    y=b(:); %trasformazione di b in vettore colonna
-    
-    for i = 1 : n
-        if L(i,i) == 0, error('Matrice singolare'), end
-        y(i) = y(i)/L(i,i);
-        y(i+1:n) = y(i+1:n) - L(i+1:n, i)*y(i):
-    end
-    return
-    \end{lstlisting}
-\end{algorithm}
-
 \paragraph{2.}\footnote{Slide 3 PDF 14.} Sia $A\in\mathbb R^{n\times n},\, \det(A).$
 
 \noindent (Risposta alla prima parte di domanda:) $A$ è fattorizzabile $LU$, se $A=LU$, con:
@@ -296,3 +264,67 @@ Come criterio d'arresto è possibile utlizzare il seguente:
     ||\Delta\uline x_n./(1+|\uline x|)||\leq tol, 
 \end{equation*}
 per una tolleranza $tol$ specificata.
+
+\subsection{A.A. 2023/24}
+\begin{enumerate}
+	\item Scrivere una function Matlab cherisolva efficientemente un sistema triangolare superiore, in modo vettoriale e per colonne.
+	\item Definire la fattorizzazione $LU$ di una matrice (nonsingolare). Dimostrare che, se una matrice nonsingolare e' fattorizzabile $LU$ allora la sua fattorizzazione e' unica.
+	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice (nonsingolare)?
+	\item Definire cosa e' una matrice diagonale dominante e dimostrare che e' fattorizzabile $LU$.
+\end{enumerate}
+
+\hrule
+
+\paragraph{1.} Vedere Algoritmo \ref{alg:triu}.
+\paragraph{Varianti sul tema:}
+\begin{itemize}
+	\item sistema triangolare inferiore,
+	\item risoluzione dei sistemi $Ly=b$ e $Ux=y$, se abbiamo in ingresso una matrice riscritta con l'informazione dei fattori $L$ e $U$ della fattorizzazione $LU$ di $A$.
+\end{itemize}
+
+\paragraph{2.} Sia $A\in\mathbb{R}^{n \times n},\, \det(A)\neq 0$. $A$ e' fattorizzabile $LU$ se esistono:
+\begin{enumerate}
+	\item $L$ matrice triangolare inferiore a diagonale unitaria,
+	\item $U$ matrice triangolare superiore,
+\end{enumerate}
+tali che $A=L\cdot U$.\\
+Sia $A=LU$. Se $L_1\, U_1$ fosse un'ulteriore fattorizzazione $LU$ di $A$, si avrebbe che:
+\begin{equation}\label{eq:A=L1U1}
+	A=LU=L_1U_1.
+\end{equation}
+Tuttavia:
+\begin{equation*}
+	0 \neq \det(A) = \det(L\cdot U) = \overbrace{\det(L)}^{1}\cdot\det(U) = \det(U).
+\end{equation*}
+Similmente, si ha che $\det(U_1)\neq 0$. Pertanto, da (\ref{eq:A=L1U1}), moltiplicando a sinistra, membro a membro, per $L_1^{-1}$, si ottiene:
+\begin{equation*}
+	L_1^{-1}LU=\overbrace{L_1^{-1}L_1}^{I}U_1 = U_1. 
+\end{equation*}
+Moltiplicando a destra per $U^{-1}$ si ottiene:
+\begin{equation}\label{eq:U1U-1=L1-1L}
+	L_1^{-1}L=L_1^{-1} L \overbrace{UU^{-1}}^{I}=U_1U^{-1}.
+\end{equation}
+Osserviamo che:
+\begin{enumerate}
+	\item $U_1$ e' triangolare superiore, $U$ e' triangolare superiore, $U^{-1}$ e' triangolare superiore e $U_1U^{-1}$ e' una matrice triangolare superiore.
+	\item analogamente $L,\, L_1$ e $L_1^{-1}$ sono triangolari inferiori a diagonale unitaria. Pertanto, $L_1^{-1}L$ e' una matrice triangolare inferiore a diagonale unitaria.
+\end{enumerate}
+In conclusione, dalla (\ref{eq:U1U-1=L1-1L}) concludiamo che $U_1U^{-1}$ e $L_1^{-1}L$ sono matrici diagonali. Poiche' la diagonale di $L_1^{-1}L$ e' unitaria si conclude che
+\begin{equation*}
+	U_1U^{-1} = I = L_1^{-1}L,
+\end{equation*}
+da cui si ottiene:
+\begin{equation*}
+	U_1 = U \quad \wedge \quad L_1 = L.
+\end{equation*}
+Ovvero, la fattorizzazione $LU$ e' unica.
+
+\paragraph{3.} Sia $A\in\mathbb{R}^{n \times n},\, \det(A)\neq 0$. Denotiamo con $A_k\in\mathbb{R}^{k\times k}$ la sua sottomatrice principale di ordine $k$. Allora:
+\begin{equation*}
+	A = LU \iff \det(A_k),\quad\forall k=1,\hdots, n.
+\end{equation*}
+
+\paragraph{4.} Sia $A=(a_{ij})\in\mathbb{R}^{n \times n}$. Essa si dira' a diagonale dominante:
+\begin{enumerate}
+	\item per righe, se 
+\end{enumerate}
