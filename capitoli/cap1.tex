@@ -56,7 +56,7 @@ Pertanto, l'errore di discretizzazione è denotato come segue:
 
 \subsection{Errori di convergenza}
 \footnote{Slide 4 PDF lez1, PG 5.} I metodi numerici sono spesso iterativi, questo significa che non forniscono un risultato diretto ma una serie di risultati intermedi, una successione di approssimazioni del tipo $\{x_n\}$, definiti mediante una procedura iterativa
-\begin{equation}\label{eq:approxProcIterat}
+\begin{equation}\label{eq:approssimazione_procedura_iterativa}
 	x_n=\Phi(x_{n-1}),\quad n=1,2,\hdots,
 \end{equation}
 dove $n$ è il numero di iterazioni. Il metodo in questione converge se
@@ -65,7 +65,7 @@ dove $n$ è il numero di iterazioni. Il metodo in questione converge se
 \end{equation}
 dove $x^*$ è la soluzione esatta. La soluzione del problema quindi è fornita con infinite iterazioni.
 
-È necessario definire un criterio d'arresto per la procedura (\ref{eq:approxProcIterat}), ovvero un numero finito di iterazioni $n$ affinché il metodo numerico sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
+È necessario definire un criterio d'arresto per la procedura (\ref{eq:approssimazione_procedura_iterativa}), ovvero un numero finito di iterazioni $n$ affinché il metodo numerico sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
 
 L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto è stabilito arrestando l'iterazione quando $n=N$ in modo che $x_N$ sia sufficientemente accurata. Un'approssimazione è sufficientemente accurata se $|x_N-x^*|\leq\varepsilon,$ con $\varepsilon$ la tolleranza stabilita.
 
@@ -73,7 +73,7 @@ L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto 
 
 \begin{example}
 	La procedura iterativa che definisce un metodo convergente per calcolare $\sqrt{2}$ è
-	\begin{equation}\label{eq:approxRad2ProcIterat}
+	\begin{equation}\label{eq:approssimazione_radice_2_procedura_iterativa}
 		x_{n+1}=\frac{1}{2}\left(x_n+\frac{2}{x_n}\right),\quad n=0,1,2,\hdots,\quad x_0=2.
 	\end{equation}
 \end{example}

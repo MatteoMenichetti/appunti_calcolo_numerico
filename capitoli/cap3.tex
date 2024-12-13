@@ -868,7 +868,7 @@ Allora, unendo tutto, dalla (\ref{eq:det(LU)neq0}) segue il Teorema di esistenza
 Ovvero: $A$ è fattorizzabile $LU$ s.se tutti i minori principali di $A$ sono non nulli.
 
 \begin{remark}
-    Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ nonsingolare), la quale sarà eriditata dalle sottomatrici di ordine $k$ di $A$. Nelle Sezioni \ref{ssec:matrDD} e \ref{ssec:matrSDPFattLDL} sarà visto come non è restittiva per le classi trattate, per le quali:
+    Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ nonsingolare), la quale sarà eriditata dalle sottomatrici di ordine $k$ di $A$. Nelle Sezioni \ref{ssec:matrici_diagonale_dominante} e \ref{ssec:matrSDPFattLDL} sarà visto come non è restittiva per le classi trattate, per le quali:
     \begin{itemize}
         \item la nonsingolarità di $A$ deriva da una sua specifica proprietà strutturale;
         \item la proprietà di essere fattorizzabile $LU$ è goduta da tutte le sue sottomatrici principali, le quali sono nonsingolari.
@@ -927,7 +927,7 @@ La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \re
         \end{equation}
         \item \textbf{diagonale dominante per colonne}, se:
         \begin{equation*}
-            |a_{ii}|>\sum_{\undeset{k\neq i}{k=1}}^n|a_{ki}|,\quad \forall i=1,\hdots,n.
+            |a_{ii}|>\sum_{\underset{k\neq i}{k=1}}^n|a_{ki}|,\quad \forall i=1,\hdots,n.
         \end{equation*}
     \end{itemize}
 \end{definition}

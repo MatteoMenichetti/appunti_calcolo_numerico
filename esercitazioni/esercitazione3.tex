@@ -271,6 +271,17 @@ per una tolleranza $tol$ specificata.
 	\item Definire la fattorizzazione $LU$ di una matrice (nonsingolare). Dimostrare che, se una matrice nonsingolare e' fattorizzabile $LU$ allora la sua fattorizzazione e' unica.
 	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice (nonsingolare)?
 	\item Definire cosa e' una matrice diagonale dominante e dimostrare che e' fattorizzabile $LU$.
+	\item Definire una matrice smmetrica e definita positiva e dimostrare che e' fattorizzabile $LU$.
+	\item Sapendo che, se $A$ e' s.d.p., $A$ e' fattorizzabile $LU$, dimostrare che $A=LDL^T$, con $D$ matrice diagonale ad elementi positivi.
+	\item Definitere cosa si intende per norma indotta su matrice. Dare qualche esempio di tali norme.
+	\item Definire cosa e' il numero di condizionamento di una matrice. Spiegarne il significato.
+	\item Definire la soluzione, nel senso dei minimi quadrati, di un sistema lineare sovradimensionato. Determinarne l'esistenza ed unicita'.
+	\item Costruire la matrice di Householder relativa al vettore $\uline z = \begin{bmatrix}
+		1\\
+		-2\\
+		-2
+	\end{bmatrix}$. Quanto vale $H\uline z$?
+	\item Definire il metodo di Newton per sistemi nonlineari e dettagliarne l'implementazione.
 \end{enumerate}
 
 \hrule
@@ -324,7 +335,116 @@ Ovvero, la fattorizzazione $LU$ e' unica.
 	A = LU \iff \det(A_k),\quad\forall k=1,\hdots, n.
 \end{equation*}
 
-\paragraph{4.} Sia $A=(a_{ij})\in\mathbb{R}^{n \times n}$. Essa si dira' a diagonale dominante:
+\paragraph{4.}\footnote{Vedere Definizione (\ref{def:matrice_diagonale_dominante}) di matrice diagonale dominante.} Sia $A=(a_{ij})\in\mathbb{R}^{n \times n}$. Essa si dira' a diagonale dominante:
 \begin{enumerate}
-	\item per righe, se 
+	\item per righe, se $|a_{ii}|>\sum_{\underset{j\neq i}{j=1}}^n |a_{ij}|,\quad 
+	\forall i=1,\hdots, n$;
+	\item per colonne se $|a_{jj}|>\sum_{\underset{i\neq j}{j=1}}^n|a_{ji}|,\quad \forall j=1,\hdots,n$.
 \end{enumerate}
+Proprieta': (inserirle a fine Sezione \ref{ssec:matrici_diagonale_dominante})
+\begin{enumerate}
+	\item $A$ d.d. per righe s.se $A^T$ d.d. per colonne;
+	\item $A$ d.d. s.se $\forall k=1,\hdots, n,\, A_k$ d.d., essendo $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
+	\item $A$ d.d. allora $\det(A)\neq 0$. Infatti, supponiamo che $A$ sia diagonale dominante per righe (altrimenti considero $A^T$). Se fosse $A$ singolare allora $\exists \uline x\in\mathbb{R}^m,\, (x_1,\hdots, x_n)^T\equiv \uline x \neq 0\,\colon\, A\uline x = \uline 0$. Poiche' questo vale per ogni multiplo scalare di $\uline x$, e' possibile assumere che $x_k=1=\underset{i=1,\hdots, n}{\max}|x_i|$. Se scriviamo la $k$-esima equazione di $A\uline x=\uline 0$ e' ottenuto:
+	\begin{equation*}
+		\begin{matrix}
+			\sum_{j=1}^{n}a_{kj} x_j=0 &\Rightarrow& a_{kk}x_k = -\sum_{\underset{j\neq k}{j=1}}^{n}a_{kj} x_j  &\Rightarrow& |a_{kk}|=|\sum_{\underset{j\neq k}{j=1}}^{n}a_{kj} x_j|\\
+			&&&\leq& \sum_{\underset{j\neq k}{j=1}}^{n}|a_{kj}| \underbrace{|x_j|}_{\leq 1} &\leq& \sum_{\underset{j\neq k}{j=1}}^{n}|a_{kj}|.
+		\end{matrix}
+	\end{equation*}
+	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ e' d.d. $\Rightarrow A=LU$.
+\end{enumerate}
+
+\paragraph{5.} Sia $A\in\mathbb{R}^{n\times n}$. Diremo che $A$ e' s.d.p. se:
+\begin{enumerate}
+	\item $A=A^T$ (ovvero $A$ e' simmetrica);
+	\item $\forall\uline x\in\mathbb{R}^n\backslash\{\uline 0\}\colon \uline x^T A \uline x > 0$ (ovvero $A$ e' definita positiva).
+\end{enumerate}
+Osserviamo che:
+\begin{enumerate}
+	\item $A$ s.d.p. $\Rightarrow\det(A)\neq 0$. Infatti, se fosse singolare $\Rightarrow\exists\uline x\in\mathbb{R}^n\backslash\{\uline 0\}\colon A\uline x = \uline 0 \Rightarrow \uline x^T A \uline x = 0$, il che contraddice il fatto che $A$ sia s.d.p.;
+	\item $A$ s.d.p. $\Rightarrow \forall k=1,\hdots, n$, detta $A_k$ la sottomatrice principale di ordine $k$ di $A$, allora $A_k$ e' simmetrica definita positiva. Infatti, possiamo scrivere:
+	\begin{equation*}
+		A=\left[
+		\begin{array}{c|c}
+			A_k & B\\
+			\hline
+			C & D
+		\end{array}
+		\right], \text{ con } D\in\mathbb R^{(n-k)\times (n-k)},\, A_k\in\mathbb{R}^{k\times k}
+	\end{equation*}
+	e poiche'
+	\begin{equation*}
+		A^T=A=\left[
+		\begin{array}{c|c}
+			A_k & C^T\\
+			\hline
+			B^T & D^T
+		\end{array}
+		\right],
+	\end{equation*}
+	si deduce che $A_k=A_k^T,\, D=D^T,\, B = C^T$. Pertanto $A_k$ e' simmetrica.\\
+	Rimane da dimostrare che $\forall\uline y\in\mathbb{R}^k\backslash\{\uline 0\}\colon\uline y^T A_k \uline y > 0$. Infatti, se considerata
+	\begin{equation*}
+		\uline x = 
+		\begin{bmatrix}
+			\uline y\\
+			\uline 0
+		\end{bmatrix}\in\mathbb{R}^n, \text{ se } \uline y\neq\uline 0 \Rightarrow\uline x = \uline 0.
+	\end{equation*}
+	Pertanto, essendo $A$ s.d.p., si ottiene:
+	\begin{equation*}
+		0 < \uline x^T A \uline x =
+		\begin{bmatrix}
+			\uline y^T & \uline 0^T
+		\end{bmatrix} = 
+		\left[\begin{array}{c|c}
+			A_k & B\\
+			\hline
+			C& D
+		\end{array}\right]
+		\begin{bmatrix}
+			\uline y\\
+			\uline 0
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			\uline y^T A_k & \uline y^T B
+		\end{bmatrix}
+		\begin{bmatrix}
+			\uline y\\
+			\uline 0
+		\end{bmatrix} = \uline y.
+	\end{equation*}
+	\item $A$ s.d.p. $\Rightarrow\forall k=1,\hdots, n\colon A_k$ s.d.p. $\Rightarrow\forall k=1,\hdots, n\colon\det(A_k)\neq 0 \Rightarrow A=LU$.
+\end{enumerate}
+
+\paragraph{6.} Sia $A$ s.d.p. allora
+\begin{equation}\label{eq:A=LU=LDL}
+	A = LU = L D \hat{U},
+\end{equation}
+con:
+\begin{itemize}
+	\item $D$ matrice diagonale contenente gli elementi diagonali di $U$,
+	\item $\hat{U}$ triangolare superiore a diagonale unitaria.
+\end{itemize}
+(E' utile ricordare che $L$ e' triangolare inferiore a diagonale unitaria.)\\
+Poiche' $A=A^T$, dalla (\ref{eq:A=LU=LDL}) ricaviamo che
+\begin{equation}\label{eq:A=U^TDL^T}
+	A = (L D \hat{U})^T = \hat{U}^T D^T L^T = \hat{U}^T D L^T.
+\end{equation}
+Poiche':
+\begin{itemize}
+	\item $\hat{U}^T$ e' triangolare inferiore a diagonale unitaria,
+	\item $DL^T$ e' triangolare superiore,
+	\item la fattorizzazione $LU$ di una matrice (nonsingolare) e' unica, da (\ref{eq:A=LU=LDL}) e (\ref{eq:A=U^TDL^T}),
+\end{itemize}
+e' dedotto che $L=\hat{U}^T$ e $A=LDL^T$.\\
+Se $D =
+\begin{bmatrix}
+	d_1\\
+	&\ddots\\
+	& & d_n
+\end{bmatrix}$, abbiamo che, per un generico $i\in\{1,\hdots, n\}\colon d_i = \uline e_i^T D \uline e_i$, con $\uline e_i\in\mathbb{R}^n,\, i$-esimo versore della base canonica. Inoltre essendo $L^T$ nonsingolare, il sistema $L^T\uline x = \uline e_i$ e' risolvibile e $\boldsymbol{\uline x\neq \uline 0}$. Segue che:
+\begin{equation*}
+	d_i = \uline e_i^T D \uline e_i = \left(L^T\uline x\right)^T D L^T \uline x =\uline x T \left(LDL^T\right) \uline x = \uline x^T A \uline x > 0.
+\end{equation*}
