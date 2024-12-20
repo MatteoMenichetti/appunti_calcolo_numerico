@@ -448,3 +448,114 @@ Se $D =
 \begin{equation*}
 	d_i = \uline e_i^T D \uline e_i = \left(L^T\uline x\right)^T D L^T \uline x =\uline x T \left(LDL^T\right) \uline x = \uline x^T A \uline x > 0.
 \end{equation*}
+
+\paragraph{7.}\footnote{Vedere Sezione \ref{sssec:norme_indotte_matrice}.} Sia $||\cdot||$ una assegnata norma su vettore. Per esempio, se $\uline x\in\mathbb{R}^n$:
+\begin{enumerate}
+	\item $||\uline x||_\infty = \underset{i}{\max}|x_i|$,
+	\item $||\uline x||_1 = \sum_{i=1}^{n}|x_i|$,
+	\item $||\uline x||_2 = \sqrt{\sum_{i=1}^{n}|x_i|^2} = \uline x^T\uline x$.
+\end{enumerate}
+
+Si definisce, se $A\in\mathbb{R}^{m\times n}$, norma indotta dalla corrispondente norma su vettore,
+\begin{equation*}
+	||A|| = \underset{\max}{||\uline x|| = 1}||A \uline x||.
+\end{equation*}
+
+Ad esempio, dalle precedenti norme su vettore, se $A=(a_{ij})$, allora:
+\begin{enumerate}
+	\item $||A||_\infty = \underset{i = 1, \hdots, m}{\max} \sum_{j=1}^{n}|a_{ij}|$,
+	\item $||A||_1 = \underset{j = 1,\hdots, n}{\max}\sum_{i = 1}^{n}|a_{ij}|$,
+	\item $||A||_2 =\sqrt{\rho(A^T A)} \equiv \sqrt{\rho (AA^T)}$,
+\end{enumerate}
+essendo $\rho$ il raggio spettrale della matrice in argomento, ovvero il massimo dei moduli dei suoi autovalori.
+
+\paragraph{Possibile variante dell'Esercizio 7.:} Proprieta' delle norme (vedere Proprieta' \ref{prop:norme_indotte_matrici}).
+
+\paragraph{8.}\footnote{Vedere Definizione \ref{def:numero_condizionamento_matrice}.} Sia $A\in\mathbb{R}^{n\times n},\, \det(A) \neq 0$. Il numero di condizionamento di $A$ e' definito da
+\begin{equation*}
+	\kappa(A) = ||A||\cdot||A^{-1}||,
+\end{equation*}
+dove $||\cdot||$ e' una norma indotta su matrice. Osserviamo che
+\begin{equation*}
+	\kappa(A) = ||A||\cdot||A^{-1}|| \geq ||A\cdot A^{-1}|| = ||I|| = 1.
+\end{equation*}
+
+Inoltre, $A$ si dice malcondizionato se $\kappa(A)\gg 1$.
+
+$\kappa(A)$ misura il condizionamento di un sistema lineare $A\uline x = \uline b$. Infatti, risolvendo il sistema perturbato
+\begin{equation*}
+	(A+\Delta A) (\uline x + \Delta\uline x) = \uline b + \Delta\uline b,
+\end{equation*}
+con $\Delta A\in\mathbb{R}^{n\times n}$ contenente le perturbazioni sugli elementi di $A$ e $\Delta\uline b$ e $\Delta\uline x$, si ottiene (da (\ref{eq:condizionamento_sistema_lineare})):
+\begin{equation*}
+	 \frac{||\Delta x||}{||x||} \leq \kappa(A)\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right),
+\end{equation*}
+dove la norma su vettore considerata e' quella che induce norma su matrice.
+
+\paragraph{9.}\footnote{Vedere Sezione \ref{ssec:sistemi_lineari_sovradimensionati}.} Sia dato il sistema lineare sovradimensionato
+\begin{equation*}
+	A\uline x =\uline b,\, A\in\mathbb R^{m\times n},\; m>\boldsymbol n = \boldsymbol{rank(A)}.
+\end{equation*}
+
+Poiche' $b\in\mathbb{R}^m$, mentre \gls{range(A)} ha dimiensione $n<m$, ma soluzione in senso classico in genere non esiste. Pertanto, definendo il vettore residuo (come in (\ref{eq:vettore_residuo}))
+\begin{equation}\label{eq:vettore_residuo_esercitazione}
+	\uline r = A\uline x-\uline b=
+	\begin{bmatrix}
+		r_1\\
+		r_2\\
+		\vdots\\
+		r_m
+	\end{bmatrix},
+\end{equation}
+si ricerca $\uline x$ tale che $||\uline r||_2^2=\min!$. Poiche' $||\uline r||_{\boldsymbol{2}}^2=\sum_{i=1}^{m}r_i^2$, si parla di soluzione ai minimi quadrati.
+
+Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osserviamo che:
+\begin{enumerate}
+	\item \footnote{Definizione \ref{th:esistenza_fattorizzazione_QR}} $A\in\mathbb R^{m\times n}$ allora esistono
+	\begin{itemize}
+		\item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale};
+		\item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare};
+	\end{itemize}
+	tale che
+	\begin{equation}\label{eq:fattorizzazione_QR_esercitazione}
+		\boldsymbol{A=QR=Q
+			\begin{bmatrix}
+				\widehat R\\
+				O
+			\end{bmatrix}.}
+	\end{equation}
+	Peranto $R\in\mathbb{R}^{n\times n}$.
+	\item Se $Q\in\mathbb R^{\boldsymbol{m\times m}},\, Q^TQ=I,\, \uline v\in\mathbb{R}^m,$ allora:
+	\begin{equation*}
+		||Q\uline v||_2^2=(Q\uline v)^T(Q\uline v)=\uline v^T\underbrace{Q^TQ}_I \uline v = \uline v^T\uline v = ||\uline v||_2^2.
+	\end{equation*}
+	Cio' premesso, da (\ref{eq:vettore_residuo_esercitazione}) e (\ref{eq:fattorizzazione_QR_esercitazione}) segue che
+	\begin{equation*}
+		\begin{matrix}
+			||\uline r||_2^2 &=& ||A\uline x-\uline b||_2^2 &=&||QR\uline x-\uline b||_2^2 &{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\
+			&{=}& ||R\uline x-Q^T\uline b||_2^2 &{=}& ||R\uline x - \uline g||_2^2 &=& 
+			\left|\left|\begin{bmatrix}
+				\widehat R\\
+				O
+			\end{bmatrix}\uline x - 
+			\begin{bmatrix}
+				g_1\\
+				g_2
+			\end{bmatrix}\right|\right|_2^2\\
+			&=& \left|\left|\begin{bmatrix}
+				\widehat R\uline x-\uline g_1\\
+				-\uline g_2
+			\end{bmatrix}\right|\right|_2^2 &=&
+			\begin{bmatrix}
+				\widehat R\uline x-\uline g_1\\
+				-\uline g_2
+			\end{bmatrix}^T
+			\begin{bmatrix}
+				\widehat R\uline x-\uline g_1\\
+				-\uline g_2
+			\end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\
+			&{=}& \underbrace{\left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2}_0+||\uline g_2||_2^2 &{=}& ||\uline g_2||_2^2&=&\min !
+		\end{matrix}
+	\end{equation*}
+	Se $\widehat{R}\uline x - g_1 = \uline 0$, ovvero $\uline x$ e' soluzione del sistema lineare $\widehat{R}\uline x = g_1$, ed tale soluzione esiste unica poiche' $\widehat{R}$ e' singolare.
+\end{enumerate}

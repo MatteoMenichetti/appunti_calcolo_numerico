@@ -1,14 +1,14 @@
 \section{Sistemi Lineari e Nonlineari}
 Il problema di questa sezione è risolvere sistemi di equazioni lineari. Tali sistemi sono della forma 
-\begin{equation}\label{eq:sistEqLin}
+\begin{equation}\label{eq:sistema_equazioni_lineari}
     A\uline{x}=\uline b,
 \end{equation}
-dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\uline x=(x_i)\in\mathbb R^n$ il vettore delle incognite (da determinare) e $\uline b\in\mathbb R^m$ il vettore dei termini noti. $A$ e $\uline b$ sono noti. Sarà assunto che $\boldsymbol{m\geq n}$ e che il rango di A sia massimo, ovvero $\boldsymbol{rank(A)=n}$.
+dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\uline x=(x_i)\in\mathbb R^n$ il vettore delle incognite (da determinare) e $\uline b\in\mathbb R^m$ il vettore dei termini noti. $A$ e $\uline b$ sono noti. Sarà assunto che $\boldsymbol{m\geq n}$ e che il rango di A sia massimo, ovvero $\boldsymbol{\rank(A)=n}$.
 
-Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sisLinSovr} e nella \ref{ssec:risSistNonLin}. Inizialmente, fino alla Sezione \ref{ssec:sisLinSovr}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
+Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risSistNonLin}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
 
 \begin{definition}[Matrice nonsingolare]
-    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se $rank(A)=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistEqLin}) ha soluzione unica del tipo
+    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
     \begin{equation}\label{eq:solSistQuad}
         \uline x = A^{-1} \uline b.
     \end{equation}
@@ -16,7 +16,7 @@ Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incog
 La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
 
 \begin{definition}[Matrice singolare]
-	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $rank(A)\neq n$, \textbf{quindi} $\boldsymbol{\det(A) = 0}$.
+	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $\rank(A)\neq n$, \textbf{quindi} $\boldsymbol{\det(A) = 0}$.
 \end{definition}
 
 \begin{remark}
@@ -24,7 +24,7 @@ La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non defi
 \end{remark}
 
 \subsection{Sistemi lineari: casi semplici}\footnote{Slide 5 PDF 1, PG 41.}
-La risoluzione del sistema lineare (\ref{eq:sistEqLin}) risulta agevole nel caso in cui $A$ abbia proprietà strutturali particolari, ovvero quando $A$ è:
+La risoluzione del sistema lineare (\ref{eq:sistema_equazioni_lineari}) risulta agevole nel caso in cui $A$ abbia proprietà strutturali particolari, ovvero quando $A$ è:
 \begin{itemize}
     \item diagonale;
     \item triangolare;
@@ -106,7 +106,7 @@ Questo caso è a sua volta diviso in due, in quanto è necessario specificare do
 \end{remark}
 
 \subsubsubsection{Caso triangolare inferiore}
-Nel caso in cui $A$ è triangolare inferiore, il sistema lineare (\ref{eq:sistEqLin}) è della forma
+Nel caso in cui $A$ è triangolare inferiore, il sistema lineare (\ref{eq:sistema_equazioni_lineari}) è della forma
 \begin{equation*}
     \begin{matrix}
         a_{11} x_1 && && && &=& b_1\\
@@ -123,7 +123,7 @@ e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in 
 
 Anche in questo caso l'algoritmo è ben definito sotto l'ipotesi $\det(A)\neq 0\; (\iff a_{ii}\neq 0,\; i=1,\hdots, n)$.
 
-Esaminando il costo computazionale per risolvere il sistema lineare (\ref{eq:sistEqLin}), mediante (\ref{eq:soluzione_sistema_triangolare_inferiore}), allora: per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da \begin{equation*}
+Esaminando il costo computazionale per risolvere il sistema lineare (\ref{eq:sistema_equazioni_lineari}), mediante (\ref{eq:soluzione_sistema_triangolare_inferiore}), allora: per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da \begin{equation*}
     \sum_{i=1}^n(2i-1)=2\sum_{i=1}^n (i)-n= \cancel{2}\cdot\frac{n(n+1)}{\cancel{2}}-n=\boldsymbol{n^2\; flops}.
 \end{equation*}
 
@@ -178,7 +178,7 @@ Nel caso in cui $A$ sia triangolare superiore, ovvero
           & & & & a_{nn}
 \end{bmatrix},
 \end{equation*}
-con $\det(a)=\prod_{i=1}^n a_{ii}\neq 0\iff a_{ii}\neq 0,\, i = 1,\hdots, n$, il sistema di equazioni lineari (\ref{eq:sistEqLin}) è della forma
+con $\det(a)=\prod_{i=1}^n a_{ii}\neq 0\iff a_{ii}\neq 0,\, i = 1,\hdots, n$, il sistema di equazioni lineari (\ref{eq:sistema_equazioni_lineari}) è della forma
 \begin{equation*}
     \begin{matrix}
         a_{11} x_1 &+& a_{12} x_2 &+& \cdots &+& a_{1n} x_n &=& b_1\\
@@ -269,7 +269,7 @@ Pertanto, sono enunciate alcune importante proprietà (enunciati$\backslash$lemm
 \begin{enumerate}
     \item \footnote{Lemma 3.1 PG 45.} La somma di matrici triangolari inferiori ($\backslash$superiori) è una matrice triangolare inferiore ($\backslash$superiore);
     \item Il prodotto di due matrici triangolari inferiori ($\backslash$superiori) è una matrice triangolare inferiore ($\backslash$superiore). Gli elementi diagonali del prodotto sono dati dal prodotto degli elementi diagonali omologhi dei due fattori;
-    \item \footnote{Proprietà derivata dalla 2. Lemma 3.3 PG 45.} La matrice inversa di una matrice triangolare inferiore ($\backslash$superiore) nonsingolare è triangolare inferiore ($\backslash$superiore). I suoi elementi diagonali sono dati dai reciproci degli elementi diagonali omologhi;
+    \item \footnote{Proprietà derivata dalla 2. Lemma 3.3 PG 45.} La matrice inversa di una matrice triangolare inferiore ($\backslash$superiore) \gls{nonsingolare} è triangolare inferiore ($\backslash$superiore). I suoi elementi diagonali sono dati dai reciproci degli elementi diagonali omologhi;
     \item  \footnote{Lemma 3.2 PG 45.} Il prodotto di due matrici triangolari inferiori ($\backslash$superiori) a diagonali unitaria (ovvero con elementi diagonali tutti uguali ad $1$) è una matrice triangolare inferiore ($\backslash$superiore) a diagonale unitaria; \footnote{Il motivo è dovuto al fatto che la diagonale sia 1 e che gli elementi della diagonale siano calcolati dal prodotto degli elementi omonimi delle diagonali delle matrici (i quali sono tutti 1).}
     \item La matrice inversa di una matrice triangolare inferiore ($\backslash$superiore) \textbf{a diagonale unitaria} è una matrice triangolare inferiore ($\backslash$superiore) a diagonale unitaria;
 \end{enumerate}
@@ -338,7 +338,7 @@ Pertanto, sono enunciate alcune importante proprietà (enunciati$\backslash$lemm
 \begin{definition}
     \footnote{Slide 6 PDF 2, PG 45.} $\boldsymbol A$ \textbf{è ortogonale se} $\boldsymbol{A^TA=AA^T=I.}$
 \end{definition}
-Pertanto, se $A$ è ortogonale, allora $A^{-1}=A^T.$ In questo caso, la soluzione a (\ref{eq:sistEqLin}) è data da $\uline x = A^T\uline b.$ Quindi il problema è risolto mediante un \textbf{prodotto matrice-vettore (\textit{matvec})}.
+Pertanto, se $A$ è ortogonale, allora $A^{-1}=A^T.$ In questo caso, la soluzione a (\ref{eq:sistema_equazioni_lineari}) è data da $\uline x = A^T\uline b.$ Quindi il problema è risolto mediante un \textbf{prodotto matrice-vettore (\textit{matvec})}.
 
 %\vspace{5px}
 %\hrule
@@ -415,11 +415,11 @@ I due sistemi lineari (in genere saranno $k$) sono di tipo semplice e quindi son
 
 I metodi che consistono nel determinare dei fattori che soddisfano i precedenti punti, 1. e 2., sono detti \textbf{metodi di fattorizzazione}.
 
-Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluzioni intermedie $x_1,\hdots, x_k\equiv x$. Una volta calcolata la soluzione intermedia $x_i$, le precedenti non saranno utilizzate. Pertanto, è possibile utilizzare un unico vettore che, inizialmente, contiene il vettore dei termini noti e viene sovrascritto con le soluzioni intermedie, fino ad ottenere la soluzione finale del sistema lineare (\ref{eq:sistEqLin}).
+Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluzioni intermedie $x_1,\hdots, x_k\equiv x$. Una volta calcolata la soluzione intermedia $x_i$, le precedenti non saranno utilizzate. Pertanto, è possibile utilizzare un unico vettore che, inizialmente, contiene il vettore dei termini noti e viene sovrascritto con le soluzioni intermedie, fino ad ottenere la soluzione finale del sistema lineare (\ref{eq:sistema_equazioni_lineari}).
 
 \subsection{Fattorizzazione \texorpdfstring{$\boldsymbol LU$}{LU} di una matrice}
 \begin{definition}[Matrice fattorizzabile $LU$]\footnote{Slide 2 PDF 3, PG 47.}
-    Data $A$, matrice dei coefficienti del sistema (\ref{eq:sistEqLin}), questa è \textbf{fattorizzabile} $\boldsymbol{LU}$ rappresentabile nella forma
+    Data $A$, matrice dei coefficienti del sistema (\ref{eq:sistema_equazioni_lineari}), questa è \textbf{fattorizzabile} $\boldsymbol{LU}$ rappresentabile nella forma
     \begin{equation}\label{eq:ALU}
         \boldsymbol{A=L\cdot U},
     \end{equation}
@@ -434,7 +434,7 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
 \end{definition}
 
 \begin{remark}\footnote{Slide 3 PDF 3.}
-    Se $A$ è fattorizzabile $LU$ allora, risolvere il sistema lineare (\ref{eq:sistEqLin}), significa risolvere
+    Se $A$ è fattorizzabile $LU$ allora, risolvere il sistema lineare (\ref{eq:sistema_equazioni_lineari}), significa risolvere
     \begin{equation*}
         L\, \underbrace{\boldsymbol{U\uline x}}_{\boldsymbol y}= \uline b.
     \end{equation*}
@@ -1962,9 +1962,9 @@ e poiché il sistema lineare è
     \label{table:resAlgBidiag}
 \end{table}
 
-L'esecuzione dell'Algoritmo \ref{alg:bidia} restituisce i risultati di Tabella \ref{table:resAlgBidiag}. Ciò che è evinto dalla precedente tabella è che il sistema lineare (\ref{eq:sistEqLin}), la cui soluzione è rappresentata con i precedenti dati, è perturbato.
+L'esecuzione dell'Algoritmo \ref{alg:bidia} restituisce i risultati di Tabella \ref{table:resAlgBidiag}. Ciò che è evinto dalla precedente tabella è che il sistema lineare (\ref{eq:sistema_equazioni_lineari}), la cui soluzione è rappresentata con i precedenti dati, è perturbato.
 
-È necessario studiare il \textbf{condizionamento di un sistema lineare} del tipo (\ref{eq:sistEqLin}), con $m=n$ ed $\uline x$ soluzione esatta. Se sono perturbati i dati in ingresso, $A$ e $\uline b$, è studiato come questo si ripercuote sul risultato, ovvero:
+È necessario studiare il \textbf{condizionamento di un sistema lineare} del tipo (\ref{eq:sistema_equazioni_lineari}), con $m=n$ ed $\uline x$ soluzione esatta. Se sono perturbati i dati in ingresso, $A$ e $\uline b$, è studiato come questo si ripercuote sul risultato, ovvero:
 \begin{equation}\label{eq:sistEqLinPert}
     \left(A+\Delta A\right)\left(\uline x + \Delta\uline x\right) = \uline b +\Delta\uline b,
 \end{equation}
@@ -1975,7 +1975,7 @@ in cui:
     \item $\Delta\uline x$ ha lo stesso ruolo per il vettore soluzione $\uline x.$
 \end{itemize}
 
-Al posto di (\ref{eq:sistEqLin}) è considerato il problema (\ref{eq:sistEqLinPert}). Per studiare (\ref{eq:sistEqLinPert}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:solSistQuad}). Inoltre, per studiare (\ref{eq:sistEqLinPert}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:normMatr}} (le quali possono essere argomento di esame).
+Al posto di (\ref{eq:sistema_equazioni_lineari}) è considerato il problema (\ref{eq:sistEqLinPert}). Per studiare (\ref{eq:sistEqLinPert}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:solSistQuad}). Inoltre, per studiare (\ref{eq:sistEqLinPert}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:norme_indotte_matrice}} (le quali possono essere argomento di esame).
 
 In seguito sarà considerata una generica norma su vettore, e la corrispondente indotta su matrice, che indicheremo con $||\cdot||.$ Per semplificare la trattazione è supposto che $\boldsymbol{\Delta A=\varepsilon\cdot F}$, con $\varepsilon\in\mathbb R,\,\varepsilon\approx 0$ e $F\in\mathbb R^{n\times n}.$ Similmente è posto $\boldsymbol{\Delta b = \varepsilon\cdot\uline f},$ con $\varepsilon$ lo stesso parametro ed $\boldsymbol{\uline f\in\mathbb R^n}.$
 
@@ -2034,14 +2034,15 @@ ovvero:
 \end{equation*}
 
 Passando alle norme, è ottenuto (utilizzando la compatibilità tra norma su vettore e norma indotta su matrice):
-\begin{equation*}
+\begin{equation}\label{eq:condizionamento_sistema_lineare}
     \begin{matrix}
         ||\Delta x|| &\approx& ||A^{-1}(\Delta b \boldsymbol- \Delta A\cdot x)|| &\leq& ||A^{-1}||\cdot ||\Delta b - \Delta A\cdot x||\\
         &\overset{\footnotemark}{\leq}& ||A^{-1}|| (||\Delta b||\boldsymbol + ||\Delta A\cdot x||) &\leq& ||A^{-1}|| (||\Delta b|| + ||\Delta A||\cdot ||x||)\\
         &\Rightarrow& \frac{||\Delta x||}{||x||}&\leq& ||A^{-1}|| \cdot\left(\frac{||\Delta b||}{||x||} + ||\Delta A||\right)\\
-        & & &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||A||\cdot ||x||} + \frac{||\Delta A||}{||A||}\right) &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right),
+        & & &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||A||\cdot ||x||} + \frac{||\Delta A||}{||A||}\right) &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right)\\
+        &\rightarrow& \frac{||\Delta x||}{||x||} &\leq& \underbrace{||A||\cdot||A^{-1}||}_{\kappa(A)}\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right)
     \end{matrix}
-\end{equation*}
+\end{equation}
 \footnotetext{Trasformazione del \textbf{-} della norma a sinistra del $\leq$ in \textbf{+} a destra del $\leq$ perché il - può essere rappresentato come $(-1)$ e portato fuori dal modulo.}
 
 pertanto:
@@ -2055,7 +2056,7 @@ pertanto:
     b=Ax\Rightarrow ||b||=||Ax||\leq ||A||\cdot||x||\Rightarrow\frac{1}{||b||}\geq \frac{1}{||A||\cdot||x||}.
 \end{equation*}
 
-\begin{definition}\label{def:nrCondMatrice}[Numero di condizionamento di una matrice] \footnote{Slide 22 PDF 9, Definizione 3.4 PG 66.}
+\begin{definition}[Numero di condizionamento di una matrice]\label{def:numero_condizionamento_matrice} \footnote{Slide 22 PDF 9, Definizione 3.4 PG 66.}
     $\boldsymbol{\kappa(A)}=||A||\cdot||A^{-1}||$ è denominato \textbf{numero di condizionamento} (o fattore di ampliamento) della matrice $A$.
 \end{definition}
 
@@ -2083,7 +2084,7 @@ pertanto:
 
 Una proprietà importante del numero di condizionamento è la seguente:
 \begin{remark}
-    Per ogni norma indotta su matrice, dalla Definizione \ref{def:nrCondMatrice}, vale
+    Per ogni norma indotta su matrice, dalla Definizione \ref{def:numero_condizionamento_matrice}, vale
     \begin{equation*}
         \boldsymbol 1 = ||I||=||A\cdot A^{-1}||\boldsymbol\leq ||A||\cdot||A^{-1}||=\boldsymbol{\kappa(A)}.
     \end{equation*}
@@ -2107,21 +2108,25 @@ Se:
 
 \paragraph{IMPORTANTE:} Se è richiesto, come esercizio, di costruire  una matrice $2\times 2$ con un numero di condizionamento pari a $\frac{1}{2}$ è necessario affermare che non si può fare per la precedente osservazione.
 
-\subsection{Sistemi lineari sovradimensionati}\label{ssec:sisLinSovr}
+\subsection{Sistemi lineari sovradimensionati}\label{ssec:sistemi_lineari_sovradimensionati}
 \footnote{Slide 3-10 PDF 10, PDF 11, Slide 2-4 PDF 12, PG 67-74.}
 È talvolta necessario risolvere un sistema di equazioni lineari sovradimensionato, ovvero con più equazioni che incognite, in cui la matrice dei coefficienti ha rango massimo, come specificato ad inizio del capitolo. In forma vettoriale, è necessario risolvere il seguente sistema lineare
-\begin{equation}\label{eq:sistLinEqSovr}
-    A\uline x =\uline b,\, A\in\mathbb R^{m\times n},\; m>\boldsymbol n\overset{\footnotemark}{=}\boldsymbol{rank(A)},
+\begin{equation}\label{eq:sistema_lineare_equazioni_sovradimensionato}
+    A\uline x =\uline b,\quad A\in\mathbb R^{m\times n},\quad m>\boldsymbol n\overset{\footnotemark}{=}\boldsymbol{\rank(A)},
 \end{equation}
 con $\uline b\in\mathbb R^m$ e $\uline x\in\mathbb R^n$.
 \footnotetext{$A$ ha rango massimo ($n$).}
 
-Un caso rilevante del problema (\ref{eq:sistLinEqSovr}) è trattato nella Sezione \ref{ssec:approxPolMinQuad}, dove, in genere, $m\gg n$.
+Un caso rilevante del problema (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è trattato nella Sezione \ref{ssec:approxPolMinQuad}, dove, in genere, $m\gg n$.
 
-Il sistema lineare (\ref{eq:sistLinEqSovr}) ammette soluzione se $\uline b\in ran(A)$, dove $ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}$.
-È possibile osservare che il vettore $A\uline x\in ran(A)$: infatti, se
+Il sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) ammette soluzione se $\uline b\in$\gls{range(A)}, dove
 \begin{equation*}
-    A=[\uline c_1, \hdots,\uline c_{\boldsymbol n}],\, \uline c_j\in\mathbb R^{\boldsymbol m},\uline x=
+	\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim\ran(A)=n).
+\end{equation*}
+
+È possibile osservare che il vettore $A\uline x\in ran(A)$. Infatti, se
+\begin{equation*}
+    A=[\uline c_1, \hdots,\uline c_{\boldsymbol n}],\quad \uline c_j\in\mathbb R^{\boldsymbol m},\quad \uline x=
     \begin{pmatrix}
         x_1\\
         \vdots\\
@@ -2130,18 +2135,30 @@ Il sistema lineare (\ref{eq:sistLinEqSovr}) ammette soluzione se $\uline b\in ra
 \end{equation*}
 allora
 \begin{equation*}
-    A\uline x = \sum_{j=1}^n\uline c_j x_j\wedge ran(A)=\{\uline y\in\mathbb R^m:\uline y = A\uline x, \,\uline x\in\mathbb R^n\},\, \dim(ran(A))=rank(A)\overset{\footnotemark}{=}n.
+    A\uline x = \sum_{j=1}^n\uline c_j x_j\wedge ran(A)=\{\uline y\in\mathbb R^m:\uline y = A\uline x, \,\uline x\in\mathbb R^n\},\, \dim(ran(A))=\rank(A)\overset{\footnotemark}{=}n.
 \end{equation*}
 \footnotetext{Quindi $ran(A)$ è uno spazio vettoriale di dimensione $n$.}
 
-$\uline b\in\mathbb R^m$, con $m>n$, è generico vettore e nel caso in cui $\uline b\in ran(A)\Rightarrow\exists! \,\uline x\in\mathbb R^n:A\uline x=\uline b.$ L'unicità di $\uline x$ deriva dal fatto che $null(A)=\{\uline 0\}$, in genere questo non avviene. Pertanto, non esiste, in genere una soluzione classica a (\ref{eq:sistLinEqSovr}). 
+$\uline b\in\mathbb R^m$, con $m>n$, è generico vettore e nel caso in cui $\uline b\in ran(A)\Rightarrow\exists! \,\uline x\in\mathbb R^n:A\uline x=\uline b.$ L'unicità di $\uline x$ deriva dal fatto che $null(A)=\{\uline 0\}$ (in genere questo non avviene). Pertanto, non esiste, in genere una soluzione classica a (\ref{eq:sistema_lineare_equazioni_sovradimensionato}).
 
-Tuttavia, il sistema di risoluzione del sistema cambia per ogni vettore $\uline x\in\mathbb R^n$. Inoltre, è possibile definire il corrispondente \textbf{vettore residuo} $\uline r$ come
-\begin{equation}\label{eq:vettRes}
-    \uline r = A\uline x-\uline b\in\mathbb R^m.
-\end{equation}
+\begin{definition}[Vettore residuo]
+	Sia necessario risolvere (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), e' definito il vettore residuo come
+	\begin{equation}\label{eq:vettore_residuo}
+		\uline r = A\uline x-\uline b=
+		\begin{bmatrix}
+			r_1\\
+			r_2\\
+			\vdots\\
+			r_m
+		\end{bmatrix}
+		\in\mathbb R^m.
+	\end{equation}
+\end{definition}
+
+E' ricercata 
+
 \begin{remark}\footnote{Slide 5 PDF 10.}
-    Se $\uline x$ è soluzione, in senso classico, di (\ref{eq:sistLinEqSovr}), allora $\uline r=\uline 0$
+    Se $\uline x$ è soluzione, in senso classico, di (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), allora $\uline r=\uline 0$
 \end{remark}
 
 Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\uline x$ che rende $\uline r$ il più piccolo possibile, cosicché $A\uline x$ sia il più vicino possibile a $\uline b$. Questo traduce nella ricerca della soluzione  che minimizzi il residuo, ovvero:
@@ -2161,35 +2178,36 @@ Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\
 \end{remark}
 \footnotetext{La radice di $\sqrt{\sum_{i=2}^m r_i^2}$ è annullata perché $||r_i||_2^2=\left(\sqrt{\sum_{i=2}^m r_i^2}\right)^2$.}
 
-\begin{definition}[Soluzione ai minimi quadrati]\label{def:solMinQuad}
-    Il vettore $\uline x$ soluzione di (\ref{eq:normRes}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare (\ref{eq:sistLinEqSovr}). 
+\begin{definition}[Soluzione ai minimi quadrati]\label{def:soluzione_minimi_quadrati}
+    Il vettore $\uline x$ soluzione di (\ref{eq:normRes}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). 
 \end{definition}
 
-Per comprendere la scelta del nome "soluzione ai minimi quadrati" è necessario comprendere il motivo della scelta della \textbf{norma 2} (ovvero euclidea). Per farlo è possibile osservare che $||\uline r||_2^2=\uline r^T\uline r.$ Considerando una matrice \textbf{ortogonale} $U\in\mathbb R^{m\times m}$ (ovvero tale che $U^TU=I$), è noto che 
+\paragraph{Perche' il nome "soluzione ai minimi quadrati"?} Per comprendere la scelta è necessario comprendere il motivo della scelta della \textbf{norma 2} (ovvero euclidea): è possibile osservare che $||\uline r||_2^2=\uline r^T\uline r$ e considerando una matrice \textbf{ortogonale} $\boldsymbol{U\in\mathbb R^{m\times m}}$ (ovvero tale che $U^TU=I$), è noto che 
 \begin{equation*}
     ||U\uline r||_2^2=(U\uline r)^T(U\uline r)=\uline r^T\underbrace{U^TU}_I \uline r = \uline r^T\uline r = ||\uline r||_2^2.
 \end{equation*}
 
-È stato dimostrato il seguente risultato, il quale è il motivo per cui è scelta la norma euclidea. 
+\textbf{È stato dimostrato il seguente risultato, il quale è il motivo per cui è scelta la norma euclidea.}
+
 \begin{theorem}\footnote{Slide 7 PDF 10.}
     La norma euclidea di un vettore è \textbf{invariante} rispetto alla moltiplicazione alla moltiplicazione per una matrice ortogonale.
 \end{theorem}
 
-Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistLinEqSovr}) è la fattorizzazione $QR$ della matrice $A$, descritta dal seguente Teorema e dimostrata in seguito.
+Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è la fattorizzazione $QR$ della matrice $A$, descritta dal seguente Teorema e dimostrata in seguito.
 
 
-\begin{theorem}[Esistenza della fattorizzazione $QR$]\label{th:esistFattQR}\footnote{Slide 7 PDF 10, Teorema 3.8 PG 68.}
-    Data $A\in\mathbb R^{m\times n}$ (definita come in (\ref{eq:sistLinEqSovr})) allora esistono
+\begin{theorem}[Esistenza della fattorizzazione $QR$]\label{th:esistenza_fattorizzazione_QR}\footnote{Slide 7 PDF 10, Teorema 3.8 PG 68.}
+    Data $A\in\mathbb R^{m\times n}$ (definita come in (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) allora esistono
     \begin{enumerate}
-        \item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale};
-        \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare};
+        \item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale},
+        \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare},
     \end{enumerate}
-    tale che, data $R =
+    tali che, data $R =
     \begin{bmatrix}
         \widehat R\\
         O
     \end{bmatrix}\in \mathbb R^{m\times n}$, da cui segue che $O\in\mathbb R^{(m-n)\times n}$, allora
-    \begin{equation}\label{eq:fattQR}
+    \begin{equation}\label{eq:fattorizzazione_QR}
         \boldsymbol{A=QR.}
     \end{equation}
 \end{theorem}
@@ -2197,14 +2215,14 @@ Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistLinEqSovr}) 
 $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'ortogonalità ($\det(Q)=1\vee \det(Q)=-1$). La matrice $R$ è triangolare superiore.
 
 \begin{remark}\label{rem:fattQRNonSing}\footnote{Slide 7 PDF 10.}
-    Poiché $\boldsymbol Q$ \textbf{è nonsingolare}, allora:
+    Poiché $\boldsymbol Q$ \textbf{è \gls{nonsingolare}}, allora:
     \begin{equation*}
-        n = rank(A) = rank (QR) \boldsymbol = rank(R) = rank(\widehat R)\Rightarrow \det(\widehat R)\neq 0.
+        n = \rank(A) = \rank (QR) \boldsymbol = \rank(R) = \rank(\widehat R)\Rightarrow \det(\widehat R)\neq 0.
     \end{equation*}
 \end{remark}
 
-È possibile calcolare la soluzione ai minimi quadrati di (\ref{eq:sistLinEqSovr}), ovvero è cercata la soluzione definita dalla Definizione \ref{def:solMinQuad}, tramite:
-\begin{equation}\label{eq:norm2Residuo}
+È possibile calcolare la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), ovvero è cercata la soluzione definita dalla Definizione \ref{def:soluzione_minimi_quadrati}, tramite:
+\begin{equation}\label{eq:norma_2_residuo_minimo}
     \begin{matrix}
         ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\
         &\overset{\footnotemark}{=}& ||R\uline x-Q^T\uline b||_2^2 &\overset{\footnotemark}{=}& ||R\uline x - \uline g||_2^2 &=& 
@@ -2260,14 +2278,14 @@ Scegliendo $\boldsymbol{\uline x}$ \textbf{come soluzione del sistema lineare},
 il quale ammette soluzione, e questa è unica, essendo $\boldsymbol{\widehat R}$ \textbf{nonsingolare}. Inoltre, il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore}.
 
 \begin{theorem}\footnote{Slide 9 PDF 10.}
-    Se $A\in\mathbb R^{m\times n},\; m>n=rank(A)$, la soluzione ai minimi quadrati (Definizione \ref{def:solMinQuad}) del sistema lineare $A\uline x=\uline b$ (del tipo (\ref{eq:sistLinEqSovr})) \textbf{esiste ed è unica}.
+    Se $A\in\mathbb R^{m\times n},\; m>n=\rank(A)$, la soluzione ai minimi quadrati (Definizione \ref{def:soluzione_minimi_quadrati}) del sistema lineare $A\uline x=\uline b$ (del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) \textbf{esiste ed è unica}.
 \end{theorem}
 \begin{proof}
-     Il Teorema \ref{th:esistFattQR}, l'Osservazione \ref{rem:fattQRNonSing} e quanto scritto per (\ref{eq:norm2Residuo})-(\ref{eq:Rx=g1}) forniscono la dimotrazione del Teorema.
+     Il Teorema \ref{th:esistenza_fattorizzazione_QR}, l'Osservazione \ref{rem:fattQRNonSing} e quanto scritto per (\ref{eq:norma_2_residuo_minimo})-(\ref{eq:Rx=g1}) forniscono la dimotrazione del Teorema.
 \end{proof}
 
 \begin{remark}
-    La norma del residuo, corrispondente alla soluzione ai minimi quadrati, corrisponde a quella del vettore $\uline g_2$, definita da (\ref{eq:norm2Residuo}).
+    La norma del residuo, corrispondente alla soluzione ai minimi quadrati, corrisponde a quella del vettore $\uline g_2$, definita da (\ref{eq:norma_2_residuo_minimo}).
 \end{remark}
 
 \paragraph{Esercizio potenziale:}{Calcolare la soluzione nel senso dei minimi quadrati e poi calcolare la norma del residuo. Per farlo è necessario restituire la norma del residuo e non il residuo stesso. 
@@ -2278,12 +2296,12 @@ Svolgendo i passi per ottenere la soluzione è ottenuta anche la norma del resid
 
 \subsubsection{Esistenza della fattorizzazione \texorpdfstring{$\boldsymbol {QR}$}{QR}}\label{sssec:esistFattQR}
 \footnote{PDF 11, PG 69-73}
-Il Teorema \ref{th:esistFattQR} sarà dimostrato in modo costruttivo attraverso un algoritmo, il quale servirà a costruire quantitativamente la rappresentazione stessa.
+Il Teorema \ref{th:esistenza_fattorizzazione_QR} sarà dimostrato in modo costruttivo attraverso un algoritmo, il quale servirà a costruire quantitativamente la rappresentazione stessa.
 
-Il fattore $\widehat R$ utilizzato per definire la fattorizzazione $QR$ (ovvero la (\ref{eq:fattQR})) è necessario per ottenere la soluzione del sistema lineare nel senso dei minimi quadrati.
+Il fattore $\widehat R$ utilizzato per definire la fattorizzazione $QR$ (ovvero la (\ref{eq:fattorizzazione_QR})) è necessario per ottenere la soluzione del sistema lineare nel senso dei minimi quadrati.
 
 \begin{remark}\footnote{Slide 2 PDF 11.}
-    Il fattore $Q$ in (\ref{eq:fattQR}) non è richiesto esplicitamente, è necessario solo per poter effetuare il prodotto $\uline g = Q^T\uline b$.
+    Il fattore $Q$ in (\ref{eq:fattorizzazione_QR}) non è richiesto esplicitamente, è necessario solo per poter effetuare il prodotto $\uline g = Q^T\uline b$.
 \end{remark}
 
 Al fine di definire l'algoritmo di fattorizzazione è considerato il seguente problema: dato un generico vettore $\boldsymbol{\uline z}\in\mathbb R^n\boldsymbol{\backslash\{\uline 0\}}$, determinare una matrice ortogonale $H$ tale che
@@ -2399,11 +2417,11 @@ Inoltre, la matrice di Householder definita dal vettore normalizzato $\frac{1}{\
 
 Questo significa che la matrice di Householder è \textbf{invariante} per uno scalamento del corrispondente vettore di Householder. Ciò significa che $\uline v$ è memorizzato con un suo multiplo scalare qualunque. Sarà memorizzato $\frac{1}{\beta}\uline v$ normalizzato (il quale ha primo componente uguale ad 1), ottenendo la stessa matrice di Householder senza necessità di memorizzare la prima componente del vettore normalizzato.
 
-L'equivalenza (\ref{eq:matrHHNorm}) è una proprietà utile al fine di ottimizzare il costo computazionale, in termini di occupazione di memoria, per ottenere la fattorizzazione (\ref{eq:fattQR}).
+L'equivalenza (\ref{eq:matrHHNorm}) è una proprietà utile al fine di ottimizzare il costo computazionale, in termini di occupazione di memoria, per ottenere la fattorizzazione (\ref{eq:fattorizzazione_QR}).
 
 È possibile definire l'algoritmo di fattorizzazione $QR$ (di Householder). È utilizzata la notazione $a_{\boldsymbol{ij}}^{\boldsymbol{(k)}}$ per denotare l'elemento $(i,j)$ della matrice al passo $\boldsymbol k$, ovvero il più recente in cui l'elemento è stato modificiato, come per il metodo di Gauss.
 
-\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistFattQR}}]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
+\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistenza_fattorizzazione_QR}}]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
     Data
     \begin{equation*}
         A=\begin{bmatrix}
@@ -2529,10 +2547,10 @@ L'equivalenza (\ref{eq:matrHHNorm}) è una proprietà utile al fine di ottimizza
 \end{remark}
 
 \begin{remark}
-    Le prime $n$ righe di (\ref{eq:QTAequivR}) sono la matrice $\widehat R$ del Teorema \ref{th:esistFattQR}.
+    Le prime $n$ righe di (\ref{eq:QTAequivR}) sono la matrice $\widehat R$ del Teorema \ref{th:esistenza_fattorizzazione_QR}.
 \end{remark}
 
-La dimostrazione al Teorema \ref{th:esistFattQR} descrive l'algoritmo di fattorizzazione $QR$ di Householder. A termine della procedura di fattorizzazione gli elementi significativi di $A$ (appartenente al sistema (\ref{eq:sistLinEqSovr})) saranno sovrascritti con il fattore $R$, ovvero saranno sovrascitte le prime $n$ righe con la porzione triangolare di $\widehat R\in \mathbb R^{n\times n}$. Le rimanenti componenti saranno, via via, utilizzate per memorizzare gli elementi significativi dei vettori di Householder normalizzati, in modo tale che la prima componente sia 1.
+La dimostrazione al Teorema \ref{th:esistenza_fattorizzazione_QR} descrive l'algoritmo di fattorizzazione $QR$ di Householder. A termine della procedura di fattorizzazione gli elementi significativi di $A$ (appartenente al sistema (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) saranno sovrascritti con il fattore $R$, ovvero saranno sovrascitte le prime $n$ righe con la porzione triangolare di $\widehat R\in \mathbb R^{n\times n}$. Le rimanenti componenti saranno, via via, utilizzate per memorizzare gli elementi significativi dei vettori di Householder normalizzati, in modo tale che la prima componente sia 1.
 
 Il costo e l'implementazione dell'algoritmo è analizzato nella seguente Sezione.
 
@@ -2685,9 +2703,10 @@ I punti 2. e 3. sono i più onerosi dell'algoritmo. Per semplificare il costo è
 In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenuti una sola volta, prima di iniziare l'iterazione. Per questo motivo, questa iterazione è molto utilizzata nelle applicazioni.
 \footnotetext{Calcolata solo una volta, ovvero nell'approssimazione iniziale $x_0$.}
 
-\subsection{Intermezzi}
+\subsection{Intermezzi (Appendice A.1)}
 \begin{remark}\label{re:diagonali}\footnote{Slide 6 PDF 1. Questa osservazione serve per le matrici grandi e quindi con molti elementi nulli. Gli elementi diversi da 0 sono sulla diagonale. Per salvare qual è la diagonale corretta, ovvero quella sulla quale sono presenti i numeri, è possibile utilizzare gli indici $j-i$ per salvare l'indice della diagonale: in questo caso è necessario un offset per individuare qual è la diagonale giusta.}
-    Data \begin{equation}
+    Data
+    \begin{equation}
         A=\begin{bmatrix}
             a_{11} & a_{12} & a_{13} & a_{14}\\
             a_{21} & a_{22} & a_{23} & a_{24}\\
@@ -2760,7 +2779,7 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
     \end{equation*}
 \end{remark}
 
-\subsubsection{Norme indotte su matrice}\label{sssec:normMatr}\footnote{Slide 16-19 PDF 9, PG 138-139.}
+\subsubsection{Norme indotte su matrice}\label{sssec:norme_indotte_matrice}\footnote{Slide 16-19 PDF 9, PG 138-139.}
 \begin{definition}[Norma indotta su matrice]
     Se $A\in\mathbb{R}^{m\times n},$
     \begin{equation}\label{eq:normMatr}
@@ -2770,41 +2789,50 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
 \end{definition}
 \footnotetext{Norma sul vettore $Ax$.}
 
-\noindent È dimostrato, tramite la definizione:
-\begin{enumerate}
-    \item $||A||_p\geq 0 \wedge ||A||_p=0 \Rightarrow A=0\in\mathbb{R}^{m\times n};$
-    \item $||\alpha A||_p=|\alpha|\cdot||A||_p;$
-    \item $||A+B||_p\leq||A||_p+||B||_p;$
-    \item $\boldsymbol{||Ay||_p\leq ||A||_p\cdot||y||_p}.$
-    \begin{proof}
-        Il vettore $\frac{y}{||y||_p}$ ha norma 1. Infatti:
-        \begin{equation}
-            \left|\left|\frac{y}{||y||_p}\right|\right|=\frac{1}{\cancel{||y||_p}}\cdot\cancel{||y||_p}=1.
-        \end{equation}
-        Pertanto,
-        \begin{equation*}
-            \boldsymbol{||Ay||_p}=||y||_p\cdot\left|\left|A\cdot\frac{y}{||y||_p}\right|\right|_p\boldsymbol\leq ||y||_p\cdot\underbrace{\underset{||x||_p=1}{\max}||Ax||_p}_{||A||_p}=||y||_p\cdot||A||_p\overset{\footnotemark}{=}\boldsymbol{||A||_p\cdot||y||_p}.
-        \end{equation*}
-    \end{proof}
-    \item $||I||_p=1$ (s.se la norma è indotta).
-    \begin{proof}
-        \begin{equation*}
-            ||I||_p=\underset{||x||_p=1}{\max}||I\cdot x||_p=\underset{||x||_p=1}{\max}||x||_p=1.
-        \end{equation*}
-    \end{proof}
-\end{enumerate}
+\noindent È dimostrato, tramite la definizione, che sono valide le seguenti proprieta'.
+
+\begin{property}[Norme indotte su matrici]\label{prop:norme_indotte_matrici}
+	\begin{enumerate}
+		\item $||A||_p\geq 0 \wedge ||A||_p=0 \Rightarrow A=0\in\mathbb{R}^{m\times n};$
+		\item $||\alpha A||_p=|\alpha|\cdot||A||_p;$
+		\item $||A+B||_p\leq||A||_p+||B||_p;$
+		\item 
+		\begin{equation}\label{eq:norma_prodotto_scalare_matrice_vettore_minore_norme_singole}
+			\boldsymbol{||Ay||_p\leq ||A||_p\cdot||y||_p}.
+		\end{equation}
+		\begin{proof}
+			Il vettore $\frac{y}{||y||_p}$ ha norma 1. Infatti:
+			\begin{equation}
+				\left|\left|\frac{y}{||y||_p}\right|\right|=\frac{1}{\cancel{||y||_p}}\cdot\cancel{||y||_p}=1.
+			\end{equation}
+			Pertanto,
+			\begin{equation*}
+				\boldsymbol{||Ay||_p}=||y||_p\cdot\left|\left|A\cdot\frac{y}{||y||_p}\right|\right|_p\boldsymbol\leq ||y||_p\cdot\underbrace{\underset{||x||_p=1}{\max}||Ax||_p}_{||A||_p}=||y||_p\cdot||A||_p\overset{\footnotemark}{=}\boldsymbol{||A||_p\cdot||y||_p}.
+			\end{equation*}
+		\end{proof}
+		\item $||I||_p=1$ (s.se la norma è indotta).
+		\begin{proof}
+			\begin{equation*}
+				||I||_p=\underset{||x||_p=1}{\max}||I\cdot x||_p=\underset{||x||_p=1}{\max}||x||_p=1.
+			\end{equation*}
+		\end{proof}
+		\item $||A||_2 \leq \sqrt{||A||_1\cdot ||A||_\infty}$.
+	\end{enumerate}
+\end{property}
+
 \footnotetext{Commutazione prodotto scalare.}
 
-\noindent La proprietà 4. è importante per il condizionamento del problema e denota come \textbf{proprietà di compatibilità tra la norma su vettore e quella indotta su matrice}.
+\paragraph{Nota sulla Proprietà (\ref{eq:norma_prodotto_scalare_matrice_vettore_minore_norme_singole}):} La Proprietà (\ref{eq:norma_prodotto_scalare_matrice_vettore_minore_norme_singole}) è importante per il condizionamento del problema ed e' nota come \textbf{proprietà di compatibilità tra la norma su vettore e quella indotta su matrice}.
 
 \noindent Sia $(a_{ij})=A\in\mathbb{R}^{m\times n}:$
 \begin{equation*}
     \begin{matrix}
-        \boldsymbol {||A||_1} &\boldsymbol=& \boldsymbol{\underset{j=1,\hdots, n}{\max}\sum_{i=1}^m|a_{ij}|};\\
-        \boldsymbol {||A||_\infty} &\boldsymbol=& \boldsymbol{\underset{i=1,\hdots, m}{\max}\sum_{i=1}^n|a_{ij}|};\\
-        \boldsymbol {||A||_2} &\boldsymbol\leq& \boldsymbol{\sqrt{||A||_1\cdot||A||_{\infty}}}.
+        \boldsymbol {||A||_1} &\boldsymbol=& \boldsymbol{\underset{j=1,\hdots, n}{\max}\sum_{i=1}^m|a_{ij}|},\\
+        \boldsymbol {||A||_\infty} &\boldsymbol=& \boldsymbol{\underset{i=1,\hdots, m}{\max}\sum_{i=1}^n|a_{ij}|},\\
+        \boldsymbol {||A||_2} &\boldsymbol{=} & \boldsymbol{\sqrt{\rho(A^T A)} \equiv \sqrt{\rho (AA^T)}},
     \end{matrix}
 \end{equation*}
+dove $\rho$ e' il raggio spettrale della matrice in argomento, ovvero il massimo dei moduli dei suoi autovalori.
 
 \begin{example}\footnote{Slide 18 PDF 9.}
     $A=\begin{bmatrix}

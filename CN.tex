@@ -71,6 +71,11 @@
 \newtheorem{definition}{Definizione}[section]
 \newtheorem{remark}{Osservazione}[section]
 \newtheorem{example}{Esempio}[section]
+\newtheorem{property}{Proprieta}[section]
+
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\range}{range}
 
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 
@@ -97,16 +102,20 @@
 
 \pagenumbering{arabic}
 
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
 \makeglossaries
 
 \newglossaryentry{equazioni lineari}{
-    name = equazioni lineari,
-    description = {Un'equazione lineare è un'equazione di primo grado, ovvero un'equazione un cui il grado massimo delle incognite è uguale ad uno. Le equazioni lineari sono del tipo $ax+b=0$, oppure del tipo $a_1x_1+\cdots+a_nx_n$ se in $n$ incognite}
+	name = equazioni lineari,
+	description = {Un'equazione lineare è un'equazione di primo grado, ovvero un'equazione un cui il grado massimo delle incognite è uguale ad uno. Le equazioni lineari sono del tipo $ax+b=0$, oppure del tipo $a_1x_1+\cdots+a_nx_n$ se in $n$ incognite}
 }
 
 \newglossaryentry{funzione lineare}{
-    name = funzione lineare,
-    description = {Nel calcolo infinitesimale, un funzione $f(x)$ è lineare se è una funzione polinomiale di grado zero o uno, del tipo $f(x)=mx+c$ con $m,c\in\mathbb R$ costanti reali. Se il coefficiente angolare (o gradiente) $m>0$ allora la funzione è strettamente crescente, se $m<0$ è strettamente decrescente. Nel piano cartesiano vengono visualizzate come equazione $y=mx+c$. Il concetto può estendersi a funzioni di più variabili reali, ovvero: $f(x,y)=mx+ny+c$. Esempi: $f(x)=2x+1,\, f(x)=9$}
+	name = funzione lineare,
+	description = {Nel calcolo infinitesimale, un funzione $f(x)$ è lineare se è una funzione polinomiale di grado zero o uno, del tipo $f(x)=mx+c$ con $m,c\in\mathbb R$ costanti reali. Se il coefficiente angolare (o gradiente) $m>0$ allora la funzione è strettamente crescente, se $m<0$ è strettamente decrescente. Nel piano cartesiano vengono visualizzate come equazione $y=mx+c$. Il concetto può estendersi a funzioni di più variabili reali, ovvero: $f(x,y)=mx+ny+c$. Esempi: $f(x)=2x+1,\, f(x)=9$}
 }
 
 \newglossaryentry{maggiora uniformemente}{
@@ -114,9 +123,20 @@
 	description={Una funzione $f\colon D\subseteq\mathbb R\rightarrow\mathbb{R}$ è maggiorata unifomemente se comunque fissato un valore $\varepsilon>0$ è possibile determinare $\delta=\delta(\varepsilon) > 0$ tale che $\forall x\in D$ che soddisfano $|x| < \delta$ allora $f(x) < \varepsilon$}
 }
 
-\makeatletter
-\renewcommand{\ALG@name}{Algoritmo}
-\makeatother
+\newglossaryentry{range(A)}{
+	name = $\range(A)$,
+	description = {$\equiv\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim\ran(A)=n)$}
+}
+
+\newglossaryentry{rank(A)}{
+	name=$\rank(A)$,
+	description={Massimo numero di righe (colonne) linearmente indipendenti}
+}
+
+\newglossaryentry{nonsingolare}{
+	name=nonsingolare,
+	description={$A\in\mathbb R^{n\times n}$ è nonsingolare se \gls{rank(A)}$=n$ ($\boldsymbol{\det(A)\neq 0}$) ed il sistema $A\uline x = b$ ha soluzione unica del tipo $\uline x = A^{-1} \uline b$}
+}
 
 \begin{document}
 
