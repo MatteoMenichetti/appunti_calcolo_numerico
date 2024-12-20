@@ -2321,10 +2321,10 @@ Pertanto,
 \end{equation}
 
 $H$ è della seguente forma:
-\begin{equation}\label{eq:matrHh}
+\begin{equation}\label{eq:matrice_householder}
     \boldsymbol{H=I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T,\quad \uline v\in\mathbb R^n\backslash\{\uline 0\}},
 \end{equation}
-dove $v$ è scelto in modo da soddisfare (\ref{eq:Hz=ae1}) ($||v||_2>0$). $H$ definita come (\ref{eq:matrHh}) è $\overset{\footnotemark}{\text{\textbf{simmetrica}}}$ e $\overset{\footnotemark}{\text{\textbf{ortogonale}}}$. Infatti:
+dove $v$ è scelto in modo da soddisfare (\ref{eq:Hz=ae1}) ($||v||_2>0$). $H$ definita come (\ref{eq:matrice_householder}) è $\overset{\footnotemark}{\text{\textbf{simmetrica}}}$ e $\overset{\footnotemark}{\text{\textbf{ortogonale}}}$. Infatti:
 \addtocounter{footnote}{-1}
 \footnotetext{Perché $H$ è una somma tra $I$ ed una matrice di rango 1 ($\frac{2}{\uline v^T\uline v}\uline v\uline v^T$ è uno scalare).}
 
@@ -2341,14 +2341,14 @@ dimostrando che $H$ ortogonale.
 \footnotetext{Somma tra $\left(-\frac{2}{\uline v^T\uline v}\uline v\uline v^T\right)I$ e $I\left(-\frac{2}{\uline v^T\uline v}\uline v\uline v^T\right)$.}
 
 È necessario scegliere $\uline v$ affinché (\ref{eq:Hz=ae1}) sia verificato ed a questo fine è scelto nella forma:
-\begin{equation}\label{eq:vettHh}
+\begin{equation}\label{eq:vettore_householder}
     \boldsymbol{\uline v = \uline z-\alpha\uline e_1}.
 \end{equation}
 
 È possibile verificare che la scelta di $\uline v$ come (\ref{eq:vettHh}) assolve al compito richiesto, ovvero soddisfa (\ref{eq:Hz=ae1}), come segue:
 \begin{equation*}
     \begin{matrix}
-        H\uline z &\overset{(\ref{eq:matrHh})}{=}&\left(I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T\right)\overset{\footnotemark}{\uline z}&=&\uline z - \frac{2}{\uline v^T\uline v}\overbrace{\boldsymbol{\uline v^T\uline z}}^{\text{scalare}}\uline v\\
+        H\uline z &\overset{(\ref{eq:matrice_householder})}{=}&\left(I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T\right)\overset{\footnotemark}{\uline z}&=&\uline z - \frac{2}{\uline v^T\uline v}\overbrace{\boldsymbol{\uline v^T\uline z}}^{\text{scalare}}\uline v\\
         &\overset{\footnotemark}{=}& \uline z - \frac{2}{\uline v^T\uline v}\uline v^T\uline z(\uline z - \alpha \uline e_1) &\overset{\footnotemark}{=}& \left(1 - \frac{2}{\uline v^T\uline v}\uline v^T\uline z \right)\uline z + \alpha \uline e_1\left(\frac{2}{\uline v^T\uline v}\uline v^T\uline z\right) &=& \alpha\uline e_1,
     \end{matrix}
 \end{equation*}
@@ -2395,14 +2395,14 @@ pertanto, è svolta un'unica operazione sulla prima componente del vettore. Al f
 \end{equation*}
 
 \begin{definition}
-    Il vettore $\uline v$ definito come (\ref{eq:vettHh}) prende il nome di \textbf{vettore elementare di Householder}. La matrice $H$ corrispondente, definita come (\ref{eq:matrHh}), prende il nome di \textbf{matrice elementare di Householder}.
+    Il vettore $\uline v$ definito come (\ref{eq:vettHh}) prende il nome di \textbf{vettore elementare di Householder}. La matrice $H$ corrispondente, definita come (\ref{eq:matrice_householder}), prende il nome di \textbf{matrice elementare di Householder}.
 \end{definition}
 
 Il vettore $\uline v$ scelto in forma (\ref{eq:vettHh}), con $\alpha$ è definita come in (\ref{eq:aNormZ}). La scelta del segno di $\alpha$ è importante perché fa differenza. Tipicamente fa la differenza quando $z_1$ è l'elemento di massimo modulo e, di conseguenza, la norma di $z$ è grosso modo uguale al modulo di $a_1$. In questo caso la sottrazione (\ref{eq:vettHh}), con il segno di $\alpha$ scelto in modo opportuno, da origine alla cancellazione.
 
 Il vettore $\uline v$ e le matrici di Householder hanno un ruolo omologo a quello delle matrici triangolari di Gauss. La differenza sta nel fatto che le matrici di Gauss sono triangolari inferiori a diagonale unitaria mentre le matrici di Householder ortogonali.
 
-\paragraph{N.B.:} Per effettuare il prodotto $H\uline z$, il quale richiede $2n^2$ flops, se $H$ fosse assemblata utilizzando (\ref{eq:matrHh}), allora: 
+\paragraph{N.B.:} Per effettuare il prodotto $H\uline z$, il quale richiede $2n^2$ flops, se $H$ fosse assemblata utilizzando (\ref{eq:matrice_householder}), allora: 
 \begin{equation*}
     \left(I-\frac{2}{\uline v^T\,\uline v}\uline v\uline v^T\right)\uline z=\uline z-\boldsymbol{\frac{2\uline v^T\uline z}{\uline v^T\,\uline v}}\uline v,
 \end{equation*}
