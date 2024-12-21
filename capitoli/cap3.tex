@@ -7,7 +7,7 @@ dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\ul
 
 Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risSistNonLin}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
 
-\begin{definition}[Matrice nonsingolare]
+\begin{definition}[Matrice nonsingolare]\label{def:matrice_ nonsingolare}
     La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
     \begin{equation}\label{eq:solSistQuad}
         \uline x = A^{-1} \uline b.
@@ -15,7 +15,7 @@ Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incog
 \end{definition}
 La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
 
-\begin{definition}[Matrice singolare]
+\begin{definition}[Matrice singolare]\label{def:matrice_singolare}
 	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $\rank(A)\neq n$, \textbf{quindi} $\boldsymbol{\det(A) = 0}$.
 \end{definition}
 
@@ -444,7 +444,7 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
     \end{equation*}
 \end{remark}
 
-\begin{theorem}[Unicità della fattorizzazione $LU$]\footnote{Slide 3 PDF 3, Teorema 3.1 PG 47.}
+\begin{theorem}[Unicità della fattorizzazione $LU$]\footnote{Slide 3 PDF 3, Teorema 3.1 PG 47.}\label{th:unicita_fattorizzazione_LU}
     Se $A$ è fattorizzabile $LU$ (ed è nonsingolare), la fattorizzazione è unica. 
 \end{theorem}
 \begin{proof}
@@ -488,7 +488,7 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
 
 Rimane da stabilirne l'esistenza e per questo è definito quanto segue.
 
-\begin{remark}
+\begin{remark}[Condizione necessaria esistenza fattorizzazione $LU$]\label{rem:condizione_necessaria_fattorizzazione_LU}
     Affinché $A$ sia fattorizzabile $LU\Rightarrow\det(A)\neq 0$.
 \end{remark}
 
@@ -986,8 +986,8 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
 \end{proof}
 
 Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero $A$ \textit{d.d.} $\Rightarrow\forall k=1,\hdots,n:A_k$ \textit{d.d.} $\Rightarrow \boldsymbol{A=LU}$ \textbf{se vale il seguente risulato}:
-\begin{theorem}\label{th:matrDDNonSing}\footnote{Slide 5 PDF 5, Lemma 3.9 PG 55.}
-    $A$ \textit{d.d.} $\Rightarrow A$ nonsingolare.
+\begin{theorem}\label{th:matrice_diagonale_dominante_nonsingolare}\footnote{Slide 5 PDF 5, Lemma 3.9 PG 55.}
+    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ nonsingolare ($\rightarrow A$ e' fattorizzabile $LU$).
 \end{theorem}
 \begin{proof}
     È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:AddSSeATDD}). Per assurdo, inoltre, è assunto che $A$ sia singolare $\Rightarrow\exists\,\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
@@ -1020,15 +1020,23 @@ Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero 
 \stepcounter{footnote}
 \footnotetext{Per (\ref{eq:normX}) $|x_j|\leq 1,\; \forall j=1,\hdots,n.$}
 
-\begin{corollary}\label{cor:matrDDLU}\footnote{Slide 6 PDF 5, Teorema 3.3 PG 56}
+\begin{corollary}\label{cor:matrice_diagonale_dominante_LU}\footnote{Slide 6 PDF 5, Teorema 3.3 PG 56}
     Se $A$ è \textit{d.d.} (per righe e/o colonne), allora $A=LU$.
 \end{corollary}
 
-Il Corollario \ref{cor:matrDDLU} è derivato dai Teoremi \ref{th:AddSSeATDD}, \ref{th:matrDDsseSottoMatrDD} e \ref{th:matrDDNonSing} ed è dimostrabile enenuciando i teoremi stessi con le corrispondenti dimostrazioni.
+Il Corollario \ref{cor:matrice_diagonale_dominante_LU} è derivato dai Teoremi \ref{th:AddSSeATDD}, \ref{th:matrDDsseSottoMatrDD} e \ref{th:matrice_diagonale_dominante_nonsingolare} ed è dimostrabile enenuciando i teoremi stessi con le corrispondenti dimostrazioni.
 
 \begin{remark}
     Le matrici diagonali dominanti compaiono in importanti applicazioni.
 \end{remark}
+
+\paragraph{Caratteristiche di una matrice diagonale dominante:}
+\begin{enumerate}
+	\item $A$ d.d. per righe s.se $A^T$ d.d. per colonne;
+	\item $A$ d.d. s.se $\forall k=1,\hdots, n,\, A_k$ d.d., essendo $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
+	\item $A$ d.d. allora $\det(A)\neq 0$ (quindi $A$ e' non singolare);
+	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ e' d.d. $\Rightarrow A=LU$.
+\end{enumerate}
 
 \subsection{Matrici Simmetriche e Definite Positive}\label{ssec:matrSDPFattLDL}\footnote{Slide 7-12 PDF 5, 6.}
 \begin{definition}
