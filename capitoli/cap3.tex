@@ -5,7 +5,7 @@ Il problema di questa sezione è risolvere sistemi di equazioni lineari. Tali si
 \end{equation}
 dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\uline x=(x_i)\in\mathbb R^n$ il vettore delle incognite (da determinare) e $\uline b\in\mathbb R^m$ il vettore dei termini noti. $A$ e $\uline b$ sono noti. Sarà assunto che $\boldsymbol{m\geq n}$ e che il rango di A sia massimo, ovvero $\boldsymbol{\rank(A)=n}$.
 
-Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risSistNonLin}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
+Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risoluzione_sistemi_nonlineari}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
 
 \begin{definition}[Matrice nonsingolare]\label{def:matrice_ nonsingolare}
     La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
@@ -2044,11 +2044,11 @@ ovvero:
 Passando alle norme, è ottenuto (utilizzando la compatibilità tra norma su vettore e norma indotta su matrice):
 \begin{equation}\label{eq:condizionamento_sistema_lineare}
     \begin{matrix}
-        ||\Delta x|| &\approx& ||A^{-1}(\Delta b \boldsymbol- \Delta A\cdot x)|| &\leq& ||A^{-1}||\cdot ||\Delta b - \Delta A\cdot x||\\
-        &\overset{\footnotemark}{\leq}& ||A^{-1}|| (||\Delta b||\boldsymbol + ||\Delta A\cdot x||) &\leq& ||A^{-1}|| (||\Delta b|| + ||\Delta A||\cdot ||x||)\\
-        &\Rightarrow& \frac{||\Delta x||}{||x||}&\leq& ||A^{-1}|| \cdot\left(\frac{||\Delta b||}{||x||} + ||\Delta A||\right)\\
-        & & &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||A||\cdot ||x||} + \frac{||\Delta A||}{||A||}\right) &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right)\\
-        &\rightarrow& \frac{||\Delta x||}{||x||} &\leq& \underbrace{||A||\cdot||A^{-1}||}_{\kappa(A)}\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right)
+        ||\Delta \uline x|| &\approx& ||A^{-1}(\Delta\uline b \boldsymbol- \Delta A\cdot x)|| &\leq& ||A^{-1}||\cdot ||\Delta\uline b - \Delta A\cdot \uline x||\\\\
+        &\overset{\footnotemark}{\leq}& ||A^{-1}|| (||\Delta\uline b||\boldsymbol + ||\Delta A\cdot \uline x||) &\leq& ||A^{-1}|| (||\Delta\uline b|| + ||\Delta A||\cdot ||\uline x||)\\\\
+        &\Rightarrow& \frac{||\Delta \uline x||}{||\uline x||}&\leq& ||A^{-1}|| \cdot\left(\frac{||\Delta\uline b||}{||\uline x||} + ||\Delta A||\right)\\\\
+        & & &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||A||\cdot ||\uline x||} + \frac{||\Delta A||}{||A||}\right) &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right)\\\\
+        &\rightarrow& \frac{||\Delta\uline x||}{||\uline x||} &\leq& \underbrace{||A||\cdot||A^{-1}||}_{\kappa(A)}\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right)
     \end{matrix}
 \end{equation}
 \footnotetext{Trasformazione del \textbf{-} della norma a sinistra del $\leq$ in \textbf{+} a destra del $\leq$ perché il - può essere rappresentato come $(-1)$ e portato fuori dal modulo.}
@@ -2203,7 +2203,7 @@ Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\
 
 Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è la fattorizzazione $QR$ della matrice $A$, descritta dal seguente Teorema e dimostrata in seguito.
 
-
+\subsubsection{Fattorizzazione \texorpdfstring{$QR$}{QR}}
 \begin{theorem}[Esistenza della fattorizzazione $QR$]\label{th:esistenza_fattorizzazione_QR}\footnote{Slide 7 PDF 10, Teorema 3.8 PG 68.}
     Data $A\in\mathbb R^{m\times n}$ (definita come in (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) allora esistono
     \begin{enumerate}
@@ -2232,7 +2232,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
 È possibile calcolare la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), ovvero è cercata la soluzione definita dalla Definizione \ref{def:soluzione_minimi_quadrati}, tramite:
 \begin{equation}\label{eq:norma_2_residuo_minimo}
     \begin{matrix}
-        ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\
+        ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\\\
         &\overset{\footnotemark}{=}& ||R\uline x-Q^T\uline b||_2^2 &\overset{\footnotemark}{=}& ||R\uline x - \uline g||_2^2 &=& 
         \left|\left|\begin{bmatrix}
             \widehat R\\
@@ -2241,7 +2241,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
         \begin{bmatrix}
             g_1\\
             g_2
-        \end{bmatrix}\right|\right|_2^2\\
+        \end{bmatrix}\right|\right|_2^2\\\\
         &=& \left|\left|\begin{bmatrix}
             \widehat R\uline x-\uline g_1\\
             -\uline g_2
@@ -2253,7 +2253,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
         \begin{bmatrix}
             \widehat R\uline x-\uline g_1\\
             -\uline g_2
-        \end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\
+        \end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\\\
         &\overset{\footnotemark}{=}& \left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2+||\uline g_2||_2^2 &\overset{\footnotemark}{=}& ||\uline g_2||_2^2&=&\min !
     \end{matrix}
 \end{equation}
@@ -2265,7 +2265,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
 \footnotetext{Sostituzione $A=QR$.}
 
 \stepcounter{footnote}
-\footnotetext{Messa in evidenza di $Q$. Dato che $b$ non è moltiplicato per $Q$ allora è necessario immaginare che lo sia moltiplicata per $QQ^T$, ovvero la matrice identità.}
+\footnotetext{Messa in evidenza di $Q$. Dato che $b$ non è moltiplicato per $Q$ allora è necessario immaginare che lo sia moltiplicata per $QQ^T$, ovvero la \gls{matrice identita}.}
 
 \stepcounter{footnote}
 \footnotetext{La norma eulidea è invariante per moltiplicazione per una matrie ortogonale.}
@@ -2302,7 +2302,7 @@ Quasi tutti gli studenti hanno calcolato correttamente la soluzione ai minimi qu
 
 Svolgendo i passi per ottenere la soluzione è ottenuta anche la norma del residuo (ovvero le ultime $m-n$ componenti del vettore processato), con complessità meno che lineare ($m-n$).}
 
-\subsubsection{Esistenza della fattorizzazione \texorpdfstring{$\boldsymbol {QR}$}{QR}}\label{sssec:esistFattQR}
+\subsubsection{Esistenza della fattorizzazione \texorpdfstring{$\boldsymbol {QR}$}{QR}}\label{sssec:esistenza_fattorizzazione_QR}
 \footnote{PDF 11, PG 69-73}
 Il Teorema \ref{th:esistenza_fattorizzazione_QR} sarà dimostrato in modo costruttivo attraverso un algoritmo, il quale servirà a costruire quantitativamente la rappresentazione stessa.
 
@@ -2353,7 +2353,7 @@ dimostrando che $H$ ortogonale.
     \boldsymbol{\uline v = \uline z-\alpha\uline e_1}.
 \end{equation}
 
-È possibile verificare che la scelta di $\uline v$ come (\ref{eq:vettHh}) assolve al compito richiesto, ovvero soddisfa (\ref{eq:Hz=ae1}), come segue:
+È possibile verificare che la scelta di $\uline v$ come (\ref{eq:vettore_householder}) assolve al compito richiesto, ovvero soddisfa (\ref{eq:Hz=ae1}), come segue:
 \begin{equation*}
     \begin{matrix}
         H\uline z &\overset{(\ref{eq:matrice_householder})}{=}&\left(I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T\right)\overset{\footnotemark}{\uline z}&=&\uline z - \frac{2}{\uline v^T\uline v}\overbrace{\boldsymbol{\uline v^T\uline z}}^{\text{scalare}}\uline v\\
@@ -2366,15 +2366,15 @@ nel caso fosse $\frac{2}{\uline v^T\uline v}\uline v^T\uline z=1,$ ovvero: $\bol
 \footnotetext{Scalare.}
 
 \stepcounter{footnote}
-\footnotetext{Sostituzione di $\uline v$ con (\ref{eq:vettHh}).}
+\footnotetext{Sostituzione di $\uline v$ con (\ref{eq:vettore_householder}).}
 
 \stepcounter{footnote}
 \footnotetext{Raccolto $\uline z$.}
 
 Quindi:
 \begin{itemize}
-    \item $\uline v^T\uline v \overset{(\ref{eq:vettHh})}{=}(\uline z -\alpha\uline e_1)^T(\uline z -\alpha\uline e_1)=\underbrace{\uline z^T\uline z}_{\footnotemark}-2\alpha\underbrace{\uline e_1^T\uline z}_{\underset{\footnotemark}{z_1}}+\alpha^2(=\alpha^2\cdot 2\uline e_1^T+\alpha^2)=\boldsymbol{2(\alpha^2-\alpha z_1)}$,
-    \item $2\uline v^T\uline z\overset{(\ref{eq:vettHh})}{=} 2(\uline z - \alpha\uline e_1)^T\uline z = 2(\uline z^T \uline z - \alpha z_1) = \boldsymbol{2(\alpha^2-\alpha z_1)}$ (ovvero quanto ottenuto al punto precedente).
+    \item $\uline v^T\uline v \overset{(\ref{eq:vettore_householder})}{=}(\uline z -\alpha\uline e_1)^T(\uline z -\alpha\uline e_1)=\underbrace{\uline z^T\uline z}_{\footnotemark}-2\alpha\underbrace{\uline e_1^T\uline z}_{\underset{\footnotemark}{z_1}}+\alpha^2(=\alpha^2\cdot 2\uline e_1^T+\alpha^2)=\boldsymbol{2(\alpha^2-\alpha z_1)}$,
+    \item $2\uline v^T\uline z\overset{(\ref{eq:vettore_householder})}{=} 2(\uline z - \alpha\uline e_1)^T\uline z = 2(\uline z^T \uline z - \alpha z_1) = \boldsymbol{2(\alpha^2-\alpha z_1)}$ (ovvero quanto ottenuto al punto precedente).
 \end{itemize}
 
 \addtocounter{footnote}{-1}
@@ -2403,10 +2403,10 @@ pertanto, è svolta un'unica operazione sulla prima componente del vettore. Al f
 \end{equation*}
 
 \begin{definition}
-    Il vettore $\uline v$ definito come (\ref{eq:vettHh}) prende il nome di \textbf{vettore elementare di Householder}. La matrice $H$ corrispondente, definita come (\ref{eq:matrice_householder}), prende il nome di \textbf{matrice elementare di Householder}.
+    Il vettore $\uline v$ definito come (\ref{eq:vettore_householder}) prende il nome di \textbf{vettore elementare di Householder}. La matrice $H$ corrispondente, definita come (\ref{eq:matrice_householder}), prende il nome di \textbf{matrice elementare di Householder}.
 \end{definition}
 
-Il vettore $\uline v$ scelto in forma (\ref{eq:vettHh}), con $\alpha$ è definita come in (\ref{eq:aNormZ}). La scelta del segno di $\alpha$ è importante perché fa differenza. Tipicamente fa la differenza quando $z_1$ è l'elemento di massimo modulo e, di conseguenza, la norma di $z$ è grosso modo uguale al modulo di $a_1$. In questo caso la sottrazione (\ref{eq:vettHh}), con il segno di $\alpha$ scelto in modo opportuno, da origine alla cancellazione.
+Il vettore $\uline v$ scelto in forma (\ref{eq:vettore_householder}), con $\alpha$ è definita come in (\ref{eq:aNormZ}). La scelta del segno di $\alpha$ è importante perché fa differenza. Tipicamente fa la differenza quando $z_1$ è l'elemento di massimo modulo e, di conseguenza, la norma di $z$ è grosso modo uguale al modulo di $a_1$. In questo caso la sottrazione (\ref{eq:vettore_householder}), con il segno di $\alpha$ scelto in modo opportuno, da origine alla cancellazione.
 
 Il vettore $\uline v$ e le matrici di Householder hanno un ruolo omologo a quello delle matrici triangolari di Gauss. La differenza sta nel fatto che le matrici di Gauss sono triangolari inferiori a diagonale unitaria mentre le matrici di Householder ortogonali.
 
@@ -2620,7 +2620,7 @@ A riguardo l'Algoritmo \ref{alg:fattQR} è possibile affermare quanto segue:
     L'Algorimo \ref{alg:fattQR} può essere utilizzato anche nel caso di matrici quadrate: $m=n.$ Infatti, in questo caso, dato che $m=n$ e $ R=\widehat R$, il costo è di $\frac{4}{3}n^3 \, flops$ (+ spiccioli). Nel caso quadrato è preferibile utilizzare l'algoritmo di fattorizzazione $LU$ con pivoting parziale, il quale ha un costo di $\frac{2}{3}n^3\, flops$ (vedere (\ref{eq:costoFattLUPiv})).
 \end{remark}
 
-\subsection{Risoluzione di sistemi nonlineari}\label{ssec:risSistNonLin}\footnote{Slide 4-8 PDF 12, PG 74-76.}
+\subsection{Risoluzione di sistemi nonlineari}\label{ssec:risoluzione_sistemi_nonlineari}\footnote{Slide 4-8 PDF 12, PG 74-76.}
 Per determinare la radice di un'equazione scalare, del tipo $f(x)=0$, il metodo di Newton è uno dei metodi più efficaci. Questo metodo è formalmente definito dall'espressione funzionale (\ref{eq:approxNewton}), a partire da un'approsimazione $x_0$ e può essere esteso agevolmente anche al caso di \textbf{sistemi di equazioni nonlineari.} In questo caso, se 
 \begin{equation}
     \uline x =

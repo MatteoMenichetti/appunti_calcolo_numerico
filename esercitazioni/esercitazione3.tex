@@ -487,15 +487,15 @@ $\kappa(A)$ misura il condizionamento di un sistema lineare $A\uline x = \uline 
 \begin{equation*}
 	(A+\Delta A) (\uline x + \Delta\uline x) = \uline b + \Delta\uline b,
 \end{equation*}
-con $\Delta A\in\mathbb{R}^{n\times n}$ contenente le perturbazioni sugli elementi di $A$ e $\Delta\uline b$ e $\Delta\uline x$, si ottiene (da (\ref{eq:condizionamento_sistema_lineare})):
+con $\Delta A\in\mathbb{R}^{n\times n}$ contenente le perturbazioni sugli elementi di $A$ e, similmente, $\Delta\uline b$ e $\Delta\uline x$, si ottiene (da (\ref{eq:condizionamento_sistema_lineare})):
 \begin{equation*}
-	 \frac{||\Delta \uline x||}{||\uline x||} \leq \kappa(A)\left(\frac{||\Delta b||}{||b||} + \frac{||\Delta A||}{||A||}\right),
+	 \frac{||\Delta \uline x||}{||\uline x||} \leq \kappa(A)\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right),
 \end{equation*}
 dove la norma su vettore considerata e' quella che induce norma su matrice.
 
 \paragraph{9.}\footnote{Vedere Sezione \ref{ssec:sistemi_lineari_sovradimensionati}.} Sia dato il sistema lineare sovradimensionato
 \begin{equation*}
-	A\uline x =\uline b,\, A\in\mathbb R^{m\times n},\; m>\boldsymbol n = \boldsymbol{rank(A)}.
+	A\uline x =\uline b,\quad A\in\mathbb R^{m\times n},\; m> n = \rank(A).
 \end{equation*}
 
 Poiche' $b\in\mathbb{R}^m$, mentre \gls{range(A)} ha dimiensione $n<m$, ma soluzione in senso classico in genere non esiste. Pertanto, definendo il vettore residuo (come in (\ref{eq:vettore_residuo}))
@@ -512,10 +512,10 @@ si ricerca $\uline x$ tale che $||\uline r||_2^2=\min!$. Poiche' $||\uline r||_{
 
 Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osserviamo che:
 \begin{enumerate}
-	\item \footnote{Definizione \ref{th:esistenza_fattorizzazione_QR}} $A\in\mathbb R^{m\times n}$ allora esistono
+	\item \footnote{Definizione \ref{th:esistenza_fattorizzazione_QR}} $A\in\mathbb R^{m\times n}$ allora
 	\begin{itemize}
-		\item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale};
-		\item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare};
+		\item $\exists Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale};
+		\item $\exists\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare};
 	\end{itemize}
 	tale che
 	\begin{equation}\label{eq:fattorizzazione_QR_esercitazione}
@@ -525,16 +525,16 @@ Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osservia
 				O
 			\end{bmatrix}.}
 	\end{equation}
-	Peranto $R\in\mathbb{R}^{n\times n}$.
-	\item Se $Q\in\mathbb R^{\boldsymbol{m\times m}},\, Q^TQ=I,\, \uline v\in\mathbb{R}^m,$ allora:
+	Peranto $R\in\mathbb{R}^{m\times n}$.
+	\item\footnote{Vedere (\ref{eq:norma_2_residuo_minimo}).} Se $Q\in\mathbb R^{\boldsymbol{m\times m}},\, Q^TQ=I,\, \uline v\in\mathbb{R}^m,$ allora:
 	\begin{equation*}
 		||Q\uline v||_2^2=(Q\uline v)^T(Q\uline v)=\uline v^T\underbrace{Q^TQ}_I \uline v = \uline v^T\uline v = ||\uline v||_2^2.
 	\end{equation*}
 	Cio' premesso, da (\ref{eq:vettore_residuo_esercitazione}) e (\ref{eq:fattorizzazione_QR_esercitazione}) segue che
 	\begin{equation*}
 		\begin{matrix}
-			||\uline r||_2^2 &=& ||A\uline x-\uline b||_2^2 &=&||QR\uline x-\uline b||_2^2 &{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\
-			&{=}& ||R\uline x-Q^T\uline b||_2^2 &{=}& ||R\uline x - \uline g||_2^2 &=& 
+			||\uline r||_2^2 &=& ||A\uline x-\uline b||_2^2 &=&||QR\uline x-\uline b||_2^2 &{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\\\
+			&{=}& ||R\uline x-Q^T\uline b||_2^2 &\overset{Q^T\uline b = \uline g}{=}& ||R\uline x - \uline g||_2^2 &=& 
 			\left|\left|\begin{bmatrix}
 				\widehat R\\
 				O
@@ -542,7 +542,7 @@ Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osservia
 			\begin{bmatrix}
 				g_1\\
 				g_2
-			\end{bmatrix}\right|\right|_2^2\\
+			\end{bmatrix}\right|\right|_2^2\\\\
 			&=& \left|\left|\begin{bmatrix}
 				\widehat R\uline x-\uline g_1\\
 				-\uline g_2
@@ -554,19 +554,19 @@ Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osservia
 			\begin{bmatrix}
 				\widehat R\uline x-\uline g_1\\
 				-\uline g_2
-			\end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\
+			\end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\\\
 			&{=}& \underbrace{\left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2}_0+||\uline g_2||_2^2 &{=}& ||\uline g_2||_2^2&=&\min !
 		\end{matrix}
 	\end{equation*}
-	Se $\widehat{R}\uline x - g_1 = \uline 0$, ovvero $\uline x$ e' soluzione del sistema lineare $\widehat{R}\uline x = g_1$, ed tale soluzione esiste unica poiche' $\widehat{R}$ e' singolare.
+	Se $\widehat{R}\uline x - g_1 = \uline 0$, ovvero $\uline x$ e' soluzione del sistema lineare $\widehat{R}\uline x = g_1$, e tale soluzione esiste unica poiche' $\widehat{R}$ e' singolare.
 \end{enumerate}
 
-\paragraph{10.}\footnote{Vedere Sezione \label{sssec:esistenza_fattorizzazione_QR} (Esistenza della fattorizzazione $QR$.)} Ricerchiamo $H$, matrice ortogonale, tale che $H\uline z =
+\paragraph{10.}\footnote{Vedere Sezione \ref{sssec:esistenza_fattorizzazione_QR} (Esistenza della fattorizzazione $QR$) e} Ricerchiamo $H$, matrice ortogonale, tale che $H\uline z =
 \begin{bmatrix}
 	\alpha\\
 	0\\
 	0
-\end{bmatrix}\equiv \alpha\uline e_1,\quad \uline e_1 =
+\end{bmatrix}\equiv \alpha\uline e_1,\; \uline e_1 =
 \begin{bmatrix}
 	1\\
 	0\\
@@ -575,7 +575,7 @@ Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osservia
 
 E' noto che:
 \begin{itemize}
-	\item $\alpha^2 = ||z||_2^2 = 9 \Rightarrow \alpha = \pm 3$,
+	\item $\alpha^2 = ||z||_2^2 = 9 \quad\Rightarrow\quad \alpha = \pm 3$,
 	\item (per (\ref{eq:matrice_householder})) $H=I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T,\quad \uline v\in\mathbb R^n\backslash\{\uline 0\}$,
 \end{itemize}
 (per (\ref{eq:vettore_householder})) $\uline v = \uline z-\alpha\uline e_1$ il corrispondente vettore di Householder: $\uline v = \begin{bmatrix}
@@ -584,7 +584,7 @@ E' noto che:
 	-2
 \end{bmatrix}$.
 
-Per ottenere una somma ben condizionata il segno di $\alpha$ deve essere scelto opposto a quello della prima componente di $\uline z$. Pertanto
+Per ottenere una somma ben condizionata, il segno di $\alpha$ deve essere scelto opposto a quello della prima componente di $\uline z$. Pertanto
 \begin{equation*}
 	\uline v = 
 	\begin{bmatrix}
@@ -600,7 +600,7 @@ ovvero $\alpha = -3$. Quindi, $H\uline z =
 	0
 \end{bmatrix}$.
 
-\paragraph{11.} Sia $\uline f\colon\mathbb{R}^n\rightarrow \mathbb{R}^n$, con $f_1,\hdots, f_n\colon\mathbb{R}^n\rightarrow\mathbb{R}$ le sue funzioni componenti. Definiamo
+\paragraph{11.}\footnote{Vedere Sezione \ref{ssec:risoluzione_sistemi_nonlineari} Risoluzione di sistemi nonlineari.} Sia $\uline f\colon\mathbb{R}^n\rightarrow \mathbb{R}^n$, con $f_1,\hdots, f_n\colon\mathbb{R}^n\rightarrow\mathbb{R}$ le sue funzioni componenti. Definiamo
 \begin{equation*}
 	F'(\uline x)=
 	\begin{bmatrix}
@@ -611,7 +611,7 @@ ovvero $\alpha = -3$. Quindi, $H\uline z =
 \end{equation*}
 la matrice Jacobiana di $\uline f(\uline x)$. Il metodo di Newton per risolvere $\uline f(\uline x)=\uline 0$ e' definito dall'iterazione
 \begin{equation*}
-	\uline x_{n+1} = \uline x_n - F(\uline x_n)^-1\uline f(\uline x_n),\quad n=0,1,\hdots.
+	\uline x_{n+1} = \uline x_n - F(\uline x_n)^{-1}\uline f(\uline x_n),\quad n=0,1,\hdots.
 \end{equation*}
 Nella pratica, si risolve il sistema lineare
 \begin{equation*}

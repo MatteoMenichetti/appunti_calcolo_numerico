@@ -125,7 +125,7 @@
 
 \newglossaryentry{range(A)}{
 	name = $\range(A)$,
-	description = {$\equiv\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim\ran(A)=n)$}
+	description = {$\equiv\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim(\ran(A)=n))$}
 }
 
 \newglossaryentry{rank(A)}{
@@ -140,7 +140,30 @@
 
 \newglossaryentry{singolare}{
 	name = singolare,
-	description={$A\in\mathbb R^{n\times n}$ è singolare se $\rank(A)\neq n$, quindi $\det(A) = 0$. Vedere Definizione \ref{def:matrice_singolare} di matrice singolare.}
+	description={$A\in\mathbb R^{n\times n}$ è singolare se $\rank(A)\neq n$, quindi $\det(A) = 0$. Vedere Definizione \ref{def:matrice_singolare} di matrice singolare}
+}
+
+\newglossaryentry{matrice identita}{
+	name = matrice identità,
+	description={La matrice identità è una matrice quadrata in cui tutti gli elementi della diagonale sono 1 mentre i restanti 0. È indicata con $I$ oppure $I_n$ ed è rappresentabule come
+	\begin{equation*}
+		 I_{1} = 
+		 \begin{bmatrix}
+		 	1
+		 \end{bmatrix}\quad
+		 I_2 = 
+		 \begin{bmatrix}
+		 	1&0\\
+		 	0&1
+	 	\end{bmatrix}\quad 
+	 	I_n =
+	 	\begin{bmatrix}
+	 		1&0&\cdots &0\\
+	 		0&1&\cdots &0\\\
+	 		vdots &\vdots &\ddots &\vdots \\
+	 		0&0&\cdots &1
+ 		\end{bmatrix}
+	\end{equation*}}
 }
 
 \begin{document}
