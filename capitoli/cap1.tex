@@ -1,5 +1,5 @@
 \section{Aritmetica finita}\label{sec:aritmetica_finita}
-Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R^n$. L'utilizzo di un metodo numerico fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
+Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R$. L'utilizzo di un metodo numerico fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
 
 È possibile misurare l'errore introdotto dall'approssimazione attraverso:
 \begin{itemize}
@@ -7,38 +7,40 @@ Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\math
 	\item Errore Relativo: $\varepsilon_x=\frac{\Tilde{x}-x}{x}$. 
 \end{itemize}
 
-È possibile notare ciò che segue:
+È possibile notare quanto segue:
 \begin{equation*}
 	\begin{matrix}
-		\varepsilon_x=\frac{\Delta x}{x}=\frac{\Tilde{x}-x}{x}\Rightarrow \Tilde{x}=(1+\varepsilon_x)x\\
-		\Tilde{x}=x+\Delta x
+		\varepsilon_x=\frac{\Delta x}{x}=\frac{\Tilde{x}-x}{x} &\Rightarrow& \Tilde{x} &=& (1+\varepsilon_x)x\\
+		&& \Tilde{x}&=& x+\Delta x
 	\end{matrix}
 \end{equation*}
 
-Esempi di errore:
-\begin{itemize}
-	\item $\Delta x = 10^{-3},\, x=10^{-3}\Rightarrow \varepsilon_x = 1;$
-	\item  $\Delta x = 10^{-3},\, x=10^{-6}\Rightarrow\varepsilon_x = 10^{-9};$
-	\item $x=\pi,\,\Tilde{x}=3.14 \Rightarrow\Delta x \approx -1.6\cdot 10^{-3}.$
-\end{itemize}
+\begin{example}
+	Esempi di errore:
+	\begin{itemize}
+		\item $\Delta x = 10^{-3},\, x=10^{-3}\Rightarrow \varepsilon_x = 1;$
+		\item  $\Delta x = 10^{-3},\, x=10^{-6}\Rightarrow\varepsilon_x = 10^{-9};$
+		\item $x=\pi,\,\Tilde{x}=3.14 \Rightarrow\Delta x \approx -1.6\cdot 10^{-3}.$
+	\end{itemize}
+\end{example}
 
 Gli errori assimilabili ad un metodo numerico sono individuabili in tre categorie distinte:
 \begin{enumerate}
-	\item Errori di discretizzazione;
-	\item Errori di convergenza;
-	\item Errori di round-off.
+	\item Errori di discretizzazione (Sezione \ref{ssec:errori_discretizzazione}),
+	\item Errori di convergenza (Sezione \ref{ssec:errori_convergenza}),
+	\item Errori di round-off (Sezione \ref{ssec:errori_roundoff}).
 \end{enumerate}
 
-\subsection{Errori di discretizzazione}\footnote{Slide 2 PDF lez1, PG 4.}
+\subsection{Errori di discretizzazione}\label{ssec:errori_discretizzazione}\footnote{Slide 2 PDF lez1, PG 4.}
 Al fine di ottenere un metodo numerico che possa essere risolto da un calcolatore è necessario trasformare il \underline{problema \textbf{continuo}}\footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb R\rightarrow\mathbb R$.} in \underline{problema \textbf{discreto}} \footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb N\rightarrow\mathbb N$.}. È possibile notare che questo tipo di errore è dovuto alla definizione del metodo numerico utilizzato.
 
-Supposto il problema da risolvere sia il calcolo della derivata $f'(x_0)$, dove $f:\mathbb R\rightarrow\mathbb R,\, x_0\in (a,b),\, f\in C^{(2)}[a,b]$, allora è possibile utilizzare lo sviluppo di Taylor di secondo ordine, per ottenere $f'(x_0)$, nel seguente modo:
+Supposto il problema da risolvere sia il calcolo della derivata $f'(x_0)$, dove $f:\mathbb R\rightarrow\mathbb R,\, x_0\in (a,b),\, f\in C^{(2)}[a,b]$, allora è possibile utilizzare lo sviluppo di Taylor di secondo ordine, per ottenere $f'(x_0)$, come segue:
 
 Sia
 \begin{equation*}
-	f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(\xi)}{2}(x-x_0)^2,\; \xi\in(x,x_0),
+	f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(\xi)}{2}(x-x_0)^2,\quad \xi\in(x,x_0),
 \end{equation*}
-allora segue che, sostituendo $x=x_0+h$ (con $h>0$ è quantità piccola ma finita), da
+allora segue che, sostituendo $x=x_0+h$ (con $h>0$ quantità piccola e finita), da
 \begin{equation*}
 	f(x_0+h)=f(x_0)+f'(x_0)(\cancel{x_0}+h-\cancel{x_0})+\frac{f''(\xi)}{2}(\cancel{x_0}+h-\cancel{x_0})^2\overset{\footnotemark}{=}f(x_0)+f'(x_0)h+\frac{f''(\xi)}{2}h^2,\; \xi\in(x_0,x_0+h)
 \end{equation*}
@@ -54,7 +56,7 @@ Pertanto, l'errore di discretizzazione è denotato come segue:
 	|f'(x_0)-\varphi(x_0)|=\frac{|f''(\xi)|}{2}h=O(h)\leq kh.
 \end{equation*}
 
-\subsection{Errori di convergenza}
+\subsection{Errori di convergenza}\label{ssec:errori_convergenza}
 \footnote{Slide 4 PDF lez1, PG 5.} I metodi numerici sono spesso iterativi, questo significa che non forniscono un risultato diretto ma una serie di risultati intermedi, una successione di approssimazioni del tipo $\{x_n\}$, definiti mediante una procedura iterativa
 \begin{equation}\label{eq:approssimazione_procedura_iterativa}
 	x_n=\Phi(x_{n-1}),\quad n=1,2,\hdots,
@@ -80,7 +82,7 @@ L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto 
 
 \paragraph{Precisazione sui due errori precedenti:} Gli errori di discretizzazione e di convergenza sono dovuti al metodo numerico applicato, il primo, ed alla sua modalità di utilizzo, il secondo tipo di errore.
 
-\subsection{Errori di round-off}\footnote{Slide 6 PDF lez1, PG 6.}
+\subsection{Errori di round-off}\label{ssec:errori_roundoff}\footnote{Slide 6 PDF lez1, PG 6.}
 Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato. Questi errori sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
 
 Saranno trattati i due casi seguenti:
@@ -96,7 +98,7 @@ Un numero intero è memorizzato come stringa del tipo
 \begin{equation}\label{eq:rapprNumInt}
 	\alpha_0\,\alpha_1\cdots\alpha_N,\; N\in\mathbb N\text{ numero di cifre},
 \end{equation}
-in cui, assegnata la base $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i\in\{0,1,\hdots, b-1\}_{i=1,\hdots,N}.$
+in cui è assegnata la base $b\in\mathbb N,\, b\geq 2,$ e $ \alpha_0\in\{+,-\},\, \alpha_i\in\{0,1,\hdots, b-1\}_{i=1,\hdots,N}.$
 
 È possibile rapprensentare la stringa (\ref{eq:rapprNumInt}) come segue:
 \begin{equation}\label{eq:rapprNumIntCompl}
@@ -124,17 +126,17 @@ Tramite la notazione (\ref{eq:rapprNumInt})-(\ref{eq:rapprNumIntCompl}) è possi
 
 \subsubsection{Numeri reali}\footnote{Slide 8 PDF lez1, PG 7.}
 Un numero "reale" è memorizzato in un calcolatore mediante una stringa del tipo
-\begin{equation}\label{eq:rapprNumRea}
+\begin{equation}\label{eq:rappresentazione_numero_reale}
 	\alpha_0\cdots\alpha_m\beta_1\cdots\beta_s,
 \end{equation}
 in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\{0,\hdots,b-1\}_{i=1,\hdots,m,\, j=1,\hdots,s}.$
 \begin{definition}[Notazione scientifica normalizzata]
-	La stringa (\ref{eq:rapprNumRea}), sotto la condizione $\alpha_1\neq 0$, rappresentabile come la notazione scientifica normalizzata in base $b$ nella seguente forma
-	\begin{equation}\label{eq:rapprSciNorm}
+	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, rappresentabile come la notazione scientifica normalizzata in base $b$ nella seguente forma
+	\begin{equation}\label{eq:rappresentazione_scientifica_normalizzata}
 		r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
 	\end{equation}
 	con fissati $\overset{\footnotemark}{\nu}\in\mathbb N$ shift, $m$ il numero di cifre della mantissa ed $s$ il numero di cifre dell'esponente. Le quantità
-	\begin{equation}\label{eq:mantExpRea}
+	\begin{equation}\label{eq:mantissa_esponente_rappresentazione_numero_reale}
 		\boldsymbol\rho = \sum_{i=1}^m\alpha_ib^{1-i},\quad \boldsymbol\eta = e-\nu,
 	\end{equation}
 	sono rispettivamente \textbf{mantissa} ed \textbf{esponente} del numero reale.
@@ -156,10 +158,10 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	con $\eta=e-\nu=e-2=1$, quindi $e=3$. Inoltre, la rappresentazione di $x$ non è unica, è possibile la seguente: $x=0.1543\cdot 10^2.$ 
 \end{example}
 
-\begin{definition}\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
-	L'insieme di numeri di macchina, o floating-point, è definito come:
+\begin{definition}[Insieme dei numeri di macchina]\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
+	L'insieme dei numeri di macchina, o numeri floating-point, è definito come:
 	\begin{equation}
-		M = \underset{\footnotemark}{\{0\}}\cup \{\text{Numeri rappresentabili come (\ref{eq:rapprSciNorm}) (fissati }m,s,\nu, b) \}.
+		M = \underset{\footnotemark}{\{0\}}\cup \{\text{Numeri rappresentabili come (\ref{eq:rappresentazione_scientifica_normalizzata}) (fissati }m,s,\nu, b) \}.
 	\end{equation}
 \end{definition}
 \footnotetext{Aggiunto perché nella notazione scientifica normalizzata non è rappresentabile.}
@@ -172,7 +174,7 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	$\boldsymbol{1\leq |\rho|}=\sum_{i=1}^m \alpha_i\, b^{1-i}\boldsymbol{<b}$
 \end{theorem}
 \begin{proof}
-	Dalle (\ref{eq:rapprNumRea})-(\ref{eq:mantExpRea}) segue che ($|\rho|\geq 1$)
+	Dalle (\ref{eq:rappresentazione_numero_reale})-(\ref{eq:mantissa_esponente_rappresentazione_numero_reale}) segue che ($|\rho|\geq 1$)
 	\begin{equation*}
 		|\underset{\text{mantissa}}{\rho}|= \underset{\footnotemark}{\neqto{\alpha_1}{0}}.\,\underset{\footnotemark}{\uline{\alpha_2\cdots\alpha_m}}\geq\alpha_1.\underbrace{0\cdots 0}_{m-1}=\alpha_1\geq 1.\footnotemark
 	\end{equation*}
@@ -205,7 +207,7 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 			r_2 &=& (1-b^{-m})b^\varphi,& \varphi=b^s-\nu
 		\end{matrix}
 	\end{equation}
-	con $\boldsymbol{b^s}$ \textbf{massimo numero ottenibile con} la notazione \textbf{(\ref{eq:rapprNumRea})}.
+	con $\boldsymbol{b^s}$ \textbf{massimo numero ottenibile con} la notazione \textbf{(\ref{eq:rappresentazione_numero_reale})}.
 \end{theorem}
 
 \begin{remark}\footnote{Slide 4 PDF lez2, Osservazione 1.2 PG 9.}
@@ -239,7 +241,7 @@ La funzione floating $fl$ trasforma un numero reale in numero macchina (con l'ag
 
 \textbf{L'utilizzo della funzione floating introduce errori di rappresentazione del tipo round-off}, data la rappresentazione non precisa (come specificato nella definizione $fl(x)\neq x$).
 
-Dato $x\in I$, ovvero un numero esatto, definito come (\ref{eq:rapprSciNorm}), della forma 
+Dato $x\in I$, ovvero un numero esatto, definito come (\ref{eq:rappresentazione_scientifica_normalizzata}), della forma 
 \begin{equation}\label{eq:numEsatto}
 	x=(\alpha_0\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)\,b^{e-\nu}\in I,
 \end{equation}
@@ -363,7 +365,7 @@ Nella Sezione è trattato lo standard ANSI/IEEE 754-1985, per la rappresentazion
 
 Lo standard IEEE 754 è particolarmente adatto alla base binaria ($b=2$).
 
-La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento. Inoltre, $fl$ è round to even, ovvero: dato il numero macchina $fl(x)$ che più si avvicina ad $x$, allora, in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
+\textbf{La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento, quindi lal precisione macchina è misurata tramite \ref{eq:precisione_macchina_FL} nel caso per arrotondamento}. Inoltre, $fl$ è round to even, ovvero: dato il numero macchina $fl(x)$ che più si avvicina ad $x$, allora, in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
 
 I formati di base per i dati trattati e previsti dallo standard sono:
 \begin{itemize}
@@ -377,42 +379,51 @@ Per entrambi i formati la mantissa è assunta in base 2 e vale quanto segue:
 	\item $\rho=0.f$ nel caso della notazione scientifica denormalizzata ($\alpha_1=0$, quindi lo standard implementa il gradual-underflow).
 \end{itemize}
 
-Per entrambe le notazioni non sarà memorizzata la prima cifra, sarà memorizzata solo la frazione $f$, con un evidente risparmio di 1 bit. Il tipo di notazione sarà dedotto dalle convenzioni fra poco definite.
+\paragraph{IMPORTANTE DA RICORDARE: }Per entrambe le notazioni non sarà memorizzata la prima cifra, sarà memorizzata solo la frazione $f$, con un evidente risparmio di 1 bit. Il tipo di notazione sarà dedotto dalle convenzioni fra poco definite.
 
-\paragraph{Singola precisione.}\footnote{Slide 2 PDF lez3, PG 12.}
-La lunghezza della mantissa $\rho$ è suddivisa fra 32 bit $\begin{cases}
-	1, &\text{ segno};\\
-	23, &\text{ frazione};\\
-	8, &\text{ esponente};
-\end{cases}\Rightarrow \overset{\footnotemark}{m=24},\, s=8$. Inoltre, è possibile configurare shift, mantissa ed esponente (ovvero $e\in\mathbb N$) come segue:
-\footnotetext{Lunghezza della mantissa.}
-
-\begin{itemize}
-	\item se $0<e<255=2^8-1,$ la notazione è normalizzata, $\nu=127=2^7-1$;
-	\item se $e=0,\, f\neq 0$, la notazione è denormalizzata, $\nu=126$ (caso gradual-underflow);
-	\item se $e=0,\, f=0\rightarrow 0$ con eventuale segno (non rappresentabile con notazione scientifica normalizzata);
-	\item se $e=255,\,\alpha_0=0,\,f=0\rightarrow +Inf$ (rappresenta l'overflow);
-	\item se $e=255,\,\alpha_0=1,\,f=0\rightarrow -Inf$ (rappresenta l'underflow);
-	\item se $e=255, \,f\neq 0 \rightarrow$ NaN (Not a Number, esempio divisione per $0,\, 0/0,\, Inf-Inf,\, 0\times Inf$).
-\end{itemize}
+\begin{definition}[Singola precisione]\footnote{Slide 2 PDF lez3, PG 12.}
+	La lunghezza della mantissa $\rho$ è suddivisa fra 32 bit $\begin{cases}
+		1, &\text{ segno};\\
+		23, &\text{ frazione};\\
+		8, &\text{ esponente};
+	\end{cases}\Rightarrow \overset{\footnotemark}{m=24},\, s=8$. Inoltre, è possibile configurare shift, mantissa ed esponente (ovvero $e\in\mathbb N$) come segue:
+	\footnotetext{Lunghezza della mantissa.}
+	
+	\begin{itemize}
+		\item se $0<e<255=2^8-1,$ la notazione è normalizzata, $\nu=127=2^7-1$;
+		\item se $e=0,\, f\neq 0$, la notazione è denormalizzata, $\nu=126$ (caso gradual-underflow);
+		\item se $e=0,\, f=0\rightarrow 0$ con eventuale segno (non rappresentabile con notazione scientifica normalizzata);
+		\item se $e=255,\,\alpha_0=0,\,f=0\rightarrow +Inf$ (rappresenta l'overflow);
+		\item se $e=255,\,\alpha_0=1,\,f=0\rightarrow -Inf$ (rappresenta l'underflow);
+		\item se $e=255, \,f\neq 0 \rightarrow$ NaN (Not a Number, esempio divisione per $0,\, 0/0,\, Inf-Inf,\, 0\times Inf$).
+	\end{itemize}
+\end{definition}
 Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/normalizata).
 
-\paragraph{Doppia precisione.}\footnote{Slide 3 PDF lez3, PG 13.}
-La lunghezza della mantissa $\rho$ è suddivisa fra 64 bit $\begin{cases}
-	1, &\text{ segno};\\
-	52, &\text{ frazione};\\
-	11, &\text{ esponente};
-\end{cases}\Rightarrow m=53,\; s=11$.
-Inoltre, è possibile configurare shift, mantissa ed esponente come segue:
-\begin{itemize}
-	\item se $0<e<2047=2^{11}-1,$ la notazione è normalizzata, $\nu=1023=2^{10}-1$;
-	\item se $e=0,\,f\neq 0$, la notazione è denormalizzata, $\nu=1022$ (caso gradual-underflow);
-	\item se $e=0,\,f=0\rightarrow 0$ con eventuale segno;
-	\item se $e=2047,\,\alpha_0=0,\,f=0\rightarrow +Inf$;
-	\item se $e=2047,\,\alpha_0=1,\,f=0\rightarrow -Inf$;
-	\item se $e=2047,\,f\neq 0 \rightarrow$ NaN.
-\end{itemize}
-In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}) e le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
+\begin{remark}[Precisione macchina doppia precisione]
+	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx\approx 2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
+\end{remark}
+
+\begin{definition}[Doppia precisione]\footnote{Slide 3 PDF lez3, PG 13.}
+	La lunghezza della mantissa $\rho$ è suddivisa fra 64 bit $\begin{cases}
+		1, &\text{ segno};\\
+		52, &\text{ frazione};\\
+		11, &\text{ esponente};
+	\end{cases}\Rightarrow m=53,\; s=11$.
+	Inoltre, è possibile configurare shift, mantissa ed esponente come segue:
+	\begin{itemize}
+		\item se $0<e<2047=2^{11}-1,$ la notazione è normalizzata, $\nu=1023=2^{10}-1$;
+		\item se $e=0,\,f\neq 0$, la notazione è denormalizzata, $\nu=1022$ (caso gradual-underflow);
+		\item se $e=0,\,f=0\rightarrow 0$ con eventuale segno;
+		\item se $e=2047,\,\alpha_0=0,\,f=0\rightarrow +Inf$;
+		\item se $e=2047,\,\alpha_0=1,\,f=0\rightarrow -Inf$;
+		\item se $e=2047,\,f\neq 0 \rightarrow$ NaN.
+	\end{itemize}
+\end{definition}
+
+\begin{remark}[Precisione macchina doppia precisione]
+	In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}) e le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
+\end{remark}
 
 \subsubsection{Aritmetica Finita}\footnote{Slide 4 PDF lez3, PG 13.}
 È interessante capire cosa accade in aritmetica finita quando sono svolte operazioni su numeri macchina. Date le implementazioni delle operazioni algebriche ($+,\, -,\,\times,\, \slash$) in aritmetica finita, è necessario distinguere tra numeri reali ed interi.
@@ -474,7 +485,7 @@ Con "problema" non è fatto riferimento al metodo di calcolo, ma ad un generico 
 dove:
 \begin{itemize}
 	\item $x\in\mathbb R$, sono i dati in ingresso;
-	\item $f:\mathbb R\rightarrow\mathbb R,\; f\in C^2$, la descrizione formale del problema;
+	\item $f:\mathbb R\rightarrow\mathbb R,\; f\in C^2(\mathbb{R})$, la descrizione formale del problema;
 	\item $y\in\mathbb R$, denota la soluzione al problema.
 \end{itemize}
 
@@ -503,17 +514,17 @@ quindi il condizionamento del problema è lo studio della relazione fra l'errore
 	\item malcondizionato, se l'errore sui dati iniziali è molto amplificato.
 \end{itemize}
 
-Data $y=f(x),\, y\in C^2$ e gli errori relativi \begin{equation*}
+Data $y=f(x),\, y\in C^2(\mathbb{R})$ e gli errori relativi \begin{equation*}
 	\Tilde{x}=x(1+\varepsilon_x),\quad \Tilde{y}=y(1+\varepsilon_y),
 \end{equation*}
 allora è possibile sviluppare (\ref{eq:probCondStud}), tramite lo sviluppo di Taylor al secondo ordine centrato in $x$ (dati esatti), come segue:
 \begin{equation}\label{eq:svilProbCondStud}
-	\Tilde{y}=f(\Tilde{x})=f(x)+f'(x)(\cancel{x}+x\varepsilon_x-\cancel{x})+\frac{f''(\xi)}{2}(\cancel{x}+x\varepsilon_x-\cancel{x})^2\Rightarrow y(1+\varepsilon_y)=\Tilde{y}\overset{f(x)=y}{=}y+f'(x)\, x\varepsilon_x+\underbrace{\frac{f''(\xi)}{2}x^2\varepsilon_x^2}_{O(\varepsilon_x^2)}.
+	\Tilde{y}=f(\Tilde{x})=f(x)+f'(x)(\cancel{x}+x\varepsilon_x-\cancel{x})+\frac{f''(\xi)}{2}(\cancel{x}+x\varepsilon_x-\cancel{x})^2\Rightarrow y(1+\varepsilon_y)=\Tilde{y}\overset{f(x)=y}{=}y+f'(x)\, x\varepsilon_x+\underbrace{\frac{f''(\xi)}{2}x^2\varepsilon_x^2}_{o(\varepsilon_x^2)}.
 \end{equation}
 
 Tenendo di conto di (\ref{eq:svilProbCondStud}), allora
 \begin{equation*}
-	\cancel{y}+y\,\varepsilon_y=\cancel{y}+f'(x)x\,\varepsilon_x+O(\varepsilon_x^2)\rightarrow y\,\varepsilon_y=f'(x)\,x\,\varepsilon_x+O(\varepsilon_x^2)\Rightarrow y\,\varepsilon_y \overset{\footnotemark}{\approx}f'(x)\,x\,\varepsilon_x \rightarrow |\varepsilon_y|\approx \left|f'(x)\frac{x}{y}\right|\cdot|\varepsilon_x|\equiv\kappa |\varepsilon_x|.
+	\cancel{y}+y\,\varepsilon_y=\cancel{y}+f'(x)x\,\varepsilon_x+o(\varepsilon_x^2)\rightarrow y\,\varepsilon_y=f'(x)\,x\,\varepsilon_x+o(\varepsilon_x^2)\Rightarrow y\,\varepsilon_y \overset{\footnotemark}{\approx}f'(x)\,x\,\varepsilon_x \rightarrow |\varepsilon_y|\approx \left|f'(x)\frac{x}{y}\right|\cdot|\varepsilon_x|\equiv\kappa |\varepsilon_x|.
 \end{equation*}
 
 \footnotetext{$O(\varepsilon_x^2)$ è di ordine 2 quindi è trascurabile rispetto a $f'(x)\,\varepsilon_x$, allora è possibile l'approssimazione.}

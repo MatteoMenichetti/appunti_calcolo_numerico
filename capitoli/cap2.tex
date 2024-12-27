@@ -323,7 +323,7 @@ Più è elevato l'ordine di un metodo convergente, più le approssimazioni gener
 
 \subsection{Metodo di Newton}\label{ssec:metodo_newton}
 \footnote{Slide 3-8, 1-2 PDF 8,11 PDF 9,10.}
-Il metodo di Newton è un metodo di approssimazione della radice con ordine migliore del metodo di bisezione. Questo metodo si basa su un'approssimazione lineare della funzione a partire dalla soluzione approssimata corrente, ovvero: supposto di conoscere un'approssimazione $y$ della funzione, allora il sistema generale per determinare $x^*$ tale che $f(x^*)=0$ è
+Il metodo di Newton è un metodo di approssimazione della radice con ordine migliore del metodo di bisezione. Questo metodo iterativo si basa su un'approssimazione lineare della funzione a partire dalla soluzione approssimata corrente, ovvero: supposto di conoscere un'approssimazione $y$ della funzione, allora il sistema generale per determinare $x^*$ tale che $f(x^*)=0$ è
 \begin{equation*}
 	\begin{cases}
 		y = f(x),\\
@@ -342,7 +342,7 @@ dal quale, attraverso l'utilizzo della retta tangente al grafico di $f$ nel punt
 	x_1=x_0-\frac{f(x_0)}{f'(x_0)},
 \end{equation*}
 la quale è definita per $f'(x_0)\neq 0$, con $x_0$ approssimazione iniziale di $x^*$. Reiterando per $i$ passi successivi, è possibile ottenere l'espressione funzionale del metodo di Newton:
-\begin{equation}\label{eq:approxNewton}
+\begin{equation}\label{eq:approssimazione_newton}
 	x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}, \quad i=0,1,2,\hdots
 \end{equation}
 
@@ -363,7 +363,7 @@ Più passi vengono calcolati, più $x_i$ si avvicina a $x^*$.
 Inoltre, mentre il metodo di bisezione richiede solo la continuità della funzione $f$, per il metodo di Newton è richiesto che $f$ sia, oltre che continua, derivabile (ovvero $f\in C^{(2)}$).
 Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al metodo di bisezione, sono compensati dall'elevato ordine di convergenza del metodo.
 
-\begin{theorem}[\textbf{Metodo di Newton converge quadraticamente}, nome non ufficiale]\label{th:metodo_newton_converge_quadraticamente}
+\begin{theorem}[\textbf{Metodo di Newton converge quadraticamente a radici semplici}, nome non ufficiale]\label{th:metodo_newton_converge_quadraticamente}
 	Se $f(x)$ è sufficientemente regolare, \textbf{il metodo di Newton converge quadraticamente} (ovvero con ordine $p=2$) \textbf{verso radici semplici} \footnote{Ovvero radici di molteplicità 1, le quali sono definite come $x^*:f(x^*)=0,\, f'(x^*)\neq 0$.}.
 \end{theorem}
 \begin{proof}
@@ -413,7 +413,7 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	Se $f(x)$ è sufficientemente regolare in un intorno di $x^*$, radice di molteplicità $m>1$, \textbf{il metodo di Newton converge linearmente ($p=1$) verso una radice di molteplicità} $\boldsymbol{m>1}$, \textbf{con costante asintotica dell'errore $\boldsymbol{c=\frac{m-1}{m}}$}.
 \end{theorem}
 \begin{proof}\footnote{Slide 8, 1-2 PDF lez8, lez9.}
-	Sia $x^*$ radice con molteplicità $m>1$, è possibile esprimere $f$ come $f(x)=(x-x^*)^mg(x)$, con $g$ funzione tale che $g(x^*)\neq 0$ e sviluppabile in serie di Taylor centrato in $x^*$. È possibile ottenere quanto segue, per $x_i\approx x^*$ (vedi (\ref{eq:errore_metodo_iterativo}), (\ref{eq:approxNewton}) e l'Osservazione \ref{rem:formaF}): 
+	Sia $x^*$ radice con molteplicità $m>1$, è possibile esprimere $f$ come $f(x)=(x-x^*)^mg(x)$, con $g$ funzione tale che $g(x^*)\neq 0$ e sviluppabile in serie di Taylor centrato in $x^*$. È possibile ottenere quanto segue, per $x_i\approx x^*$ (vedi (\ref{eq:errore_metodo_iterativo}), (\ref{eq:approssimazione_newton}) e l'Osservazione \ref{rem:formaF}): 
 	\begin{equation*}
 		\begin{matrix}
 			\frac{e_{i+1}}{e_i}&=&\frac{x_{i+i}-x^*}{x_i-x^*}&\overset{\footnotemark}{=}&\frac{x_i-\frac{f(x_i)}{f'(x_i)}-x^*}{x_i-x^*}\\\\
@@ -669,7 +669,7 @@ per renderla più precisa. Tale stima è utile per avere una buona  approssimazi
 Nel caso in cui la molteplicità di $x^*$ sia $m>1$, è noto che il problema di determinare le radici sia malcondizionato. Inoltre, è noto che il metodo di Newton risulti essere solo lineare. Tuttavia, è possibile modificare tale metodo per ripristinare la convergenza quadratica, distinguendo i seguenti casi.
 
 \subsubsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} nota}
-Avere $m$ nota non è una caratteristica banale. Applicando l'Osservazione \ref{rem:formaF}, per semplicità, al metodo di Newton, per determinare la radice (\ref{eq:approxNewton}), allora, è ottenuta
+Avere $m$ nota non è una caratteristica banale. Applicando l'Osservazione \ref{rem:formaF}, per semplicità, al metodo di Newton, per determinare la radice (\ref{eq:approssimazione_newton}), allora, è ottenuta
 \begin{equation*}
 	x_{i+1}=x_i-\frac{x_i-x^*}{m}, \quad i=0,1,2,\hdots.
 \end{equation*}
@@ -683,7 +683,7 @@ ripristinando la convergenza quadratica del metodo, qualora converga verso una r
 
 \paragraph{Convergenza:} Nel caso generale la \textbf{convergenza} rimane \textbf{quadratica}.
 
-\subsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} ignota}
+\subsubsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} ignota}
 In questo caso il metodo di Newton converge linearmente ($p=1$), quindi (da (\ref{eq:limOrdConv}))
 \begin{equation*}
 	\underset{i\to\infty}{\lim}{\frac{|e_{i+1}|}{|e_i|}} = c<\infty.
@@ -773,7 +773,7 @@ dove $x_i^*$ rappresenta l'approssimazione di $x^*$ al passo $i-$esimo.
 \footnote{Slide 4-5 PDF lez11, PG 36-37.}
 Il metodo utilizza una procedura a due livelli:
 \begin{enumerate}
-	\item Vengono eseguiti due passi del metodo di Newton (\ref{eq:approxNewton}): 
+	\item Vengono eseguiti due passi del metodo di Newton (\ref{eq:approssimazione_newton}): 
 	\begin{itemize}
 		\item $x_{i-1}=x_{i-1}^*$;
 		\item $x_i=x_{i-1}-\frac{f(x_{i-1})}{f'(x_{i-1})}$;
@@ -806,12 +806,12 @@ La successione $\{x_i^*\}_{i=1,2,\hdots}$ generata con Aitken \underline{converg
 
 \subsection{Metodi quasi-Newton}
 \footnote{Slide 6-10 PDF 11, PG 37-40.}
-È possibile ridurre il costo di ogni iterazione del tipo (\ref{eq:approxNewton}) attraverso un'approssimazione di $f'(x_i)$. I metodi in questa Sezione, variazioni del metodo di Newton, calcolano $x_{i+1}$ come segue:
-\begin{equation}\label{eq:approxQuasiNewton}
+È possibile ridurre il costo di ogni iterazione del tipo (\ref{eq:approssimazione_newton}) attraverso un'approssimazione di $f'(x_i)$. I metodi in questa Sezione, variazioni del metodo di Newton, calcolano $x_{i+1}$ come segue:
+\begin{equation}\label{eq:approssimazione_quasi_newton}
 	x_{i+1}=x_i-\frac{f(x_i)}{\varphi_i}, \quad i=0,1,2,\hdots, \quad\varphi_i\approx f'(x_i).
 \end{equation}
 
-\subsubsection{Metodo delle corde}
+\subsubsection{Metodo delle corde}\label{sssec:metodo_corde}
 È assunto che $f(x)$ sia sufficientemente regolare ed è presupposto che la derivata vari di poco in prossimità della radice.
 Pertanto, se $x_0$ è vicino alla radice, allora è possibile approssimare $f'$ come
 \begin{equation*}
@@ -838,7 +838,7 @@ Supposto siano già calcolati $x_{i-1}$ ed $x_i$, allora $f(x)\approx f(x_i)+(x-
 	f'(x_i)\approx\frac{f(x)-f(x_{i})}{x-x_i}\overset{x=x_{i-1}}{\Longrightarrow}f'(x_i)\approx\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}\equiv\varphi_i.
 \end{equation*}
 
-L'iterazione (\ref{eq:approxQuasiNewton}) diviene
+L'iterazione (\ref{eq:approssimazione_quasi_newton}) diviene
 \begin{equation}\label{eq:approxSecanti}
 	\boldsymbol{x_{i+1}=x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})}}=\frac{f(x_i)\,x_{i-1} - f(x_{i-1})\,x_i}{f(x_i)-f(x_{i-1})}, \quad i=1,2,\hdots,
 \end{equation}

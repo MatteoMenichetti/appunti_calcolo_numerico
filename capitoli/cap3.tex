@@ -1,5 +1,5 @@
 \section{Sistemi Lineari e Nonlineari}
-Il problema di questa sezione è risolvere sistemi di equazioni lineari. Tali sistemi sono della forma 
+Il problema di questa sezione è risolvere sistemi di \gls{equazioni lineari} (detti gls{sistemi lineari}) e di equazioni nonlineari. Tali sistemi sono della forma 
 \begin{equation}\label{eq:sistema_equazioni_lineari}
     A\uline{x}=\uline b,
 \end{equation}
@@ -1275,6 +1275,20 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
     $\widehat U^TD L^T$ è una fattorizzazione $LU$ di $A$.
 \end{remark}
 
+\begin{theorem}
+	Se $B$ è nonsingolare allora $A=B^TB$ è una matrice sdp.
+\end{theorem}
+\begin{proof}
+	Se $A=B^TB$ allora
+	\begin{equation*}
+		A^T=(B^TB)^T=B^TB=A.
+	\end{equation*}
+	Inoltre, se $\uline x\neq\uline 0$, allora
+	\begin{equation*}
+		\uline x^T A \uline x = \uline x^T B^T B \uline x = (B\uline x)^T(B\uline x) = \left|\left| B\uline x \right|\right|_2^2\neq 0, \text{ poiché } \det(B)\neq 0.
+	\end{equation*}
+\end{proof}
+
 \begin{example}
     \begin{equation*}
         U =
@@ -1303,11 +1317,9 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
     Con il prodotto $LDL^T$ sarà ottenuta \textbf{sicuramente} una matrice \textit{sdp}.
 \end{remark}
 
-Il grande pregio della fattorizzazione $LDL^T$ ((\ref{eq:A=LDL})) consiste nell'ottenere un algoritmo di risoluzione per sistemi lineari più efficiente dal punto di vista computazionale, non è necessario il calcolo del fattore $U$, e dal punto di vista dell'occupazione di memoria rispetto alla fattorizzazione $LU$ classica.
+Il grande pregio della fattorizzazione $LDL^T$ (\ref{eq:A=LDL}) consiste nell'ottenere un algoritmo di risoluzione per sistemi lineari più efficiente dal punto di vista computazionale e dal punto di vista dell'occupazione di memoria rispetto alla fattorizzazione $LU$ classica, non è necessario il calcolo del fattore $U$ e la memorizzazione di una matrice sdp può essere svolta in forma compatta memorizzandone solo una parte triangolare (inferiore o superiore, nello specifico, sarà considerata la porzione \textbf{triangolare inferiore}). Queste locazioni di memoria possono essere riscritte con la porzione strettamente triangolare di $L$ (o $L^T$) e la diagonale $D$.
 
 Per ottenere la fattorizzazione (\ref{eq:A=LDL}) sarà sufficiente uguagliare gli elementi delle due matrici ai due membri dell'uguaglianza, relativi ad una porzione \textbf{triangolare}, poiché gli altri derivano dalla simmetria di $A$.
-
-Dal punto di vista di occupazione di memoria, una matrice \textit{sdp} può essere memorizzata in forma compatta memorizzandone solo una parte triangolare, inferiore o superiore. Nello specifico, sarà considerata la porzione \textbf{triangolare inferiore}. Queste locazioni di memoria possono essere riscritte con la porzione strettamente triangolare di $L$ (o $L^T$) e la diagonale $D$.
 
 Sono derivate delle formule che permettono di ottenere in modo efficiente la fattorizzazione (\ref{eq:A=LDL}) uguagliando, se $A\in \mathbb R^{n\times n}$, gli elementi
 \begin{equation*}
@@ -2623,7 +2635,7 @@ A riguardo l'Algoritmo \ref{alg:fattQR} è possibile affermare quanto segue:
 \end{remark}
 
 \subsection{Risoluzione di sistemi nonlineari}\label{ssec:risoluzione_sistemi_nonlineari}\footnote{Slide 4-8 PDF 12, PG 74-76.}
-Per determinare la radice di un'equazione scalare, del tipo $f(x)=0$, il metodo di Newton è uno dei metodi più efficaci. Questo metodo è formalmente definito dall'espressione funzionale (\ref{eq:approxNewton}), a partire da un'approsimazione $x_0$ e può essere esteso agevolmente anche al caso di \textbf{sistemi di equazioni nonlineari.} In questo caso, se 
+Con sistemi nonlineari si intende equazioni del tipo $F(\uline x) = \uline 0$ e per determinare la radice di un'equazione scalare, del tipo $f(x)=0$, il metodo di Newton è uno dei metodi più efficaci. Questo metodo è formalmente definito dall'espressione funzionale (\ref{eq:approssimazione_newton}), a partire da un'approsimazione $x_0$ e può essere esteso agevolmente anche al caso di \textbf{sistemi di equazioni nonlineari.} In questo caso, se 
 \begin{equation}
     \uline x =
     \begin{pmatrix}
@@ -2698,12 +2710,12 @@ dove $F'(\uline x_n)$ è una matrice conosciuta ed $\Delta\uline x_n$ è un vett
 
 \paragraph{Costo computazionale:} Il costo per iterazione di (\ref{eq:sistEqNonLin}) ammonta a:
 \begin{enumerate}
-    \item 1 valutaziobe funzionale di $F(\uline x);$
+    \item \textbf{1 valutaziobe funzionale di} $\boldsymbol{F(\uline x)}$;
     \item \textbf{1 valutazione funzionale di $\boldsymbol{F'(\uline x)}$ (!!!)};
     \item \textbf{1 fattorizzazione di} $\boldsymbol{F'(\uline x)}$;
     \item 2 risoluzionei con i fattori + 1 aggiornamento.
 \end{enumerate}
-I punti 2. e 3. sono i più onerosi dell'algoritmo. Per semplificare il costo è possibile fare ricorso al metodo delle corde (o Newton semplificato), la cui iterazione è:
+I punti 2. e 3. sono i più onerosi dell'algoritmo. Per semplificare il costo è possibile fare ricorso al metodo delle corde (o Newton semplificato, vedere Sezione \ref{sssec:metodo_corde}), la cui iterazione è:
 \begin{equation*}
     \begin{cases}
         \underset{\footnotemark}{\boldsymbol{F'(\uline x_0)}}\Delta\uline x_n = - F(\uline x_n)\\
@@ -2715,7 +2727,7 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
 
 \subsection{Intermezzi (Appendice A.1)}
 \begin{remark}\label{re:diagonali}\footnote{Slide 6 PDF 1. Questa osservazione serve per le matrici grandi e quindi con molti elementi nulli. Gli elementi diversi da 0 sono sulla diagonale. Per salvare qual è la diagonale corretta, ovvero quella sulla quale sono presenti i numeri, è possibile utilizzare gli indici $j-i$ per salvare l'indice della diagonale: in questo caso è necessario un offset per individuare qual è la diagonale giusta.}
-    Data
+	Data
     \begin{equation}
         A=\begin{bmatrix}
             a_{11} & a_{12} & a_{13} & a_{14}\\
