@@ -1,4 +1,4 @@
-\section{Aritmetica finita}
+\section{Aritmetica finita}\label{sec:aritmetica_finita}
 Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R^n$. L'utilizzo di un metodo numerico fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
 
 È possibile misurare l'errore introdotto dall'approssimazione attraverso:
@@ -468,7 +468,7 @@ Un esempio di implementazione della somma algebrica in aritmetica finita, sia $\
 
 \subsection{Condizionamento di un problema}\footnote{Slide 7-10 PDF lez3 + lez4, PG 14-18.}
 Con "problema" non è fatto riferimento al metodo di calcolo, ma ad un generico problema matematico schematizzabile con 
-\begin{equation}\label{eq:probCond}
+\begin{equation}\label{eq:problema}
 	y=f(x),
 \end{equation}
 dove:
@@ -478,8 +478,8 @@ dove:
 	\item $y\in\mathbb R$, denota la soluzione al problema.
 \end{itemize}
 
-Un metodo numerico che risolve il problema (\ref{eq:probCond}), ovvero lo approssima, può essere formalizzato come
-\begin{equation}\label{eq:approxProbCond}
+Un metodo numerico che risolve il problema (\ref{eq:problema}), ovvero lo approssima, può essere formalizzato come
+\begin{equation}\label{eq:approssimazione_problema}
 	\Tilde{y}=\Tilde{f}(\Tilde{x}),
 \end{equation}
 in cui:
@@ -489,9 +489,9 @@ in cui:
 	\item $\Tilde{y}\in\mathbb R$ denota la soluzione, il dato in uscita, affetta da errore (ovvero sarà perturbata). 
 \end{itemize}
 
-È interessante studiare l'errore $(y-\Tilde{y})$ del metodo numerico (\ref{eq:approxProbCond}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del metodo numerico è spesso complesso (non rientra nel corso).
+È interessante studiare l'errore $(y-\Tilde{y})$ del metodo numerico (\ref{eq:approssimazione_problema}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del metodo numerico è spesso complesso (non rientra nel corso).
 
-Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:probCond}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del metodo numerico. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
+Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:problema}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del metodo numerico. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
 
 Formalmente è studiato
 \begin{equation}\label{eq:probCondStud}
@@ -518,14 +518,14 @@ Tenendo di conto di (\ref{eq:svilProbCondStud}), allora
 
 \footnotetext{$O(\varepsilon_x^2)$ è di ordine 2 quindi è trascurabile rispetto a $f'(x)\,\varepsilon_x$, allora è possibile l'approssimazione.}
 
-\begin{definition}[Numero di condizionamento della radice]
-	Il fattore $\kappa$ misura quanto gli errori iniziali possono amplificarsi sul risultato ed è noto come numero di condizione del problema (\ref{eq:probCond}).
+\begin{definition}[Numero di condizionamento del problema]\label{def:condizionamento_problema}
+	Il fattore $\kappa = \left|f'(x)\frac{x}{y}$ misura quanto gli errori iniziali possono amplificarsi sul risultato ed è noto come numero di condizione del problema (\ref{eq:problema}).
 \end{definition}
 
 È possibile distinguere i seguenti casi:
 \begin{itemize}
-	\item $\kappa\approx 1\Rightarrow |\varepsilon_y|\overset{\footnotemark}{\approx}|\varepsilon_x|\rightarrow$ il problema è ben condizionato;
-	\item $k>>1\Rightarrow |\varepsilon_y|>>|\varepsilon_x|\rightarrow$ il problema è mal condizionato.
+	\item $\boldsymbol{\kappa\approx 1}\Rightarrow |\varepsilon_y|\overset{\footnotemark}{\approx}|\varepsilon_x|\rightarrow$ il problema è ben condizionato;
+	\item $\boldsymbol{k>>1}\Rightarrow |\varepsilon_y|>>|\varepsilon_x|\rightarrow$ il problema è mal condizionato.
 \end{itemize}
 
 \footnotetext{Gli errori sono dello stesso ordine di grandezza.}

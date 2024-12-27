@@ -109,7 +109,6 @@ $\begin{cases}
 \paragraph{10.} L'implementazione richiesta è nell'Algoritmo \ref{alg:polNewt}
 
 \subsection{A.A. 2023/24}
-\subsubsection{Esercitazione 10/01/24}
 \begin{enumerate}
 	\item Approssimando $e=2.71828\hdots$ con $2.72$
 	\begin{itemize}
@@ -131,11 +130,12 @@ $\begin{cases}
 		f(x)=x\cos x - \sin x + \frac{x^3}{3}.
 	\end{equation*}
 	Perché il calcolo di una radice multipla è malcondizionato?
+	\item Scrivere una function Matlab che implementi efficientemente il metodo	delle secanti.
 \end{enumerate}
 
 \hrule
 
-\paragraph{1.} L'errore assoluto è dato, se $x=e$ e $\tilde x=2.72$, da:
+\paragraph{1.}\footnote{Vedere Sezione \ref{sec:aritmetica_finita}.} L'errore assoluto è dato, se $x=e$ e $\tilde x=2.72$, da:
 \begin{equation*}
 	\Delta x=\tilde x - x = 2.72 - 2.71828\hdots \approx 2\cdot 10^{-3}.
 \end{equation*}
@@ -195,20 +195,20 @@ Pertanto, il numero di condizionamento della somma algebrica è
 \end{equation*}
 che non è limitato superiormente se $x_1$ e $x_2$ sono quasi opposti. In questo caso, il malcondizionamento del problema si manifesta, utilizzando un'aritmetica finita, nel fatto che, anche partendo da addendi con tutte le cifre significative corrette, si può ottenere un risultato con molte meno cifre significative corrette. (È possibile fare un esempio di malcondizionamento di una somma algebrica.)
 
-\paragraph{5.} Se consideriamo un metodo iterativo per determinare una conveniente approssimazione dello zero di una funzione, sia esso $x^*$, allora, dette $x_1, x_2,\hdots, x_n$ le apporssimazioni generate, il metodo avrà ordine di convergenza $p$ se, detto $e_n=x_n-x^*$ l'errore al passo $n$, si ha che  $p$ è il più alto valore per cui
+\paragraph{5.}\footnote{Vedere Definizione \ref{def:ordine_convergenza_metodo_iterativo} Ordine di convergenza di un metodo iterativo.} Se consideriamo un metodo iterativo per determinare una conveniente approssimazione dello zero di una funzione, sia esso $x^*$, allora, dette $x_1, x_2,\hdots, x_n$ le apporssimazioni generate, il metodo avrà ordine di convergenza $p$ se, detto $e_n=x_n-x^*$ l'errore al passo $n$, si ha che  $p$ è il più alto valore per cui
 \begin{equation*}
 	\lim_{n\rightarrow\infty}\frac{|e_{n+1}|}{|e_n|^p}=c<+\infty.
 \end{equation*}
 $c$ si dice costante asintotica dell'errore.
 \paragraph{N.B.:} È necessario conoscere l'ordine di convergenza dei metodi studiati.
 
-\paragraph{6. } Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato da $2^{-i}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
+\paragraph{6. }\footnote{Vedere Definizione \ref{def:itmax_metodo_bisezione}.} Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato da $2^{-i}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
 \begin{equation*}
 	2^-1\cdot 2^3\leq 10^{-3}\approx 2^{-10},
 \end{equation*}
 si ottiene $2^{-i}\leq 2^{-13}$, ovvero $i=13$ passi.
 
-\paragraph{7.} Il metodo di Newton si deriva ricercando, ad ogni iterazione, la radice dell'approssimazione lineare della funzione nel punto corrente. Se ci troviamo nel punto $x_1$, allora
+\paragraph{7.}\footnote{Vedere Sezione \ref{ssec:metodo_newton} ed il Teorema \ref{th:metodo_newton_converge_quadraticamente}.} Il metodo di Newton si deriva ricercando, ad ogni iterazione, la radice dell'approssimazione lineare della funzione nel punto corrente. Se ci troviamo nel punto $x_1$, allora
 \begin{equation*}
 	f(x)\cong f(x_i)+(x-x_i)f'(x_i),
 \end{equation*}
@@ -240,7 +240,7 @@ che è finito, poiché $f'(\overline{x})\neq 0$. Pertanto, si ha convergenza qua
 
 \paragraph{Suggerimento:} Riguardare la derivazione del metodo di accelerazione di Aitken.
 
-\paragraph{8.} Se $\overline{x}$ è la radice di $f(x)$, il suo numero di condizionamento è definito da
+\paragraph{8.}\footnote{Vedere Definizione \ref{def:numero_condizionamento_radice} Numero di condizionamento di una radice.} Se $\overline{x}$ è la radice di $f(x)$, il suo numero di condizionamento è definito da
 \begin{equation*}
 	\kappa = \frac{1}{|f'(\overline{x})|}.
 \end{equation*}
@@ -269,7 +269,7 @@ La radice $\overline{x}$ si dice semplice se $m=1$, multipla se $m>1$.
 Pertanto, la molteplicità della radice è $m=5$.\\
 Il numero di condizionamento di $\overline{x}$, radice di $f$, è $\kappa = \frac{1}{|f'(\overline{x})|}$. Se la radice è multipla allora $f'(\overline{x})=0$ allora $\kappa=\infty$.
 
-\paragraph{10.} Il metodo delle secanti è un metodo a 2 passi definito dalla seguente iterazione:
+\paragraph{10.}\footnote{Vedere Sezione \ref{sssec:metodo_secanti}.} Il metodo delle secanti è un metodo a 2 passi definito dalla seguente iterazione:
 \begin{equation*}
 	\begin{matrix}
 		x_{i+1} &=& x_i-\frac{f(x_i)}{\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}} &=& x_i-(x_i-x_{i-1})\cdot\frac{f(x_i)}{f(x_i)-f(x_{i-1})}&=&\\\\

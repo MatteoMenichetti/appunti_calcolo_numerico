@@ -94,7 +94,11 @@ Per il metodo di bisezione è possibile affermare che
 \end{equation*}
 dove $\boldsymbol{\frac{b-a}{2^i}}$ è \textbf{stima dell'errore} al passo $i$-esimo.
 
-L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi all'iterazione $n$ allora $|x_n-x^*|\leq\frac{b-a}{2^n}\leq tolx$, è soddisfatto $\frac{b-a}{2^n}\leq tolx$ quindi:
+L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi all'iterazione $n$ allora 
+\begin{equation*}
+	|x_n-x^*|\leq\frac{b-a}{2^n}\leq tolx,
+\end{equation*}
+è soddisfatto $\frac{b-a}{2^n}\leq tolx$ e quindi:
 \begin{equation*}
 	\begin{matrix}
 		&& |x_n-x^*| &\leq& \boldsymbol{tolx}\\
@@ -110,7 +114,12 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 \stepcounter{footnote}
 \footnotetext{$\lceil\, \rceil$ significa arrotondamento all'intero successivo.}
 
-\textbf{Dalla precedente serie di implicazioni è possibile affermare che la condizione (\ref{eq:x_n_leq_tolx}) si verificherà in, al più,} $\boldsymbol{itmax}$.
+\begin{definition}[Numero massimo di iterazioni (metodo bisezione)]\label{def:itmax_metodo_bisezione}
+	Dato l'insieme $[a,b]$, il numero massimo di iterazioni per verificare la conzione (\ref{eq:x_n_leq_tolx}) con il metodo di bisezione è
+	\begin{equation*}
+		\boldsymbol{\lceil \log_{2}(b-a)-\log_{2}(tolx)\rceil \equiv itmax}
+	\end{equation*}
+\end{definition}
 
 \paragraph{È possibile soddisfare $\boldsymbol{|x_n-x^*|\leq tolx}$ con meno di $\boldsymbol{itmax}$ passi:}
 È possibile, per effettuare meno di $itmax$, approssimare $|x_i-x^*|$ come segue:
@@ -251,8 +260,8 @@ Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dic
 \end{definition}
 
 \subsection{Ordine di Convergenza di un metodo iterativo}
-Il passo successivo alla convergenza è stabilire la velocità computazionale del metodo (quanto velocemente $x_n$ si avvicina a $x^*$? Quanti calcoli servono?). Per questo è necessaria l'introduzione di \textbf{Definizione \ref{def:ordConv}} di ordine di convergenza e \textbf{Osservazione \ref{rem:limOrdConv}.}
-\begin{definition}[\textbf{Ordine di convergenza} di un metodo iterativo] \label{def:ordConv}
+Il passo successivo alla convergenza è stabilire la velocità computazionale del metodo (quanto velocemente $x_n$ si avvicina a $x^*$? Quanti calcoli servono?). Per questo è necessaria l'introduzione di \textbf{Definizione \ref{def:ordine_convergenza_metodo_iterativo}} di ordine di convergenza e \textbf{Osservazione \ref{rem:limOrdConv}.}
+\begin{definition}[\textbf{Ordine di convergenza} di un metodo iterativo] \label{def:ordine_convergenza_metodo_iterativo}
 	Se un metodo iterativo ha $p\in\mathbb R^+$ come valore più grande per cui \begin{equation}\label{eq:limOrdConv}
 		\lim_{i\to\infty}{\frac{|e_{i+1}|}{|e_i|^p}}=c<\infty,
 	\end{equation}
@@ -297,7 +306,7 @@ Più è elevato l'ordine di un metodo convergente, più le approssimazioni gener
 		\end{tabular}
 	\end{center}
 	
-	È possibile osservare come la tabella sia ottenuta dall'applicazione della Definizione \ref{def:ordConv} e che $e_i=c|e_{i-1}|^1,\, \forall i=1,\hdots , n$ (dove, nella tabella, $n=4$).
+	È possibile osservare come la tabella sia ottenuta dall'applicazione della Definizione \ref{def:ordine_convergenza_metodo_iterativo} e che $e_i=c|e_{i-1}|^1,\, \forall i=1,\hdots , n$ (dove, nella tabella, $n=4$).
 \end{example}
 
 \subsubsection{Metodo di bisezione}\label{ssec:convergenza_metodo_bisezione}
@@ -312,7 +321,7 @@ Più è elevato l'ordine di un metodo convergente, più le approssimazioni gener
 
 \footnotetext{Quindi il metodo di bisezione converge $R-$linearmente (informazione non richiesta).}
 
-\subsection{Metodo di Newton}
+\subsection{Metodo di Newton}\label{ssec:metodo_newton}
 \footnote{Slide 3-8, 1-2 PDF 8,11 PDF 9,10.}
 Il metodo di Newton è un metodo di approssimazione della radice con ordine migliore del metodo di bisezione. Questo metodo si basa su un'approssimazione lineare della funzione a partire dalla soluzione approssimata corrente, ovvero: supposto di conoscere un'approssimazione $y$ della funzione, allora il sistema generale per determinare $x^*$ tale che $f(x^*)=0$ è
 \begin{equation*}
@@ -822,7 +831,7 @@ la quale definisce il metodo delle corde.
 
 Il metodo è utilizzato per la risoluzione di sistemi lineari per il basso costo di computazionale.
 
-\subsubsection{Metodo delle secanti}
+\subsubsection{Metodo delle secanti}\label{sssec:metodo_secanti}
 \footnote{Slide 7-10 PDF lez11.}
 Supposto siano già calcolati $x_{i-1}$ ed $x_i$, allora $f(x)\approx f(x_i)+(x-x_i)f'(x_i)$. La derivata può essere approssimata come 
 \begin{equation*}

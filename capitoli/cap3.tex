@@ -1880,7 +1880,7 @@ alle quali è necessario aggiungere $(n-1)$ permutazioni di righe di $A$ e $\app
 
 \subsection{Condizionamento del problema}\footnote{PDF 9, Slide 2-4 PDF 10, PG 64-66.}
 Considerato il sistema lineare
-\begin{equation}\label{eq:sistLinBidiag}
+\begin{equation}\label{eq:sistema_lineare_bidiagonale}
     \begin{bmatrix}
         1\\
         100 & 1\\
@@ -1917,7 +1917,7 @@ Considerato il sistema lineare
         101
     \end{bmatrix},
 \end{equation}
-la sua soluzione è $x_i=\alpha,\; i = 1, \hdots, 10$. Essendo bidiagonale inferiore, è possibile risolvere il sistema con
+la sua soluzione è $x_i=\alpha,\; \forall i = 1, \hdots, 10$. Essendo bidiagonale inferiore, è possibile risolvere il sistema con
 \begin{equation*}
     \begin{cases}
         x_1 = \boldsymbol\alpha,\\
@@ -1966,14 +1966,14 @@ e poiché il sistema lineare è
          & 2.272224509338931e+02 & 1	& -56.58762805181011	& 0.5	& -19.18821445671565	& 0.25	& -15.23716850170515 \\
         \hline
     \end{tabular}
-    \caption{Risultati esecuzione Algoritmo (\ref{alg:bidia})}
-    \label{table:resAlgBidiag}
+    \caption{Risultati esecuzione Algoritmo \ref{alg:bidia}}
+    \label{tab:risulati_algoritmo_bidia}
 \end{table}
 
-L'esecuzione dell'Algoritmo \ref{alg:bidia} restituisce i risultati di Tabella \ref{table:resAlgBidiag}. Ciò che è evinto dalla precedente tabella è che il sistema lineare (\ref{eq:sistema_equazioni_lineari}), la cui soluzione è rappresentata con i precedenti dati, è perturbato.
+L'esecuzione dell'Algoritmo \ref{alg:bidia} restituisce i risultati di Tabella \ref{tab:risulati_algoritmo_bidia}. Ciò che è evinto dalla Tabella \ref{tab:risulati_algoritmo_bidia} è che il sistema lineare (\ref{eq:sistema_equazioni_lineari}), la cui soluzione è rappresentata con i precedenti dati, è perturbato.
 
 È necessario studiare il \textbf{condizionamento di un sistema lineare} del tipo (\ref{eq:sistema_equazioni_lineari}), con $m=n$ ed $\uline x$ soluzione esatta. Se sono perturbati i dati in ingresso, $A$ e $\uline b$, è studiato come questo si ripercuote sul risultato, ovvero:
-\begin{equation}\label{eq:sistEqLinPert}
+\begin{equation}\label{eq:sistema_lineare_perturbato}
     \left(A+\Delta A\right)\left(\uline x + \Delta\uline x\right) = \uline b +\Delta\uline b,
 \end{equation}
 in cui:
@@ -1983,7 +1983,7 @@ in cui:
     \item $\Delta\uline x$ ha lo stesso ruolo per il vettore soluzione $\uline x.$
 \end{itemize}
 
-Al posto di (\ref{eq:sistema_equazioni_lineari}) è considerato il problema (\ref{eq:sistEqLinPert}). Per studiare (\ref{eq:sistEqLinPert}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:solSistQuad}). Inoltre, per studiare (\ref{eq:sistEqLinPert}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:norme_indotte_matrice}} (le quali possono essere argomento di esame).
+Al posto di (\ref{eq:sistema_equazioni_lineari}) è considerato il problema (\ref{eq:sistema_lineare_perturbato}). Per studiare (\ref{eq:sistema_lineare_perturbato}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:solSistQuad}). Inoltre, per studiare (\ref{eq:sistema_lineare_perturbato}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:norme_indotte_matrice}} (le quali possono essere argomento di esame).
 
 In seguito sarà considerata una generica norma su vettore, e la corrispondente indotta su matrice, che indicheremo con $||\cdot||.$ Per semplificare la trattazione è supposto che $\boldsymbol{\Delta A=\varepsilon\cdot F}$, con $\varepsilon\in\mathbb R,\,\varepsilon\approx 0$ e $F\in\mathbb R^{n\times n}.$ Similmente è posto $\boldsymbol{\Delta b = \varepsilon\cdot\uline f},$ con $\varepsilon$ lo stesso parametro ed $\boldsymbol{\uline f\in\mathbb R^n}.$
 
@@ -1993,7 +1993,7 @@ Quindi:
     \item  $b(\varepsilon)=b+\varepsilon f\Rightarrow b(0)=b\; \wedge\; \dot{b}(\varepsilon)\equiv f.$
 \end{itemize}
 
-\noindent(\ref{eq:sistEqLinPert}) può essere scritto come
+\noindent(\ref{eq:sistema_lineare_perturbato}) può essere scritto come
 \begin{equation}\label{eq:sistEqLinPertEps}
     A(\varepsilon) x(\varepsilon)= b(\varepsilon),\quad \varepsilon\approx 0,
 \end{equation}
@@ -2068,8 +2068,30 @@ pertanto:
     $\boldsymbol{\kappa(A)}=||A||\cdot||A^{-1}||$ è denominato \textbf{numero di condizionamento} (o fattore di ampliamento) della matrice $A$.
 \end{definition}
 
+Il numero di condizionamento è legato alla dimensione della matrice (legge del numero di condizionamento).
+
+\begin{remark}[Non ufficiale]\footnote{Slide 3 PDF 10.}
+	Se:
+	\begin{itemize}
+		\item $\boldsymbol{\kappa(A)\approx 1}\Rightarrow A$ è detta \textbf{ben condizionata};
+		\item $\boldsymbol{\kappa(A)}\overset{\footnotemark}{\boldsymbol\gg}\boldsymbol 1 \Rightarrow A$ è detta \textbf{mal condizionata};
+		\begin{itemize}
+			\item $\kappa(A)\approx u^{-1}$, se $u$ è la precisione di macchina utilizzata. (Questo accade se il numero di cifre perse è tale per cui il risultato ottenuto è senza senso.)
+		\end{itemize}
+	\end{itemize}
+\end{remark}
+\footnotetext{Significa che è del tipo $10^{15}$.}
+
+Una proprietà importante del numero di condizionamento è la seguente:
+\begin{remark}
+	Per ogni norma indotta su matrice, dalla Definizione \ref{def:numero_condizionamento_matrice} di numero di condizionamento di una matrice, vale
+	\begin{equation*}
+		\boldsymbol 1 = ||I||=||A\cdot A^{-1}||\boldsymbol\leq ||A||\cdot||A^{-1}||=\boldsymbol{\kappa(A)}.
+	\end{equation*}
+\end{remark}
+
 \begin{example}
-    Data $A$ in (\ref{eq:sistLinBidiag}) allora
+    Data $A$ in (\ref{eq:sistema_lineare_bidiagonale}) allora
     $\begin{cases}
          \kappa(A) = 10^{200}, &\text{se misurato in }||\cdot||_1\text{ o }||\cdot||_\infty,\\
          \kappa(A)\approx 10^{200}, &\text{se misurato in }||\cdot||_2.
@@ -2077,38 +2099,18 @@ pertanto:
 
     Poiché $\kappa(A)\cdot u$, dove $u\,(\approx 10^{-16})$ è la precisione di macchina, è maggiore di 1, è necessario aspettarsi (in generale) risultati privi di senso nella risoluzione del sistema lineare.
     
-    Questo spiega ciò che è stato osservato nel caso in cui $\alpha$ non è un numero macchina. Se $\alpha$ è uguale 0.24 non è un numero di macchina, c'è un errore di rappresentazione sull'ultima cifra della sua mantissa. Questo errore viene propagato di un fattore 100 ad ogni iterazione (come si vede nel risultato in Tabella \ref{table:resAlgBidiag}). 0,51, 3.9, 1.1, non sono numeri di macchina perché 0.1 è una cifra decimale in base 10 ma è un numero irrazionale se espresso in base 2 (è utilizzato un elaboratore con aritmetica finita).
+    Questo spiega ciò che è stato osservato per \ref{eq:sistema_lineare_bidiagonale}, nel caso in cui $\alpha$ non è un numero macchina (ovvero se $\alpha=0.24$). Se $\alpha = 0.24$ allora non è un numero di macchina ed è commesso un errore di rappresentazione sull'ultima cifra della sua mantissa. Questo errore viene propagato di un fattore 100 ad ogni iterazione (come si vede nel risultato in Tabella \ref{tab:risulati_algoritmo_bidia}). 0,51, 3.9, 1.1, non sono numeri di macchina perché 0.1 è una cifra decimale in base 10 ma è un numero irrazionale se espresso in base 2 (è utilizzato un elaboratore con aritmetica finita).
 \end{example}
 
 \begin{remark}\footnote{Slide 3 PDF 10.}
     Nei casi in cui è necessario risolvere $A\uline x = \uline b,$ con $\kappa(A)\gg1$, sono utilizzate \textbf{matrici di precondizionamento}, trasformando il sistema in
-    \begin{equation}\label{eq:matrPrec}
+    \begin{equation}\label{eq:matrice_precondizionamento}
         PA\uline x= P\uline b,
     \end{equation}
-    dove $P\overset{\footnotemark}{\approx} A^{-1}$ e tale che $\kappa(PA)=O(1)$. Il sistema (\ref{eq:matrPrec}) è equivalente a quello di partenza.
+    dove $P\overset{\footnotemark}{\approx} A^{-1}$ e tale che $\kappa(PA)=O(1)$. Il sistema (\ref{eq:matrice_precondizionamento}) è equivalente a quello di partenza.
 \end{remark}
 
 \footnotetext{Approssimazione economica.}
-
-Una proprietà importante del numero di condizionamento è la seguente:
-\begin{remark}
-    Per ogni norma indotta su matrice, dalla Definizione \ref{def:numero_condizionamento_matrice}, vale
-    \begin{equation*}
-        \boldsymbol 1 = ||I||=||A\cdot A^{-1}||\boldsymbol\leq ||A||\cdot||A^{-1}||=\boldsymbol{\kappa(A)}.
-    \end{equation*}
-\end{remark}
-
-Il numero di condizionamento è legato alla dimensione della matrice (legge del numero di condizionamento).
-
-Se:
-\begin{itemize}
-    \item $\boldsymbol{\kappa(A)\approx 1}\Rightarrow A$ è detta \textbf{ben condizionata};
-    \item $\boldsymbol{\kappa(A)}\overset{\footnotemark}{\boldsymbol\gg}\boldsymbol 1 \Rightarrow A$ è detta \textbf{mal condizionata};
-    \begin{itemize}
-        \item $\kappa(A)\approx u^{-1}$, se $u$ è la precisione di macchina utilizzata. (Questo accade se il numero di cifre perse è tale per cui il risultato ottenuto è senza senso.)
-    \end{itemize}
-\end{itemize}
-\footnotetext{Significa che è del tipo $10^{15}$.}
 
 \begin{remark}\footnote{Slide 3 PDF 10, Osservazione 3.4 PG 66.}
     In Matlab la \textit{function cond} calcola il numero di condizionamento di una matrice. Se utilizzata con un solo parametro (ovvero solo la matrice) allora il risultato è ottenuto attraverso la norma 2, altrimenti è necessario specificare il secondo argomento.
@@ -2125,7 +2127,7 @@ Se:
 con $\uline b\in\mathbb R^m$ e $\uline x\in\mathbb R^n$.
 \footnotetext{$A$ ha rango massimo ($n$).}
 
-Un caso rilevante del problema (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è trattato nella Sezione \ref{ssec:approxPolMinQuad}, dove, in genere, $m\gg n$.
+Un caso rilevante del problema (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è trattato nella Sezione \ref{ssec:approssimazione_polinomiale_minimi_quadrati}, dove, in genere, $m\gg n$.
 
 Il sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) ammette soluzione se $\uline b\in$\gls{range(A)}, dove
 \begin{equation*}
