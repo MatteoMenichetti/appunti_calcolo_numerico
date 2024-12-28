@@ -32,7 +32,7 @@
 	|\xi_x|=\frac{|\Delta x|}{|x|}=\frac{1.6\times 10^{-3}}{3.1415\hdots}\approx 5\times 10^{-4}.
 \end{cases}$
 
-\paragraph{2.}\footnote{Slide 3 PDF 13.} La precisione di macchina di un'aritmetica finita rappresenta una maggiorazione \textbf{uniforme} dell'errore relativo di rappresentazione, per numeri rappresentati da numeri di macchina normalizzati. Se è utilizzata una base $b$, con $m$ cifre per la mantissa, essa vale: $u=\begin{cases}
+\paragraph{2.}\footnote{Slide 3 PDF 13.} La precisione di macchina di un'aritmetica finita rappresenta una maggiorazione \textbf{uniforme} dell'errore relativo di rappresentazione (la  \gls{maggiora uniformemente}), per numeri rappresentati da numeri di macchina normalizzati. Se è utilizzata una base $b$, con $m$ cifre per la mantissa, essa vale: $u=\begin{cases}
 	b^{1-m},\;\text{in caso di rappresentazione con troncamento};\\
 	\frac{1}{2}b^{1-m},\;\text{in caso di rappresentazione con arrotondamento.}
 \end{cases}$
@@ -204,7 +204,7 @@ $c$ si dice costante asintotica dell'errore.
 
 \paragraph{6. }\footnote{Vedere Definizione \ref{def:itmax_metodo_bisezione}.} Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato da $2^{-i}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
 \begin{equation*}
-	2^-1\cdot 2^3\leq 10^{-3}\approx 2^{-10},
+	2^{-1}\cdot 2^3\leq 10^{-3}\approx 2^{-10},
 \end{equation*}
 si ottiene $2^{-i}\leq 2^{-13}$, ovvero $i=13$ passi.
 

@@ -280,7 +280,7 @@ Il passo successivo alla convergenza è stabilire la velocità computazionale de
 \end{remark}
 
 \begin{remark}\label{rem:metodo_lineare_convergente}
-	Un \textbf{metodo lineare} ($p=1$) è \textbf{convergente s.se} $\boldsymbol{0\leq c<1}$.
+	Un \textbf{\gls{metodo lineare}} ($p=1$) è \textbf{convergente s.se} $\boldsymbol{0\leq c<1}$.
 \end{remark}
 
 \paragraph{Perché l'Osservazione \ref{rem:metodo_lineare_convergente} vale?} Dato $|e_{i+1}|\approx c|e_i|^p$ allora, se $p=1$ $|e_{i+1}|\approx c|e_i|\Rightarrow |e_{i+k}|\approx c^k|e_{i-k}|\Rightarrow |e_i|\approx c^i|e_0|$ quindi
@@ -466,16 +466,16 @@ Il metodo di Newton è convergente in un opportuno intorno della radice che dipe
 \begin{figure}
 	\centering
 	\includegraphics[width=0.75\textwidth]{immagini/EsemGeoConv.png}
-	\caption{\label{fig:EsemGeoConv}Esempio dal punto di vista geometrico della convergenza.}
+	\caption{\label{fig:esempio_geometrico_convergenza}Esempio dal punto di vista geometrico della convergenza.}
 \end{figure}
 
-Tramite la Figura \ref{fig:EsemGeoConv} è possibile osservare quanto segue: \begin{itemize}
+Tramite la Figura \ref{fig:esempio_geometrico_convergenza} è possibile osservare quanto segue: \begin{itemize}
 	\item più le rette tangenti (le linee che toccano il grafico di $y=f(x)$) si avvicinano a $x^*$, più  il metodo converge ed è preciso;
 	\item il problema di convergenza sorge se $x_0$ è scelto come nel primo quadrante perché i successivi calcoli ($x_1, x_2, \hdots$) si allontanano da $x^*$; quindi è necessario scegliere $x_0$ nell'intervallo locale della radice in base alla funzione.
 \end{itemize}
 
 \subsubsection{Studio della convergenza locale}
-Questa Sezione è una formalizzazione della Figura \ref{fig:EsemGeoConv}.
+Questa Sezione è una formalizzazione della Figura \ref{fig:esempio_geometrico_convergenza}.
 Lo studio della convergenza locale in un contesto generale può essere formalizzata come segue: considerato un metodo iterativo per l'approssimazione di una radice, l'approssimazione della radice $x^*$ di $f$, è definita da
 \begin{equation}\label{eq:funzIteraz}
 	x_{i+1}=\Phi (x_i)\quad i=0,1,2,\hdots,

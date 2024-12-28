@@ -10,8 +10,8 @@ Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\math
 È possibile notare quanto segue:
 \begin{equation*}
 	\begin{matrix}
-		\varepsilon_x=\frac{\Delta x}{x}=\frac{\Tilde{x}-x}{x} &\Rightarrow& \Tilde{x} &=& (1+\varepsilon_x)x\\
-		&& \Tilde{x}&=& x+\Delta x
+		\varepsilon_x=\frac{\Delta x}{x}=\frac{\Tilde{x}-x}{x} & \Rightarrow & \Tilde{x} &=& (1+\varepsilon_x)x\\
+		\Delta  x = \Tilde{x}-x & \Rightarrow & \Tilde{x}&=& x+\Delta x
 	\end{matrix}
 \end{equation*}
 
@@ -158,18 +158,6 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	con $\eta=e-\nu=e-2=1$, quindi $e=3$. Inoltre, la rappresentazione di $x$ non è unica, è possibile la seguente: $x=0.1543\cdot 10^2.$ 
 \end{example}
 
-\begin{definition}[Insieme dei numeri di macchina]\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
-	L'insieme dei numeri di macchina, o numeri floating-point, è definito come:
-	\begin{equation}
-		M = \underset{\footnotemark}{\{0\}}\cup \{\text{Numeri rappresentabili come (\ref{eq:rappresentazione_scientifica_normalizzata}) (fissati }m,s,\nu, b) \}.
-	\end{equation}
-\end{definition}
-\footnotetext{Aggiunto perché nella notazione scientifica normalizzata non è rappresentabile.}
-
-\begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.1 PG 8.}
-	$\boldsymbol M$ ha un numero \textbf{finito} di elementi. (Ovvero: $M$ è un insieme discreto.)
-\end{theorem}
-
 \begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.2 PG 8.}
 	$\boldsymbol{1\leq |\rho|}=\sum_{i=1}^m \alpha_i\, b^{1-i}\boldsymbol{<b}$
 \end{theorem}
@@ -222,9 +210,17 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	dove $[-r_2,-r_1]$ e $[r_1,r_2]$ sono insiemi infiniti. $I$ è l'insieme dei numeri reali rappresentabili con $s,\,m,\,\nu$ fissati.
 \end{definition}
 
-\begin{definition}[\textbf{Insieme numeri macchina}]
-	$\boldsymbol{M\subseteq I}$ è l'\textbf{insieme dei numeri di macchina} ed è un sottoinsieme finito di $\boldsymbol I$.
+\begin{definition}[Insieme dei numeri di macchina]\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
+	L'insieme dei numeri di macchina, o numeri floating-point, è definito come:
+	\begin{equation}
+		\boldsymbol{M} = \underset{\footnotemark}{\{0\}}\cup \{\text{Numeri rappresentabili come (\ref{eq:rappresentazione_scientifica_normalizzata}) (fissati }m,s,\nu, b) \} \boldsymbol{\subset I}
+	\end{equation}
 \end{definition}
+\footnotetext{Aggiunto perché nella notazione scientifica normalizzata non è rappresentabile.}
+
+\begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.1 PG 8.}
+	$\boldsymbol M$ ha un numero \textbf{finito} di elementi. (Ovvero: $M$ è un insieme discreto.)
+\end{theorem}
 
 \begin{definition}[\textbf{Funzione floating}]
 	La funzione floating è definita come
@@ -275,10 +271,10 @@ Principalmente sarà usata la rappresentazione con arrotondamento, utilizzando a
 	\end{center}
 \end{example}
 
-Il seguente Teorema è importante, afferma che il massimo errore relativo da poter commettere (con base, mantissa, ecc. fissati) è $u$ ed è possibile esprimere con questo ultimo valore la precisione della rappresentazione. La precisione dipende fortemente dal numero di cifre rappresentate (maggiore è il numero di cifre maggiore è la precisione).
+Il seguente Teorema è importante, afferma che il massimo errore relativo da poter commettere (con base, mantissa, ecc. fissati) è $u$, ovvero la precisione della rappresentazione. La precisione dipende fortemente dal numero di cifre rappresentate (maggiore è il numero di cifre maggiore è la precisione).
 
 \begin{theorem}[Precisione di macchina in aritmetica finita, non ufficiale] \footnote{Slide 6 PDF lez3, Teorema 1.4 PG 10.}\label{th:precisione_macchina_FL}
-	Se $x\in I,\, x\neq 0$ allora
+	Se $x\in I\backslash\{ 0\}$ allora
 	\begin{equation*}
 		fl(x)=x(1+\varepsilon_x), \quad |\varepsilon_x|\leq u,
 	\end{equation*}
@@ -307,7 +303,13 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 \begin{definition}[\textbf{Precisione macchina}]
 	$\boldsymbol u$ (\ref{eq:precisione_macchina_FL}) è detta \textbf{precisione macchina}.
 \end{definition}
-$u$ è il più piccolo reale, diverso da 0, in notazione scientifica che sommato ad $n$ numero qualsiasi dà un numero diverso da $n$. Infatti, qualsiasi numero più piccolo di $u$ è considerato 0 (?).
+
+\paragraph{Cosa rappresenta $\boldsymbol{u}$?}
+Dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina \gls{maggiora uniformemente} l'errore relativo di rappresentazione
+\begin{equation*}
+	\varepsilon_x = \frac{|x-fl(x)|}{|x|}\leq u\quad (\text{se } x\neq 0).
+\end{equation*}
+Quindi, $\boldsymbol u$ \textbf{rappresenta il massimo errore relativo commesso dalla funzione di floating} $\boldsymbol{fl}$ ed è il più piccolo reale, diverso da 0, in notazione scientifica che sommato ad $n$ numero qualsiasi dà un numero diverso da $n$. Infatti, qualsiasi numero più piccolo di $u$ è considerato 0 (?).
 
 \addtocounter{footnote}{-2}
 \footnotetext{È ignorato $\alpha_0$ perché, dato il valore assoluto, il segno è ininfluente.}
@@ -319,9 +321,9 @@ $u$ è il più piccolo reale, diverso da 0, in notazione scientifica che sommato
 \footnotetext{Spostamento degli $\alpha_{m+1}\cdots$ a sinistra della virgola.}
 
 \begin{definition}[\textbf{Errore relativo di rappresentazione}]
-	$\boldsymbol{\varepsilon_x}\overset{\footnotemark}{\boldsymbol =}\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} relativo ad $x$.
+	$\boldsymbol{\varepsilon_x}=\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} relativo ad $x$.
 \end{definition}
-\footnotetext{Derivato da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precisione_macchina_FL}.}
+\paragraph{Come è stato ottenuto $\boldsymbol{\varepsilon_x}$?}{Da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precisione_macchina_FL}.}
 
 Per rappresentare un elemento di $I$ (vedere (\ref{eq:insDomFFloaPoint})), attraverso la funzione floating point, è commesso, al più, un errore relativo $\varepsilon_x$ maggiorato dalla precisione macchina $u$, quindi $u$ è un limite per l'errore.
 
