@@ -216,7 +216,7 @@ Tale valore amplifica (di un fattore $\kappa$) l'errore $x_i-x^*$ commesso su $x
 \end{definition}
 Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dice multipla.
 
-\paragraph{Il metodo di bisezione è malcondizionato con radici multiple:} Dalla Definizione precedente e dalla Definizione \ref{def:numero_condizionamento_radice} di condizionamento di una radice è possibile affermare che il problema della determinazione di radici multiple è \textbf{\underline{sempre} malcondizionato}, quindi non è consigliata l'applicazione del metodo di bisezione, in quanto il numero di condizionamento risulterebbe essere $\kappa=\infty$ (sarà ottenuto un risultato, la radice, non preciso).
+\paragraph{Il metodo di bisezione è malcondizionato con radici multiple:} Dalla Definizione precedente e dalla Definizione \ref{def:numero_condizionamento_radice} di condizionamento di una radice è possibile affermare che il problema della determinazione di radici multiple è \textbf{\underline{sempre} malcondizionato} per ogni metodo impiegato per la ricerca delle radici. Quindi non è consigliata l'applicazione del metodo di bisezione, in quanto il numero di condizionamento risulterebbe essere $\kappa=\infty$ (sarà ottenuto un risultato, la radice, non preciso).
 
 \paragraph{Convergenza del metodo di bisezione:} Vedere Sezione \ref{ssec:convergenza_metodo_bisezione}.
 
@@ -664,11 +664,13 @@ la quale è ottenuta tramite $i$ iterazioni del tipo
 per renderla più precisa. Tale stima è utile per avere una buona  approssimazione dell'errore. Pertanto, è necessario considerare il costo computazionale delle $i$ iterazioni (sono necessarie almeno due iterazioni).
 \footnotetext{$e_{i+1}\approx c\cdot e_i$.}
 
-\subsubsection{Caso delle radici multiple}
+\subsection{Caso delle radici multiple}
 \footnote{Slide 1-3 PDF lez11, PG 34-36.}
-Nel caso in cui la molteplicità di $x^*$ sia $m>1$, è noto che il problema di determinare le radici sia malcondizionato. Inoltre, è noto che il metodo di Newton risulti essere solo lineare. Tuttavia, è possibile modificare tale metodo per ripristinare la convergenza quadratica, distinguendo i seguenti casi.
+Per tutti i metodi per la ricerca delle radici di una funzione è noto che nel caso in cui la molteplicità di $x^*$ sia $m>1$, il problema di determinare le radici è malcondizionato in quanto $f'(x^*) = 0$ e quindi $\kappa = \frac{1}{|f'(x^*)|}=+\infty$. Questo è dovuto dalla definizione di molteplicità di una radice, ovvero dalla Definizione \ref{def:radice_molteplicita_m}, per la quale le prime $m$ derivate di $f$ sono tutte uguali 0.
 
-\subsubsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} nota}
+Inoltre, è noto che il metodo di Newton risulti essere solo lineare. Tuttavia, è possibile modificare tale metodo per ripristinare la convergenza quadratica, distinguendo i seguenti casi.
+
+\subsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} nota}
 Avere $m$ nota non è una caratteristica banale. Applicando l'Osservazione \ref{rem:formaF}, per semplicità, al metodo di Newton, per determinare la radice (\ref{eq:approssimazione_newton}), allora, è ottenuta
 \begin{equation*}
 	x_{i+1}=x_i-\frac{x_i-x^*}{m}, \quad i=0,1,2,\hdots.
@@ -683,7 +685,7 @@ ripristinando la convergenza quadratica del metodo, qualora converga verso una r
 
 \paragraph{Convergenza:} Nel caso generale la \textbf{convergenza} rimane \textbf{quadratica}.
 
-\subsubsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} ignota}
+\subsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} ignota}
 In questo caso il metodo di Newton converge linearmente ($p=1$), quindi (da (\ref{eq:limOrdConv}))
 \begin{equation*}
 	\underset{i\to\infty}{\lim}{\frac{|e_{i+1}|}{|e_i|}} = c<\infty.
