@@ -83,15 +83,15 @@ L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto 
 \paragraph{Precisazione sugli errori di convrgenza:} Gli errori convergenza sono dovuti alla modalità di utilizzo del \gls{metodo numerico} applicato.
 
 \subsection{Errori di round-off}\label{ssec:errori_roundoff}\footnote{Slide 6 PDF lez1, PG 6.}
-Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato, ovvero questi errori sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
+Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato. Quindi, gli errori di round-off sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
 
-Saranno trattati i due casi seguenti:
+Saranno trattati i due casi seguenti di rappresentazione in aritmetica finita di una quantita' numerica:
 \begin{itemize}
 	\item numeri interi,
 	\item numeri reali.
 \end{itemize}
 
-In entrambi i casi è utilizzata una notazione posizionale che utilizza potenze di base $b\in\mathbb N\; (b\geq 2).$
+In entrambi i casi è utilizzata una notazione posizionale che utilizza potenze di base $b\in\mathbb N\; (b\geq 2)$. Per motivi di efficienza è assunto, sia per in numeri interi che per i numeri reali, che le basi utilizzate siano pari. In particolare, nel caso della base binaria, i numeri negativi sono efficientemente rappresentati utilizzando il complemento 2;
 
 \subsubsection{Numeri interi}\footnote{Slide 6 PDF lez1, PG 7.}
 Un numero intero è memorizzato come stringa del tipo
@@ -110,15 +110,11 @@ in cui è assegnata la base $b\in\mathbb N,\, b\geq 2,$ e $ \alpha_0\in\{+,-\},\
 \end{equation}
 
 Tramite la notazione (\ref{eq:rapprNumInt})-(\ref{eq:rapprNumIntCompl}) è possibile rappresentare \textbf{senza errore} tutti i numeri interi dell'insieme
-\begin{equation}\label{eq:insNumIntRappr}
+\begin{equation}\label{eq:insieme_numeri_interi_rappresentabili}
 	\{-b^N,\,b^N-1\}.
 \end{equation}
 
-\textbf{Dettagli aggiuntivi:}
-\begin{itemize}
-	\item Per motivi di efficienza è assunto, anche in seguito, che le basi utilizzate siano pari. In particolare, nel caso della base binaria, i numeri negativi sono efficientemente rappresentati utilizzando il complemento 2;
-	\item Il caso in cui è necessario rappresentare un numero all'esterno dell'insieme (\ref{eq:insNumIntRappr}) crea una condizione di errore non facilmente diagnosticabile. 
-\end{itemize}
+\textbf{Dettaglio aggiuntivo:} Il caso in cui è necessario rappresentare un numero all'esterno dell'insieme (\ref{eq:insieme_numeri_interi_rappresentabili}) crea una condizione di errore non facilmente diagnosticabile.
 
 \begin{example}
 	$b=10,\, N=4,\, \underset{+}{\alpha_0}\underset{1}{\alpha_1}\underset{7}{\alpha_2}\underset{4}{\alpha_3}\underset{2}{\alpha_4}=n=1\cdot 10^3+7\cdot 10^2+4\cdot 10^1+2\cdot 10^0.$
@@ -127,13 +123,13 @@ Tramite la notazione (\ref{eq:rapprNumInt})-(\ref{eq:rapprNumIntCompl}) è possi
 \subsubsection{Numeri reali}\footnote{Slide 8 PDF lez1, PG 7.}
 Un numero "reale" è memorizzato in un calcolatore mediante una stringa del tipo
 \begin{equation}\label{eq:rappresentazione_numero_reale}
-	\alpha_0\cdots\alpha_m\beta_1\cdots\beta_s,
+	\alpha_0\alpha_1\cdots\alpha_m\beta_1\cdots\beta_s,
 \end{equation}
 in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\{0,\hdots,b-1\}_{i=1,\hdots,m,\, j=1,\hdots,s}.$
 \begin{definition}[Notazione scientifica normalizzata]
-	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, rappresentabile come la notazione scientifica normalizzata in base $b$ nella seguente forma
+	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, e' rappresentabile in modo unico in notazione scientifica normalizzata in base $b$ con la seguente forma
 	\begin{equation}\label{eq:rappresentazione_scientifica_normalizzata}
-		r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
+		r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu}\in\mathbb{R},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
 	\end{equation}
 	con fissati $\overset{\footnotemark}{\nu}\in\mathbb N$ shift, $m$ il numero di cifre della mantissa ed $s$ il numero di cifre dell'esponente. Le quantità
 	\begin{equation}\label{eq:mantissa_esponente_rappresentazione_numero_reale}
@@ -151,11 +147,14 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	dove $e=\sum_{j=1}^2\beta_j10^{2-j}=10+1=11.$
 \end{example}
 \begin{example}
-	\footnote{Slide 1 PDF 2.} Supposto l'utilizzo della notazione denormalizzata,
+	\footnote{Slide 1 PDF 2.} Supposto l'utilizzo della notazione denormalizzata, dati $\alpha_1=0,\, b=10,\, m=5,\, s=5,\, \nu=2$ allora
 	\begin{equation*}
-		\alpha_1=0,\, b=10,\, m=5,\, s=5,\, \nu=2,\, x=1.543\cdot 10^\eta,
+		 x=1.543\cdot 10^\eta,
 	\end{equation*}
-	con $\eta=e-\nu=e-2=1$, quindi $e=3$. Inoltre, la rappresentazione di $x$ non è unica, è possibile la seguente: $x=0.1543\cdot 10^2.$ 
+	con $\eta=e-\nu=e-2=1$ e $e=3$, non ha rappresentazione unica. E' possibile la seguente rappresentazione:
+	\begin{equation*}
+		x=0.1543\cdot 10^2.
+	\end{equation*} 
 \end{example}
 
 \begin{theorem}\footnote{Slide 2 PDF lez2, Teorema 1.2 PG 8.}
@@ -187,9 +186,9 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	$b=10,\, m=4,\, 9.999=10\cdot(1-0.0001)=10\cdot\underbrace{(1-10^{-9})}_{0.9999}.$
 \end{example}
 
-\begin{theorem}\label{th:maxMinNumMacc}\footnote{Slide 3 PDF lez2, Teorema 1.3 PG 8.}
-	Il più piccolo ed il più grande numero macchina positivi e diversi da 0 sono, rispettivamente:
-	\begin{equation}\label{eq:minMaxNrPrecMacc}
+\begin{theorem}\label{th:massimo_minimo_numero_macchina_rappresentabile}\footnote{Slide 3 PDF lez2, Teorema 1.3 PG 8.}
+	Il più piccolo ed il più grande numero macchina positivi diversi da 0 sono, rispettivamente:
+	\begin{equation}\label{eq:massimo_minimo_numero_macchina_rappresentabile}
 		\begin{matrix}
 			r_1 &=& b^{-\nu},&\\
 			r_2 &=& (1-b^{-m})b^\varphi,& \varphi=b^s-\nu
@@ -203,11 +202,11 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 \end{remark}
 
 \begin{definition}[Insieme dei reali rappresentabili]
-	Dato il Teorema \ref{th:maxMinNumMacc} e sia 
-	\begin{equation}\label{eq:insDomFFloaPoint}
+	Dato il Teorema \ref{th:massimo_minimo_numero_macchina_rappresentabile} e fissati $s,\,m,\,\nu$, i numeri di macchina appartengono al sottoinsieme della reta reale
+	\begin{equation}\label{eq:insieme_numeri_reali_rappresentabili}
 		I=[-r_2,-r_1]\cup \{0\}\cup [r_1,r_2],
 	\end{equation}
-	dove $[-r_2,-r_1]$ e $[r_1,r_2]$ sono insiemi infiniti. $I$ è l'insieme dei numeri reali rappresentabili con $s,\,m,\,\nu$ fissati.
+	dove $[-r_2,-r_1]$ e $[r_1,r_2]$ sono insiemi infiniti.
 \end{definition}
 
 \begin{definition}[Insieme dei numeri di macchina]\footnote{Slide 2 PDF lez2, Definizione 1.1 PG 8.}
@@ -255,7 +254,7 @@ esistono due possibili implementazioni della funzione $fl(x)=(\alpha_0\underbrac
 			\alpha_m+1, &\text{ se }\alpha_{m+1}\geq\frac{b}{2}
 		\end{cases}
 	\end{align}
-	Nel caso in cui $\Tilde{\alpha}_m\geq b$ allora ci sarà un riporto delle cifre precedenti alla $m$-esima.
+	dove nel caso $\Tilde{\alpha}_m\geq b$ allora ci sarà un riporto delle cifre precedenti alla $m$-esima.
 \end{itemize}
 Principalmente sarà usata la rappresentazione con arrotondamento, utilizzando alcune sofisticazioni.
 
@@ -294,18 +293,18 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 	$x=(\alpha_0\,\alpha_1.\cdots\alpha_m\cdots)\,b^{e-\nu}$ ed $fl(x)$ sono dati, da (\ref{eq:numEsatto}) e (\ref{eq:troncamento}) con la normalizzazione $\alpha_1\neq 0$, allora:
 	\begin{equation*}
 		\begin{matrix}
-			|\varepsilon_x|&=&\frac{fl(x)-x}{x}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu}-(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu)}\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
-			&=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m)-(\alpha_1.\alpha_2\cdots\alpha_m\cdots)|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\
+			|\varepsilon_x|&=&\frac{|x - fl(x)|}{|x|}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)b^{e-\nu} - (\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu})\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
+			&=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots) - (\alpha_1.\alpha_2\cdots\alpha_m))|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\
 			&\overset{\footnotemark}{=}&\frac{0.00\cdots\alpha_{m+1}\cdots}{\alpha_1.\alpha_2\cdots\alpha_{m+1}\cdots}&\leq& 0.00\cdots\alpha_{m+1}\cdots &\overset{\footnotemark}{=}&(\alpha_{m+1}.\alpha_{m+2}\cdots)\, b^{-m}\\
 			&&&\leq&((b-1).(b-1)\cdots)\, b^{-m}&<&b\, b^{-m}&=& b^{1-m}
 		\end{matrix}
 	\end{equation*}
 \end{proof}
 \begin{definition}[\textbf{Precisione macchina}]
-	$\boldsymbol u$ (definita in (\ref{eq:precisione_macchina_FL})) è detta \textbf{precisione macchina}.
+	$\boldsymbol u$ (definita come (\ref{eq:precisione_macchina_FL})) è detta \textbf{precisione macchina} in aritmetica finita.
 \end{definition}
 
-\paragraph{Cosa rappresenta $\boldsymbol{u}$?}
+\paragraph{Cosa rappresenta la precisione macchina $\boldsymbol{u}$?}
 Dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina \gls{maggiora uniformemente} l'errore relativo di rappresentazione
 \begin{equation*}
 	\varepsilon_x = \frac{|x-fl(x)|}{|x|}\leq u\quad (\text{se } x\neq 0).
@@ -326,10 +325,10 @@ Quindi, $\boldsymbol u$ \textbf{rappresenta il massimo errore relativo commesso 
 \end{definition}
 \paragraph{Come è stato ottenuto $\boldsymbol{\varepsilon_x}$?}{Da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precisione_macchina_FL}.}
 
-Per rappresentare un elemento di $I$ (vedere (\ref{eq:insDomFFloaPoint})), attraverso la funzione floating point, è commesso, al più, un errore relativo $\varepsilon_x$ maggiorato dalla precisione macchina $u$, quindi $u$ è un limite per l'errore.
+Per rappresentare un elemento di $I$ (vedere (\ref{eq:insieme_numeri_reali_rappresentabili})), attraverso la funzione floating point, è commesso, al più, un errore relativo $\varepsilon_x$ maggiorato dalla precisione macchina $u$, quindi $u$ è un limite per l'errore.
 
 \subsubsection{Overflow e Underflow}\footnote{Slide 8 PDF lez2, PG 11.}
-Può capitare di dover rappresentare numeri reali non contenuti in $I$, in questo caso è sollevata una condizione d'errore. Le condizioni d'errore derivate dalla rappresentazione di un reale $x\notin I$, con $I$ definito come in (\ref{eq:insDomFFloaPoint}), sono:
+Può capitare di dover rappresentare numeri reali non contenuti in $I$, in questo caso è sollevata una condizione d'errore. Le condizioni d'errore derivate dalla rappresentazione di un reale $x\notin I$, con $I$ definito come in (\ref{eq:insieme_numeri_reali_rappresentabili}), sono:
 \begin{itemize}
 	\item $\boldsymbol{|x|>r_2}\Rightarrow$ overflow. Tale condizione è rappresentata in base al sistema di calcolo utilizzato (esempio: nello standard IEEE 754 il simbolo \textbf{Inf} rappresenta $\infty$);
 	\item $\boldsymbol{0<|x|<r_1}\Rightarrow$ underflow. In questo caso esitono due tipi di recovery, indipendenti ed associate al sistema di calcolo utilizzato (ed è possibile utilizzare solo una delle due):
@@ -431,7 +430,7 @@ Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/
 \subsubsection{Aritmetica Finita}\footnote{Slide 4 PDF lez3, PG 13.}
 È interessante capire cosa accade in aritmetica finita quando sono svolte operazioni su numeri macchina. Date le implementazioni delle operazioni algebriche ($+,\, -,\,\times,\, \slash$) in aritmetica finita, è necessario distinguere tra numeri reali ed interi.
 
-\paragraph{Numeri interi:} Se operandi e risultato appartengono all'insieme dei numeri di macchina (\ref{eq:insNumIntRappr}), le operazioni coincidono con le corrispondenti algebriche.
+\paragraph{Numeri interi:} Se operandi e risultato appartengono all'insieme dei numeri di macchina (\ref{eq:insieme_numeri_interi_rappresentabili}), le operazioni coincidono con le corrispondenti algebriche.
 
 \paragraph{Numeri reali:} In questo caso le operazioni ed il risultato sono, rispettivamente, definite tra numeri macchina e numero macchina.
 
@@ -446,7 +445,7 @@ Un esempio di implementazione della somma algebrica in aritmetica finita, sia $\
 \end{remark}
 
 \begin{example}
-	Dato $r_2$ definito come in (\ref{eq:minMaxNrPrecMacc}) e 2 (numero intero), allora:
+	Dato $r_2$ definito come in (\ref{eq:massimo_minimo_numero_macchina_rappresentabile}) e 2 (numero intero), allora:
 	\begin{equation*}
 		fl(r_2)=r_2,\; f(2)=2,\; (r_2-r_2)\times 2= r_2\times 2- r_2\times 2=0. 
 	\end{equation*}
@@ -465,7 +464,7 @@ Un esempio di implementazione della somma algebrica in aritmetica finita, sia $\
 	
 \end{example}
 \begin{example}
-	Dato $r_2=\overbrace{9.999\cdots 9}^{m}\cdot 10^{10^s-1-\nu}$, ovvero definito come in (\ref{eq:minMaxNrPrecMacc}) ed $1=1.000\cdots 0\cdot 10^0\overset{\footnotemark}{=}\underbrace{0.000\cdots 0}_{m}\cdots 1\cdot 10^{10^s-1-\nu}$,  allora:\footnotetext{Quando è applicata $fl$, a meno di scegliere $s$ molto piccolo l'1 è molto dopo gli $m$ 0.}
+	Dato $r_2=\overbrace{9.999\cdots 9}^{m}\cdot 10^{10^s-1-\nu}$, ovvero definito come in (\ref{eq:massimo_minimo_numero_macchina_rappresentabile}) ed $1=1.000\cdots 0\cdot 10^0\overset{\footnotemark}{=}\underbrace{0.000\cdots 0}_{m}\cdots 1\cdot 10^{10^s-1-\nu}$,  allora:\footnotetext{Quando è applicata $fl$, a meno di scegliere $s$ molto piccolo l'1 è molto dopo gli $m$ 0.}
 	\begin{equation*}
 		\begin{matrix}
 			r_2-r_2+1=(r_2-r_2)+1=r_2-(r_2-1)\\
