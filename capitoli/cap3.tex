@@ -987,7 +987,7 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
 
 Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero $A$ \textit{d.d.} $\Rightarrow\forall k=1,\hdots,n:A_k$ \textit{d.d.} $\Rightarrow \boldsymbol{A=LU}$ \textbf{se vale il seguente risulato}:
 \begin{theorem}\label{th:matrice_diagonale_dominante_nonsingolare}\footnote{Slide 5 PDF 5, Lemma 3.9 PG 55.}
-    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ nonsingolare ($\rightarrow A$ e' fattorizzabile $LU$).
+    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ nonsingolare ($\rightarrow A$ è fattorizzabile $LU$).
 \end{theorem}
 \begin{proof}
     È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:AddSSeATDD}). Per assurdo, inoltre, è assunto che $A$ sia singolare $\Rightarrow\exists\,\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
@@ -1164,7 +1164,7 @@ $\left(\left[
     C\uline y
 \end{pmatrix}$.}
 
-\begin{remark}[$A]
+\begin{remark}[$A$ sdp e' fattorizzabile $LU$]
     \textbf{I Teoremi \ref{th:sottoMatrSDP} e \ref{th:matrSDPNonSing} permettono di affermare che \uline{se una matrice $A$ \textit{sdp} allora è fattorizzabile $LU$}. Per dimostrare che ciò è vero è necessario enunciare le dimostrazioni di entrambi i Teoremi.}
 \end{remark}
 
@@ -1181,7 +1181,7 @@ Al fine di individuare una fattorizzazione più convenitente per $A$ \textit{sdp
 
 Un fatto derivante dal precedente Teorema è il seguente: data una matrice simmetrica, se sono presenti elementi diagonali nulli o negativa, allora la matrice non è definita positiva. 
 
-\begin{theorem}\label{th:matrSDPsseLDL}\footnote{Slide 10 PDF 5, Teorema 3.6 PG 57}
+\begin{theorem}\label{th:matrice_SDP_sse_LDL}\footnote{Slide 10 PDF 5, Teorema 3.6 PG 57}
     $A$ \textit{sdp} s.se \begin{equation}\label{eq:A=LDL}
         \boldsymbol{A=LDL^T},
     \end{equation} con\begin{enumerate}
@@ -1272,7 +1272,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
 \footnotetext{Dovuto al fatto che $A$ è definita positiva.}
 
 \begin{remark}
-    $\widehat U^TD L^T$ è una fattorizzazione $LU$ di $A$.
+    $\widehat U^TD L^T$ (definite nella dimostrazione del Teorema \ref{th:matrice_SDP_sse_LDL}) è una fattorizzazione $LU$ di $A$.
 \end{remark}
 
 \begin{theorem}
@@ -1313,7 +1313,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
 \end{example}
 
 \begin{remark}\footnote{Slide 4 PDF 6.}
-    Quanto esposto dal Teorema \ref{th:matrSDPsseLDL} permette di generare facilmente matrici \textit{sdp}, considerando una matrice triangolare inferiore a diagonale unitaria casuale ed una matrice diagonale ad elementi casuali positivi.
+    Quanto esposto dal Teorema \ref{th:matrice_SDP_sse_LDL} permette di generare facilmente matrici \textit{sdp}, considerando una matrice triangolare inferiore a diagonale unitaria casuale ed una matrice diagonale ad elementi casuali positivi.
     Con il prodotto $LDL^T$ sarà ottenuta \textbf{sicuramente} una matrice \textit{sdp}.
 \end{remark}
 

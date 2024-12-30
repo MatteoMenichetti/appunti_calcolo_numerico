@@ -1,5 +1,5 @@
 \section{Aritmetica finita}\label{sec:aritmetica_finita}
-Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R$. L'utilizzo di un metodo numerico fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
+Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\mathbb R$. L'utilizzo di un \gls{metodo numerico} fornisce un'approssimazione ($\Tilde{x}$) del risultato esatto ($x$). L'approssimazione genera un errore dovuto alla stessa.
 
 È possibile misurare l'errore introdotto dall'approssimazione attraverso:
 \begin{itemize}
@@ -18,13 +18,13 @@ Supposto di avere un problema matematico, questo ha soluzione esatta $x \in\math
 \begin{example}
 	Esempi di errore:
 	\begin{itemize}
-		\item $\Delta x = 10^{-3},\, x=10^{-3}\Rightarrow \varepsilon_x = 1;$
-		\item  $\Delta x = 10^{-3},\, x=10^{-6}\Rightarrow\varepsilon_x = 10^{-9};$
+		\item $\Delta x = 10^{-3},\, x=10^{-3}\Rightarrow \varepsilon_x = \frac{10^{-3}}{10^{-3}} = 1$,
+		\item  $\Delta x = 10^{-3},\, x=10^{-6}\Rightarrow\varepsilon_x = 10^{-9}$,
 		\item $x=\pi,\,\Tilde{x}=3.14 \Rightarrow\Delta x \approx -1.6\cdot 10^{-3}.$
 	\end{itemize}
 \end{example}
 
-Gli errori assimilabili ad un metodo numerico sono individuabili in tre categorie distinte:
+Gli errori assimilabili ad un \gls{metodo numerico} sono individuabili in tre categorie distinte:
 \begin{enumerate}
 	\item Errori di discretizzazione (Sezione \ref{ssec:errori_discretizzazione}),
 	\item Errori di convergenza (Sezione \ref{ssec:errori_convergenza}),
@@ -32,7 +32,7 @@ Gli errori assimilabili ad un metodo numerico sono individuabili in tre categori
 \end{enumerate}
 
 \subsection{Errori di discretizzazione}\label{ssec:errori_discretizzazione}\footnote{Slide 2 PDF lez1, PG 4.}
-Al fine di ottenere un metodo numerico che possa essere risolto da un calcolatore è necessario trasformare il \underline{problema \textbf{continuo}}\footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb R\rightarrow\mathbb R$.} in \underline{problema \textbf{discreto}} \footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb N\rightarrow\mathbb N$.}. È possibile notare che questo tipo di errore è dovuto alla definizione del metodo numerico utilizzato.
+Al fine di ottenere un \gls{metodo numerico} che possa essere risolto da un calcolatore è necessario trasformare il \underline{problema \textbf{continuo}}\footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb R\rightarrow\mathbb R$.} in \underline{problema \textbf{discreto}} \footnote{Ovvero dove la funzione da approssimare è definita come $f(x):\mathbb N\rightarrow\mathbb N$.}. \textbf{È importante notare che questo tipo di errore è dovuto alla definizione del \gls{metodo numerico} utilizzato.}
 
 Supposto il problema da risolvere sia il calcolo della derivata $f'(x_0)$, dove $f:\mathbb R\rightarrow\mathbb R,\, x_0\in (a,b),\, f\in C^{(2)}[a,b]$, allora è possibile utilizzare lo sviluppo di Taylor di secondo ordine, per ottenere $f'(x_0)$, come segue:
 
@@ -53,7 +53,7 @@ allora segue che, sostituendo $x=x_0+h$ (con $h>0$ quantità piccola e finita), 
 \end{equation}
 Pertanto, l'errore di discretizzazione è denotato come segue:
 \begin{equation*}
-	|f'(x_0)-\varphi(x_0)|=\frac{|f''(\xi)|}{2}h=O(h)\leq kh.
+	\Delta x = |f'(x_0)-\varphi(x_0)|=\frac{|f''(\xi)|}{2}h = o(h)\leq kh.
 \end{equation*}
 
 \subsection{Errori di convergenza}\label{ssec:errori_convergenza}
@@ -65,13 +65,13 @@ dove $n$ è il numero di iterazioni. Il metodo in questione converge se
 \begin{equation}
 	\lim_{n\rightarrow\infty}x_n=x^*,
 \end{equation}
-dove $x^*$ è la soluzione esatta. La soluzione del problema quindi è fornita con infinite iterazioni.
+dove $x^*$ è la soluzione esatta. La soluzione esatta del problema quindi è fornita con infinite iterazioni.
 
-È necessario definire un criterio d'arresto per la procedura (\ref{eq:approssimazione_procedura_iterativa}), ovvero un numero finito di iterazioni $n$ affinché il metodo numerico sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
+È necessario definire un criterio d'arresto per la procedura (\ref{eq:approssimazione_procedura_iterativa}), ovvero un numero finito di iterazioni $n$ affinché il \gls{metodo numerico} sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
 
 L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto è stabilito arrestando l'iterazione quando $n=N$ in modo che $x_N$ sia sufficientemente accurata. Un'approssimazione è sufficientemente accurata se $|x_N-x^*|\leq\varepsilon,$ con $\varepsilon$ la tolleranza stabilita.
 
-È possibile affermare che questo tipo di errore è dovuto dal metodo numerico utilizzato.
+È possibile affermare che questo tipo di errore è dovuto dal \gls{metodo numerico} utilizzato.
 
 \begin{example}
 	La procedura iterativa che definisce un metodo convergente per calcolare $\sqrt{2}$ è
@@ -80,10 +80,10 @@ L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto 
 	\end{equation}
 \end{example}
 
-\paragraph{Precisazione sui due errori precedenti:} Gli errori di discretizzazione e di convergenza sono dovuti al metodo numerico applicato, il primo, ed alla sua modalità di utilizzo, il secondo tipo di errore.
+\paragraph{Precisazione sugli errori di convrgenza:} Gli errori convergenza sono dovuti alla modalità di utilizzo del \gls{metodo numerico} applicato.
 
 \subsection{Errori di round-off}\label{ssec:errori_roundoff}\footnote{Slide 6 PDF lez1, PG 6.}
-Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato. Questi errori sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
+Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato, ovvero questi errori sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
 
 Saranno trattati i due casi seguenti:
 \begin{itemize}
@@ -285,7 +285,8 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 			b^{1-m}, &\text{ in caso di troncamento},\\
 			\frac{1}{2}b^{1-m}, &\text{ in caso di arrotondamento}.
 		\end{cases}
-	\end{equation} 
+	\end{equation}
+	è la precisione macchina.
 \end{theorem}
 \begin{proof}
 	È riportato il caso del troncamento, simili argomenti sono applicati all'arrotondamento.
@@ -301,7 +302,7 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 	\end{equation*}
 \end{proof}
 \begin{definition}[\textbf{Precisione macchina}]
-	$\boldsymbol u$ (\ref{eq:precisione_macchina_FL}) è detta \textbf{precisione macchina}.
+	$\boldsymbol u$ (definita in (\ref{eq:precisione_macchina_FL})) è detta \textbf{precisione macchina}.
 \end{definition}
 
 \paragraph{Cosa rappresenta $\boldsymbol{u}$?}
@@ -321,7 +322,7 @@ Quindi, $\boldsymbol u$ \textbf{rappresenta il massimo errore relativo commesso 
 \footnotetext{Spostamento degli $\alpha_{m+1}\cdots$ a sinistra della virgola.}
 
 \begin{definition}[\textbf{Errore relativo di rappresentazione}]
-	$\boldsymbol{\varepsilon_x}=\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} relativo ad $x$.
+	$\boldsymbol{\varepsilon_x}=\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} rispetto ad $x$.
 \end{definition}
 \paragraph{Come è stato ottenuto $\boldsymbol{\varepsilon_x}$?}{Da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precisione_macchina_FL}.}
 
@@ -491,20 +492,20 @@ dove:
 	\item $y\in\mathbb R$, denota la soluzione al problema.
 \end{itemize}
 
-Un metodo numerico che risolve il problema (\ref{eq:problema}), ovvero lo approssima, può essere formalizzato come
+Un \gls{metodo numerico} che risolve il problema (\ref{eq:problema}), ovvero lo approssima, può essere formalizzato come
 \begin{equation}\label{eq:approssimazione_problema}
 	\Tilde{y}=\Tilde{f}(\Tilde{x}),
 \end{equation}
 in cui:
 \begin{itemize}
 	\item $\Tilde{x}\in\mathbb R$ denota i dati in ingresso affetti da errore, ovvero perturbati (questi sono sempre affetti da errore di rappresentazione);
-	\item $\Tilde{f}$ denota il metodo numerico implementato utilizzando aritmetica finita, introducendo così possibili errori discretizzazione e/o convergenza;
+	\item $\Tilde{f}$ denota il \gls{metodo numerico} implementato utilizzando aritmetica finita, introducendo così possibili errori discretizzazione e/o convergenza;
 	\item $\Tilde{y}\in\mathbb R$ denota la soluzione, il dato in uscita, affetta da errore (ovvero sarà perturbata). 
 \end{itemize}
 
-È interessante studiare l'errore $(y-\Tilde{y})$ del metodo numerico (\ref{eq:approssimazione_problema}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del metodo numerico è spesso complesso (non rientra nel corso).
+È interessante studiare l'errore $(y-\Tilde{y})$ del \gls{metodo numerico} (\ref{eq:approssimazione_problema}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del \gls{metodo numerico} è spesso complesso (non rientra nel corso).
 
-Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:problema}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del metodo numerico. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
+Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:problema}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del \gls{metodo numerico}. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
 
 Formalmente è studiato
 \begin{equation}\label{eq:probCondStud}
