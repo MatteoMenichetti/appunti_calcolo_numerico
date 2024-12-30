@@ -296,7 +296,7 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 			|\varepsilon_x|&=&\frac{|x - fl(x)|}{|x|}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)b^{e-\nu} - (\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu})\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
 			&=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots) - (\alpha_1.\alpha_2\cdots\alpha_m))|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\
 			&\overset{\footnotemark}{=}&\frac{0.00\cdots\alpha_{m+1}\cdots}{\alpha_1.\alpha_2\cdots\alpha_{m+1}\cdots}&\leq& 0.00\cdots\alpha_{m+1}\cdots &\overset{\footnotemark}{=}&(\alpha_{m+1}.\alpha_{m+2}\cdots)\, b^{-m}\\
-			&&&\leq&((b-1).(b-1)\cdots)\, b^{-m}&<&b\, b^{-m}&=& b^{1-m}
+			&\leq&((b-1).(b-1)\cdots)\, b^{-m}&<&b\, b^{-m}&=& b^{1-m}
 		\end{matrix}
 	\end{equation*}
 \end{proof}
@@ -321,7 +321,7 @@ Quindi, $\boldsymbol u$ \textbf{rappresenta il massimo errore relativo commesso 
 \footnotetext{Spostamento degli $\alpha_{m+1}\cdots$ a sinistra della virgola.}
 
 \begin{definition}[\textbf{Errore relativo di rappresentazione}]
-	$\boldsymbol{\varepsilon_x}=\boldsymbol{\frac{fl(x)-x}{x}}$ è l'\textbf{errore relativo di rapprestazione} rispetto ad $x$.
+	$\boldsymbol{\varepsilon_x}=\boldsymbol{\frac{x - fl(x)}{x}}$ è l'\textbf{errore relativo di rapprestazione} rispetto ad $x$.
 \end{definition}
 \paragraph{Come è stato ottenuto $\boldsymbol{\varepsilon_x}$?}{Da $fl(x)=x(1+\varepsilon_x)$ del Teorema \ref{th:precisione_macchina_FL}.}
 
@@ -367,7 +367,7 @@ Nella Sezione è trattato lo standard ANSI/IEEE 754-1985, per la rappresentazion
 
 Lo standard IEEE 754 è particolarmente adatto alla base binaria ($b=2$).
 
-\textbf{La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento, quindi lal precisione macchina è misurata tramite \ref{eq:precisione_macchina_FL} nel caso per arrotondamento}. Inoltre, $fl$ è round to even, ovvero: dato il numero macchina $fl(x)$ che più si avvicina ad $x$, allora, in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
+\textbf{La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento, quindi la precisione macchina è misurata tramite (\ref{eq:precisione_macchina_FL}) nel caso per arrotondamento}. Inoltre, $fl$ è round to even, ovvero: $fl(x)$ restituisce il numero macchina che più si avvicina ad $x$ ed in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
 
 I formati di base per i dati trattati e previsti dallo standard sono:
 \begin{itemize}
@@ -402,8 +402,8 @@ Per entrambi i formati la mantissa è assunta in base 2 e vale quanto segue:
 \end{definition}
 Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/normalizata).
 
-\begin{remark}[Precisione macchina doppia precisione]
-	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx\approx 2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
+\begin{remark}[\textbf{Precisione macchina singola precisione}]
+	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx 2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
 \end{remark}
 
 \begin{definition}[Doppia precisione]\footnote{Slide 3 PDF lez3, PG 13.}
@@ -423,7 +423,7 @@ Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/
 	\end{itemize}
 \end{definition}
 
-\begin{remark}[Precisione macchina doppia precisione]
+\begin{remark}[\textbf{Precisione macchina doppia precisione}]
 	In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}) e le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
 \end{remark}
 
