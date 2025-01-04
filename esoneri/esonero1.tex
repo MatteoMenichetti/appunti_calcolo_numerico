@@ -134,3 +134,40 @@ dove, tramite l'utilizzo di una norma su vettore e la corrispondente indotta su 
 dove $r_i$ è la $i-$esima componente di $r$.
 
 \noindent Per dimostrare l'esistenza ed unicità di $x$ è necessario il Teorema \ref{th:esistenza_fattorizzazione_QR}. Pertanto, rimane valida (\ref{eq:norma_2_residuo_minimo}) scegliendo $x$ come soluzione di (\ref{eq:Rx=g1}). Poiché $\widehat R$ è nonsingolare, questa soluzione esiste ed è unica.
+
+\subsection{A.A. 2023/24}
+\begin{enumerate}
+	\item Riguardo l'aritmetica finita IEEE, dire: qual e' la base utilizzata; che tipo di implementazione della funzione $fl$ e' utilizzata; quanto vale la precisione macchina della doppia precisione.
+	\item Dimostrare che
+	\begin{equation*}
+		\frac{f(x-h)-2f(x)+f(x+h)}{h^2} = f''(x) + O(h^2).
+	\end{equation*}
+	\item Derivare il metodo di Aitken e spiegare a cosa serve.
+	\item Scrivere in modo "professionale" una function Matlab che risolva efficientemente un sistema triangolare inferiore.
+	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice nonsingolare $A$? Dimostrare che, se esiste, la fattorizzazione $LU$ di $A$ e' unica.
+	\item Definire cosa e' il numero di condizionamento di una matrice. Spiegarne il significato.
+	\item Dimostrare che, se $B$ e' una matrice nonsingolare, allor $A=B^TB$, e' una matrice simmetrica e definita positiva.
+	\item Definire la soluzione nel senso dei minimi quadrati di un sistema lineare sovra-dimensionato a rango pieno. Dimostrarne l'esistenza ed unicita'.
+\end{enumerate}
+
+\hrule
+
+\paragraph{2.}
+\begin{equation*}
+	\begin{matrix}
+		f(x+h) &=& f(x) + h f'(x) + \frac{h^2}{2} f''(x) + \frac{h^3}{6} f'''(x) + o(h^4)\\
+		f(x-h) &=& f(x) - h f'(x) + \frac{h^2}{2} f''(x) - \frac{h^3}{6} f'''(x) + o(h^4)
+	\end{matrix}
+\end{equation*}
+
+Sommando membro a membro, si ottiene:
+
+\begin{equation*}
+	f(x+h) + f(x-h) = 2 f(x) + h^2 f''(x) + o(h^4),
+\end{equation*}
+
+da cui, in fine,
+
+\begin{equation*}
+	\frac{f(x+h) + f(x-h) - 2 f(x)}{h^2} = f''(x) + o(h^2).
+\end{equation*}
