@@ -124,10 +124,10 @@ dove, tramite l'utilizzo di una norma su vettore e la corrispondente indotta su 
 è il numero di condizione di $A$.
 
 \paragraph{8.} Dato il sistema lineare sovradimensionato
-\begin{equation}\label{eq:sistLinSovradEsonero}
+\begin{equation}\label{eq:sistema_lineare_sovradimensionato_esonero}
     Ax=b,\quad A\in\mathbb R^{m\times n},\quad m>n=rank(A),\, x\in\mathbb R^n,\, b\in\mathbb R^m,
 \end{equation}
-è definita soluzione di (\ref{eq:sistLinSovradEsonero}) nel senso dei minimi quadrati il vettore $x$ che minimizza
+è definita soluzione di (\ref{eq:sistema_lineare_sovradimensionato_esonero}) nel senso dei minimi quadrati il vettore $x$ che minimizza
 \begin{equation*}
     ||r||_2^2=||Ax-b||_2^2=\sum_{i=1}^nr_i^2,
 \end{equation*}
@@ -137,20 +137,25 @@ dove $r_i$ è la $i-$esima componente di $r$.
 
 \subsection{A.A. 2023/24}
 \begin{enumerate}
-	\item Riguardo l'aritmetica finita IEEE, dire: qual e' la base utilizzata; che tipo di implementazione della funzione $fl$ e' utilizzata; quanto vale la precisione macchina della doppia precisione.
+	\item Riguardo l'aritmetica finita IEEE, dire: qual è la base utilizzata; che tipo di implementazione della funzione $fl$ è utilizzata; quanto vale la precisione macchina della doppia precisione.
 	\item Dimostrare che
 	\begin{equation*}
 		\frac{f(x-h)-2f(x)+f(x+h)}{h^2} = f''(x) + O(h^2).
 	\end{equation*}
 	\item Derivare il metodo di Aitken e spiegare a cosa serve.
 	\item Scrivere in modo "professionale" una function Matlab che risolva efficientemente un sistema triangolare inferiore.
-	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice nonsingolare $A$? Dimostrare che, se esiste, la fattorizzazione $LU$ di $A$ e' unica.
-	\item Definire cosa e' il numero di condizionamento di una matrice. Spiegarne il significato.
-	\item Dimostrare che, se $B$ e' una matrice nonsingolare, allor $A=B^TB$, e' una matrice simmetrica e definita positiva.
+	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice nonsingolare $A$? Dimostrare che, se esiste, la fattorizzazione $LU$ di $A$ è unica.
+	\item Definire cosa è il numero di condizionamento di una matrice. Spiegarne il significato.
+	\item Dimostrare che, se $B$ è una matrice nonsingolare, allor $A=B^TB$, è una matrice simmetrica e definita positiva.
 	\item Definire la soluzione nel senso dei minimi quadrati di un sistema lineare sovra-dimensionato a rango pieno. Dimostrarne l'esistenza ed unicita'.
 \end{enumerate}
 
 \hrule
+
+\paragraph{1.} L'aritmetica finita IEEE utilizza la base 2, con arrotondamento della mantissa. In particolare, la doppia precisione utilizza 53 cifre, per cui la precisione macchina vale
+\begin{equation*}
+	u = \frac{1}{2} 2 ^{1 - 53} = 2^{-53} \approx 1.1 \cdot 10^{-16}.
+\end{equation*}
 
 \paragraph{2.}
 \begin{equation*}

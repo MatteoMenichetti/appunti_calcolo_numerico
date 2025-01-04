@@ -127,7 +127,7 @@ Un numero "reale" è memorizzato in un calcolatore mediante una stringa del tipo
 \end{equation}
 in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\{0,\hdots,b-1\}_{i=1,\hdots,m,\, j=1,\hdots,s}.$
 \begin{definition}[Notazione scientifica normalizzata]
-	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, e' rappresentabile in modo unico in notazione scientifica normalizzata in base $b$ con la seguente forma
+	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, è rappresentabile in modo unico in notazione scientifica normalizzata in base $b$ con la seguente forma
 	\begin{equation}\label{eq:rappresentazione_scientifica_normalizzata}
 		r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu}\in\mathbb{R},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
 	\end{equation}
@@ -293,9 +293,9 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 	$x=(\alpha_0\,\alpha_1.\cdots\alpha_m\cdots)\,b^{e-\nu}$ ed $fl(x)$ sono dati, da (\ref{eq:numEsatto}) e (\ref{eq:troncamento}) con la normalizzazione $\alpha_1\neq 0$, allora:
 	\begin{equation*}
 		\begin{matrix}
-			|\varepsilon_x|&=&\frac{|x - fl(x)|}{|x|}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)b^{e-\nu} - (\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu})\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
-			&=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots) - (\alpha_1.\alpha_2\cdots\alpha_m))|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\
-			&\overset{\footnotemark}{=}&\frac{0.00\cdots\alpha_{m+1}\cdots}{\alpha_1.\alpha_2\cdots\alpha_{m+1}\cdots}&\leq& 0.00\cdots\alpha_{m+1}\cdots &\overset{\footnotemark}{=}&(\alpha_{m+1}.\alpha_{m+2}\cdots)\, b^{-m}\\
+			|\varepsilon_x|&=&\frac{|x - fl(x)|}{|x|}&\overset{\footnotemark}{=}&\frac{\left|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)b^{e-\nu} - (\alpha_1.\alpha_2\cdots\alpha_m)b^{e-\nu}\right|}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)b^{e-\nu}}
+			&=&\frac{|(\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots) - (\alpha_1.\alpha_2\cdots\alpha_m))|\cancel{b^{e-\nu}}}{(\alpha_1.\alpha_2\cdots\alpha_m\cdots)\cancel{b^{e-\nu}}}\\\\
+			&\overset{\footnotemark}{=}&\frac{0.00\cdots\alpha_{m+1}\cdots}{\alpha_1.\alpha_2\cdots\alpha_{m+1}\cdots}&\leq& 0.00\cdots\alpha_{m+1}\cdots &\overset{\footnotemark}{=}&(\alpha_{m+1}.\alpha_{m+2}\cdots)\, b^{-m}\\\\
 			&\leq&((b-1).(b-1)\cdots)\, b^{-m}&<&b\, b^{-m}&=& b^{1-m}
 		\end{matrix}
 	\end{equation*}
@@ -367,7 +367,7 @@ Nella Sezione è trattato lo standard ANSI/IEEE 754-1985, per la rappresentazion
 
 Lo standard IEEE 754 è particolarmente adatto alla base binaria ($b=2$).
 
-\textbf{La rappresentazione dei numeri reali è effettuata tramite la funzione di floating per arrotondamento, caratteristica che permette di commettere un errore minore che per troncamento, quindi la precisione macchina è misurata tramite (\ref{eq:precisione_macchina_FL}) nel caso per arrotondamento}. Inoltre, $fl$ è round to even, ovvero: $fl(x)$ restituisce il numero macchina che più si avvicina ad $x$ ed in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
+\textbf{Lo standard IEEE utilizza la funzione di floating per arrotondamento per rappresentare i numeri reali, caratteristica che permette di commettere un errore minore che per troncamento, quindi la precisione macchina è misurata tramite (\ref{eq:precisione_macchina_FL}) nel caso per arrotondamento}. Inoltre, $fl$ è round to even, ovvero: $fl(x)$ restituisce il numero macchina che più si avvicina ad $x$ ed in caso di ambiguità, se vi fossero due numeri macchina equidistanti da $x$, è selezionato quello il cui ultimo bit della mantissa è pari (ossia uguale a 0). Nonostante quest'ultima proprietà della funzione di floanting, il Teorema \ref{th:precisione_macchina_FL} rimane valido. 
 
 I formati di base per i dati trattati e previsti dallo standard sono:
 \begin{itemize}
@@ -403,7 +403,7 @@ Per entrambi i formati la mantissa è assunta in base 2 e vale quanto segue:
 Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/normalizata).
 
 \begin{remark}[\textbf{Precisione macchina singola precisione}]
-	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx 2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
+	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx} \frac{1}{2} 2^{1-24} = \boldsymbol{2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
 \end{remark}
 
 \begin{definition}[Doppia precisione]\footnote{Slide 3 PDF lez3, PG 13.}
@@ -495,22 +495,22 @@ Un \gls{metodo numerico} che risolve il problema (\ref{eq:problema}), ovvero lo 
 \begin{equation}\label{eq:approssimazione_problema}
 	\Tilde{y}=\Tilde{f}(\Tilde{x}),
 \end{equation}
-in cui:
+dove:
 \begin{itemize}
 	\item $\Tilde{x}\in\mathbb R$ denota i dati in ingresso affetti da errore, ovvero perturbati (questi sono sempre affetti da errore di rappresentazione);
 	\item $\Tilde{f}$ denota il \gls{metodo numerico} implementato utilizzando aritmetica finita, introducendo così possibili errori discretizzazione e/o convergenza;
 	\item $\Tilde{y}\in\mathbb R$ denota la soluzione, il dato in uscita, affetta da errore (ovvero sarà perturbata). 
 \end{itemize}
 
-È interessante studiare l'errore $(y-\Tilde{y})$ del \gls{metodo numerico} (\ref{eq:approssimazione_problema}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del \gls{metodo numerico} è spesso complesso (non rientra nel corso).
+È interessante studiare l'errore assoluto $\Delta y = (y-\Tilde{y})$ del \gls{metodo numerico} (\ref{eq:approssimazione_problema}), ovvero la sua misura, in funzione degli errori sui dati in ingresso, $\Tilde{x} - x$, oltre alla misura dell'errore relativo. Studiare l'errore sui dati iniziali $\Tilde{x} - x$ e l'effettiva implementazione del \gls{metodo numerico} è spesso complesso (anche se tutto questo non rientra nel corso).
 
 Sarà studiato, indipendentemente dal metodo, il condizionamento del problema (\ref{eq:problema}), ovvero quella parte dell'errore che è incluso nel risultato e che dipende solo dalla natura del problema e dai dati iniziali. Tale studio è una analisi semplificata di quanto citato e permette di stabilire l'attendibilità del risultato del \gls{metodo numerico}. In dettaglio, considerata l'amplificazione sul risultato finale di perturbazioni sui dati di ingresso, è supposto di risolvere il problema esattamente (quindi in aritmetica esatta).
 
 Formalmente è studiato
-\begin{equation}\label{eq:probCondStud}
+\begin{equation}\label{eq:problema_condizionato}
 	\Tilde{y}=f(\Tilde{x}),
 \end{equation}
-quindi il condizionamento del problema è lo studio della relazione fra l'errore sui dati iniziali $(x-\Tilde{x})$ e l'errore sulla soluzione $(y-\Tilde{y})$. Ciò è interessante per evitare che un piccolo errore sui dati iniziali porti ad un errore grande nella soluzione e per questo il problema è detto:
+quindi studiare il condizionamento del problema significa studiare la relazione fra l'errore sui dati iniziali $(x-\Tilde{x})$ e l'errore sulla soluzione $(y-\Tilde{y})$. Ciò è interessante per evitare che un piccolo errore sui dati iniziali porti ad un errore grande nella soluzione e per questo il problema è detto:
 \begin{itemize}
 	\item ben condizionato, se l'errore sui dati iniziali è "poco" amplificato;
 	\item malcondizionato, se l'errore sui dati iniziali è molto amplificato.
@@ -519,29 +519,31 @@ quindi il condizionamento del problema è lo studio della relazione fra l'errore
 Data $y=f(x),\, y\in C^2(\mathbb{R})$ e gli errori relativi \begin{equation*}
 	\Tilde{x}=x(1+\varepsilon_x),\quad \Tilde{y}=y(1+\varepsilon_y),
 \end{equation*}
-allora è possibile sviluppare (\ref{eq:probCondStud}), tramite lo sviluppo di Taylor al secondo ordine centrato in $x$ (dati esatti), come segue:
+allora è possibile sviluppare (\ref{eq:problema_condizionato}), tramite lo sviluppo di Taylor al secondo ordine centrato in $x$ (dati esatti), come segue:
 \begin{equation}\label{eq:svilProbCondStud}
 	\Tilde{y}=f(\Tilde{x})=f(x)+f'(x)(\cancel{x}+x\varepsilon_x-\cancel{x})+\frac{f''(\xi)}{2}(\cancel{x}+x\varepsilon_x-\cancel{x})^2\Rightarrow y(1+\varepsilon_y)=\Tilde{y}\overset{f(x)=y}{=}y+f'(x)\, x\varepsilon_x+\underbrace{\frac{f''(\xi)}{2}x^2\varepsilon_x^2}_{o(\varepsilon_x^2)}.
 \end{equation}
 
 Tenendo di conto di (\ref{eq:svilProbCondStud}), allora
 \begin{equation*}
-	\cancel{y}+y\,\varepsilon_y=\cancel{y}+f'(x)x\,\varepsilon_x+o(\varepsilon_x^2)\rightarrow y\,\varepsilon_y=f'(x)\,x\,\varepsilon_x+o(\varepsilon_x^2)\Rightarrow y\,\varepsilon_y \overset{\footnotemark}{\approx}f'(x)\,x\,\varepsilon_x \rightarrow |\varepsilon_y|\approx \left|f'(x)\frac{x}{y}\right|\cdot|\varepsilon_x|\equiv\kappa |\varepsilon_x|.
+	\cancel{y}+y\,\varepsilon_y=\cancel{y}+f'(x)x\,\varepsilon_x+o(\varepsilon_x^2)\rightarrow y\,\varepsilon_y=f'(x)\,x\,\varepsilon_x+o(\varepsilon_x^2)\Rightarrow y\,\varepsilon_y \overset{\footnotemark}{\approx}f'(x)\,x\,\varepsilon_x \rightarrow \boldsymbol{|\varepsilon_y|\approx \left|f'(x)\frac{x}{y}\right|\cdot|\varepsilon_x|\equiv\kappa |\varepsilon_x|}.
 \end{equation*}
 
-\footnotetext{$O(\varepsilon_x^2)$ è di ordine 2 quindi è trascurabile rispetto a $f'(x)\,\varepsilon_x$, allora è possibile l'approssimazione.}
+\footnotetext{$o(\varepsilon_x^2)$ è di ordine 2 quindi è trascurabile rispetto a $f'(x)\,\varepsilon_x$, allora è possibile l'approssimazione.}
 
 \begin{definition}[Numero di condizionamento del problema]\label{def:condizionamento_problema}
-	Il fattore $\kappa = \left|f'(x)\frac{x}{y}\right|$ misura quanto gli errori iniziali possono amplificarsi sul risultato ed è noto come numero di condizione del problema (\ref{eq:problema}).
+	Il fattore
+	\begin{equation*}
+		\kappa = \left|f'(x)\frac{x}{y}\right|
+	\end{equation*}
+	è noto come numero di condizione del problema (\ref{eq:problema}) e misura quanto gli errori iniziali possono amplificarsi sul risultato.
 \end{definition}
 
 È possibile distinguere i seguenti casi:
 \begin{itemize}
-	\item $\boldsymbol{\kappa\approx 1}\Rightarrow |\varepsilon_y|\overset{\footnotemark}{\approx}|\varepsilon_x|\rightarrow$ il problema è ben condizionato;
+	\item $\boldsymbol{\kappa\approx 1}\Rightarrow |\varepsilon_y|\approx|\varepsilon_x|\rightarrow$ il problema è ben condizionato (gli errori relativi sono dello stesso ordine di grandezza);
 	\item $\boldsymbol{k>>1}\Rightarrow |\varepsilon_y|>>|\varepsilon_x|\rightarrow$ il problema è mal condizionato.
 \end{itemize}
-
-\footnotetext{Gli errori sono dello stesso ordine di grandezza.}
 
 È possibile notare ciò che segue:
 \begin{enumerate}
@@ -555,7 +557,7 @@ Il limite fra problema ben e malcondizionato non è preciso, è necessario un cr
 \paragraph{Osservazione qualitativa:} Valutare quantitativamente il numero di condizionamento è importante ed è necessario osservare come $\kappa$ varia all'aumentare della dimensione del problema (se è costante entro certi limiti è buono).
 
 \subsubsection{Condizionamento della somma algebrica}\label{sssec:condizionamento_somma_algebrica}
-Il problema è studiare il condizionamento di
+Il problema è studiare il condizionamento della somma algebrica
 \begin{equation}\label{eq:problema_condizionamento_somma_algebrica}
 	y=x_1+x_2\neq 0,\quad x_1,x_2\in\mathbb R,
 \end{equation}

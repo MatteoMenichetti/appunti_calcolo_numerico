@@ -268,13 +268,13 @@ per una tolleranza $tol$ specificata.
 \subsection{A.A. 2023/24}
 \begin{enumerate}
 	\item Scrivere una function Matlab che risolva efficientemente un sistema triangolare superiore, in modo vettoriale e per colonne.
-	\item Definire la fattorizzazione $LU$ di una matrice (\gls{nonsingolare}). Dimostrare che, se una matrice nonsingolare e' fattorizzabile $LU$, allora la sua fattorizzazione e' unica.
+	\item Definire la fattorizzazione $LU$ di una matrice (\gls{nonsingolare}). Dimostrare che, se una matrice nonsingolare è fattorizzabile $LU$, allora la sua fattorizzazione è unica.
 	\item Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice (nonsingolare)?
-	\item Definire cosa e' una matrice diagonale dominante e dimostrare che e' fattorizzabile $LU$.
-	\item Definire una matrice simmetrica e definita positiva e dimostrare che e' fattorizzabile $LU$.
-	\item Sapendo che, se $A$ e' s.d.p., $A$ e' fattorizzabile $LU$, dimostrare che $A=LDL^T$, con $D$ matrice diagonale ad elementi positivi.
+	\item Definire cosa è una matrice diagonale dominante e dimostrare che è fattorizzabile $LU$.
+	\item Definire una matrice simmetrica e definita positiva e dimostrare che è fattorizzabile $LU$.
+	\item Sapendo che, se $A$ è s.d.p., $A$ è fattorizzabile $LU$, dimostrare che $A=LDL^T$, con $D$ matrice diagonale ad elementi positivi.
 	\item Definire cosa si intende per norma indotta su matrice. Dare qualche esempio di tali norme.
-	\item Definire cosa e' il numero di condizionamento di una matrice. Spiegarne il significato.
+	\item Definire cosa è il numero di condizionamento di una matrice. Spiegarne il significato.
 	\item Definire la soluzione, nel senso dei minimi quadrati, di un sistema lineare sovradimensionato. Determinarne l'esistenza ed unicita'.
 	\item Costruire la matrice di Householder relativa al vettore $\uline z = \begin{bmatrix}
 		1\\
@@ -293,7 +293,7 @@ per una tolleranza $tol$ specificata.
 	\item risoluzione dei sistemi $Ly=b$ e $Ux=y$, se abbiamo in ingresso una matrice riscritta con l'informazione dei fattori $L$ e $U$ della fattorizzazione $LU$ di $A$.
 \end{itemize}
 
-\paragraph{2.}\footnote{Teorema \ref{th:unicita_fattorizzazione_LU} Unicita' della fattorizzazione $LU$.} Sia $A\in\mathbb{R}^{n \times n},\, \det(A)\neq 0$. $A$ e' fattorizzabile $LU$ se esistono:
+\paragraph{2.}\footnote{Teorema \ref{th:unicita_fattorizzazione_LU} Unicita' della fattorizzazione $LU$.} Sia $A\in\mathbb{R}^{n \times n},\, \det(A)\neq 0$. $A$ è fattorizzabile $LU$ se esistono:
 \begin{enumerate}
 	\item $L$ matrice triangolare inferiore a diagonale unitaria,
 	\item $U$ matrice triangolare superiore,
@@ -317,10 +317,10 @@ Moltiplicando a destra per $U^{-1}$ si ottiene:
 \end{equation}
 Osserviamo che:
 \begin{enumerate}
-	\item $U_1,\, U,\, U^{-1}$ sono triangolari superiori e quindi $U_1U^{-1}$ e' una matrice triangolare superiore.
-	\item analogamente $L,\, L_1$ e $L_1^{-1}$ sono triangolari inferiori a diagonale unitaria. Pertanto, $L_1^{-1}L$ e' una matrice triangolare inferiore a diagonale unitaria.
+	\item $U_1,\, U,\, U^{-1}$ sono triangolari superiori e quindi $U_1U^{-1}$ è una matrice triangolare superiore.
+	\item analogamente $L,\, L_1$ e $L_1^{-1}$ sono triangolari inferiori a diagonale unitaria. Pertanto, $L_1^{-1}L$ è una matrice triangolare inferiore a diagonale unitaria.
 \end{enumerate}
-In conclusione, dalla (\ref{eq:U1U-1=L1-1L}) concludiamo che $U_1U^{-1}$ e $L_1^{-1}L$ sono matrici diagonali. Poiche' la diagonale di $L_1^{-1}L$ e' unitaria si conclude che
+In conclusione, dalla (\ref{eq:U1U-1=L1-1L}) concludiamo che $U_1U^{-1}$ e $L_1^{-1}L$ sono matrici diagonali. Poiche' la diagonale di $L_1^{-1}L$ è unitaria si conclude che
 \begin{equation*}
 	U_1U^{-1} = I = L_1^{-1}L,
 \end{equation*}
@@ -328,7 +328,7 @@ da cui si ottiene:
 \begin{equation*}
 	U_1 = U \quad \wedge \quad L_1 = L.
 \end{equation*}
-Ovvero, la fattorizzazione $LU$ e' unica.
+Ovvero, la fattorizzazione $LU$ è unica.
 
 \paragraph{3.}\footnote{Osservazione \ref{rem:condizione_necessaria_fattorizzazione_LU} Condizione necessaria esistenza fattorizzazione $LU$.} Sia $A\in\mathbb{R}^{n \times n},\, \det(A)\neq 0$. Denotiamo con $A_k\in\mathbb{R}^{k\times k}$ la sua sottomatrice principale di ordine $k$. Allora:
 \begin{equation*}
@@ -345,7 +345,7 @@ Ovvero, la fattorizzazione $LU$ e' unica.
 \begin{enumerate}
 	\item $A$ d.d. per righe s.se $A^T$ d.d. per colonne;
 	\item $A$ d.d. s.se $\forall k=1,\hdots, n,\, A_k$ d.d., essendo $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
-	\item $A$ d.d. allora $\det(A)\neq 0$. Infatti, supponiamo che $A$ sia diagonale dominante per righe (altrimenti considero $A^T$). Se fosse $A$ singolare allora $\exists \uline x\in\mathbb{R}^m,\, (x_1,\hdots, x_n)^T\equiv \uline x \neq 0\,\colon\, A\uline x = \uline 0$. Poiche' questo vale per ogni multiplo scalare di $\uline x$, e' possibile assumere che $x_k=1=\underset{i=1,\hdots, n}{\max}|x_i|$. Se scriviamo la $k$-esima equazione di $A\uline x=\uline 0$ e' ottenuto:
+	\item $A$ d.d. allora $\det(A)\neq 0$. Infatti, supponiamo che $A$ sia diagonale dominante per righe (altrimenti considero $A^T$). Se fosse $A$ singolare allora $\exists \uline x\in\mathbb{R}^m,\, (x_1,\hdots, x_n)^T\equiv \uline x \neq 0\,\colon\, A\uline x = \uline 0$. Poiche' questo vale per ogni multiplo scalare di $\uline x$, è possibile assumere che $x_k=1=\underset{i=1,\hdots, n}{\max}|x_i|$. Se scriviamo la $k$-esima equazione di $A\uline x=\uline 0$ è ottenuto:
 	\begin{equation*}
 		\begin{matrix}
 			\sum_{j=1}^{n}a_{kj} x_j=0 &\Rightarrow& a_{kk}x_k = -\sum_{\underset{j\neq k}{j=1}}^{n}a_{kj} x_j && \\\\
@@ -353,18 +353,18 @@ Ovvero, la fattorizzazione $LU$ e' unica.
 			&\leq& \sum_{\underset{j\neq k}{j=1}}^{n}|a_{kj}| \underbrace{|x_j|}_{\leq 1} &\leq& \sum_{\underset{j\neq k}{j=1}}^{n}|a_{kj}|.
 		\end{matrix}
 	\end{equation*}
-	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ e' d.d. $\Rightarrow A=LU$.
+	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ è d.d. $\Rightarrow A=LU$.
 \end{enumerate}
 
-\paragraph{5.} Sia $A\in\mathbb{R}^{n\times n}$. Diremo che $A$ e' s.d.p. se:
+\paragraph{5.} Sia $A\in\mathbb{R}^{n\times n}$. Diremo che $A$ è s.d.p. se:
 \begin{enumerate}
-	\item $A=A^T$ (ovvero $A$ e' simmetrica);
-	\item $\forall\uline x\in\mathbb{R}^n\backslash\{\uline 0\}\colon \uline x^T A \uline x > 0$ (ovvero $A$ e' definita positiva).
+	\item $A=A^T$ (ovvero $A$ è simmetrica);
+	\item $\forall\uline x\in\mathbb{R}^n\backslash\{\uline 0\}\colon \uline x^T A \uline x > 0$ (ovvero $A$ è definita positiva).
 \end{enumerate}
 Osserviamo che:
 \begin{enumerate}
 	\item $A$ s.d.p. $\Rightarrow\det(A)\neq 0$. Infatti, se fosse \gls{singolare} allora $\exists\uline x\in\mathbb{R}^n\backslash\{\uline 0\}\colon A\uline x = \uline 0 \Rightarrow \uline x^T A \uline x = 0$, il che contraddice il fatto che $A$ sia s.d.p.;
-	\item $A$ s.d.p. $\Rightarrow \forall k=1,\hdots, n$, data $A_k$ la sottomatrice principale di ordine $k$ di $A$, allora $A_k$ e' simmetrica definita positiva. Infatti, possiamo scrivere:
+	\item $A$ s.d.p. $\Rightarrow \forall k=1,\hdots, n$, data $A_k$ la sottomatrice principale di ordine $k$ di $A$, allora $A_k$ è simmetrica definita positiva. Infatti, possiamo scrivere:
 	\begin{equation*}
 		A=\left[
 		\begin{array}{c|c}
@@ -384,7 +384,7 @@ Osserviamo che:
 		\end{array}
 		\right],
 	\end{equation*}
-	si deduce che $A_k=A_k^T,\, D=D^T$ e $B = C^T$. Pertanto $A_k$ e' simmetrica.\\
+	si deduce che $A_k=A_k^T,\, D=D^T$ e $B = C^T$. Pertanto $A_k$ è simmetrica.\\
 	Rimane da dimostrare che $\forall\uline y\in\mathbb{R}^k\backslash\{\uline 0\}\colon\uline y^T A_k \uline y > 0$. Infatti, se considerata
 	\begin{equation*}
 		\uline x = 
@@ -428,22 +428,22 @@ con:
 	\item $D$ matrice diagonale contenente gli elementi diagonali di $U$,
 	\item $\hat{U}$ triangolare superiore a diagonale unitaria.
 \end{itemize}
-(E' utile ricordare che $L$ e' triangolare inferiore a diagonale unitaria.)\\
+(E' utile ricordare che $L$ è triangolare inferiore a diagonale unitaria.)\\
 Poiche' $A=A^T$, dalla (\ref{eq:A=LU=LDL}) ricaviamo che
 \begin{equation}\label{eq:A=U^TDL^T}
 	A = (L D \hat{U})^T = \hat{U}^T D^T L^T = \hat{U}^T D L^T.
 \end{equation}
 Poiche':
 \begin{itemize}
-	\item $\hat{U}^T$ e' triangolare inferiore a diagonale unitaria,
-	\item $DL^T$ e' triangolare superiore,
-	\item la fattorizzazione $LU$ di una matrice (nonsingolare) e' unica, da (\ref{eq:A=LU=LDL}) e (\ref{eq:A=U^TDL^T}), e' dedotto che $L=\hat{U}^T$ e $A=LDL^T$.\\
+	\item $\hat{U}^T$ è triangolare inferiore a diagonale unitaria,
+	\item $DL^T$ è triangolare superiore,
+	\item la fattorizzazione $LU$ di una matrice (nonsingolare) è unica, da (\ref{eq:A=LU=LDL}) e (\ref{eq:A=U^TDL^T}), è dedotto che $L=\hat{U}^T$ e $A=LDL^T$.\\
 	Se $D =
 	\begin{bmatrix}
 		d_1\\
 		&\ddots\\
 		& & d_n
-	\end{bmatrix}$, abbiamo che, per un generico $i\in\{1,\hdots, n\}\colon d_i = \uline e_i^T D \uline e_i$, con $\uline e_i\in\mathbb{R}^n,\, i$-esimo versore della base canonica. Inoltre essendo $L^T$ nonsingolare, il sistema $L^T\uline x = \uline e_i$ e' risolvibile e $\boldsymbol{\uline x\neq \uline 0}$. Segue che:
+	\end{bmatrix}$, abbiamo che, per un generico $i\in\{1,\hdots, n\}\colon d_i = \uline e_i^T D \uline e_i$, con $\uline e_i\in\mathbb{R}^n,\, i$-esimo versore della base canonica. Inoltre essendo $L^T$ nonsingolare, il sistema $L^T\uline x = \uline e_i$ è risolvibile e $\boldsymbol{\uline x\neq \uline 0}$. Segue che:
 	\begin{equation*}
 		d_i = \uline e_i^T D \uline e_i = \left(L^T\uline x\right)^T D L^T \uline x =\uline x^T \left(LDL^T\right) \uline x = \uline x^T A \uline x > 0.
 	\end{equation*}
@@ -472,11 +472,11 @@ essendo $\rho$ il raggio spettrale della matrice in argomento, ovvero il massimo
 
 \paragraph{Possibile variante dell'Esercizio 7.:} Proprieta' delle norme (vedere Proprieta' \ref{prop:norme_indotte_matrici}).
 
-\paragraph{8.}\footnote{Vedere Definizione \ref{def:numero_condizionamento_matrice}.} Sia $A\in\mathbb{R}^{n\times n},\, \det(A) \neq 0$. Il numero di condizionamento di $A$ e' definito da
+\paragraph{8.}\footnote{Vedere Definizione \ref{def:numero_condizionamento_matrice}.} Sia $A\in\mathbb{R}^{n\times n},\, \det(A) \neq 0$. Il numero di condizionamento di $A$ è definito da
 \begin{equation*}
 	\kappa(A) = ||A||\cdot||A^{-1}||,
 \end{equation*}
-dove $||\cdot||$ e' una norma indotta su matrice. Osserviamo che
+dove $||\cdot||$ è una norma indotta su matrice. Osserviamo che
 \begin{equation*}
 	\kappa(A) = ||A||\cdot||A^{-1}|| \geq ||A\cdot A^{-1}|| = ||I|| = 1.
 \end{equation*}
@@ -491,7 +491,7 @@ con $\Delta A\in\mathbb{R}^{n\times n}$ contenente le perturbazioni sugli elemen
 \begin{equation*}
 	 \frac{||\Delta \uline x||}{||\uline x||} \leq \kappa(A)\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right),
 \end{equation*}
-dove la norma su vettore considerata e' quella che induce norma su matrice.
+dove la norma su vettore considerata è quella che induce norma su matrice.
 
 \paragraph{9.}\footnote{Vedere Sezione \ref{ssec:sistemi_lineari_sovradimensionati}.} Sia dato il sistema lineare sovradimensionato
 \begin{equation*}
@@ -558,7 +558,7 @@ Dimostriamo che esiste unica (la soluzione) $\uline x$. Preliminarmente osservia
 			&{=}& \underbrace{\left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2}_0+||\uline g_2||_2^2 &{=}& ||\uline g_2||_2^2&=&\min !
 		\end{matrix}
 	\end{equation*}
-	Se $\widehat{R}\uline x - g_1 = \uline 0$, ovvero $\uline x$ e' soluzione del sistema lineare $\widehat{R}\uline x = g_1$, e tale soluzione esiste unica poiche' $\widehat{R}$ e' singolare.
+	Se $\widehat{R}\uline x - g_1 = \uline 0$, ovvero $\uline x$ è soluzione del sistema lineare $\widehat{R}\uline x = g_1$, e tale soluzione esiste unica poiche' $\widehat{R}$ è singolare.
 \end{enumerate}
 
 \paragraph{10.}\footnote{Vedere Sezione \ref{sssec:esistenza_fattorizzazione_QR} (Esistenza della fattorizzazione $QR$) e} Ricerchiamo $H$, matrice ortogonale, tale che $H\uline z =
@@ -609,7 +609,7 @@ ovvero $\alpha = -3$. Quindi, $H\uline z =
 		\frac{\partial f_n}{\partial x_1}(\uline x) & \hdots & \frac{\partial f_n(\uline x)}{\partial x_n}(\uline x)
 	\end{bmatrix}\in\mathbb R^{n\times n},
 \end{equation*}
-la matrice Jacobiana di $\uline f(\uline x)$. Il metodo di Newton per risolvere $\uline f(\uline x)=\uline 0$ e' definito dall'iterazione
+la matrice Jacobiana di $\uline f(\uline x)$. Il metodo di Newton per risolvere $\uline f(\uline x)=\uline 0$ è definito dall'iterazione
 \begin{equation*}
 	\uline x_{n+1} = \uline x_n - F(\uline x_n)^{-1}\uline f(\uline x_n),\quad n=0,1,\hdots.
 \end{equation*}
