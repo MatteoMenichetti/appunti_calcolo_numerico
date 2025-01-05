@@ -69,23 +69,23 @@ dove $x^*$ è la soluzione esatta. La soluzione esatta del problema quindi è fo
 
 È necessario definire un criterio d'arresto per la procedura (\ref{eq:approssimazione_procedura_iterativa}), ovvero un numero finito di iterazioni $n$ affinché il \gls{metodo numerico} sia utilizzabile. In generale, qualunque sia $n$, $x_n\neq x^*$.
 
-L'errore assoluto di convergenza è definito $x_n-x^*$ ed il criterio d'arresto è stabilito arrestando l'iterazione quando $n=N$ in modo che $x_N$ sia sufficientemente accurata. Un'approssimazione è sufficientemente accurata se $|x_N-x^*|\leq\varepsilon,$ con $\varepsilon$ la tolleranza stabilita.
+L'errore assoluto di convergenza è definito come $x_n-x^*$ ed il criterio d'arresto è stabilito arrestando l'iterazione quando $n=N$ in modo che $x_N$ sia sufficientemente accurata. Un'approssimazione è sufficientemente accurata se $|x_N-x^*|\leq\varepsilon,$ con $\varepsilon$ la tolleranza stabilita.
 
 È possibile affermare che questo tipo di errore è dovuto dal \gls{metodo numerico} utilizzato.
 
 \begin{example}
 	La procedura iterativa che definisce un metodo convergente per calcolare $\sqrt{2}$ è
-	\begin{equation}\label{eq:approssimazione_radice_2_procedura_iterativa}
+	\begin{equation*}
 		x_{n+1}=\frac{1}{2}\left(x_n+\frac{2}{x_n}\right),\quad n=0,1,2,\hdots,\quad x_0=2.
-	\end{equation}
+	\end{equation*}
 \end{example}
 
-\paragraph{Precisazione sugli errori di convrgenza:} Gli errori convergenza sono dovuti alla modalità di utilizzo del \gls{metodo numerico} applicato.
+\paragraph{Precisazione sugli errori di convergenza:} Gli errori convergenza sono dovuti alla modalità di utilizzo del \gls{metodo numerico} applicato.
 
 \subsection{Errori di round-off}\label{ssec:errori_roundoff}\footnote{Slide 6 PDF lez1, PG 6.}
 Nella Sezione sono trattati gli errori di rappresentazione ed è tralasciata l'analisi della loro propagazione durante il calcolo. Gli errori di round-off sono dovuti all'impiego di un calcolatore, quindi con aritmetica finita, per ottenere un risultato. Quindi, gli errori di round-off sono dovuti alla rappresentazione finita di una quantità numerica, la quale richiede infinite informazioni  per essere rappresentate esattamente (ad esempio i numeri irrazionali come $\pi$). 
 
-Saranno trattati i due casi seguenti di rappresentazione in aritmetica finita di una quantita' numerica:
+Saranno trattati i due casi seguenti di rappresentazione in aritmetica finita di una quantità numerica:
 \begin{itemize}
 	\item numeri interi,
 	\item numeri reali.
@@ -568,34 +568,36 @@ Dati gli errori relativi sui dati iniziali $\varepsilon_1=\frac{\Tilde{x}_1-x_1}
 	\Tilde{y}=\Tilde{x}_1+\Tilde{x}_2=y(1+\boldsymbol{\varepsilon_y})\quad\text{e}\quad\varepsilon_y=\frac{\Tilde{x}_1+\Tilde{x}_2-(x_1+x_2)}{x_1+x_2},
 \end{equation*}
 è ottenuto quanto segue:
-\begin{equation*}
+\begin{equation}\label{eq:errore_relativo_y_somma_algebrica}
 	\begin{matrix}
-		y(1+\varepsilon_y)&=&\Tilde{y}&=&\Tilde{x}_1+\Tilde{x}_2&=&x_1(1+\varepsilon_1)+x_2(1+\varepsilon_2)&=&x_1+x_1\varepsilon_1+x_2+x_2\varepsilon_2\\
-		&\rightarrow& y+y\varepsilon_y&=&\underbrace{x_1+x_2}_{y}+x_1\varepsilon_1+x_2\varepsilon_2\\
-		&\rightarrow& \cancel{y}+y\varepsilon_y &=& \cancel{y}+x_1\varepsilon_1+x_2\varepsilon_2\\
-		&\rightarrow& y\varepsilon_y &=& x_1\varepsilon_1+x_2\varepsilon_2 \\
+		y(1+\varepsilon_y)&=&\Tilde{y}&=&\Tilde{x}_1+\Tilde{x}_2&=&x_1(1+\varepsilon_1)+x_2(1+\varepsilon_2)&=&x_1+x_1\varepsilon_1+x_2+x_2\varepsilon_2\\\\
+		&\rightarrow& y+y\varepsilon_y&=&\underbrace{x_1+x_2}_{y}+x_1\varepsilon_1+x_2\varepsilon_2\\\\
+		&\rightarrow& \cancel{y}+y\varepsilon_y &=& \cancel{y}+x_1\varepsilon_1+x_2\varepsilon_2\\\\
+		&\rightarrow& y\varepsilon_y &=& x_1\varepsilon_1+x_2\varepsilon_2 \\\\
 		&\rightarrow& \varepsilon_y &=& \frac{x_1\varepsilon_1+x_2\varepsilon_2}{x_1+x_2}.
 	\end{matrix}
-\end{equation*}
+\end{equation}
 
-Considerando (\ref{eq:problema_condizionamento_somma_algebrica}), è ottenuto quanto segue:
-\begin{equation*}
+Considerando (\ref{eq:problema_condizionamento_somma_algebrica}) e (\ref{eq:errore_relativo_y_somma_algebrica}), è ottenuto quanto segue:
+\begin{equation}\label{eq:maggiorazione_errore_relativo_y}
 	\begin{matrix}
-		\boldsymbol{|\varepsilon_y|} &=&\frac{|x_1\varepsilon_1+x_2\varepsilon_2|}{|x_1+x_2|} &\leq& \frac{|x_1\varepsilon_1|+|x_2\varepsilon_2|}{|x_1+x_2|}&=& \frac{|x_1||\varepsilon_1|+|x_2||\varepsilon_2|}{|x_1+x_2|}\\
-		&& &\leq& \frac{|x_1|\varepsilon_x+|x_2|\varepsilon_x}{|x_1+x_2|}\\
-		&& &=& \underbrace{\frac{|x_1|+|x_2|}{|x_1+x_2|}}_{\boldsymbol k}\boldsymbol{\varepsilon_x} &\equiv& \boldsymbol{\kappa\varepsilon_x}
+		\boldsymbol{|\varepsilon_y|} &=&\frac{|x_1\varepsilon_1+x_2\varepsilon_2|}{|x_1+x_2|} &\leq& \frac{|x_1\varepsilon_1|+|x_2\varepsilon_2|}{|x_1+x_2|}&=& \frac{|x_1||\varepsilon_1|+|x_2||\varepsilon_2|}{|x_1+x_2|}\\\\
+		&& &\leq& \frac{|x_1|\varepsilon_x+|x_2|\varepsilon_x}{|x_1+x_2|} &=& \underbrace{\frac{|x_1|+|x_2|}{|x_1+x_2|}}_{\boldsymbol k}\boldsymbol{\varepsilon_x} &\equiv& \boldsymbol{\kappa\varepsilon_x}
 	\end{matrix}
-\end{equation*}
+\end{equation}
 allora,
 \begin{equation*}
-	|\varepsilon_y| \leq \frac{|x_1|+|x_2|}{|x_1+x_2|}\varepsilon_x, \quad \underset{\footnotemark}{\varepsilon_x}=\max\left\{|\varepsilon_1|,|\varepsilon_2|\right\}
+	|\varepsilon_y| \leq \frac{|x_1|+|x_2|}{|x_1+x_2|}\varepsilon_x, \quad \varepsilon_x \underset{\footnotemark}{=} \max\left\{|\varepsilon_1|,|\varepsilon_2|\right\}
 \end{equation*}
 \footnotetext{Errore relativo sui dati iniziali.}
 
-Pertanto, il numero di condizionamento della somma algebrica è esprimibile come
-\begin{equation*}
-	\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}.
-\end{equation*}
+\begin{definition}(Numero di condizionamento della somma algebrica)
+	Da (\ref{eq:maggiorazione_errore_relativo_y}), il numero di condizionamento della somma algebrica è esprimibile come
+	\begin{equation*}
+		\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}.
+	\end{equation*}	
+\end{definition}
+
 Seguono due casi significativi:
 \begin{itemize}
 	\item se $\boldsymbol{x_1\, x_2>0}\Rightarrow|x_1|+|x_2|=|x_1+x_2|\Rightarrow \boldsymbol{k=1}$, quindi è concluso che la somma di numeri concordi di segno è sempre ben condizionata;
@@ -605,12 +607,12 @@ Seguono due casi significativi:
 	\end{matrix}\Rightarrow \boldsymbol{k>>1}$, quindi il problema è malcondizionato quando è svolta la somma di due numeri quasi opposti. In aritmetica finita questo malcondizionamento porta al fenomeno della \textbf{cancellazione numerica}.
 \end{itemize}
 
-\begin{example}
+\begin{example}[Numero di condizionamento]
 	\footnote{Slide 6 PDF lez4.} Dati $x_1=1.000,\, \Tilde{x}_1=1.000,\, y=-0.001=-10^{-3},\, x_2=-1.000,\,\Tilde{x}_2=-0.999,\, \Tilde{y}=0.001=10^{-3}$, allora,
 	\begin{equation*}
 		\begin{matrix}
-			\boldsymbol\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}=\frac{1+1.001}{10^{-3}}=\frac{2.001}{10^{-3}}=\boldsymbol{2.001\cdot 10^3}\\
-			\boldsymbol{|\varepsilon_1|}=\frac{|\Tilde{x}_1-x_1|}{|x_1|}=\frac{0}{1}=0,\quad \boldsymbol{|\varepsilon_2|}=\frac{|\Tilde{x}_2-x_2|}{|x_2|}=\frac{|-0.999+1.001|}{1.001}=\frac{2\cdot 10^{-3}}{1.001}\boldsymbol{\approx 2\cdot 10^{-3}}\\
+			\boldsymbol\kappa=\frac{|x_1|+|x_2|}{|x_1+x_2|}=\frac{1+1.001}{10^{-3}}=\frac{2.001}{10^{-3}}=\boldsymbol{2.001\cdot 10^3}\\\\
+			\boldsymbol{|\varepsilon_1|}=\frac{|\Tilde{x}_1-x_1|}{|x_1|}=\frac{0}{1}=0,\quad \boldsymbol{|\varepsilon_2|}=\frac{|\Tilde{x}_2-x_2|}{|x_2|}=\frac{|-0.999+1.001|}{1.001}=\frac{2\cdot 10^{-3}}{1.001}\boldsymbol{\approx 2\cdot 10^{-3}}\\\\
 			\boldsymbol{\varepsilon_x}=\max\{0,2\cdot10^{-3}\}\boldsymbol{=2\cdot 10^{-3}}\quad\boldsymbol{|\varepsilon_y|}=\frac{|10^{-3}+10^{-3}|}{|10^{-3}}=\frac{2\cdot \cancel{10^{-3}}}{\cancel{10^{-3}}}\boldsymbol{=2}
 		\end{matrix}
 	\end{equation*}
@@ -646,9 +648,12 @@ Pertanto, è ottenuto ciò che segue:
 
 Quindi,
 \begin{equation*}
-	|\varepsilon_y|\leq 2\varepsilon_x,\quad \varepsilon_x=\max\{|\varepsilon_1|,|\varepsilon_2|\},
+	|\varepsilon_y|\leq 2\varepsilon_x,\quad \varepsilon_x=\max\{|\varepsilon_1|,|\varepsilon_2|\}.
 \end{equation*}
-il numero di condizionamento è $\kappa=2$, quindi la moltiplicazione è sempre ben condizionata.
+
+\begin{definition}[Numero di condizionamento della moltiplicazione]
+	Il numero di condizionamento della moltiplicazione è $\kappa=2$, quindi è sempre un'operazione ben condizionata.
+\end{definition}
 
 \subsubsection{Condizionamento della divisione}
 \footnote{Slide 9 PDF lez4, PG 18.} È esaminato il condizionamento del problema
@@ -676,4 +681,7 @@ Pertanto, è possibile ottenere
 \begin{equation*}
 	|\varepsilon_y|\approx|\varepsilon_1-\varepsilon_2|\leq |\varepsilon_1|+|\varepsilon_2|\leq 2\varepsilon_x,\quad \varepsilon_x=\max\{|\varepsilon_1|,|\varepsilon_2|\},
 \end{equation*}
-Il numero di condizionamento è $\kappa=2$, quindi la divisione è sempre ben condizionata.
+
+\begin{definition}[Numero di condizionamento della divisione]
+	Il numero di condizionamento della divisione è $\kappa=2$, quindi è sempre un'operazione ben condizionata.
+\end{definition}
