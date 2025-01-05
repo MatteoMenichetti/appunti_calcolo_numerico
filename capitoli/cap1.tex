@@ -232,30 +232,32 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	dove, in generale, $\boldsymbol{fl(x)\neq x}$. 
 \end{definition}
 
-La funzione floating $fl$ trasforma un numero reale in numero macchina (con l'aggiunta di un errore, dato che $fl(x)\neq x$). Un numero per il quale non è introdotto un errore nella rappresentazione è 0 ($\boldsymbol{fl(0)=0}$). Quindi, i numeri tra $[-r_2,-r_1]$ e $[r_1,r_2]$ possono essere rappresentati con la funzione $fl$, la quale associa ad ogni $i\in I$ una rappresentazione macchina. 
+La funzione floating $fl$ trasforma un numero reale in numero macchina. Un numero per il quale non è introdotto un errore nella rappresentazione è 0 ($\boldsymbol{fl(0)=0}$). Quindi, i numeri tra $[-r_2,-r_1]$ e $[r_1,r_2]$ possono essere rappresentati con la funzione $fl$, la quale associa ad ogni $i\in I$ una rappresentazione macchina. 
 
-\textbf{L'utilizzo della funzione floating introduce errori di rappresentazione del tipo round-off}, data la rappresentazione non precisa (come specificato nella definizione $fl(x)\neq x$).
+\textbf{L'utilizzo della funzione floating introduce errori di rappresentazione del tipo round-off}, data la rappresentazione non precisa (come specificato nella definizione, in genere, $fl(x)\neq x$).
 
-Dato $x\in I$, ovvero un numero esatto, definito come (\ref{eq:rappresentazione_scientifica_normalizzata}), della forma 
-\begin{equation}\label{eq:numEsatto}
-	x=(\alpha_0\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)\,b^{e-\nu}\in I,
-\end{equation}
-esistono due possibili implementazioni della funzione $fl(x)=(\alpha_0\underbrace{\alpha_1.\alpha_2\cdots\alpha_{m-1}}_{m-1}\Tilde{\alpha}_m)b^{e-\nu}$ per approssimare $\Tilde{\alpha}_m$:
-\begin{itemize}
-	\item \textbf{rappresentazione con troncamento,} \begin{equation}\label{eq:troncamento}
-		\Tilde{\alpha}_m=\alpha_m.
+\begin{definition}[Implementazione funzione di floating]
+	Dato $x\in I$, ovvero un numero esatto, definito come (\ref{eq:rappresentazione_scientifica_normalizzata}), della forma 
+	\begin{equation}\label{eq:numEsatto}
+		x=(\alpha_0\alpha_1.\alpha_2\cdots\alpha_m\alpha_{m+1}\cdots)\,b^{e-\nu}\in I,
 	\end{equation}
-	Quindi vengono ignorate le cifre successive alla $m-$esima.
-	\item \textbf{rappresentazione con arrotondamento,}
-	\begin{align}
-		\Tilde{\alpha}_m=
-		\begin{cases}
-			\alpha_m, &\text{ se }\alpha_{m+1}<\frac{b}{2}\\
-			\alpha_m+1, &\text{ se }\alpha_{m+1}\geq\frac{b}{2}
-		\end{cases}
-	\end{align}
-	dove nel caso $\Tilde{\alpha}_m\geq b$ allora ci sarà un riporto delle cifre precedenti alla $m$-esima.
-\end{itemize}
+	esistono due possibili implementazioni della funzione $fl(x)=(\alpha_0\underbrace{\alpha_1.\alpha_2\cdots\alpha_{m-1}}_{m-1}\Tilde{\alpha}_m)b^{e-\nu}$ per approssimare $\Tilde{\alpha}_m$:
+	\begin{itemize}
+		\item \textbf{rappresentazione con troncamento,} \begin{equation}\label{eq:troncamento}
+			\Tilde{\alpha}_m=\alpha_m.
+		\end{equation}
+		Quindi vengono ignorate le cifre successive alla $m-$esima.
+		\item \textbf{rappresentazione con arrotondamento,}
+		\begin{align}
+			\Tilde{\alpha}_m=
+			\begin{cases}
+				\alpha_m, &\text{ se }\alpha_{m+1}<\frac{b}{2}\\
+				\alpha_m+1, &\text{ se }\alpha_{m+1}\geq\frac{b}{2}
+			\end{cases}
+		\end{align}
+		dove nel caso $\Tilde{\alpha}_m\geq b$ allora ci sarà un riporto delle cifre precedenti alla $m$-esima.
+	\end{itemize}
+\end{definition}
 Principalmente sarà usata la rappresentazione con arrotondamento, utilizzando alcune sofisticazioni.
 
 \begin{example}\footnote{Slide 6 PDF lez3.}
@@ -304,10 +306,9 @@ Il seguente Teorema è importante, afferma che il massimo errore relativo da pot
 	$\boldsymbol u$ (definita come (\ref{eq:precisione_macchina_FL})) è detta \textbf{precisione macchina} in aritmetica finita.
 \end{definition}
 
-\paragraph{Cosa rappresenta la precisione macchina $\boldsymbol{u}$?}
-Dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina \gls{maggiora uniformemente} l'errore relativo di rappresentazione
+\paragraph{Cosa rappresenta la precisione macchina $\boldsymbol{u}$?} (Per il Teorema \ref{th:precisione_macchina_FL}) Dato $x\in\mathbb R$ e detto $fl(x)$ il corrispondente numero di macchina, se questo è normalizzato, allora la precisione macchina \gls{maggiora uniformemente} l'errore relativo di rappresentazione
 \begin{equation*}
-	\varepsilon_x = \frac{|x-fl(x)|}{|x|}\leq u\quad (\text{se } x\neq 0).
+	|\varepsilon_x| = \frac{|x-fl(x)|}{|x|}\leq u\quad (\text{se } x\neq 0).
 \end{equation*}
 Quindi, $\boldsymbol u$ \textbf{rappresenta il massimo errore relativo commesso dalla funzione di floating} $\boldsymbol{fl}$ ed è il più piccolo reale, diverso da 0, in notazione scientifica che sommato ad $n$ numero qualsiasi dà un numero diverso da $n$. Infatti, qualsiasi numero più piccolo di $u$ è considerato 0 (?).
 
@@ -403,7 +404,7 @@ Per entrambi i formati la mantissa è assunta in base 2 e vale quanto segue:
 Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/normalizata).
 
 \begin{remark}[\textbf{Precisione macchina singola precisione}]
-	Dato che la rappresentazione è per arrotondamento allora la precisione macchina può essere approssimata come $\boldsymbol{u\approx} \frac{1}{2} 2^{1-24} = \boldsymbol{2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL})
+	Dato che la rappresentazione è per arrotondamento allora la precisione macchina nel caso della singola precisione può essere approssimata come $\boldsymbol{u\approx} \frac{1}{2} 2^{1-24} = \boldsymbol{2^{-24}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}).
 \end{remark}
 
 \begin{definition}[Doppia precisione]\footnote{Slide 3 PDF lez3, PG 13.}
@@ -412,7 +413,7 @@ Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/
 		52, &\text{ frazione};\\
 		11, &\text{ esponente};
 	\end{cases}\Rightarrow m=53,\; s=11$.
-	Inoltre, è possibile configurare shift, mantissa ed esponente come segue:
+	Inoltre, è possibile configurare shift, mantissa ed esponente ($e\in\mathbb N$) come segue:
 	\begin{itemize}
 		\item se $0<e<2047=2^{11}-1,$ la notazione è normalizzata, $\nu=1023=2^{10}-1$;
 		\item se $e=0,\,f\neq 0$, la notazione è denormalizzata, $\nu=1022$ (caso gradual-underflow);
@@ -422,9 +423,10 @@ Nei primi due punti è inclusa l'informazione riguardo il tipo di notazione (de/
 		\item se $e=2047,\,f\neq 0 \rightarrow$ NaN.
 	\end{itemize}
 \end{definition}
+Le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
 
 \begin{remark}[\textbf{Precisione macchina doppia precisione}]
-	In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}) e le stesse valutazioni fatte per i primi due punti della singola precisione sono fatte per la doppia.
+	In questo caso la \textbf{precisione macchina} può essere approssimata come $\boldsymbol{u\approx 10^{-16}\approx 2^{-53}}$ (vedere il Teorema \ref{th:precisione_macchina_FL}).
 \end{remark}
 
 \subsubsection{Aritmetica Finita}\footnote{Slide 4 PDF lez3, PG 13.}
@@ -557,11 +559,11 @@ Il limite fra problema ben e malcondizionato non è preciso, è necessario un cr
 \paragraph{Osservazione qualitativa:} Valutare quantitativamente il numero di condizionamento è importante ed è necessario osservare come $\kappa$ varia all'aumentare della dimensione del problema (se è costante entro certi limiti è buono).
 
 \subsubsection{Condizionamento della somma algebrica}\label{sssec:condizionamento_somma_algebrica}
-Il problema è studiare il condizionamento della somma algebrica
+Il "problema" da studiare e' il condizionamento della somma algebrica
 \begin{equation}\label{eq:problema_condizionamento_somma_algebrica}
 	y=x_1+x_2\neq 0,\quad x_1,x_2\in\mathbb R,
 \end{equation}
-dove $x_1,\, x_2$ sono gli addendi esatti ed $y$ la soluzione esatta.
+dove $x_1,\, x_2$ sono gli addendi esatti ed $y$ la soluzione esatta (quindi per il problema (\ref{eq:problema}) $f(x) = x_1 + x_2$).
 
 Dati gli errori relativi sui dati iniziali $\varepsilon_1=\frac{\Tilde{x}_1-x_1}{x_1}$ e $\varepsilon_2=\frac{\Tilde{x}_2-x_2}{x_2}$, con $\Tilde{x}_1=x_1(1+\boldsymbol{\varepsilon_1})$ e $\Tilde{x}_2=x_2(1+\boldsymbol{\varepsilon_2})$ addendi perturbati, assumendo che non venga introdotto alcun nuovo errore nel calcolo di (\ref{eq:problema_condizionamento_somma_algebrica}), allora, con
 \begin{equation*}
