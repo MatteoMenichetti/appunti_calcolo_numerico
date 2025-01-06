@@ -1,21 +1,22 @@
+% !TeX spellcheck = it_IT
 \section{Radici di un'equazione (nonlineare)}
 \footnote{PG 19-40, PDF lez6.} Il problema da risolvere è determinare
-\begin{equation} \label{eq:radixEQ}
+\begin{equation} \label{eq:radice_equazione}
 	x^*\in \mathbb R : f(x^*)=0,\quad f:\mathbb R\rightarrow \mathbb R.
 \end{equation}
 
-Per risolvere il problema è necessario determinare, se esiste/ono, la/e radice/i $x^*$ della funzione $f$, distinguendo i casi in base al numero di soluzioni del problema (\ref{eq:radixEQ}). Il problema (\ref{eq:radixEQ}):
+Per risolvere il problema è necessario determinare, se esiste/ono, la/e radice/i $x^*$ della funzione $f$, distinguendo i casi in base al numero di soluzioni del problema (\ref{eq:radice_equazione}). Il problema (\ref{eq:radice_equazione}):
 \begin{enumerate} 
 	\item ammette un numero finito di soluzioni (esempio: $f(x)=(x-1)(x^2-4)=(x-1)(x-2)(x+2)$);
 	\item non ha soluzioni reali (esempio: $f(x)=e^x$);
 	\item ammette infinite soluzioni reali (esempio: $f(x)=\sin(x)$, la quale si annulla in $\pi, 2\pi, \dots, k\pi, \dots,\, k\in\mathbb N$).
 \end{enumerate}
-Affinché il problema (\ref{eq:radixEQ}) sia risolvibile è necessario che ricada negli scenari 1. o 2. appena indicati.
+Affinché il problema (\ref{eq:radice_equazione}) sia risolvibile è necessario che ricada negli scenari 1. o 2. appena indicati.
 
-\paragraph{Assunzione importante:} \textbf{in seguito sarà supposto che esista almeno una soluzione reale per (\ref{eq:radixEQ}) e che valga il Teorema degli zeri.} 
+\paragraph{Assunzione importante:} \textbf{in seguito sarà supposto che esista almeno una soluzione reale per (\ref{eq:radice_equazione}) e che valga il Teorema degli zeri (ovvero il seguente).} 
 
 \begin{theorem}[degli zeri]
-	Sia $f\colon I=[a,b]\rightarrow\mathbb R,\, f\in C([a,b]),\, f(a)f(b)< 0 \Rightarrow\exists x^* \in [a,b]:f(x^*)=0$.
+	Sia $f\colon I=[a,b]\rightarrow\mathbb R,\, f\in C([a,b])$. Se $f(a)f(b)< 0 \Rightarrow\exists x^* \in [a,b]$ tale che $f(x^*)=0$.
 \end{theorem}
 \paragraph{N.B.:} È possibile fornire un intervallo di confidenza $[a,b]$ per la radice $x^*$. \textbf{La condizione} $\boldsymbol{f(a)f(b) < 0}$ \textbf{può essere verificata all'inizio dell'algoritmo che ricerca le radici.}
 
@@ -31,7 +32,13 @@ Affinché il problema (\ref{eq:radixEQ}) sia risolvibile è necessario che ricad
 	\caption{\label{fig:SingleRadix}Grafico della radice della funzione $x^2$}
 \end{figure}
 
-\subsection{Metodo di bisezione}\footnote{PG. 19-22.} Data l'assunzione precedente, $[a,b]$ è un intervallo di confidenza per la radice $x^*$ di (\ref{eq:radixEQ}) (aumentandone così la precisione). Dovendo scegliere un punto nell'intervallo $[a,b]$, in modo tale che sia la migliore approssimazione della radice, è possibile porre $x^*\approx x_1=\frac{a+b}{2}$, ovvero selezionare il punto medio dell'intervallo.
+\subsection{Metodo di bisezione}\footnote{PG. 19-22.}
+Dato $[a,b]$, intervallo di confidenza per la radice $x^*$ di (\ref{eq:radice_equazione}) (aumentandone così la
+precisione), è scelto in tale intervallo un punto in modo tale che questo sia la migliore approssimazione della radice. Il punto scelto è 
+\begin{equation*}
+	x^*\approx x_1=\frac{a+b}{2},
+\end{equation*}
+ovvero è selezionato il punto medio dell'intervallo.
 
 Solo uno dei tre seguenti casi può verificarsi:
 \begin{enumerate}
@@ -69,7 +76,7 @@ Solo uno dei tre seguenti casi può verificarsi:
 \end{figure}
 
 \subsection{Criterio di Arresto}\label{sec:critArresto}
-Quando è possibile fermare la successione di approssimazioni $x_n$? Un possibile criterio d'arresto può essere $f(x_n)=0$. Questa condizione è improbabile che si verifichi, quindi inutilizzabile, perché è possibile arrivare alla radice $x^*$ solo quando $x^*=x_n$, quindi in un numero infinito di passi. Questo non è compatibile con un elaboratore in aritmetica finita, dove $f(x^*)=f(x_n)\neq 0$, a causa dell'aritmetica finita stessa.
+Quando è possibile fermare la successione di approssimazioni $x_n$? Un possibile criterio d'arresto può essere $f(x_n)=0$. Questa condizione è improbabile che si verifichi, è inutilizzabile, perché è possibile arrivare alla radice $x^*$ solo quando $x^*=x_n$, quindi in un numero infinito di passi. Questo non è compatibile con un elaboratore in aritmetica finita, dove $f(x^*)=f(x_n)\neq 0$, a causa dell'aritmetica finita stessa.
 
 Realisticamente è possibile richiedere che 
 \begin{equation}\label{eq:x_n_leq_tolx}
@@ -127,10 +134,16 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 \begin{equation*}
 	\begin{matrix}
 		f(x)&\overset{\footnotemark}{\equiv}& f(x^*)+f'(x^*)(x-x^*)&=&f'(x^*)(x-x^*)\\
-		&\overset{\footnotemark}{\Rightarrow}&f(x_i)&\approx& f'(x^*)(x_i-x^*)\\
-		&\overset{\footnotemark}{\Rightarrow}&\boldsymbol{|x_i-x^*|}&\boldsymbol\approx&\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}}\\
-		&\Rightarrow&\boldsymbol{|x_n-x^*|}&\boldsymbol\approx&\boldsymbol{\frac{|f(x_n)|}{|f'(x^*)|}}
+		&\overset{\footnotemark}{\Rightarrow}&f(x_i)&\approx& f'(x^*)(x_i-x^*)
 	\end{matrix}
+\end{equation*}
+\footnotemark  allora
+\begin{equation*}
+	\boldsymbol{|x_i-x^*| \approx \frac{|f(x_i)|}{|f'(x^*)|}}
+\end{equation*}
+quindi
+\begin{equation*}
+	\boldsymbol{|x_n-x^*| \approx \frac{|f(x_n)|}{|f'(x^*)|}}
 \end{equation*}
 
 \addtocounter{footnote}{-2}
@@ -142,7 +155,7 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 \stepcounter{footnote}
 \footnotetext{Essendo $|x_i-x^*|$ la quantità ricercata allora la conseguenza è logica.}
 
-\noindent e quindi \textbf{è possibile utilizzare} $\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}\leq tolx}$ \textbf{come criterio d'arresto} ($i=1,\hdots, n$). 
+\noindent e pertanto \textbf{è possibile utilizzare} $\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}}(\leq tolx)$ \textbf{come criterio d'arresto} ($i=1,\hdots, n$). 
 
 Al fine di utilizzare $f'(x^*)$ nel criterio di arresto, questa può essere approssimata, dato l'intervallo di confidenza $[a_i, b_i]$, come segue:
 \begin{equation}\label{eq:approxf'}
@@ -209,14 +222,14 @@ Tale valore amplifica (di un fattore $\kappa$) l'errore $x_i-x^*$ commesso su $x
 \paragraph{N.B.:} È necessario osservare che il condizionamento riguarda il problema e non il \gls{metodo numerico}.
 
 \begin{definition}[Radice con molteplicità $m$]\label{def:radice_molteplicita_m}
-	\footnote{PG 25, slide 7 PDF lez 7.} $x^*$ è una radice del problema (\ref{eq:radixEQ}) ed ha molteplicità esatta $m\geq 1$, se è verificato quanto segue:
+	\footnote{PG 25, slide 7 PDF lez 7.} $x^*$ è una radice del problema (\ref{eq:radice_equazione}) ed ha molteplicità esatta $m\geq 1$, se è verificato quanto segue:
 	\begin{equation*}
 		f(x^*)=f'(x^*)=f''(x^*)=\hdots=f^{(m-1)}(x^*)=0,\, f^{(m)}(x^*)\neq 0.
 	\end{equation*}
 \end{definition}
 Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dice multipla.
 
-\paragraph{Il metodo di bisezione è malcondizionato con radici multiple:} Dalla Definizione precedente e dalla Definizione \ref{def:numero_condizionamento_radice} di condizionamento di una radice è possibile affermare che il problema della determinazione di radici multiple è \textbf{\underline{sempre} malcondizionato} per ogni metodo impiegato per la ricerca delle radici. Quindi non è consigliata l'applicazione del metodo di bisezione, in quanto il numero di condizionamento risulterebbe essere $\kappa=\infty$ (sarà ottenuto un risultato, la radice, non preciso).
+\paragraph{Il metodo di bisezione è malcondizionato con radici multiple:} Dalla Definizione precedente e dalla Definizione \ref{def:numero_condizionamento_radice} di condizionamento di una radice è possibile affermare che il problema della determinazione di radici multiple è \textbf{\underline{sempre} malcondizionato} \uline{per ogni metodo impiegato per la ricerca delle radici}. Quindi  il numero di condizionamentodei metodi utilizzati risulta essere $\kappa=\infty$ ed il risultato, la radice, sarà impreciso. Il malcondizionamento del problema ha precise ripercussioni sulla velocità di convergenza verso la radice di tutti i metodi introdotti.
 
 \paragraph{Convergenza del metodo di bisezione:} Vedere Sezione \ref{ssec:convergenza_metodo_bisezione}.
 
@@ -247,7 +260,7 @@ Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dic
 
 \subsection{Convergenza di un metodo iterativo}\footnote{PG 26-28, slide 8-9 + 1-2 PDF lez7-8.} Lo scopo dell'argomento introdotto è quello di misurare l'errore di approssimazione della radice, quindi che il metodo iterativo sia corretto nel funzionamento. Ciò che sarà stabilito è la convergenza della successione alla radice.
 \begin{definition}[Errore di approssimazione]
-	Supposto di voler risolvere l'equazione (\ref{eq:radixEQ}) e sia $x_i$ l'approssimazione fornita al passo $i-$esimo, è possibile definire l'errore come
+	Supposto di voler risolvere l'equazione (\ref{eq:radice_equazione}) e sia $x_i$ l'approssimazione fornita al passo $i-$esimo, è possibile definire l'errore come
 	\begin{equation}\label{eq:errore_metodo_iterativo}
 		e_i:=x_i-x^*.
 	\end{equation}
@@ -357,7 +370,7 @@ la quale è definita per $f'(x_0)\neq 0$, con $x_0$ approssimazione iniziale di 
 
 Più passi vengono calcolati, più $x_i$ si avvicina a $x^*$.
 
-\paragraph{Osservazioni sul metodo:} La soluzione al problema (\ref{eq:radixEQ}) è ottenuta risolvendo \gls{equazioni lineari}. Nel caso in cui $f(x)$ sia una \gls{funzione lineare} allora il metodo di Newton fornisce la soluzione in un solo passo.
+\paragraph{Osservazioni sul metodo:} La soluzione al problema (\ref{eq:radice_equazione}) è ottenuta risolvendo \gls{equazioni lineari}. Nel caso in cui $f(x)$ sia una \gls{funzione lineare} allora il metodo di Newton fornisce la soluzione in un solo passo.
 
 \paragraph{Costo computazionale:}È possibile osservare che il metodo di Newton ha un costo per iterazione di 2 valutazioni funzionali (il metodo di bisezione ne richiede una): è necessario calcolare $f(x)$ ed $f'(x)$, in quanto ad ogni passo/iterazione cambia l'input ($x_0, x_1, x_2, \hdots$).
 Inoltre, mentre il metodo di bisezione richiede solo la continuità della funzione $f$, per il metodo di Newton è richiesto che $f$ sia, oltre che continua, derivabile (ovvero $f\in C^{(2)}$).

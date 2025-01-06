@@ -204,7 +204,7 @@ $c$ si dice costante asintotica dell'errore.
 
 \paragraph{6. }\footnote{Vedere Definizione \ref{def:itmax_metodo_bisezione}.} Ricordiamo che il metodo di bisezione approssima la soluzione col punto medio dell'intervallo di confidenza corrente. Pertanto, al passo $i$-esimo, l'errore sarà maggiorato da $2^{-i}$ per l'ampiezza dell'intervallo di confidenza iniziale. Nel nostro caso, $41-33=8=2^3$. Pertanto, richiedendo che
 \begin{equation*}
-	2^{-1}\cdot 2^3\leq 10^{-3}\approx 2^{-10},
+	2^{-i}\cdot 2^3\leq 10^{-3}\approx 2^{-10},
 \end{equation*}
 si ottiene $2^{-i}\leq 2^{-13}$, ovvero $i=13$ passi.
 
