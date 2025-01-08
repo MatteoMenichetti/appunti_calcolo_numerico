@@ -139,11 +139,11 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 \end{equation*}
 \footnotemark  allora
 \begin{equation*}
-	\boldsymbol{|x_i-x^*| \approx \frac{|f(x_i)|}{|f'(x^*)|}}
+	\boldsymbol{|x_i-x^*| \approx \frac{|f(x_i)|}{|f'(x^*)|}},
 \end{equation*}
 quindi
 \begin{equation*}
-	\boldsymbol{|x_n-x^*| \approx \frac{|f(x_n)|}{|f'(x^*)|}}
+	\boldsymbol{|x_n-x^*| \approx \frac{|f(x_n)|}{|f'(x^*)|}},
 \end{equation*}
 
 \addtocounter{footnote}{-2}
@@ -159,19 +159,18 @@ quindi
 
 Al fine di utilizzare $f'(x^*)$ nel criterio di arresto, questa può essere approssimata, dato l'intervallo di confidenza $[a_i, b_i]$, come segue:
 \begin{equation}\label{eq:approxf'}
-	\boldsymbol{f'(x^*)\approx\frac{f(b_i)-f(a_i)}{b_i-a_i}=\frac{f(a_i+\overbrace{b_i-a_i}^{h})-f(a_i)}{\underbrace{b_i-a_i}_{h}}\rightarrow \lim_{i\to\infty}\frac{f(b_i)-f(a_i)}{b_i-a_i}}.
+	\boldsymbol{f'(x^*)\approx\frac{f(b_i)-f(a_i)}{b_i-a_i}=\frac{f(a_i+\overbrace{b_i-a_i}^{h})-f(a_i)}{\underbrace{b_i-a_i}_{h}}\rightarrow \lim_{i\to + \infty}\frac{f(b_i)-f(a_i)}{b_i-a_i}}.
 \end{equation}
 
 \begin{remark}[Non ufficiale]
-	Il costo computazionale dell'approssimazione $f'(x^*)$ calcolata come (\ref{eq:approxf'}) è nullo perché $f(a_i)$ e $f(b_i)$ sono già calcolati nel metodo di bisezione.
+	Il costo computazionale dell'approssimazione $f'(x^*)$ calcolata come (\ref{eq:approxf'}) è nullo perché $f(a_i)$ e $f(b_i)$ sono già calcolati nel metodo di bisezione.\\
+	Inoltre,
+	\begin{equation*}
+		\frac{|f(x_i)|}{|f'(x^*)|}\leq tolx \iff |f(x_i)|\leq \boldsymbol{|f'(x^*)|\cdot tolx=tolf}(\rightarrow |f(x_i)|\leq tolf),
+	\end{equation*}
+	con ${tolf}$ quantità precisa [\footnotemark]. In altre parole: per avere $|x_n-x^*|\leq tolx$ occorre utilizzare una tolleranza $tolf\approx|f'(x^*)|\cdot tolx$.
+	\footnotetext{Se $tolf>>1$ (vedi Figura \ref{fig:f1(xStar)major1.jpg}), significa che $x_i$ è vicino a $x^*$ e ciò è un buon indicatore per determinare l'affidabilità legata all'errore.}
 \end{remark}
-
-Inoltre,
-\begin{equation*}
-	\frac{|f(x_i)|}{|f'(x^*)|}\leq tolx \iff |f(x_i)|\leq \boldsymbol{|f'(x^*)|\cdot tolx=tolf}(\rightarrow |f(x_i)|\leq tolf),
-\end{equation*}
-con ${tolf}$ quantità precisa [\footnotemark]. In altre parole: per avere $|x_n-x^*|\leq tolx$ occorre utilizzare una tolleranza $tolf\approx|f'(x^*)|\cdot tolx$.
-\footnotetext{Se $tolf>>1$ (vedi Figura \ref{fig:f1(xStar)major1.jpg}), significa che $x_i$ è vicino a $x^*$ e ciò è un buon indicatore per determinare l'affidabilità legata all'errore.}
 
 \begin{figure}
 	\centering
@@ -184,7 +183,7 @@ con ${tolf}$ quantità precisa [\footnotemark]. In altre parole: per avere $|x_n
 	\caption{\label{fig:f1(xStar)minor1.jpg} $f'(x^*)<<1$}
 \end{figure}
 
-\subsubsection{Condizionamento di una radice}\footnote{PG 23, slide 6 PDF lez7.} L'analisi appena condotta per definire un criterio d'arresto più efficiente per il metodo di bisezione è altresì legata al condizionamento della radice $x^*$ e rimarrà valida anche per i metodi che saranno trattati successivamente.
+\subsubsection{Condizionamento di una radice}\footnote{PG 23, slide 6 PDF lez7.} L'analisi appena condotta per definire un criterio d'arresto più efficiente per il metodo di bisezione è legata al condizionamento della radice $x^*$ e rimarrà valida anche per i metodi che saranno trattati successivamente.
 
 \begin{definition}[Numero di condizionamento di una radice]\label{def:numero_condizionamento_radice}
 	Sia $f$ ed $x^*$ la radice trovata. Il numero di condizionamento della radice $x^*$ è dato da
@@ -195,7 +194,7 @@ con ${tolf}$ quantità precisa [\footnotemark]. In altre parole: per avere $|x_n
 Tale valore amplifica (di un fattore $\kappa$) l'errore $|x_i-x^*|$ commesso su $x^*$.
 
 \begin{remark}[Non ufficiale]
-	È possibile osservare che:
+	Data $tolf = |f'(x*)|tolx$, è possibile osservare che:
 	\begin{itemize}
 		\item se $|f'(x^*)|\approx 0\Rightarrow tolf\ll tolx\; \left(\frac{1}{|f'(x^*)|}\gg 1\right)$, $x^*$ è una radice malcondizionata;
 		
@@ -207,10 +206,10 @@ Tale valore amplifica (di un fattore $\kappa$) l'errore $|x_i-x^*|$ commesso su 
 	Nel caso del polinomio $p(x)=(x-1.1)^{20}(x-\pi)$ è ottenuta $p'(\pi)=(\pi-1.1)^{20}\approx 1.6\cdot 10^6$. Il numero di condizionamento vale $\kappa\approx 6\cdot 10^{-7}$ e quindi la radice $x^*=\pi$ è ben condizionata.
 \end{example}
 
-\begin{definition}[Errore (perturbazione) della radice]
-	L'errore (perturbazione) sul risultato (di approssimazione della radice) è
+\begin{definition}[Errore della radice]
+	L'errore (perturbazione) sul risultato (di approssimazione della radice) può essere approssimato come
 	\begin{equation*}
-		|x_n-x^*|\approx\frac{|f(x_n)|}{|f'(x^*)|}=\frac{1}{|f'(x^*)|}|f(x_n)|,
+		|x_n-x^*|\approx\frac{|f(x_n)|}{|f'(x^*)|}=\underbrace{\frac{1}{|f'(x^*)|}}{\kappa}|f(x_n)|,
 	\end{equation*}
 	dove:
 	\begin{itemize}
@@ -258,9 +257,9 @@ Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dic
 	\end{lstlisting}
 \end{algorithm}
 
-\subsection{Convergenza di un metodo iterativo}\footnote{PG 26-28, slide 8-9 + 1-2 PDF lez7-8.} Lo scopo dell'argomento introdotto è quello di misurare l'errore di approssimazione della radice, quindi che il metodo iterativo sia corretto nel funzionamento. Ciò che sarà stabilito è la convergenza della successione alla radice.
+\subsection{Ordine di convergenza di un metodo iterativo}\footnote{PG 26-28, slide 8-9 + 1-2 PDF lez7-8.} Lo scopo dell'argomento introdotto è quello di misurare l'errore di approssimazione della radice, quindi che il metodo iterativo sia corretto nel funzionamento. Ciò che sarà stabilito è la convergenza della successione alla radice.
 \begin{definition}[Errore di approssimazione]
-	Supposto di voler risolvere l'equazione (\ref{eq:radice_equazione}) e sia $x_i$ l'approssimazione fornita al passo $i-$esimo, è possibile definire l'errore come
+	Supposto di voler risolvere l'equazione (\ref{eq:radice_equazione}) e sia $x_i$ l'approssimazione fornita al passo $i-$esimo, è possibile definire l'errore di approssimazione come
 	\begin{equation}\label{eq:errore_metodo_iterativo}
 		e_i:=x_i-x^*.
 	\end{equation}
@@ -268,25 +267,25 @@ Se $m=1$ allora $x^*$ si dice radice semplice, altrimenti (per $m\geq 2$) si dic
 
 \begin{definition}[Metodo iterativo convergente]
 	Un metodo iterativo è convergente s.se \begin{equation}\label{eq:limite_errore_metodo_convergente}
-		\lim_{i\to\infty}{e_i}=0.
+		\lim_{i\to+\infty}{e_i}=0.
 	\end{equation}
 \end{definition}
 
-\subsection{Ordine di Convergenza di un metodo iterativo}
-Il passo successivo alla convergenza è stabilire la velocità computazionale del metodo (quanto velocemente $x_n$ si avvicina a $x^*$? Quanti calcoli servono?). Per questo è necessaria l'introduzione di \textbf{Definizione \ref{def:ordine_convergenza_metodo_iterativo}} di ordine di convergenza e \textbf{Osservazione \ref{rem:limOrdConv}.}
+Il passo successivo alla definizione di convergenza è quello di stabilire la velocità computazionale del metodo (quanto velocemente $x_n$ si avvicina a $x^*$? Quanti calcoli servono?). Per questo è necessaria l'introduzione di \textbf{Definizione \ref{def:ordine_convergenza_metodo_iterativo}} di ordine di convergenza e \textbf{Osservazione \ref{rem:limite_ordine_convergenza}.}
 \begin{definition}[\textbf{Ordine di convergenza} di un metodo iterativo] \label{def:ordine_convergenza_metodo_iterativo}
-	Se un metodo iterativo ha $p\in\mathbb R^+$ come valore più grande per cui \begin{equation}\label{eq:limOrdConv}
-		\lim_{i\to\infty}{\frac{|e_{i+1}|}{|e_i|^p}}=c<\infty,
+	Se un metodo iterativo ha $p\in\mathbb R^+$ come valore più grande per cui
+	 \begin{equation}\label{eq:limite_ordine_convergenza}
+		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^p}}=c<\infty,
 	\end{equation}
-	allora tale metodo ha \textbf{ordine di convergenza} $\boldsymbol p$, con \textbf{costante asintotica dell'errore} pari a $\boldsymbol c$.
+	allora tale metodo ha \textbf{ordine di convergenza} $\boldsymbol p$, con \textbf{costante asintotica dell'errore} $\boldsymbol c$.
 \end{definition}
 
 \begin{remark}
 	Se $e_i<1 \Rightarrow |e_i|^p$ è sempre più piccolo al crescere di $p$.
 \end{remark}
 
-\begin{remark}\label{rem:limOrdConv}
-	Per $i$ sufficientemente grande, nel caso di convergenza lineare ($p=1$), è ottenuto (data (\ref{eq:limOrdConv})):
+\begin{remark}\label{rem:limite_ordine_convergenza}
+	Per $i$ sufficientemente grande, nel caso di convergenza lineare ($p=1$), è ottenuto (data (\ref{eq:limite_ordine_convergenza})):
 	\begin{equation*}
 		\frac{|e_{i+1}|}{|e_i|^p}\approx c \Rightarrow |e_{i+1}|\approx c|e_i|^p.
 	\end{equation*}
@@ -326,7 +325,7 @@ Più è elevato l'ordine di un metodo convergente, più le approssimazioni gener
 \begin{remark}(Convergenza metodo di bisezione)
 	Il metodo di bisezione è sempre convergente (convergenza globale): 
 	\begin{equation*}
-		|e_i|=|x_i-x^*|\leq \frac{b-a}{2^i}\Rightarrow \boldsymbol{0\leq \lim_{i\to\infty}|e_i|\leq \lim_{i\to\infty}{\frac{b-a}{2^i}=0}\Rightarrow \lim_{i\to\infty}{e_i}=0.}
+		|e_i|=|x_i-x^*|\leq \frac{b-a}{2^i}\Rightarrow \boldsymbol{0\leq \lim_{i\to + \infty}|e_i|\leq \lim_{i\to + \infty}{\frac{b-a}{2^i}=0}\Rightarrow \lim_{i\to + \infty}{e_i}=0.}
 	\end{equation*}
 \end{remark}
 
@@ -409,14 +408,14 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	
 	\noindent Allora, supponendo che il metodo converga (ovvero che $\lim_{i\rightarrow+\infty}x_i=x^*$): 
 	\begin{equation*}
-		\lim_{i\to\infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\lim_{i\to\infty}{\frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}}\overset{\footnotemark}{=}\frac{1}{2}\frac{f''\left(\underset{i\to\infty}{\lim}\xi_i\right)}{f'\left(\underset{i\to\infty}{\lim}{x_i}\right)}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)},
+		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\lim_{i\to + \infty}{\frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}}\overset{\footnotemark}{=}\frac{1}{2}\frac{f''\left(\underset{i\to\infty}{\lim}\xi_i\right)}{f'\left(\underset{i\to\infty}{\lim}{x_i}\right)}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)},
 	\end{equation*}
 	
 	\footnotetext{$f\in C^{(2)}$, quindi $f''$ è continua.}
 	
 	\noindent quindi, per $f'(x^*)=0$ ($x^*$ radice semplice)\footnote{Ipotesi importante perché significa che $f'(x^*)\neq 0$ e che quindi $\frac{f''(x^*)}{f'(x^*)}\neq\infty$.}:
 	\begin{equation*}
-		\lim_{i\to\infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)}<\infty,
+		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)}<\infty,
 	\end{equation*}
 	e \textbf{il metodo ha ordine di convergenza $\boldsymbol{p=2}$.}\footnote{L'ordine è almeno 3 se $f''(x^*)=0$.}
 \end{proof}
@@ -454,7 +453,7 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	
 	\noindent Allora, dalla (\ref{eq:limite_errore_metodo_convergente}):
 	\begin{equation} \label{eq:limCostanteAsistotica}
-		\boldsymbol{\lim_{i\to\infty}{\frac{|e_{i+1}|}{|e_i|}}}=\lim_{i\to\infty}{\frac{|(m-1)\,g(x_i)+e_i\,g'(x_i)|}{|m\,g(x_i)+e_i\,g(x_i)|}}\overset{\footnotemark}{=}\lim_{i\to\infty}{\frac{|(m-1)\,\cancel{g(x_i)}|}{|m\,\cancel{g(x_i)}|}}=\boldsymbol{\frac{m-1}{m}}.
+		\boldsymbol{\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|}}}=\lim_{i\to + \infty}{\frac{|(m-1)\,g(x_i)+e_i\,g'(x_i)|}{|m\,g(x_i)+e_i\,g(x_i)|}}\overset{\footnotemark}{=}\lim_{i\to + \infty}{\frac{|(m-1)\,\cancel{g(x_i)}|}{|m\,\cancel{g(x_i)}|}}=\boldsymbol{\frac{m-1}{m}}.
 	\end{equation}
 	
 	\footnotetext{È supposto che il problema di Newton converga quindi, per il fatto stesso di convergere (vedi (\ref{eq:limite_errore_metodo_convergente})), l'errore $(e_i)$ tende a 0, quindi $\underset{i\to\infty}{\lim}e_ig'(x_i)\to 0$.}
@@ -545,7 +544,7 @@ Questo argomento permette di trattare le proprietà di convergenza del metodo it
 		\end{equation*}
 		\item È necessario dimostrare
 		\begin{equation*}
-			\lim_{i\to\infty}{x_i}=x^*\iff \lim_{i\to\infty}{|x_i-x^*|}=0.
+			\lim_{i\to + \infty}{x_i}=x^*\iff \lim_{i\to + \infty}{|x_i-x^*|}=0.
 		\end{equation*}
 		Ciò che interessa calcolare è $|x_i-x^*|$, ovvero l'errore:
 		\begin{equation*}
@@ -557,7 +556,7 @@ Questo argomento permette di trattare le proprietà di convergenza del metodo it
 		\end{equation*}
 		Quindi è possibile dimostrare la tesi come segue:
 		\begin{equation*}
-			0\leq \underbrace{\lim_{i \to\infty}{|x_i-x^*|}}_{\footnotemark}\leq\lim_{i\to\infty}{L^i|x_0-x^*|}=0\Rightarrow \lim_{i\to\infty}{|x_i-x^*|}=0\Rightarrow\lim_{i\to\infty}{x_i=x^*}.
+			0\leq \underbrace{\lim_{i \to\infty}{|x_i-x^*|}}_{\footnotemark}\leq\lim_{i\to + \infty}{L^i|x_0-x^*|}=0\Rightarrow \lim_{i\to + \infty}{|x_i-x^*|}=0\Rightarrow\lim_{i\to + \infty}{x_i=x^*}.
 		\end{equation*}
 	\end{enumerate}
 \end{proof}
@@ -653,7 +652,7 @@ Questo è dovuto al fatto che l'errore $|x^*-x_i|$ non è noto, quindi è necess
 	\end{equation*}
 \end{remark}
 
-Nel caso in cui la convergenza sia lineare (ovvero l'ordine di convergenza è $p=1$), il criterio d'arresto (\ref{eq:critArrConvMag1}) può essere modificato nel seguente (come \ref{eq:critArrIdea}), date (\ref{eq:limite_errore_metodo_convergente})-(\ref{eq:limOrdConv}) e (\ref{eq:limCostanteAsistotica})):
+Nel caso in cui la convergenza sia lineare (ovvero l'ordine di convergenza è $p=1$), il criterio d'arresto (\ref{eq:critArrConvMag1}) può essere modificato nel seguente (come \ref{eq:critArrIdea}), date (\ref{eq:limite_errore_metodo_convergente})-(\ref{eq:limite_ordine_convergenza}) e (\ref{eq:limCostanteAsistotica})):
 
 \begin{equation}\label{eq:approxErroreNewtonBis}
 	|x_{i+1}-x_i|=|e_{i+1}-e_i|=|e_i-\underbrace{e_{i+1}}_\text{$c\cdot e_i$}|\approx |e_i|(1-c)\Rightarrow |e_i|\approx\frac{|x_{i+1}-x_i|}{\underset{\footnotemark}{(1-c)}}.
@@ -699,7 +698,7 @@ ripristinando la convergenza quadratica del metodo, qualora converga verso una r
 \paragraph{Convergenza:} Nel caso generale la \textbf{convergenza} rimane \textbf{quadratica}.
 
 \subsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} ignota}
-In questo caso il metodo di Newton converge linearmente ($p=1$), quindi (da (\ref{eq:limOrdConv}))
+In questo caso il metodo di Newton converge linearmente ($p=1$), quindi (da (\ref{eq:limite_ordine_convergenza}))
 \begin{equation*}
 	\underset{i\to\infty}{\lim}{\frac{|e_{i+1}|}{|e_i|}} = c<\infty.
 \end{equation*}
