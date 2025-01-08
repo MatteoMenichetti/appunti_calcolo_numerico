@@ -284,18 +284,28 @@ Il passo successivo alla definizione di convergenza è quello di stabilire la ve
 	Se $e_i<1 \Rightarrow |e_i|^p$ è sempre più piccolo al crescere di $p$.
 \end{remark}
 
+Nel caso in cui $p=1$ si parla di convergenza lineare, con $p = 2$ di convergenza quadratica, eccetera. \textbf{Nonostante $\boldsymbol p$ possa assumere non intero e minore di 1, è necessario che $\boldsymbol{p \geq 1}$ affinché sia convergente.}
+
 \begin{remark}\label{rem:limite_ordine_convergenza}
 	Per $i$ sufficientemente grande, nel caso di convergenza lineare ($p=1$), è ottenuto (data (\ref{eq:limite_ordine_convergenza})):
 	\begin{equation*}
-		\frac{|e_{i+1}|}{|e_i|^p}\approx c \Rightarrow |e_{i+1}|\approx c|e_i|^p.
+		\frac{|e_{i+1}|}{|e_i|^p}\approx c,
 	\end{equation*}
+	allora
+	\begin{equation}\label{eq:approssimazione_errore_i+1}
+		|e_{i+1}|\approx c|e_i|^p.
+	\end{equation}
 \end{remark}
 
 \begin{remark}\label{rem:metodo_lineare_convergente}
 	Un \textbf{\gls{metodo lineare}} ($p=1$) è \textbf{convergente s.se} $\boldsymbol{0\leq c<1}$.
 \end{remark}
 
-\paragraph{Perché l'Osservazione \ref{rem:metodo_lineare_convergente} vale?} Dato $|e_{i+1}|\approx c|e_i|^p$ allora, se $p=1$ $|e_{i+1}|\approx c|e_i|\Rightarrow |e_{i+k}|\approx c^k|e_{i-k}|\Rightarrow |e_i|\approx c^i|e_0|$ quindi
+\paragraph{Perché l'Osservazione \ref{rem:metodo_lineare_convergente} vale?} Dato (\ref{eq:approssimazione_errore_i+1}) allora, se $p=1$
+\begin{equation*}
+	|e_{i+1}|\approx c|e_i|\Rightarrow |e_{i+k}|\approx c^k|e_{i-k}|\Rightarrow |e_i|\approx c^i|e_0|,
+\end{equation*}
+quindi
 \begin{equation*}
 	\underset{i\to\infty}{\lim}|e_i|=\underset{i\to\infty}{\lim}{c^i|e_0|}\iff c<1.
 \end{equation*}
