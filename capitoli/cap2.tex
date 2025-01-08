@@ -52,7 +52,7 @@ Solo uno dei tre seguenti casi può verificarsi:
 \end{remark}
 
 \begin{remark}
-	Dati $[a_1,b_1]\equiv [a,b],\, x_1=\frac{a_1+b_1}{2}\Rightarrow x_n=\frac{a_n+b_n}{2}$, dove $x_n$ è l'approssimazione di $x^*$. Ulteriori chiarimenti sono forniti nella Sezione \ref{sec:critArresto}.
+	Dati $[a_1,b_1]\equiv [a,b],\, x_1=\frac{a_1+b_1}{2}\Rightarrow x_n=\frac{a_n+b_n}{2}$, dove $x_n$ è l'approssimazione di $x^*$. Ulteriori chiarimenti sono forniti nella Sezione \ref{ssec:criterio_arresto}.
 \end{remark}
 
 È possibile che esistano più radici per la funzione $f$, un metodo iterativo come quello di bisezione ne approssima solamente una (vedere Figura \ref{fig:sinx}).
@@ -75,7 +75,7 @@ Solo uno dei tre seguenti casi può verificarsi:
 	\caption{\label{fig:sinx}Grafico della funzione $\sin{(x)}$ (radici multiple)}
 \end{figure}
 
-\subsection{Criterio di Arresto}\label{sec:critArresto}
+\subsection{Criterio di Arresto}\label{ssec:criterio_arresto}
 Quando è possibile fermare la successione di approssimazioni $x_n$? Un possibile criterio d'arresto può essere $f(x_n)=0$. Questa condizione è improbabile che si verifichi, è inutilizzabile, perché è possibile arrivare alla radice $x^*$ solo quando $x^*=x_n$, quindi in un numero infinito di passi. Questo non è compatibile con un elaboratore in aritmetica finita, dove $f(x^*)=f(x_n)\neq 0$, a causa dell'aritmetica finita stessa.
 
 Realisticamente è possibile richiedere che 
@@ -122,21 +122,21 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 \footnotetext{$\lceil\, \rceil$ significa arrotondamento all'intero successivo.}
 
 \begin{definition}[Numero massimo di iterazioni (metodo bisezione)]\label{def:itmax_metodo_bisezione}
-	Dato l'insieme $[a,b]$, il numero massimo di iterazioni per verificare la conzione (\ref{eq:x_n_leq_tolx}) con il metodo di bisezione è
+	Dato l'insieme $[a,b]$, il numero massimo di iterazioni per verificare la condizione (\ref{eq:x_n_leq_tolx}) con il metodo di bisezione è
 	\begin{equation*}
 		\boldsymbol{\lceil \log_{2}(b-a)-\log_{2}(tolx)\rceil \equiv itmax}
 	\end{equation*}
 \end{definition}
 
 \paragraph{È possibile soddisfare $\boldsymbol{|x_n-x^*|\leq tolx}$ con meno di $\boldsymbol{itmax}$ passi:}
-È possibile, per effettuare meno di $itmax$, approssimare $|x_i-x^*|$ come segue:
+È possibile, per effettuare meno di $itmax$, approssimare $|x_i-x^*|$ tramite la formula di Taylor centrata in $x^*$:
 \footnote{Ricordando che di $f$ è ricercata la radice ovvero $x^*:f(x^*)=0$, allora è possibile quanto segue.}
-\begin{equation*}
+\begin{equation}\label{eq:approssimazione_taylor_centrata_radice}
 	\begin{matrix}
 		f(x)&\overset{\footnotemark}{\equiv}& f(x^*)+f'(x^*)(x-x^*)&=&f'(x^*)(x-x^*)\\
 		&\overset{\footnotemark}{\Rightarrow}&f(x_i)&\approx& f'(x^*)(x_i-x^*)
 	\end{matrix}
-\end{equation*}
+\end{equation}
 \footnotemark  allora
 \begin{equation*}
 	\boldsymbol{|x_i-x^*| \approx \frac{|f(x_i)|}{|f'(x^*)|}},
@@ -153,7 +153,7 @@ quindi
 \footnotetext{È ricercata $f(x_i)$, ovvero è effettuata la sostituzione $x=x_i$.}
 
 \stepcounter{footnote}
-\footnotetext{Essendo $|x_i-x^*|$ la quantità ricercata allora la conseguenza è logica.}
+\footnotetext{Essendo $|x_i-x^*|$ la quantità ricercata, la conseguenza è logica.}
 
 \noindent e pertanto \textbf{è possibile utilizzare} $\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}}(\leq tolx)$ \textbf{come criterio d'arresto} ($i=1,\hdots, n$). 
 
@@ -284,7 +284,9 @@ Il passo successivo alla definizione di convergenza è quello di stabilire la ve
 	Se $e_i<1 \Rightarrow |e_i|^p$ è sempre più piccolo al crescere di $p$.
 \end{remark}
 
-Nel caso in cui $p=1$ si parla di convergenza lineare, con $p = 2$ di convergenza quadratica, eccetera. \textbf{Nonostante $\boldsymbol p$ possa assumere non intero e minore di 1, è necessario che $\boldsymbol{p \geq 1}$ affinché sia convergente.}
+Nel caso in cui $p=1$ si parla di convergenza lineare, con $p = 2$ di convergenza quadratica, eccetera. 
+
+\textbf{Nonostante $\boldsymbol p$ possa assumere non intero e minore di 1, è necessario che $\boldsymbol{p \geq 1}$ affinché sia convergente.}
 
 \begin{remark}\label{rem:limite_ordine_convergenza}
 	Per $i$ sufficientemente grande, nel caso di convergenza lineare ($p=1$), è ottenuto (data (\ref{eq:limite_ordine_convergenza})):
@@ -363,12 +365,12 @@ dal quale, attraverso l'utilizzo della retta tangente al grafico di $f$ nel punt
 \begin{equation*}
 	x_1=x_0-\frac{f(x_0)}{f'(x_0)},
 \end{equation*}
-la quale è definita per $f'(x_0)\neq 0$, con $x_0$ approssimazione iniziale di $x^*$. Reiterando per $i$ passi successivi, è possibile ottenere l'espressione funzionale del metodo di Newton:
+la quale è definita per $f'(x_0)\neq 0$, con $x_1$ approssimazione iniziale di $x^*$. Reiterando per $i$ passi successivi, è possibile ottenere l'espressione funzionale del metodo di Newton:
 \begin{equation}\label{eq:approssimazione_newton}
 	x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}, \quad i=0,1,2,\hdots
 \end{equation}
 
-\footnotetext{Da (\ref{eq:retta_tangente_in_0}) $y=0\Rightarrow\frac{f(x_0)}{f'(x_0)}+\cancel{f'(x_0)}(x-x_0)=0\Rightarrow x-x_0=-\frac{f(x_0)}{x_0}\Rightarrow x=x_0-\frac{f(x_0)}{x_0}.$}
+\footnotetext{Da (\ref{eq:retta_tangente_in_0}) $y=0\Rightarrow\frac{f(x_0)}{f'(x_0)}+\cancel{f'(x_0)}(x-x_0)=0\Rightarrow x-x_0=-\frac{f(x_0)}{f'(x_0)}\Rightarrow x = x_0-\frac{f(x_0)}{f'(x_0)}.$}
 
 \begin{figure}
 	\centering
@@ -385,24 +387,28 @@ Più passi vengono calcolati, più $x_i$ si avvicina a $x^*$.
 Inoltre, mentre il metodo di bisezione richiede solo la continuità della funzione $f$, per il metodo di Newton è richiesto che $f$ sia, oltre che continua, derivabile (ovvero $f\in C^{(2)}$).
 Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al metodo di bisezione, sono compensati dall'elevato ordine di convergenza del metodo.
 
+\subsubsection{Convergenza}
 \begin{theorem}[\textbf{Metodo di Newton converge quadraticamente a radici semplici}, nome non ufficiale]\label{th:metodo_newton_converge_quadraticamente}
 	Se $f(x)$ è sufficientemente regolare, \textbf{il metodo di Newton converge quadraticamente} (ovvero con ordine $p=2$) \textbf{verso radici semplici} \footnote{Ovvero radici di molteplicità 1, le quali sono definite come $x^*:f(x^*)=0,\, f'(x^*)\neq 0$.}.
 \end{theorem}
 \begin{proof}
-	Assunto che $f\in C^{(2)}$ in un intorno della radice $x^*$, preso un opportuno $\xi_i$ (non noto) compreso fra $x^*$ e $x_i$, tramite lo sviluppo di Taylor di ordine 2 centrato in $x_i$
+	Assunto che $f\in C^{(2)}$ in un intorno della radice $x^*$, preso un opportuno $\xi_i\in (x,x_i)$ (non noto), tramite lo sviluppo di Taylor di ordine 2 centrato in $x_i$
 	\begin{equation*}
-		f(x)=f(x_i)+f'(x_i)(x-x_i)+\frac{f''(\xi_i)}{2}(x-x_i)^2, \quad \xi_i \text{ compreso fra }x,x_i,
+		f(x)=f(x_i)+f'(x_i)(x-x_i)+\frac{f''(\xi_i)}{2}(x-x_i)^2, \quad \xi_i \in (x,x_i),
 	\end{equation*}
-	è valutata $f$ tramite lo sviluppo di Taylor centrato in $x^*$
+	è valutata $f$ tramite lo sviluppo di Taylor  di ordine 2 centrato in $x^*$
 	\begin{equation*}
 		\begin{matrix}
-			0 &=& f(x^*)\\
-			&=& f(x_i)+f'(x_i)(x^*-x_i)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2 \\
-			&\overset{\footnotemark}{=}& f'(x_i)\left[\frac{f(x_i)}{f'(x_i)}-x_i+x^*\right]+\frac{f''(\xi_i)}{2}(x^*-x_i)^2 \\
+			\boldsymbol{0} &\boldsymbol =& \boldsymbol{f(x^*})\\
+			&\boldsymbol =& \boldsymbol{f(x_i)+f'(x_i)(x^*-x_i)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2} \\
+			&\overset{\footnotemark}{\boldsymbol =}& \boldsymbol{f'(x_i)\left[\frac{f(x_i)}{f'(x_i)}-x_i+x^*\right]+\frac{f''(\xi_i)}{2}(x^*-x_i)^2}\\
 			&\overset{\footnotemark}{=}&f'(x_i)(-x_{i+1}+x^*)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2\\
-			&\overset{\footnotemark}{=}&-f'(x_i)e_{i+1}+\frac{f''(\xi_i)}{2}e_i^2 &\rightarrow&\frac{f''(\xi_i)}{2}e_i^2 &=& -f'(x_i)e_{i+1}\\
-			&&&\overset{\footnotemark}{\Rightarrow}& \frac{|e_{i+1}|}{|e_i^2|} &=& \frac{1}{2}\frac{|f''(\xi_i)|}{|f'(x_i)|}, && x^*<\xi_i<x_i.
+			&\overset{\footnotemark}{=}&-f'(x_i)e_{i+1}+\frac{f''(\xi_i)}{2}e_i^2
 		\end{matrix}
+	\end{equation*}
+	quindi 
+	\begin{equation*}
+		\frac{f''(\xi_i)}{2}e_i^2 = -f'(x_i)e_{i+1},
 	\end{equation*}
 	\addtocounter{footnote}{-3}
 	\footnotetext{Raccolto $f'(x_i)$ perché interessante la q.tà $\frac{f(x_i)}{f'(x_i)}-x_i$ (ovvero $x_{i+1}$ cambiato di segno).}
@@ -413,26 +419,27 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	\stepcounter{footnote}
 	\footnotetext{Sostituzione $x^*-x_{i+1}=-e_{i+1}$ e $x^*-x_i=-e_i$.}
 	
-	\stepcounter{footnote}
-	\footnotetext{L'obbiettivo è valutare quanto segue.}
-	
-	\noindent Allora, supponendo che il metodo converga (ovvero che $\lim_{i\rightarrow+\infty}x_i=x^*$): 
+	\noindent allora (l'obbiettivo è valutare quanto segue)
+	\begin{equation*}
+		\frac{|e_{i+1}|}{|e_i^2|} = \frac{1}{2}\frac{|f''(\xi_i)|}{|f'(x_i)|}, \quad x^*<\xi_i<x_i,
+	\end{equation*}
+	ben definita dato che è supposto $f'(x^*)\neq0$. Supponendo che il metodo converga (ovvero che $\lim_{i\rightarrow+\infty}e_i=x^*$): 
 	\begin{equation*}
 		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\lim_{i\to + \infty}{\frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}}\overset{\footnotemark}{=}\frac{1}{2}\frac{f''\left(\underset{i\to\infty}{\lim}\xi_i\right)}{f'\left(\underset{i\to\infty}{\lim}{x_i}\right)}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)},
 	\end{equation*}
 	
 	\footnotetext{$f\in C^{(2)}$, quindi $f''$ è continua.}
 	
-	\noindent quindi, per $f'(x^*)=0$ ($x^*$ radice semplice)\footnote{Ipotesi importante perché significa che $f'(x^*)\neq 0$ e che quindi $\frac{f''(x^*)}{f'(x^*)}\neq\infty$.}:
+	\noindent quindi
 	\begin{equation*}
 		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)}<\infty,
 	\end{equation*}
 	e \textbf{il metodo ha ordine di convergenza $\boldsymbol{p=2}$.}\footnote{L'ordine è almeno 3 se $f''(x^*)=0$.}
 \end{proof}
 
-\begin{theorem}[\textbf{Convergenza lineare di Newton}, nome non ufficiale]\label{th:convLineareNewt}
+\begin{theorem}[\textbf{Convergenza lineare di Newton}, nome non ufficiale]\label{th:newton_converge_linearmente}
 	\footnote{Teorema utilizzato per radici non semplici.}
-	Se $f(x)$ è sufficientemente regolare in un intorno di $x^*$, radice di molteplicità $m>1$, \textbf{il metodo di Newton converge linearmente ($p=1$) verso una radice di molteplicità} $\boldsymbol{m>1}$, \textbf{con costante asintotica dell'errore $\boldsymbol{c=\frac{m-1}{m}}$}.
+	Se $f(x)$ è sufficientemente regolare in un intorno di $x^*$, radice di molteplicità $m>1$, \textbf{il metodo di Newton converge linearmente ($\boldsymbol{p=1}$) verso una radice di molteplicità} $\boldsymbol{m>1}$, \textbf{con costante asintotica dell'errore $\boldsymbol{c=\frac{m-1}{m}}$}.
 \end{theorem}
 \begin{proof}\footnote{Slide 8, 1-2 PDF lez8, lez9.}
 	Sia $x^*$ radice con molteplicità $m>1$, è possibile esprimere $f$ come $f(x)=(x-x^*)^mg(x)$, con $g$ funzione tale che $g(x^*)\neq 0$ e sviluppabile in serie di Taylor centrato in $x^*$. È possibile ottenere quanto segue, per $x_i\approx x^*$ (vedi (\ref{eq:errore_metodo_iterativo}), (\ref{eq:approssimazione_newton}) e l'Osservazione \ref{rem:formaF}): 
@@ -462,16 +469,130 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	\footnotetext{È dimostrato quanto segue.}
 	
 	\noindent Allora, dalla (\ref{eq:limite_errore_metodo_convergente}):
-	\begin{equation} \label{eq:limCostanteAsistotica}
+	\begin{equation} \label{eq:newton_costante_asintotica_convergenza_lineare}
 		\boldsymbol{\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|}}}=\lim_{i\to + \infty}{\frac{|(m-1)\,g(x_i)+e_i\,g'(x_i)|}{|m\,g(x_i)+e_i\,g(x_i)|}}\overset{\footnotemark}{=}\lim_{i\to + \infty}{\frac{|(m-1)\,\cancel{g(x_i)}|}{|m\,\cancel{g(x_i)}|}}=\boldsymbol{\frac{m-1}{m}}.
 	\end{equation}
 	
 	\footnotetext{È supposto che il problema di Newton converga quindi, per il fatto stesso di convergere (vedi (\ref{eq:limite_errore_metodo_convergente})), l'errore $(e_i)$ tende a 0, quindi $\underset{i\to\infty}{\lim}e_ig'(x_i)\to 0$.}
 	
-	\noindentÈ dimostrata così la tesi, ovvero: il metodo di Newton converge linearmente con costante asintotica $\frac{m-1}{m}$.
+	\noindent È dimostrata così la tesi, ovvero: il metodo di Newton converge linearmente con costante asintotica $\frac{m-1}{m}$.
 \end{proof}
 
-\subsubsection{Convergenza del metodo di Newton}\footnote{Sul libro è "Convergenza Locale", slide 3-10, 1-3 PDF lez9, lez10 PG 30-33.} 
+\subsubsection{Criteri d'arresto (e non solo)}
+\footnote{Slide 4 PDF lez10, PG 33.}
+Gli argomenti trattati nella Sezione \ref{ssec:criterio_arresto}, riguardo la definizione di un criterio d'arresto basato sul controllo di $|f(x)|$ (ovvero $|f(x_i)|\leq|f'(x^*)|\, tolx$, per (\ref{eq:approssimazione_taylor_centrata_radice})), sono applicati anche al caso del metodo di Newton (ed ai metodi quasi-Newton trattati in seguito). A causa della convergenza del metodo non è possibile determinare a priori il numero massimo di iterazioni entro le quali il criterio di accuratezza sulla approssimazione calcolata sarà soddisfatto. Dunque, in prossimità della radice $x^*$, nel caso di ordine di convergenza $p>1$,
+\begin{equation}\label{eq:criterio_arresto_newton}
+	|x_{i+1}-x_i|=|\underbrace{x_{i+1}-x^*}_{\text{$e_{i+1}$}}+\underbrace{x^*-x_i}_{\text{$e_{i}$}}|=|e_i-e_{i+1}|\overset{\footnotemark}{\approx}|e_i|.
+\end{equation}
+\footnotetext{$e_{i+1}\approx ce_i$. $\underset{i\to\infty}{\lim}\frac{|e_{i+1}|}{|e_i|^p}=c<\infty\Rightarrow |e_{i+1}|\approx c|e_i|^p\overset{p>1}{\Longrightarrow}e_{i+1}$ è trascurabile rispetto a $e_i$.}
+
+Pertanto, un \textbf{criterio di arresto appropiato}, per metodi di \textbf{ordine di convergenza} $\boldsymbol{p>1}$ è del tipo
+\begin{equation}\label{eq:critArrConvMag1}
+	\boldsymbol{|x_{i+1}-x_i|\leq tolx}.
+\end{equation}
+
+Questo è dovuto al fatto che l'errore $|x^*-x_i|$ non è noto, quindi è necessario stimarlo, come in precedenza.
+
+\begin{remark}[Criterio d'arresto per il metodo di Newton]
+	Risulta essere sempre applicabile il seguente criterio d'arresto
+	\begin{equation}\label{eq:critArrNewt}
+		\boldsymbol{|f(x_i)|\leq |f'(x_i)|\cdot tolx}\equiv \frac{|f(x_i)|}{|f'(x_i)|}\leq tolx,
+	\end{equation}
+	il quale è ottenuto dalla Sezione \ref{ssec:criterio_arresto} tramite la disuguaglianza (\ref{eq:approssimazione_taylor_centrata_radice}) .
+\end{remark}
+
+\begin{remark}[Criterio d'arresto ideale per il metodo di Newton]\footnote{Osservazione 2.3 PG 33, Slide 5 PDF lez10.}
+	Oltre alla tolleranza sul massimo errore assoluto, $tolx$, è possibile utilizzare la tolleranza sull'errore relativo, $rtolx$ (o sull'accuratezza dell'approssimazione dello zero). In questo caso il controllo di arresto "ideale" diviene
+	\begin{equation*}
+		\frac{e_i}{tolx+rtolx|x^*|}\leq 1
+	\end{equation*}
+	e mediante le approssimazioni $x^*\approx x_{i+1}$ e $|e_i|\approx |x_{i+1}-x_i|$ il criterio da considerare è
+	\begin{equation}\label{eq:critArrIdea}
+		\boldsymbol{\frac{|x_{i+1}-x_i|}{tolx+rtolx|x_{i+1}|}\leq 1}.
+	\end{equation}
+	dove la disuguaglianza $e_i\leq tolx+rtolx|x^*|$ può essere rappresentata come
+	\begin{equation*}
+		\boldsymbol{\frac{1}{2}|e_i|\leq tolx} \wedge \frac{1}{2}|e_i|\leq rtolx|x^*| \iff \boldsymbol{\frac{1}{2}\frac{|e_i|}{x^*}\leq rtolx}
+	\end{equation*}
+	permettono di dividere in due il controllo (mediante ciò che è in grassetto). È spesso considerata la scelta $rtolx=tolx$, trasformando il criterio d'arresto (\ref{eq:critArrIdea}) in
+	\begin{equation*}
+		\frac{|x_{i+1}-x_i|}{1+|x_{i+1}|}\leq tolx.
+	\end{equation*}
+\end{remark}
+
+Nel caso in cui la convergenza sia lineare (ovvero l'ordine di convergenza è $p=1$), il criterio d'arresto (\ref{eq:critArrConvMag1}) può essere modificato nel seguente (come \ref{eq:critArrIdea}), date (\ref{eq:limite_errore_metodo_convergente})-(\ref{eq:limite_ordine_convergenza}) e (\ref{eq:newton_costante_asintotica_convergenza_lineare})):
+
+\begin{equation}\label{eq:approxErroreNewtonBis}
+	|x_{i+1}-x_i|=|e_{i+1}-e_i|=|e_i-\underbrace{e_{i+1}}_\text{$c\cdot e_i$}|\approx |e_i|(1-c)\Rightarrow |e_i|\approx\frac{|x_{i+1}-x_i|}{\underset{\footnotemark}{(1-c)}}.
+\end{equation}
+\footnotetext{Senza valore assoluto perché, per definizione di convergenza, i metodi convergenti hanno costante asintotica $c$ minore di 1.}
+
+Se $c$ non è nota (nel caso del metodo di bisezione è $c=\frac{1}{2}$), è possibile, tramite (\ref{eq:approxErroreNewtonBis}), la seguente stima della costante asintotica c:
+\begin{equation*}
+	\boldsymbol{\frac{|x_{i+1}-x_i|}{|x_i-x_{i-1}|}\approx}\frac{\cancel{|e_{i-1}|}\,c\,\cancel{(1-c)}}{\cancel{|e_{i-1}|}\cancel{(1-c)}}=\boldsymbol c,
+\end{equation*}
+la quale è ottenuta tramite $i$ iterazioni del tipo
+\begin{equation*}
+	\begin{matrix}
+		i=0 &:& |x_1-x_0|&\approx& |e_0|(1-c);\\
+		i=1 &:& |x_2-x_1|&\approx&|e_i|(1-c)&\overset{\footnotemark}{\approx}&|e_0|\, c\, (1-c);\\
+		\vdots & & \vdots & & \vdots \\
+		i &:&|x_i-x_{i-1}|&\approx& |e_{i-1}|(1-c);\\
+		i+1 &:&|x_{i+1}-x_i|&\approx& |e_i|(1-c) &=& |e_{i-1}|\, c\, (1-c);
+	\end{matrix}
+\end{equation*}
+per renderla più precisa. Tale stima è utile per avere una buona  approssimazione dell'errore. Pertanto, è necessario considerare il costo computazionale delle $i$ iterazioni (sono necessarie almeno due iterazioni).
+\footnotetext{$e_{i+1}\approx c\cdot e_i$.}
+
+\paragraph{Implementazione:} Vedere l'Algoritmo \ref{alg:metodo_newton}.
+
+\begin{algorithm}
+	\caption{Implementazione efficiente del metodo di Newton.}\label{alg:metodo_newton}
+	\begin{lstlisting}[style=Matlab-editor]
+		function x = newton(f, f1, x0, tol, itmax)
+		%   
+		%   x = newton(f, f1, x0, tol, itmax)
+		%
+		%   Metodo di Newton per la ricerca della radice di una funzione
+		%
+		% Input:
+		%   f   -   function che implementa f(x);
+		%   f1  -   function che implementa f'(x);
+		%   x0  -   punto iniziale:
+		%   tol -   tolleranza richiesta (default 1e-12);
+		%   itmax   - numero massimo di iterazioni (default 1000);
+		% Output:
+		%   x   -   soluzione approssimata.
+		%
+		% Dalla riga successuva fino a x = x0 sono controlli strutturali.
+		if nargin < 5
+		itmax=1000;
+		else
+		if itmax < 1, error('itmax errato'); end
+		end
+		if nargin < 4 
+		tol = 1e-12;
+		else
+		if tol < 0, error('tolleranza negativa'); end
+		tol = max(tol, 10*eps);
+		end
+		if nargin < 3,  error('numero argomenti di ingresso errato'); end
+		x = x0;
+		for i = 1 : itmax
+		xold = x;
+		fx = feval(f,x);
+		f1x = feval(f1, x);
+		if f1x == 0, error('il metodo non converge'); end
+		x = x - fx/f1x;
+		err = abs(x-xold);
+		if err <= tol, break; end
+		end
+		if err > tol, warning('tolleranza richiesta non soddifatta'), end
+		return
+	\end{lstlisting}
+\end{algorithm}
+
+\subsection{Studio della convergenza locale}\footnote{Sul libro è "Convergenza Locale", slide 3-10, 1-3 PDF lez9, lez10 PG 30-33.} 
 L'ordine di convergenza di un metodo convergente quantifica la "velocità" di avvicinamento delle approssimazioni alle radici. È necessario stabilire le condizioni che garantiscono la convergenza del metodo, ovvero che il metodo generi una successione di approssimazioni $\{x_i\}$ che soddisfi (\ref{eq:errore_metodo_iterativo})-(\ref{eq:limite_errore_metodo_convergente}).
 
 Nel caso del metodo di bisezione, assumendo che $f\in C([a,b])$ t.c. $f(a)f(b)<0$, è possibile affermare che il metodo abbia proprietà di convergenza globale. Tale proprietà garantisce sempre la convergenza della serie di approssimazioni verso una radice di $f$. Purtroppo questa è pressoché proprietà esclusiva del metodo di bisezione.
@@ -487,17 +608,17 @@ Il metodo di Newton è convergente in un opportuno intorno della radice che dipe
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.75\textwidth]{immagini/EsemGeoConv.png}
+	\includegraphics[width=0.5\textwidth]{immagini/EsemGeoConv.png}
 	\caption{\label{fig:esempio_geometrico_convergenza}Esempio dal punto di vista geometrico della convergenza.}
 \end{figure}
 
-Tramite la Figura \ref{fig:esempio_geometrico_convergenza} è possibile osservare quanto segue: \begin{itemize}
+Tramite la Figura \ref{fig:esempio_geometrico_convergenza} è possibile osservare quanto segue:
+ \begin{itemize}
 	\item più le rette tangenti (le linee che toccano il grafico di $y=f(x)$) si avvicinano a $x^*$, più  il metodo converge ed è preciso;
 	\item il problema di convergenza sorge se $x_0$ è scelto come nel primo quadrante perché i successivi calcoli ($x_1, x_2, \hdots$) si allontanano da $x^*$; quindi è necessario scegliere $x_0$ nell'intervallo locale della radice in base alla funzione.
 \end{itemize}
 
-\subsubsection{Studio della convergenza locale}
-Questa Sezione è una formalizzazione della Figura \ref{fig:esempio_geometrico_convergenza}.
+Inoltre, questa Sezione è una formalizzazione della Figura \ref{fig:esempio_geometrico_convergenza}.
 Lo studio della convergenza locale in un contesto generale può essere formalizzata come segue: considerato un metodo iterativo per l'approssimazione di una radice, l'approssimazione della radice $x^*$ di $f$, è definita da
 \begin{equation}\label{eq:funzIteraz}
 	x_{i+1}=\Phi (x_i)\quad i=0,1,2,\hdots,
@@ -619,73 +740,6 @@ L'ipotesi è verificata con $L$ e $\delta$ scelte, utilizzando lo sviluppo di Ta
 	\caption{\label{fig:TeoremaPuntoFisso}Esempio del grafico di una funzione d'iterazione per il Teorema \ref{th:puntofisso}.}
 \end{figure}
 
-\subsubsection{Criteri d'arresto per il metodo di Newton (e non solo)}
-\footnote{Slide 4 PDF lez10, PG 33.}
-Gli argomenti trattati nella Sezione \ref{sec:critArresto}, riguardo la definizione di un criterio d'arresto basato sul controllo di $|f(x)|$ (ovvero $|f(x_i)|\leq|f'(x^*)|\, tolx$), sono applicati anche al caso del metodo di Newton (ed ai metodi quasi-Newton trattati in seguito). A causa della convergenza del metodo non è possibile determinare a priori il numero massimo di iterazioni entro le quali il criterio di accuratezza sulla approssimazione calcolata sarà soddisfatto. Dunque, in prossimità della radice $x^*$, nel caso di ordine di convergenza $p>1$,
-\begin{equation}\label{eq:approxErroreNewton}
-	|x_{i+1}-x_i|=|\underbrace{x_{i+1}-x^*}_{\text{$e_{i+1}$}}+\underbrace{x^*-x_i}_{\text{$e_{i}$}}|=|e_i-e_{i+1}|\overset{\footnotemark}{\approx}|e_i|.
-\end{equation}
-\footnotetext{$e_{i+1}\approx ce_i$. $\underset{i\to\infty}{\lim}\frac{|e_{i+1}|}{|e_i|^p}=c<\infty\Rightarrow |e_{i+1}|\approx c|e_i|^p\overset{p>1}{\Longrightarrow}e_{i+1}$ è trascurabile rispetto a $e_i$.}
-
-Pertanto, un \textbf{criterio di arresto appropiato}, per metodi di \textbf{ordine di convergenza} $\boldsymbol{p>1}$ è del tipo
-\begin{equation}\label{eq:critArrConvMag1}
-	\boldsymbol{|x_{i+1}-x_i|\leq tolx}.
-\end{equation}
-
-Questo è dovuto al fatto che l'errore $|x^*-x_i|$ non è noto, quindi è necessario stimarlo, come in precedenza.
-
-\begin{remark}[Criterio d'arresto per il metodo di Newton]
-	Risulta essere sempre applicabile il seguente criterio d'arresto
-	\begin{equation}\label{eq:critArrNewt}
-		\boldsymbol{|f(x_i)|\leq |f'(x_i)|\cdot tolx}\equiv \frac{|f(x_i)|}{|f'(x_i)|}\leq tolx,
-	\end{equation}
-	il quale è ottenuto dalla Sezione \ref{sec:critArresto} tramite la disuguaglianza (\ref{eq:x_n_leq_tolx}) ($tolx$ ha lo stesso significato che ha in (\ref{eq:x_n_leq_tolx}
-	)) .
-\end{remark}
-
-\begin{remark}[Criterio d'arresto ideale per il metodo di Newton]\footnote{Osservazione 2.3 PG 33, Slide 5 PDF lez10.}
-	Oltre alla tolleranza sul massimo errore assoluto, $tolx$, è possibile utilizzare la tolleranza sull'errore relativo, $rtolx$ (o sull'accuratezza dell'approssimazione dello zero). In questo caso il controllo di arresto "ideale" diviene
-	\begin{equation*}
-		\frac{e_i}{tolx+rtolx|x^*|}\leq 1
-	\end{equation*}
-	e mediante le approssimazioni $x^*\approx x_{i+1}$ e $|e_i|\approx |x_{i+1}-x_i|$ il criterio da considerare è
-	\begin{equation}\label{eq:critArrIdea}
-		\boldsymbol{\frac{|x_{i+1}-x_i|}{tolx+rtolx|x_{i+1}|}\leq 1}.
-	\end{equation}
-	dove la disuguaglianza $e_i\leq tolx+rtolx|x^*|$ può essere rappresentata come
-	\begin{equation*}
-		\boldsymbol{\frac{1}{2}|e_i|\leq tolx} \wedge \frac{1}{2}|e_i|\leq rtolx|x^*| \iff \boldsymbol{\frac{1}{2}\frac{|e_i|}{x^*}\leq rtolx}
-	\end{equation*}
-	permettono di dividere in due il controllo (mediante ciò che è in grassetto). È spesso considerata la scelta $rtolx=tolx$, trasformando il criterio d'arresto (\ref{eq:critArrIdea}) in
-	\begin{equation*}
-		\frac{|x_{i+1}-x_i|}{1+|x_{i+1}|}\leq tolx.
-	\end{equation*}
-\end{remark}
-
-Nel caso in cui la convergenza sia lineare (ovvero l'ordine di convergenza è $p=1$), il criterio d'arresto (\ref{eq:critArrConvMag1}) può essere modificato nel seguente (come \ref{eq:critArrIdea}), date (\ref{eq:limite_errore_metodo_convergente})-(\ref{eq:limite_ordine_convergenza}) e (\ref{eq:limCostanteAsistotica})):
-
-\begin{equation}\label{eq:approxErroreNewtonBis}
-	|x_{i+1}-x_i|=|e_{i+1}-e_i|=|e_i-\underbrace{e_{i+1}}_\text{$c\cdot e_i$}|\approx |e_i|(1-c)\Rightarrow |e_i|\approx\frac{|x_{i+1}-x_i|}{\underset{\footnotemark}{(1-c)}}.
-\end{equation}
-\footnotetext{Senza valore assoluto perché, per definizione di convergenza, i metodi convergenti hanno costante asintotica $c$ minore di 1.}
-
-Se $c$ non è nota (nel caso del metodo di bisezione è $c=\frac{1}{2}$), è possibile, tramite (\ref{eq:approxErroreNewtonBis}), la seguente stima della costante asintotica c:
-\begin{equation*}
-	\boldsymbol{\frac{|x_{i+1}-x_i|}{|x_i-x_{i-1}|}\approx}\frac{\cancel{|e_{i-1}|}\,c\,\cancel{(1-c)}}{\cancel{|e_{i-1}|}\cancel{(1-c)}}=\boldsymbol c,
-\end{equation*}
-la quale è ottenuta tramite $i$ iterazioni del tipo
-\begin{equation*}
-	\begin{matrix}
-		i=0 &:& |x_1-x_0|&\approx& |e_0|(1-c);\\
-		i=1 &:& |x_2-x_1|&\approx&|e_i|(1-c)&\overset{\footnotemark}{\approx}&|e_0|\, c\, (1-c);\\
-		\vdots & & \vdots & & \vdots \\
-		i &:&|x_i-x_{i-1}|&\approx& |e_{i-1}|(1-c);\\
-		i+1 &:&|x_{i+1}-x_i|&\approx& |e_i|(1-c) &=& |e_{i-1}|\, c\, (1-c);
-	\end{matrix}
-\end{equation*}
-per renderla più precisa. Tale stima è utile per avere una buona  approssimazione dell'errore. Pertanto, è necessario considerare il costo computazionale delle $i$ iterazioni (sono necessarie almeno due iterazioni).
-\footnotetext{$e_{i+1}\approx c\cdot e_i$.}
-
 \subsection{Caso delle radici multiple}
 \footnote{Slide 1-3 PDF lez11, PG 34-36.}
 Per tutti i metodi per la ricerca delle radici di una funzione è noto che nel caso in cui la molteplicità di $x^*$ sia $m>1$, il problema di determinare le radici è malcondizionato in quanto $f'(x^*) = 0$ e quindi $\kappa = \frac{1}{|f'(x^*)|}=+\infty$. Questo è dovuto dalla definizione di molteplicità di una radice, ovvero dalla Definizione \ref{def:radice_molteplicita_m}, per la quale le prime $m$ derivate di $f$ sono tutte uguali 0.
@@ -746,52 +800,6 @@ Da quest'ultima approssimazione è possibile la seguente approssimazione della r
 	x^*\approx x_i^*\equiv\frac{x_i^2-x_{i-1}\cdot x_{i+1}}{2x_i-x_{i-1}-x_{i+1}},
 \end{equation}
 dove $x_i^*$ rappresenta l'approssimazione di $x^*$ al passo $i-$esimo.
-
-\begin{algorithm}
-	\caption{Implementazione efficiente del metodo di Newton.}\label{alg:polNewt}
-	\begin{lstlisting}[style=Matlab-editor]
-		function x = newton(f, f1, x0, tol, itmax)
-		%   
-		%   x = newton(f, f1, x0, tol, itmax)
-		%
-		%   Metodo di Newton per la ricerca della radice di una funzione
-		%
-		% Input:
-		%   f   -   function che implementa f(x);
-		%   f1  -   function che implementa f'(x);
-		%   x0  -   punto iniziale:
-		%   tol -   tolleranza richiesta (default 1e-12);
-		%   itmax   - numero massimo di iterazioni (default 1000);
-		% Output:
-		%   x   -   soluzione approssimata.
-		%
-		% Dalla riga successuva fino a x = x0 sono controlli strutturali.
-		if nargin < 5
-		itmax=1000;
-		else
-		if itmax < 1, error('itmax errato'); end
-		end
-		if nargin < 4 
-		tol = 1e-12;
-		else
-		if tol < 0, error('tolleranza negativa'); end
-		tol = max(tol, 10*eps);
-		end
-		if nargin < 3,  error('numero argomenti di ingresso errato'); end
-		x = x0;
-		for i = 1 : itmax
-		xold = x;
-		fx = feval(f,x);
-		f1x = feval(f1, x);
-		if f1x == 0, error('il metodo non converge'); end
-		x = x - fx/f1x;
-		err = abs(x-xold);
-		if err <= tol, break; end
-		end
-		if err > tol, warning('tolleranza richiesta non soddifatta'), end
-		return
-	\end{lstlisting}
-\end{algorithm}
 
 \subsection{Metodo di Aitken}
 \footnote{Slide 4-5 PDF lez11, PG 36-37.}
