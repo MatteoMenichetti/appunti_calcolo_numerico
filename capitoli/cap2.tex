@@ -392,23 +392,23 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	Se $f(x)$ è sufficientemente regolare, \textbf{il metodo di Newton converge quadraticamente} (ovvero con ordine $p=2$) \textbf{verso radici semplici} \footnote{Ovvero radici di molteplicità 1, le quali sono definite come $x^*:f(x^*)=0,\, f'(x^*)\neq 0$.}.
 \end{theorem}
 \begin{proof}
-	Assunto che $f\in C^{(2)}$ in un intorno della radice $x^*$, preso un opportuno $\xi_i\in (x,x_i)$ (non noto), tramite lo sviluppo di Taylor di ordine 2 centrato in $x_i$
+	Assunto che $f\in C^{(2)}$ in un intorno della radice $x^*$, tramite lo sviluppo di Taylor di ordine 2 centrato in $x_i$
 	\begin{equation*}
-		f(x)=f(x_i)+f'(x_i)(x-x_i)+\frac{f''(\xi_i)}{2}(x-x_i)^2, \quad \xi_i \in (x,x_i),
+		f(x)=f(x_i)+f'(x_i)(x-x_i)+\frac{f''(\xi_i)}{2}(x-x_i)^2, \quad \xi_i \in I(x,x_i)\quad (x,x_i\in I(x,x_i)),
 	\end{equation*}
-	è valutata $f$ tramite lo sviluppo di Taylor  di ordine 2 centrato in $x^*$
+	è valutata $f(x^*)$ come
 	\begin{equation*}
 		\begin{matrix}
-			\boldsymbol{0} &\boldsymbol =& \boldsymbol{f(x^*})\\
-			&\boldsymbol =& \boldsymbol{f(x_i)+f'(x_i)(x^*-x_i)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2} \\
-			&\overset{\footnotemark}{\boldsymbol =}& \boldsymbol{f'(x_i)\left[\frac{f(x_i)}{f'(x_i)}-x_i+x^*\right]+\frac{f''(\xi_i)}{2}(x^*-x_i)^2}\\
+			0 & =& {f(x^*})\\
+			& =& {f(x_i)+f'(x_i)(x^*-x_i)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2} \\
+			&\overset{\footnotemark}{=}& {f'(x_i)\left[\frac{f(x_i)}{f'(x_i)}-x_i+x^*\right]+\frac{f''(\xi_i)}{2}(x^*-x_i)^2}\\
 			&\overset{\footnotemark}{=}&f'(x_i)(-x_{i+1}+x^*)+\frac{f''(\xi_i)}{2}(x^*-x_i)^2\\
 			&\overset{\footnotemark}{=}&-f'(x_i)e_{i+1}+\frac{f''(\xi_i)}{2}e_i^2
 		\end{matrix}
 	\end{equation*}
 	quindi 
 	\begin{equation*}
-		\frac{f''(\xi_i)}{2}e_i^2 = -f'(x_i)e_{i+1},
+		\frac{f''(\xi_i)}{2}e_i^2 = f'(x_i)e_{i+1},
 	\end{equation*}
 	\addtocounter{footnote}{-3}
 	\footnotetext{Raccolto $f'(x_i)$ perché interessante la q.tà $\frac{f(x_i)}{f'(x_i)}-x_i$ (ovvero $x_{i+1}$ cambiato di segno).}
@@ -421,20 +421,16 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 	
 	\noindent allora (l'obbiettivo è valutare quanto segue)
 	\begin{equation*}
-		\frac{|e_{i+1}|}{|e_i^2|} = \frac{1}{2}\frac{|f''(\xi_i)|}{|f'(x_i)|}, \quad x^*<\xi_i<x_i,
+		\frac{e_{i+1}}{e_i^2} = \frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}, \quad x^*<\xi_i<x_i.
 	\end{equation*}
-	ben definita dato che è supposto $f'(x^*)\neq0$. Supponendo che il metodo converga (ovvero che $\lim_{i\rightarrow+\infty}e_i=x^*$): 
+	Supponendo che il metodo converga (ovvero che $\lim_{i\rightarrow+\infty}x_i=x^*$ e quindi anche $\lim_{i\rightarrow+\infty}xi_i=x^*$): 
 	\begin{equation*}
-		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\lim_{i\to + \infty}{\frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}}\overset{\footnotemark}{=}\frac{1}{2}\frac{f''\left(\underset{i\to\infty}{\lim}\xi_i\right)}{f'\left(\underset{i\to\infty}{\lim}{x_i}\right)}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)},
+		\boldsymbol{\lim_{i\to + \infty}\left|{\frac{e_{i+1}}{e_i^2}}\right|=}\lim_{i\to + \infty}{\frac{1}{2}\frac{f''(\xi_i)}{f'(x_i)}}\overset{\footnotemark}{=}\frac{1}{2}\frac{f''\left(\underset{i\to\infty}{\lim}\xi_i\right)}{f'\left(\underset{i\to\infty}{\lim}{x_i}\right)}=\boldsymbol{\left|\frac{1}{2}\frac{f''(x^*)}{f'(x^*)}\right|<\infty},
 	\end{equation*}
 	
 	\footnotetext{$f\in C^{(2)}$, quindi $f''$ è continua.}
 	
-	\noindent quindi
-	\begin{equation*}
-		\lim_{i\to + \infty}{\frac{|e_{i+1}|}{|e_i|^2}}=\frac{1}{2}\frac{f''(x^*)}{f'(x^*)}<\infty,
-	\end{equation*}
-	e \textbf{il metodo ha ordine di convergenza $\boldsymbol{p=2}$.}\footnote{L'ordine è almeno 3 se $f''(x^*)=0$.}
+	\noindent dato che è supposto $f'(x^*)\neq0$, \textbf{il metodo ha ordine di convergenza $\boldsymbol{p=2}$.}\footnote{L'ordine è almeno 3 se $f''(x^*)=0$.}
 \end{proof}
 
 \begin{theorem}[\textbf{Convergenza lineare di Newton}, nome non ufficiale]\label{th:newton_converge_linearmente}
