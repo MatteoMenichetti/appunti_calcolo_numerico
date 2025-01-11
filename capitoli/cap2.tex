@@ -128,10 +128,10 @@ L'obbiettivo è determinare $n$ in modo tale $|x_n-x^*|\leq tolx$. Fermandosi al
 	\end{equation*}
 \end{definition}
 
-\paragraph{È possibile soddisfare $\boldsymbol{|x_n-x^*|\leq tolx}$ con meno di $\boldsymbol{itmax}$ passi:}
+\paragraph{È possibile soddisfare $\boldsymbol{|x_n-x^*|\leq tolx}$ con meno di $\boldsymbol{itmax}$ iterazioni:}
 È possibile, per effettuare meno di $itmax$, approssimare $|x_i-x^*|$ tramite la formula di Taylor centrata in $x^*$:
 \footnote{Ricordando che di $f$ è ricercata la radice ovvero $x^*:f(x^*)=0$, allora è possibile quanto segue.}
-\begin{equation}\label{eq:approssimazione_taylor_centrata_radice}
+\begin{equation}\label{eq:approsimazione_taylor_f_xstar}
 	\begin{matrix}
 		f(x)&\overset{\footnotemark}{\equiv}& f(x^*)+f'(x^*)(x-x^*)&=&f'(x^*)(x-x^*)\\
 		&\overset{\footnotemark}{\Rightarrow}&f(x_i)&\approx& f'(x^*)(x_i-x^*)
@@ -155,15 +155,20 @@ quindi
 \stepcounter{footnote}
 \footnotetext{Essendo $|x_i-x^*|$ la quantità ricercata, la conseguenza è logica.}
 
-\noindent e pertanto \textbf{è possibile utilizzare} $\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}}(\leq tolx)$ \textbf{come criterio d'arresto} ($i=1,\hdots, n$). 
+\noindent e pertanto \textbf{è possibile utilizzare}
 
-Al fine di utilizzare $f'(x^*)$ nel criterio di arresto, questa può essere approssimata, dato l'intervallo di confidenza $[a_i, b_i]$, come segue:
-\begin{equation}\label{eq:approxf'}
+\begin{equation}\label{eq:criterio_arresto_aggiornato_bisezione}
+	\boldsymbol{\frac{|f(x_i)|}{|f'(x^*)|}}\leq tolx\equiv  |f(x_i)|\leq|f(x^*)|tolx,\quad i = 1,2\hdots 
+\end{equation}
+\textbf{come criterio d'arresto}. 
+
+Al fine di utilizzare $f'(x^*)$ nel criterio di arresto, $f'(x^*)$ può essere approssimata, dato l'intervallo di confidenza $[a_i, b_i]$, come segue:
+\begin{equation}\label{eq:rapporto_incrementale_xstar}
 	\boldsymbol{f'(x^*)\approx\frac{f(b_i)-f(a_i)}{b_i-a_i}=\frac{f(a_i+\overbrace{b_i-a_i}^{h})-f(a_i)}{\underbrace{b_i-a_i}_{h}}\rightarrow \lim_{i\to + \infty}\frac{f(b_i)-f(a_i)}{b_i-a_i}}.
 \end{equation}
 
 \begin{remark}[Non ufficiale]
-	Il costo computazionale dell'approssimazione $f'(x^*)$ calcolata come (\ref{eq:approxf'}) è nullo perché $f(a_i)$ e $f(b_i)$ sono già calcolati nel metodo di bisezione.\\
+	Il costo computazionale dell'approssimazione $f'(x^*)$ calcolata come (\ref{eq:rapporto_incrementale_xstar}) è nullo perché $f(a_i)$ e $f(b_i)$ sono già calcolati nel metodo di bisezione.\\
 	Inoltre,
 	\begin{equation*}
 		\frac{|f(x_i)|}{|f'(x^*)|}\leq tolx \iff |f(x_i)|\leq \boldsymbol{|f'(x^*)|\cdot tolx=tolf}(\rightarrow |f(x_i)|\leq tolf),
@@ -476,7 +481,7 @@ Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al me
 
 \subsubsection{Criteri d'arresto (e non solo)}
 \footnote{Slide 4 PDF lez10, PG 33.}
-Gli argomenti trattati nella Sezione \ref{ssec:criterio_arresto}, riguardo la definizione di un criterio d'arresto basato sul controllo di $|f(x)|$ (ovvero $|f(x_i)|\leq|f'(x^*)|\, tolx$, per (\ref{eq:approssimazione_taylor_centrata_radice})), sono applicati anche al caso del metodo di Newton (ed ai metodi quasi-Newton trattati in seguito). A causa della convergenza del metodo non è possibile determinare a priori il numero massimo di iterazioni entro le quali il criterio di accuratezza sulla approssimazione calcolata sarà soddisfatto. Dunque, in prossimità della radice $x^*$, nel caso di ordine di convergenza $p>1$,
+L'approssimazione di $|x_{i-1}-x_i|$ tramite (\ref{eq:approsimazione_taylor_f_xstar}) nella Sezione \ref{ssec:criterio_arresto} ed il conseguente l'aggiornamento criterio d'arresto basato sul controllo $|f(x_i)|\leq|f'(x^*)|\, tolx$ (vedere (\ref{eq:criterio_arresto_aggiornato_bisezione})), sono applicati anche al caso del metodo di Newton (ed ai metodi quasi-Newton trattati in seguito), vedere l'Osservazione \ref{rem:criterio_arresto_newton}. A causa della convergenza del metodo non è possibile determinare a priori il numero massimo di iterazioni entro le quali il criterio di accuratezza sulla approssimazione calcolata sarà soddisfatto. Dunque, in prossimità della radice $x^*$, nel caso di ordine di convergenza $p>1$,
 \begin{equation}\label{eq:criterio_arresto_newton}
 	|x_{i+1}-x_i|=|\underbrace{x_{i+1}-x^*}_{\text{$e_{i+1}$}}+\underbrace{x^*-x_i}_{\text{$e_{i}$}}|=|e_i-e_{i+1}|\overset{\footnotemark}{\approx}|e_i|.
 \end{equation}
@@ -489,12 +494,12 @@ Pertanto, un \textbf{criterio di arresto appropiato}, per metodi di \textbf{ordi
 
 Questo è dovuto al fatto che l'errore $|x^*-x_i|$ non è noto, quindi è necessario stimarlo, come in precedenza.
 
-\begin{remark}[Criterio d'arresto per il metodo di Newton]
+\begin{remark}[Criterio d'arresto per il metodo di Newton]\label{rem:criterio_arresto_newton}
 	Risulta essere sempre applicabile il seguente criterio d'arresto
-	\begin{equation}\label{eq:critArrNewt}
+	\begin{equation}\label{eq:criterio_arresto_newton}
 		\boldsymbol{|f(x_i)|\leq |f'(x_i)|\cdot tolx}\equiv \frac{|f(x_i)|}{|f'(x_i)|}\leq tolx,
 	\end{equation}
-	il quale è ottenuto dalla Sezione \ref{ssec:criterio_arresto} tramite la disuguaglianza (\ref{eq:approssimazione_taylor_centrata_radice}) .
+	il quale è ottenuto dalla Sezione \ref{ssec:criterio_arresto} da (\ref{eq:criterio_arresto_aggiornato_bisezione}) e l'approssimazione (\ref{eq:approssimazione_newton}). In questo caso $f(x^*)$ e' calcolata, e non approssimata con il rapporto incrementale (\ref{eq:rapporto_incrementale_xstar}), tramite la derivata di $f$, dato che, a differenza del metodo di bisezione, e' disponibile.
 \end{remark}
 
 \begin{remark}[Criterio d'arresto ideale per il metodo di Newton]\footnote{Osservazione 2.3 PG 33, Slide 5 PDF lez10.}
