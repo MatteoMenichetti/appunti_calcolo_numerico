@@ -621,7 +621,7 @@ Tramite la Figura \ref{fig:esempio_geometrico_convergenza} è possibile osservar
 
 Inoltre, questa Sezione è una formalizzazione della Figura \ref{fig:esempio_geometrico_convergenza}.
 Lo studio della convergenza locale in un contesto generale può essere formalizzata come segue: considerato un metodo iterativo per l'approssimazione di una radice, l'approssimazione della radice $x^*$ di $f$, è definita da
-\begin{equation}\label{eq:funzIteraz}
+\begin{equation}\label{eq:funzione_iterazione}
 	x_{i+1}=\Phi (x_i)\quad i=0,1,2,\hdots,
 \end{equation}
 con $\Phi (x_i)$ funzione d'iterazione, la quale caratterizza il metodo di iterazione generico \footnote{Tale funzione è una regola che fornisce una buona approssimazione applicando $\Phi$ a partire da $x_i$.}.
@@ -633,7 +633,7 @@ Affinché il metodo iterativo abbia senso, supposto che $x_i\rightarrow x^*$ per
 
 \begin{definition}[Funzione d'iterazione del metodo di Newton]
 	Per il metodo di Newton la funzione di iterazione del metodo è
-	\begin{equation}\label{eq:funzIterazNewton}
+	\begin{equation}\label{eq:funzione_iterazione_newton}
 		\Phi (x)=x-\frac{f(x)}{f'(x)},
 	\end{equation}
 	quindi
@@ -644,9 +644,9 @@ Affinché il metodo iterativo abbia senso, supposto che $x_i\rightarrow x^*$ per
 
 Questo argomento permette di trattare le proprietà di convergenza del metodo iterativo, mediante lo studio delle proprietà di stabilità del punto fisso corrispondente della funzione di iterazione. La convergenza locale dei metodi può essere studiata mediante declinazioni del seguente teorema.
 
-\begin{theorem}[\textbf{del punto fisso}]\label{th:puntofisso}
+\begin{theorem}[\textbf{del punto fisso}]\label{th:punto_fisso}
 	\footnote{Slide 6 PDF lez9, PG 31-32.}
-	Sia $\Phi(x)$ la funzione d'iterazione (\ref{eq:funzIteraz}) che definisce il \gls{metodo numerico}. Supposto che $\exists\,\delta >0,\; 0\leq L<1$, costanti tali che:
+	Sia $\Phi(x)$ la funzione d'iterazione (\ref{eq:funzione_iterazione}) che definisce il \gls{metodo numerico}. Supposto che $\exists\,\delta >0,\; 0\leq L<1$, costanti tali che:
 	\begin{equation*}
 		|\Phi (x)-\Phi (y)|\leq L|x-y| \quad\forall x,y \in I=(x^*-\delta,\, x^*+\delta),
 	\end{equation*}
@@ -661,7 +661,7 @@ Questo argomento permette di trattare le proprietà di convergenza del metodo it
 \begin{proof}
 	La dimostrazione avverrà per punti:
 	\begin{enumerate}
-		\item Per assurdo (è supposto che esistano due punti fissi): $\exists\, x^*,\, \overline{x}\in I: \Phi(x^*)=x^*,\, \Phi(\overline{x})=\overline{x}$. Poichè $x \neq \overline{x}$, segue:
+		\item Per assurdo (è supposto che esistano due punti fissi): $\exists\, x^*,\, \overline{x}\in I: \Phi(x^*)=x^*,\, \Phi(\overline{x})=\overline{x}$. Poiché $x \neq \overline{x}$, segue:
 		\begin{equation*}
 			|x^*-\overline{x}|=|\Phi(x^*)-\Phi(\overline{x})|\overset{\footnotemark}{\leq}L|x^*-\overline{x}|<|x^*-\overline{x}| \Rightarrow\text{ Assurdo } (|x^*-\overline{x}|\overset{\footnotemark}{\nless}|x^*-\overline{x}|).
 		\end{equation*}
@@ -708,7 +708,7 @@ Questo argomento permette di trattare le proprietà di convergenza del metodo it
 \stepcounter{footnote}
 \footnotetext{Limite calcolato con la disuguaglianza precedente.}
 
-\noindent\footnote{Slide 1 PDF lez10, PG 32.} Inoltre, è possibile dimostrare che la funzione (\ref{eq:funzIterazNewton}) soddisfa le ipotesi del Teorema del punto fisso (Teorema \ref{th:puntofisso}), come segue: assumendo $f(x)\in C^{(2)}$ in un intorno di $x^*$, dove $x^*$ è la radice semplice di $f$ e definita $\Phi(x)\in C^{(1)}$ in un intorno di $x^*$ (come in (\ref{eq:funzIterazNewton})) con $\Phi'(x)=1-\frac{[f'(x)]^2-f(x)f''(x)}{[f'(x)]^2}$, allora
+\noindent\footnote{Slide 1 PDF lez10, PG 32.} Inoltre, è possibile dimostrare la convergenza locale del metodo di Newton, ovvero che la funzione (\ref{eq:funzione_iterazione_newton}) soddisfa le ipotesi del Teorema del punto fisso (Teorema \ref{th:punto_fisso}). Assumendo $f(x)\in C^{(2)}$ in un intorno di $x^*$, dove $x^*$ è la radice semplice di $f$ e definita $\Phi(x)\in C^{(1)}$ in un intorno di $x^*$ (come in (\ref{eq:funzione_iterazione_newton})) con $\Phi'(x)=1-\frac{[f'(x)]^2-f(x)f''(x)}{[f'(x)]^2}$, allora
 \begin{equation*}
 	\Phi'(x^*)=1-\frac{[f'(x^*)]^2-f(x^*)f''(x^*)}{[f'(x^*)]^2}=1-\frac{[f'(x^*)]^2}{[f'(x^*)]^2}=1-1=0.
 \end{equation*}
@@ -724,7 +724,7 @@ L'ipotesi è verificata con $L$ e $\delta$ scelte, utilizzando lo sviluppo di Ta
 \begin{equation*}
 	\begin{matrix}
 		\forall x,y \in I=(x^*-\delta,\, x^*+\delta): |\Phi(x)-\Phi(y)| &\overset{\footnotemark}{=}& |\cancel{\Phi(x)}-\cancel{\Phi(x)}-\Phi'(\xi)(x-y)|  &\overset{\footnotemark}{=}& |\Phi'(\xi)(x-y)| \\
-		&=& |\Phi'(\xi)||x-y| &<& L|x-y|\\
+		&=& |\Phi'(\xi)||x-y| &<& L|x-y| && \xi\in(x,y)\subset I\\
 		&\Rightarrow&|\Phi(x)-\Phi(y)|&\leq& L|x-y|.
 	\end{matrix}
 \end{equation*}
@@ -735,17 +735,19 @@ L'ipotesi è verificata con $L$ e $\delta$ scelte, utilizzando lo sviluppo di Ta
 \stepcounter{footnote}
 \footnotetext{Approssimazione di $f(x)$ con sviluppo di Taylor.}
 
+%inserire fine pagina 32
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{immagini/TeoremaPuntoFisso.png}
-	\caption{\label{fig:TeoremaPuntoFisso}Esempio del grafico di una funzione d'iterazione per il Teorema \ref{th:puntofisso}.}
+	\caption{\label{fig:TeoremaPuntoFisso}Esempio del grafico di una funzione d'iterazione per il Teorema \ref{th:punto_fisso}.}
 \end{figure}
 
-\subsubsection{Caso delle radici multiple}
+\subsubsection{Caso delle radici multiple (Newton)}
 \footnote{Slide 1-3 PDF lez11, PG 34-36.}
 Per tutti i metodi per la ricerca delle radici di una funzione è noto che nel caso in cui la molteplicità di $x^*$ sia $m>1$, il problema di determinare le radici è malcondizionato in quanto $f'(x^*) = 0$ e quindi $\kappa = \frac{1}{|f'(x^*)|}=+\infty$. Questo è dovuto dalla definizione di molteplicità di una radice, ovvero dalla Definizione \ref{def:radice_molteplicita_m}, per la quale le prime $m$ derivate di $f$ sono tutte uguali 0.
 
-Inoltre, è noto che il metodo di Newton risulti essere solo lineare. Tuttavia, è possibile modificare tale metodo per ripristinare la convergenza quadratica, distinguendo i seguenti casi.
+Inoltre, è noto che il metodo di Newton risulti essere solo lineare quando è ricercata una radice multipla. Tuttavia, è possibile modificare tale metodo per ripristinare la convergenza quadratica, distinguendo i seguenti casi.
 
 \subsubsection{Molteplicità \texorpdfstring{$\boldsymbol{m>1}$}{m>1} nota}
 Avere $m$ nota non è una caratteristica banale. Applicando l'Osservazione \ref{rem:formaF}, per semplicità, al metodo di Newton, per determinare la radice (\ref{eq:approssimazione_newton}), allora, è ottenuta
@@ -768,26 +770,33 @@ In questo caso il metodo di Newton converge linearmente ($p=1$), quindi (da (\re
 	\underset{i\to\infty}{\lim}{\frac{|e_{i+1}|}{|e_i|}} = c<\infty.
 \end{equation*}
 
-Allora, per $i$ sufficientemente grande:
-\begin{equation*}
+Allora, per $i$ sufficientemente grande
+\begin{equation}\label{eq:approssimazioni_errore_newton_conv_linearmente}
 	\begin{matrix}
 		\boldsymbol{\frac{|e_{i+1}|}{e_i}\approx c}&\Rightarrow&
 		\begin{matrix}
 			e_i &\approx& c\cdot e_{i-1}\\
 			e_{i+1}&\approx& c\cdot e_i
 		\end{matrix}\\
-		&\Rightarrow& e_i &\approx& \frac{e_{i+1}}{c}\\
-		&\overset{\footnotemark}{\Rightarrow}& e_i^2&=&e_i\,e_i&\approx&\cancel{c}\cdot e_{i-1}\cdot \frac{e_{i+1}}{\cancel{c}}&=&e_{i-1}\cdot e_{i+1}\\
-		&\boldsymbol\Rightarrow&\boldsymbol{e_i^2}&\boldsymbol\approx& \boldsymbol{e_{i-1}\cdot e_{i+1}}.
 	\end{matrix}
+\end{equation}
+dove $c$ è la costante asintotica (ignota) dell'errore. Dalle due approssimazioni di $e_i$ e $e_{i+1}$ è possibile eliminare la costante asintotica, ovvero data
+\begin{equation*}
+	e_i \approx \frac{e_{i+1}}{c},
 \end{equation*}
-\footnotetext{Dalle due relazioni (approssimazioni) è possibile ottenere ciò che segue.}
-
-È possibile riscrivere la precedente approssimazione, l'ultima implicazione, come
+allora, utilizzando le due approssimazioni (\ref{eq:approssimazioni_errore_newton_conv_linearmente})
+\begin{equation*}
+	e_i^2=e_i\,e_i \approx\cancel{c}\cdot e_{i-1}\cdot \frac{e_{i+1}}{\cancel{c}} = e_{i-1}\cdot e_{i+1},
+\end{equation*}
+quindi
+\begin{equation}\label{eq:errore_convergenza_lineare_newton_radici_multiple}
+	\boldsymbol{e_i^2 \approx e_{i-1}\cdot e_{i+1}}.
+\end{equation}
+È possibile riscrivere l'approssimazione (\ref{eq:errore_convergenza_lineare_newton_radici_multiple}) come
 \begin{center}
 	$\underbrace{(x_i-x^*)^2}_{\text{$e_i^2$}}\approx\underbrace{(x_{i-1}-x^*)}_{\text{$e_{i-1}$}}\underbrace{(x_{i+1}-x^*)}_{\text{$e_{i+1}$}}$ 
 \end{center}
-e da questa segue che
+e quindi segue che
 \begin{equation*}
 	\begin{matrix}
 		x_i^2-2x_i x^*+\cancel{(x^*)^2}&\approx& x_{i-1} x_{i+1}-x_{i-1} x^* - x_{i+1} x^*+\cancel{(x^*)^2}\\
@@ -796,32 +805,33 @@ e da questa segue che
 	\end{matrix}
 \end{equation*}
 
-Da quest'ultima approssimazione è possibile la seguente approssimazione della radice:
-\begin{equation}\label{eq:approxAitken}
-	x^*\approx x_i^*\equiv\frac{x_i^2-x_{i-1}\cdot x_{i+1}}{2x_i-x_{i-1}-x_{i+1}},
+Da quest'ultima approssimazione è possibile la approssimare la radice come segue:
+\begin{equation}\label{eq:approssimazione_aitken}
+	x^*\approx x_i^*\equiv\frac{x_{i-1}\cdot x_{i+1} - x_i^2}{x_{i-1} + x_{i+1} - 2x_i},
 \end{equation}
 dove $x_i^*$ rappresenta l'approssimazione di $x^*$ al passo $i-$esimo.
 
 \subsection{Metodo di Aitken}
 \footnote{Slide 4-5 PDF lez11, PG 36-37.}
-Il metodo utilizza una procedura a due livelli:
+Il metodo di Aitken è preferibile al metodo di Newton in quanto Newton converge linearmente verso radici multiple con molteplicità ignota, mentre il metodo di Aitken converge quadraticamente verso radici multiple con molteplicità ignota. Tale metodo utilizza una procedura a due livelli (basata sul metodo di Newton):
 \begin{enumerate}
 	\item Vengono eseguiti due passi del metodo di Newton (\ref{eq:approssimazione_newton}): 
-	\begin{itemize}
+	\begin{enumerate}
 		\item $x_{i-1}=x_{i-1}^*$;
 		\item $x_i=x_{i-1}-\frac{f(x_{i-1})}{f'(x_{i-1})}$;
 		\item $x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}$;
-	\end{itemize}
-	\item Passo di Aitken: esecuzione del passo (\ref{eq:approxAitken}) di accelerazione, approssimare al meglio la radice. Questo passo fornirà il nuovo punto iniziale per il livello interno.
+	\end{enumerate}
+	\item Passo di Aitken: esecuzione del passo (\ref{eq:approssimazione_aitken}) di accelerazione, che consente un'approssimazione accurata della radice. Questo passo fornirà il nuovo punto iniziale per il livello interno.
 \end{enumerate}
-La successione $\{x_i^*\}_{i=1,2,\hdots}$ generata con Aitken \underline{converge quadraticamente} verso $x^*$.
-\paragraph{Costo computazionale} Pertanto, il prezzo di avere un'iterazione a due livelli è pagato con un costo computazionale doppio rispetto al classico Newton, ad ogni iterazione è applicato Newton due volte (per le quali sono necessarie le valutazioni di $f$ e $f'$).
 
+\paragraph{Convergenza:} La successione $\{x_i^*\}_{i=1,2,\hdots}$ generata con Aitken \underline{converge quadraticamente} verso $x^*$.
+\paragraph{Costo computazionale} Il prezzo di avere un'iterazione a due livelli è pagato con un costo computazionale doppio rispetto al classico Newton, ad ogni iterazione è applicato Newton due volte (per le quali sono necessarie le valutazioni di $f(x_i)$ e $f'(x_i)$).
+
+\paragraph{Implementazione:} Vedere \ref{alg:metodo_aitken}.
 \begin{algorithm}
-	\caption{Implementazione metodo di Aitken.}\label{alg:metAit}
+	\caption{Implementazione metodo di Aitken.}\label{alg:metodo_aitken}
 	\begin{lstlisting}[style=Matlab-editor]
 		function x = aitken(f, f1, x, tolx, itmax)
-		x = x0;
 		for i = 1 : itmax
 		x0 = x;
 		fx = feval(f, x0);
@@ -839,16 +849,17 @@ La successione $\{x_i^*\}_{i=1,2,\hdots}$ generata con Aitken \underline{converg
 
 \subsection{Metodi quasi-Newton}
 \footnote{Slide 6-10 PDF 11, PG 37-40.}
-È possibile ridurre il costo di ogni iterazione del tipo (\ref{eq:approssimazione_newton}) attraverso un'approssimazione di $f'(x_i)$. I metodi in questa Sezione, variazioni del metodo di Newton, calcolano $x_{i+1}$ come segue:
+È possibile ridurre il costo di ogni iterazione del tipo (\ref{eq:approssimazione_newton}) attraverso un'approssimazione di $f'(x_i)$, non richiedendone la valutazione. I metodi in questa Sezione sono variazioni del metodo di Newton e quindi hanno proprietà di convergenza locale. La radice $x^*$ è approssimata come
 \begin{equation}\label{eq:approssimazione_quasi_newton}
 	x_{i+1}=x_i-\frac{f(x_i)}{\varphi_i}, \quad i=0,1,2,\hdots, \quad\varphi_i\approx f'(x_i).
 \end{equation}
+I due metodi trattati differiscono per la modalità con la quale è calcolata l'approssimazione $\varphi_i$.
 
 \subsubsection{Metodo delle corde}\label{sssec:metodo_corde}
 È assunto che $f(x)$ sia sufficientemente regolare ed è presupposto che la derivata vari di poco in prossimità della radice.
 Pertanto, se $x_0$ è vicino alla radice, allora è possibile approssimare $f'$ come
 \begin{equation*}
-	f'(x_i)\approx f'(x_0)\equiv\varphi_i,\; i=0,1,2,\hdots.
+	f'(x_i)\approx f'(x_0)\equiv\varphi_i,\quad i=0,1,2,\hdots.
 \end{equation*}
 In questo modo è ottenuta l'iterazione 
 \begin{equation}\label{eq:approxCorde}
@@ -856,22 +867,32 @@ In questo modo è ottenuta l'iterazione
 \end{equation}
 la quale definisce il metodo delle corde.
 
-È necessario notare che l'approssimazione della derivata sia una costante (ovvero $f'(x_0)$).
+\noindent È necessario notare che l'approssimazione della derivata sia una costante (ovvero $f'(x_0)$).
 
 \paragraph{Costo computazionale:}\footnote{Il costo computazionale è considerato per iterazione.} 1 valutazione funzionale ($f(x_i)$).
 \paragraph{Covergenza:}Si, locale.
 \paragraph{Ordine di convergenza:} È lineare ($p = 1$) qualsiasi sia la molteplicità della radice.
 
-Il metodo è utilizzato per la risoluzione di sistemi lineari per il basso costo di computazionale.
+\noindent Il metodo è utilizzato per la risoluzione di sistemi lineari per il basso costo di computazionale.
 
 \subsubsection{Metodo delle secanti}\label{sssec:metodo_secanti}
-\footnote{Slide 7-10 PDF lez11.}
-Supposto siano già calcolati $x_{i-1}$ ed $x_i$, allora $f(x)\approx f(x_i)+(x-x_i)f'(x_i)$. La derivata può essere approssimata come 
+\footnote{Slide 7-10 PDF lez11, PG  37.}
+Supponendo di essere al passo $i-$esimo e che quindi siano già calcolati $x_{i-1},x_i, f(x_i)$ e $f(x_{i-1})$, allora la derivata $f'(x_i)$ può essere approssimata come 
 \begin{equation*}
-	f'(x_i)\approx\frac{f(x)-f(x_{i})}{x-x_i}\overset{x=x_{i-1}}{\Longrightarrow}f'(x_i)\approx\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}\equiv\varphi_i.
+ 	 f'(x_i)\approx\frac{f(x_i)-f(x_{i-1})}{x_i-x_{i-1}}\equiv\varphi_i.
 \end{equation*}
 
-L'iterazione (\ref{eq:approssimazione_quasi_newton}) diviene
+\paragraph{Spiegazione di $\boldsymbol{f'(x_i)}$:} Sia
+\begin{equation*}
+	f(x)\approx f(x_i)+(x-x_i)f'(x_i)
+\end{equation*}
+quindi 
+\begin{equation*}
+	 f'(x_i)\approx\frac{f(x)-f(x_{i})}{x-x_i}
+\end{equation*}
+e sostituendo $x=x_i$ si ha quanto appena scritto. $\qed$
+
+\noindent L'iterazione (\ref{eq:approssimazione_quasi_newton}) diviene
 \begin{equation}\label{eq:approxSecanti}
 	\boldsymbol{x_{i+1}=x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})}}=\frac{f(x_i)\,x_{i-1} - f(x_{i-1})\,x_i}{f(x_i)-f(x_{i-1})}, \quad i=1,2,\hdots,
 \end{equation}

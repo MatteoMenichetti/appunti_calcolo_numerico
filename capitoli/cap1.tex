@@ -95,12 +95,12 @@ In entrambi i casi è utilizzata una notazione posizionale che utilizza potenze 
 
 \subsubsection{Numeri interi}\footnote{Slide 6 PDF lez1, PG 7.}
 Un numero intero è memorizzato come stringa del tipo
-\begin{equation}\label{eq:rapprNumInt}
+\begin{equation}\label{eq:rappresentazione_numeri_interi}
 	\alpha_0\,\alpha_1\cdots\alpha_N,\; N\in\mathbb N\text{ numero di cifre},
 \end{equation}
 in cui è assegnata la base $b\in\mathbb N,\, b\geq 2,$ e $ \alpha_0\in\{+,-\},\, \alpha_i\in\{0,1,\hdots, b-1\}_{i=1,\hdots,N}.$
 
-È possibile rapprensentare la stringa (\ref{eq:rapprNumInt}) come segue:
+È possibile rapprensentare la stringa (\ref{eq:rappresentazione_numeri_interi}) come segue:
 \begin{equation}\label{eq:rapprNumIntCompl}
 	n=\begin{cases}
 		\sum_{i=1}^N\alpha_i b^{N-i}, &\text{ se } \alpha_0=+\\
@@ -109,7 +109,7 @@ in cui è assegnata la base $b\in\mathbb N,\, b\geq 2,$ e $ \alpha_0\in\{+,-\},\
 	\end{cases}
 \end{equation}
 
-Tramite la notazione (\ref{eq:rapprNumInt})-(\ref{eq:rapprNumIntCompl}) è possibile rappresentare \textbf{senza errore} tutti i numeri interi dell'insieme
+Tramite la notazione (\ref{eq:rappresentazione_numeri_interi})-(\ref{eq:rapprNumIntCompl}) è possibile rappresentare \textbf{senza errore} tutti i numeri interi dell'insieme
 \begin{equation}\label{eq:insieme_numeri_interi_rappresentabili}
 	\{-b^N,\,b^N-1\}.
 \end{equation}
@@ -127,7 +127,7 @@ Un numero "reale" è memorizzato in un calcolatore mediante una stringa del tipo
 \end{equation}
 in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\{0,\hdots,b-1\}_{i=1,\hdots,m,\, j=1,\hdots,s}.$
 \begin{definition}[Notazione scientifica normalizzata]
-	La stringa (\ref{eq:rappresentazione_numero_reale}), sotto la condizione $\alpha_1\neq 0$, è rappresentabile in modo unico in notazione scientifica normalizzata in base $b$ con la seguente forma
+	\textbf{Sotto la condizione} $\boldsymbol{\alpha_1\neq 0}$, la stringa (\ref{eq:rappresentazione_numero_reale}) è rappresentabile, in modo unico, in notazione scientifica normalizzata in base $b$ come
 	\begin{equation}\label{eq:rappresentazione_scientifica_normalizzata}
 		r=\equalto{\pm}{\alpha_0}\left(\sum_{i=1}^m\alpha_ib^{1-i}\right)b^{e-\nu}\in\mathbb{R},\quad e=\sum_{j=1}^s\beta_jb^{s-j}\in\mathbb N,
 	\end{equation}
@@ -186,7 +186,7 @@ in cui $b\in\mathbb N,\, b\geq 2,\, \alpha_0\in\{+,-\},\, \alpha_i,\,\beta_j\in\
 	$b=10,\, m=4,\, 9.999=10\cdot(1-0.0001)=10\cdot\underbrace{(1-10^{-9})}_{0.9999}.$
 \end{example}
 
-\begin{theorem}\label{th:massimo_minimo_numero_macchina_rappresentabile}\footnote{Slide 3 PDF lez2, Teorema 1.3 PG 8.}
+\begin{theorem}[Massimo/minimo numero macchina]\label{th:massimo_minimo_numero_macchina_rappresentabile}\footnote{Slide 3 PDF lez2, Teorema 1.3 PG 8.}
 	Il più piccolo ed il più grande numero macchina positivi diversi da 0 sono, rispettivamente:
 	\begin{equation}\label{eq:massimo_minimo_numero_macchina_rappresentabile}
 		\begin{matrix}
@@ -559,11 +559,11 @@ Il limite fra problema ben e malcondizionato non è preciso, è necessario un cr
 \paragraph{Osservazione qualitativa:} Valutare quantitativamente il numero di condizionamento è importante ed è necessario osservare come $\kappa$ varia all'aumentare della dimensione del problema (se è costante entro certi limiti è buono).
 
 \subsubsection{Condizionamento della somma algebrica}\label{sssec:condizionamento_somma_algebrica}
-Il "problema" da studiare e' il condizionamento della somma algebrica
+Il "problema" da studiare è il condizionamento della somma algebrica
 \begin{equation}\label{eq:problema_condizionamento_somma_algebrica}
 	y=x_1+x_2\neq 0,\quad x_1,x_2\in\mathbb R,
 \end{equation}
-dove $x_1,\, x_2$ sono gli addendi esatti ed $y$ la soluzione esatta (quindi per il problema (\ref{eq:problema}) $f(x) = x_1 + x_2$).
+dove $x_1,\, x_2$ sono gli addendi esatti ed $y$ la soluzione esatta (quindi il problema (\ref{eq:problema}) è $f(x) = x_1 + x_2$).
 
 Dati gli errori relativi sui dati iniziali $\varepsilon_1=\frac{\Tilde{x}_1-x_1}{x_1}$ e $\varepsilon_2=\frac{\Tilde{x}_2-x_2}{x_2}$, con $\Tilde{x}_1=x_1(1+\boldsymbol{\varepsilon_1})$ e $\Tilde{x}_2=x_2(1+\boldsymbol{\varepsilon_2})$ addendi perturbati, assumendo che non venga introdotto alcun nuovo errore nel calcolo di (\ref{eq:problema_condizionamento_somma_algebrica}), allora, con
 \begin{equation*}
