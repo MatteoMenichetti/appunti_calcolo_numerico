@@ -813,7 +813,7 @@ dove $x_i^*$ rappresenta l'approssimazione di $x^*$ al passo $i-$esimo.
 
 \subsection{Metodo di Aitken}
 \footnote{Slide 4-5 PDF lez11, PG 36-37.}
-Il metodo di Aitken è preferibile al metodo di Newton in quanto Newton converge linearmente verso radici multiple con molteplicità ignota, mentre il metodo di Aitken converge quadraticamente verso radici multiple con molteplicità ignota. Tale metodo utilizza una procedura a due livelli (basata sul metodo di Newton):
+Il metodo di Aitken è preferibile al metodo di Newton in quanto Newton converge linearmente verso radici multiple con molteplicità ignota, mentre il metodo di Aitken converge quadraticamente verso tali radici. Questo metodo utilizza una procedura a due livelli (basata sul metodo di Newton):
 \begin{enumerate}
 	\item Vengono eseguiti due passi del metodo di Newton (\ref{eq:approssimazione_newton}): 
 	\begin{enumerate}
@@ -894,9 +894,13 @@ e sostituendo $x=x_i$ si ha quanto appena scritto. $\qed$
 
 \noindent L'iterazione (\ref{eq:approssimazione_quasi_newton}) diviene
 \begin{equation}\label{eq:approxSecanti}
-	\boldsymbol{x_{i+1}=x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})}}=\frac{f(x_i)\,x_{i-1} - f(x_{i-1})\,x_i}{f(x_i)-f(x_{i-1})}, \quad i=1,2,\hdots,
+	\boldsymbol{x_{i+1}}=x_i-\frac{f(x_i)(x_i-x_{i-1})}{f(x_i)-f(x_{i-1})}=\boldsymbol{\frac{f(x_i)\,x_{i-1} - f(x_{i-1})\,x_i}{f(x_i)-f(x_{i-1})}}, \quad i=1,2,\hdots,
 \end{equation}
-con $x_0$ ed $x_1$ approssimazioni iniziali assegnate (sono richiesti per il calcolo di $x_2$). Assegnato $x_0$ è possibile calcolare $x_1$, tramite il metodo di Newton, come $x_1=x_0-\frac{f(x_0)}{f'(x_0)}$.
+con $x_0$ ed $x_1$ approssimazioni iniziali assegnate (sono richiesti per il calcolo di $x_2$).
+
+\begin{remark}
+	Assegnato $x_0$ è possibile calcolare $x_1$, tramite il metodo di Newton, come $x_1=x_0-\frac{f(x_0)}{f'(x_0)}$.
+\end{remark}
 
 \begin{figure}
 	\centering
@@ -909,7 +913,7 @@ L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale p
 
 \paragraph{Convergenza:}\footnote{Slide 10 PDF lez11.} locale. Inoltre, il metodo delle secanti è superlineare, ovvero: la successione delle approssimazioni converge alla radice della funzione con un tasso di convergenza maggiore rispetto al metodo delle tangenti e al metodo della bisezione, ma minore rispetto al metodo di Newton.
 
-\paragraph{Ordine di convergenza:} $p = \frac{\sqrt{5}+1}{2}\approx 1.618$ per radici semplici. Anche se l'ordine di convergenza è minore rispetto a quello del metodo di Newton è preferibile a quest'ultimo, in quanto non viene effettuata una valutazione della derivata ad ogni iterazione.
+\paragraph{Ordine di convergenza:} $p = \frac{\sqrt{5}+1}{2}\approx 1.618$ per radici semplici, $p=1$ nel caso di radici multiple. Anche se l'ordine di convergenza è minore rispetto a quello del metodo di Newton è preferibile a quest'ultimo, in quanto non viene effettuata una valutazione della derivata ad ogni iterazione.
 
 \begin{remark}
 	Nella conversione dei precenti metodi in algoritmi è buona norma eseguire controlli sul demominatore, affinchè non siano svolte divisioni per 0. Nel caso dell'approssimazione di radici multiple, mediante il metodo di Newton modificato o il metodo di accelerazione Aitken, quando la derivata si annulla ed il valore della funzione è molto piccolo, significa che è stata raggiunta la migliore approssimazione possibile della soluzione.
