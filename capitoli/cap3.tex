@@ -776,6 +776,47 @@ In conclusione, $A$ sarà riscritta con l'informazione relativa ai suoi fattori 
 \end{equation*}
 dove la diagonale principale di $L$ è "ignorata" perché nota.\qed
 
+\subsubsubsection{Costo computazionale}
+È esaminato il costo computazionale in termine di operazioni algebriche (\textit{flops}) e di occupazione di memoria del metodo i eliminazione di Gauss. Per questo (\ref{eq:A^i}) è ridefinito, esplicitando la struttura $L_i$, come:
+\begin{equation}\label{eq:A^iRiscr}
+	A^{(i+1)} = L_iA^{(i)} = \left(I-\uline g_i \uline e_i^T\right)A^{(i)} = A^{(i)} - \underset{\footnotemark}{\uline g_i} \underset{\footnotemark}{\left(\uline e_i^T A^{(i)}\right)}.
+\end{equation}
+
+\addtocounter{footnote}{-1}
+\footnotetext{Vettore colonna.}
+
+\stepcounter{footnote}
+\footnotetext{Vettore riga $\left(i-\text{esima di }A^{(i)}\right)$.}
+
+Tuttavia:
+\begin{itemize}
+	\item le prime $i$ componenti di $g_i$ sono nulle, quindi le prime $i$ righe nella somma in (\ref{eq:A^iRiscr}) non sono modificate;
+	\item $\uline e_i^T A^{(i)}$ è l'$i$-esima riga di $A^{(i)}$, la quale ha le prime $i-1$ componenti nulle. Inoltre, in colonna $i$, dato che al passo successivo gli elementi sotto $a_{ij}^{(k)}$ sono 0, non è necessario svolgere operazioni perché è noto che queste avranno come risultato l'azzeramento degli elementi al di sotto di quello diagonale.
+\end{itemize}
+
+Pertanto, saranno processate solo le ultime $(n-i)$ righe e colonne di $A^{(i)}$, svolgendo 2 operazioni per componente, per un totale di $2(n-i)^2$ flops e, sommando gli $n-1$ passi, è ottenuto:
+\begin{equation}\label{eq:costo_fattorizzazione_LU}
+	2\sum_{i=1}^{n-1}(n-i)^2=2\sum_{i=1}^{n-1}i^2\overset{\footnotemark}{\approx}\boldsymbol{\frac{2}{3}n^3}\text{ \textbf{flops}.}
+\end{equation}
+\footnotetext{Utilizzando la somma notevole $\sum_{i=1}^ni^2=\frac{n(n+1)(2n+1)}{6}\Rightarrow\sum_{i=1}^{n-1}i^2=\frac{(n-1)(n-1+1)((2n-1)+1)}{6}=\frac{(n-1)n(2n-1)}{6}$}
+
+In termini di locazioni di memoria occupata, il metodo di eliminazione di Gauss non richiede memoria addizionale, in quanto la matrice $A$ in ingresso sarà riscritta con le informazioni relative ai fattori $L$ ed $U$.
+
+È possibile verificare quanto specificato per il costo computazionale esaminando lo pseudo-codice dell'Algoritmo \ref{alg:fattLU} (vedere l'Algoritmo \ref{alg:LUfatt} per controlli significativi).
+
+La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \ref{alg:LUsolve}.
+\begin{algorithm}
+	\caption{Fattorizzazione $LU$ di una matrice.}
+	\label{alg:fattLU}
+	\begin{lstlisting}[style=Matlab-editor]
+		for i = 1 : n - 1 %passi della fattorizzazione
+		if A(i,i) == 0, error('Matrice non fattorizzabile LU'); end
+		A(i+1:n,i) = A(i+1:n, i)/A(i,i); %gi
+		A(i+1:n,i+1:n) = A(i+1:n,i+1:n) - A(i+1:n,i) * A(i,i+1:n);
+		end
+	\end{lstlisting}
+\end{algorithm}
+
 Per trattare meglio l'esistenza della fattorizzazione $LU$, stabilita dal Teorema \ref{th:condDefFattLU}, occorre qualche definizione.
 
 \begin{definition}[Sottomatrice principale di ordine]\footnote{Slide 7 PDF 4, Definizione 3.1 PG 51.}
@@ -888,47 +929,6 @@ Ovvero: $A$ è fattorizzabile $LU$ s.se tutti i minori principali di $A$ sono no
 \begin{remark}
     Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ \gls{nonsingolare}), la quale sarà ereditata dalle sottomatrici di ordine $k$ di $A$.
 \end{remark}
-
-\subsection{Costo computazionale}
-È esaminato il costo computazionale in termine di operazioni algebriche (\textit{flops}) e di occupazione di memoria del metodo i eliminazione di Gauss. Per questo (\ref{eq:A^i}) è ridefinito, esplicitando la struttura $L_i$, come:
-\begin{equation}\label{eq:A^iRiscr}
-    A^{(i+1)} = L_iA^{(i)} = \left(I-\uline g_i \uline e_i^T\right)A^{(i)} = A^{(i)} - \underset{\footnotemark}{\uline g_i} \underset{\footnotemark}{\left(\uline e_i^T A^{(i)}\right)}.
-\end{equation}
-
-\addtocounter{footnote}{-1}
-\footnotetext{Vettore colonna.}
-
-\stepcounter{footnote}
-\footnotetext{Vettore riga $\left(i-\text{esima di }A^{(i)}\right)$.}
-
-Tuttavia:
-\begin{itemize}
-    \item le prime $i$ componenti di $g_i$ sono nulle, quindi le prime $i$ righe nella somma in (\ref{eq:A^iRiscr}) non sono modificate;
-    \item $\uline e_i^T A^{(i)}$ è l'$i$-esima riga di $A^{(i)}$, la quale ha le prime $i-1$ componenti nulle. Inoltre, in colonna $i$, dato che al passo successivo gli elementi sotto $a_{ij}^{(k)}$ sono 0, non è necessario svolgere operazioni perché è noto che queste avranno come risultato l'azzeramento degli elementi al di sotto di quello diagonale.
-\end{itemize}
-
-Pertanto, saranno processate solo le ultime $(n-i)$ righe e colonne di $A^{(i)}$, svolgendo 2 operazioni per componente, per un totale di $2(n-i)^2$ flops e, sommando gli $n-1$ passi, è ottenuto:
-\begin{equation}\label{eq:costo_fattorizzazione_LU}
-    2\sum_{i=1}^{n-1}(n-i)^2=2\sum_{i=1}^{n-1}i^2\overset{\footnotemark}{\approx}\boldsymbol{\frac{2}{3}n^3}\text{ \textbf{flops}.}
-\end{equation}
-\footnotetext{Utilizzando la somma notevole $\sum_{i=1}^ni^2=\frac{n(n+1)(2n+1)}{6}\Rightarrow\sum_{i=1}^{n-1}i^2=\frac{(n-1)(n-1+1)((2n-1)+1)}{6}=\frac{(n-1)n(2n-1)}{6}$}
-
-In termini di locazioni di memoria occupata, il metodo di eliminazione di Gauss non richiede memoria addizionale, in quanto la matrice $A$ in ingresso sarà riscritta con le informazioni relative ai fattori $L$ ed $U$.
-
-È possibile verificare quanto specificato per il costo computazionale esaminando lo pseudo-codice dell'Algoritmo \ref{alg:fattLU} (vedere l'Algoritmo \ref{alg:LUfatt} per controlli significativi).
-
-La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \ref{alg:LUsolve}.
-\begin{algorithm}
-\caption{Fattorizzazione $LU$ di una matrice.}
-\label{alg:fattLU}
-    \begin{lstlisting}[style=Matlab-editor]
-        for i = 1 : n - 1 %passi della fattorizzazione
-            if A(i,i) == 0, error('Matrice non fattorizzabile LU'); end
-            A(i+1:n,i) = A(i+1:n, i)/A(i,i); %gi
-            A(i+1:n,i+1:n) = A(i+1:n,i+1:n) - A(i+1:n,i) * A(i,i+1:n);
-        end
-    \end{lstlisting}
-\end{algorithm}
 
 \subsection{Matrici a diagonale dominante}\label{ssec:matrici_diagonale_dominante}
 In questa Sezione e nella \ref{ssec:matrice_SDP_fattorizzabile_LDL} sarà visto come matrici delle classi trattate soddisfino il Teorema \ref{th:esistenza_fattorizzazione_LU} di Esistenza della fattorizzazione $LU$. Il fatto che valga il Teorema è dovuto da quanto segue:
