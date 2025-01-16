@@ -5,10 +5,10 @@ Il problema di questa sezione è risolvere sistemi di \gls{equazioni lineari} (d
 \end{equation}
 dove $A=(a_{ij})\in{\mathbb R^{m\times n}}$ è la matrice dei coefficienti, $\uline x=(x_i)\in\mathbb R^n$ il vettore delle incognite (da determinare) e $\uline b\in\mathbb R^m$ il vettore dei termini noti. $A$ e $\uline b$ sono noti. Sarà assunto che $\boldsymbol{m\geq n}$ e che il rango di A sia massimo, ovvero $\boldsymbol{\rank(A)=n}$.
 
-Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risoluzione_sistemi_nonlineari}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$, quindi è quadrata, ovvero $m=n$.
+Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incognite ed in questo caso il sistema è detto \textbf{sistema sovradimensionato}. Questo caso sarà trattato nella Sezione \ref{ssec:sistemi_lineari_sovradimensionati} e nella \ref{ssec:risoluzione_sistemi_nonlineari}. Inizialmente, fino alla Sezione \ref{ssec:sistemi_lineari_sovradimensionati}, sarà considerato il caso in cui la matrice dei coefficienti è definita come $A\in\mathbb R^{n\times n}$ matrice quadrata, ovvero $m=n$.
 
-\begin{definition}[Matrice nonsingolare]\label{def:matrice_ nonsingolare}
-    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è nonsingolare se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
+\begin{definition}[Matrice nonsingolare]\label{def:matrice_nonsingolare}
+    La matrice $A\in\mathbb R^{n\times n}$, quadrata, è \gls{nonsingolare} se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
     \begin{equation}\label{eq:solSistQuad}
         \uline x = A^{-1} \uline b.
     \end{equation}
@@ -16,18 +16,18 @@ Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incog
 La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
 
 \begin{definition}[Matrice singolare]\label{def:matrice_singolare}
-	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $\rank(A)\neq n$, \textbf{quindi} $\boldsymbol{\det(A) = 0}$.
+	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $\rank(A)\neq n$ (\textbf{quindi} $\boldsymbol{\det(A) = 0}$).
 \end{definition}
 
 \begin{remark}
-    Con "costo computazionale" è da intendersi in termini di occupazione di memoria e numero di operazioni floating-point richieste.
+    Con "costo computazionale" è da intendersi il costo in termini di occupazione di memoria e numero di operazioni floating-point richieste.
 \end{remark}
 
 \subsection{Sistemi lineari: casi semplici}\footnote{Slide 5 PDF 1, PG 41.}
 La risoluzione del sistema lineare (\ref{eq:sistema_equazioni_lineari}) risulta agevole nel caso in cui $A$ abbia proprietà strutturali particolari, ovvero quando $A$ è:
 \begin{itemize}
-    \item diagonale;
-    \item triangolare;
+    \item diagonale,
+    \item triangolare,
     \item ortogonale.
 \end{itemize}
 Queste caratteristiche saranno utilizzate per definire opportuni metodi di fattorizzazione che consentiranno di risolvere il problema generale.
@@ -41,13 +41,13 @@ In questo caso gli elementi non appartenenti alla diagonale di $A$ sono nulli, o
         &&a_{nn}
     \end{pmatrix},
 \end{equation*}
-dove gli elementi $a_{ii}\neq 0,\, a_{ij}=0,\, j\neq i,\, i=1,\hdots, n, $ sono gli elementi della \textbf{diagonale principale} di $A$. La matrice dei coefficienti si fatta può esssere memorizzata come un singolo vettore.
+dove, per ogni $i,j=1,\hdots, n$, gli elementi $ a_{ij}=0$ se $j\neq i$ mentre $a_{ii}\neq 0,$ sono gli elementi della diagonale principale di $A$. La matrice dei coefficienti del sistema lineare \ref{eq:sistema_equazioni_lineari}) si fatta può esssere memorizzata come un singolo vettore.
 
 \begin{remark}
-    Per matrici grandi e con molti elementi nulli può essere utile l'Osservazione \ref{re:diagonali} e il successivo esempio.
+    Per matrici grandi e con molti elementi nulli può essere utile l'Osservazione \ref{rem:diagonali}.
 \end{remark}
 
-Il determinante di $A$, se diagonale, è dato da $\det(A)=\prod_{i=1}^n a_{ii}.$ Pertanto, assunto $\det(A)\neq 0$, allora segue che $\boldsymbol{a_{ii}\neq 0,\, \forall i=1,\hdots,n}.$ Inoltre, la forma component-wise del sistema lineare, data $A$ diagonale, è del tipo
+Il determinante di $A$, se diagonale, è dato da $\det(A)=\prod_{i=1}^n a_{ii}.$ Pertanto, assunto $\det(A)\neq 0$, segue che $\boldsymbol{a_{ii}\neq 0,\, \forall i=1,\hdots,n}.$ Inoltre, dato che $A$ è diagonale, la \gls{forma component-wise} del sistema lineare (\ref{eq:sistema_equazioni_lineari}) è del tipo
 \begin{equation*}
     \begin{matrix}
         a_{11} x_1 &=& b_1\\
@@ -56,21 +56,21 @@ Il determinante di $A$, se diagonale, è dato da $\det(A)=\prod_{i=1}^n a_{ii}.$
         a_{nn}x_n &=& b_n
     \end{matrix}
 \end{equation*}
-quindi la soluzione può essere calcolata come
-\begin{equation*}
+e quindi le componenti della soluzione possono essere calcolate come
+\begin{equation}\label{eq:soluzione_matrice_diagonale}
     \boldsymbol{x_i=\frac{b_i}{a_{ii}},\; i=1,\hdots, n.}
-\end{equation*}
+\end{equation}
 
 Questo algoritmo è ben definito, in quanto $a_{ii}\neq 0,\, \forall i=1,\hdots,n$ per ipotesi. 
 
-La complessità di questo algoritmo è $n$ flops e $O(n)$ memoria (si dice lineare perché richiede la memorizzazione di un vettore di lunghezza $n$).
+\paragraph{Costo computazionale dell'algoritmo (\ref{eq:soluzione_matrice_diagonale}):} La complessità dell'algoritmo (\ref{eq:sistema_equazioni_lineari}) è $n$ flops e $O(n)$ memoria (si dice lineare perché richiede la memorizzazione di un vettore di lunghezza $n$).
 
-Un'implementazione naive di questo algoritmo è l'Algoritmo \ref{alg:implDiago}.
+\paragraph{Implementazione dell'algoritmo (\ref{eq:soluzione_matrice_diagonale}):} Un'implementazione naive di questo algoritmo è l'Algoritmo \ref{alg:implementazione_diagonale}.
 
-\begin{algorithm}\caption{Risoluzione sistema lineare bidiagonale.}\label{alg:implDiago}
+\begin{algorithm}\caption{Risoluzione sistema lineare bidiagonale.}\label{alg:implementazione_diagonale}
     \begin{lstlisting}[style=Matlab-editor]
     function x = diago(a, b)
-    x = b./a;
+    	x = b./a;
     return
     end
     \end{lstlisting}
@@ -107,32 +107,33 @@ Questo caso è a sua volta diviso in due, in quanto è necessario specificare do
 
 \subsubsubsection{Caso triangolare inferiore}
 Nel caso in cui $A$ è triangolare inferiore, il sistema lineare (\ref{eq:sistema_equazioni_lineari}) è della forma
-\begin{equation*}
+\begin{equation}\label{eq:sistema_lineare_triangolare_inferiore}
     \begin{matrix}
         a_{11} x_1 && && && &=& b_1\\
         a_{21} x_1 &+& a_{22} x_2 && && &=& b_2\\
         a_{31} x_1  &+& a_{32} x_2 &+& a_{33} x_3 && &=& b_3\\
-        \vdots && && &&\ddots &\vdots &\vdots\\
+        \vdots && && &\ddots& &\vdots &\vdots\\
         a_{n1} x_1 &+& a_{n1} x_2 &+& \hdots &+& a_{nn} x_n &=& b_n
     \end{matrix}
-\end{equation*}
+\end{equation}
 e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in avanti:
 \begin{equation}\label{eq:soluzione_sistema_triangolare_inferiore}
     x_i=\frac{b_i-\overbrace{\sum_{j=1}^{i-1}a_{ij}x_j}^{\text{0 se $i=1$}}}{a_{ii}},\quad i=1,\hdots,n.
 \end{equation}
 
-Anche in questo caso l'algoritmo è ben definito sotto l'ipotesi $\det(A)\neq 0\; (\iff a_{ii}\neq 0,\; i=1,\hdots, n)$.
+L'algoritmo (\ref{eq:soluzione_sistema_triangolare_inferiore}) è ben definito sotto l'ipotesi $\det(A)\neq 0\; (\iff a_{ii}\neq 0,\; i=1,\hdots, n)$.
 
-Esaminando il costo computazionale per risolvere il sistema lineare (\ref{eq:sistema_equazioni_lineari}), mediante (\ref{eq:soluzione_sistema_triangolare_inferiore}), allora: per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da \begin{equation*}
+\paragraph{Costo computazionale dell'algoritmo (\ref{eq:soluzione_sistema_triangolare_inferiore}):} Per calcolare il numeratore sono necessarie $i-1$ moltiplicazioni, $i-1$ somme ed $1$ divisione finale (per calcolare $x_i$) per un totale di $2i-1$ \textit{flops}, quindi il costo totale è dato da
+\begin{equation}\label{eq:flops_soluzione_sistema_triangolare_superiore}
     \sum_{i=1}^n(2i-1)=2\sum_{i=1}^n (i)-n= \cancel{2}\cdot\frac{n(n+1)}{\cancel{2}}-n=\boldsymbol{n^2\; flops}.
-\end{equation*}
+\end{equation}
 
-L'occupazione di memoria è dovuta alla porzione triangolare della matrice ed ai due vettori ($\uline x$ e $\uline b$), quindi:
+L'occupazione di memoria è dovuta alla porzione triangolare della matrice e dai due vettori ($\uline x$ e $\uline b$), quindi:
 \begin{equation*}
-    \sum_{i=1}^n i = \frac{n(n+1)}{2}+ \overset{\text{vettori}}{2n}\approx \frac{n^2}{2}\text{ locazioni di memoria.}
+    \sum_{i=1}^n i = \frac{n(n+1)}{2}+ \overset{\text{vettori}}{2n}\approx \boldsymbol{\frac{n^2}{2}}\text{ \textbf{locazioni di memoria}.}
 \end{equation*}
 
-\paragraph{Implementazione risolutore sistema lineare con A triangolare inferiore:} È possibile codificare la soluzione al sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) con l'Algoritmo \ref{alg:calcSistTriangInf}. Per accedere alla matrice per colonne è sufficiente scambiare i cicli (vedere Algoritmo \ref{alg:calcSistTriangInf1}). Un'implementazione efficiente della soluzione di un sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) è l'Algoritmo \ref{alg:trilow}, il quale risolve il problema in modo vettoriale e per colonne.
+\paragraph{Implementazione risolutore sistema lineare con A triangolare inferiore:} È possibile codificare la soluzione al sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) con l'Algoritmo \ref{alg:calcSistTriangInf}. Per accedere alla matrice per colonne è sufficiente scambiare i cicli (vedere Algoritmo \ref{alg:calcSistTriangInf1}). Un'implementazione efficiente della soluzione di un sistema triangolare inferiore (\ref{eq:soluzione_sistema_triangolare_inferiore}) è l'Algoritmo \ref{alg:trilow}, il quale risolve il problema in modo vettoriale per colonne.
 
 Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangInf} è un prodotto scalare (\textit{scal}). Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangInf1} è una \textit{axpy} (ovvero un'operazione del tipo vettore = scalare $\times$ vettore + vettore). Pertanto, è necessario osservare che il risultato di \textit{scal} e \textit{axpy} è simile ma non uguale, le operazioni sono diverse ed in arimetica finita l'errore si propaga.
 
@@ -178,12 +179,12 @@ Nel caso in cui $A$ sia triangolare superiore, ovvero
           & & & & a_{nn}
 \end{bmatrix},
 \end{equation*}
-con $\det(a)=\prod_{i=1}^n a_{ii}\neq 0\iff a_{ii}\neq 0,\, i = 1,\hdots, n$, il sistema di equazioni lineari (\ref{eq:sistema_equazioni_lineari}) è della forma
+con $\det(A)=\prod_{i=1}^n a_{ii}\neq 0\iff a_{ii}\neq 0,\, i = 1,\hdots, n$, il sistema di equazioni lineari (\ref{eq:sistema_equazioni_lineari}) è della forma
 \begin{equation*}
     \begin{matrix}
         a_{11} x_1 &+& a_{12} x_2 &+& \cdots &+& a_{1n} x_n &=& b_1\\
         && a_{22}x_2 &+& \cdots &+& a_{2n}x_n &=& b_2\\
-        && \ddots && && \vdots &\vdots& \vdots\\
+        && &\ddots& && \vdots &\vdots& \vdots\\
         && && && a_{nn}x_n &=& b_n
     \end{matrix}
 \end{equation*}
@@ -192,10 +193,10 @@ e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in 
     x_i=\frac{b_i-\overbrace{\sum_{j=i+1}^{i-1}a_{ij}x_j}^{\text{0 se $i=1$}}}{a_{ii}},\quad i=n, n-1, \hdots, 1.
 \end{equation}
 
-\paragraph{Implementazione della soluzione al sistema triangolare superiore:} La codifica di questo algoritmo (vedi Algoritmo  \ref{alg:calcSistTriangSup}) segue condiderazioni simili a quelle viste per il caso triangolare inferiore riguardo ai costi. Un'implementazione efficiente che risove un sistema triangolare superiore, in modo vettoriale e per colonne, è dato dall'Algoritmo \ref{alg:triu}.
+\paragraph{Implementazione della soluzione al sistema triangolare superiore:} La codifica di questo algoritmo (vedi Algoritmo  \ref{alg:soluzione_sistema_triangolare_superiore}) segue condiderazioni simili a quelle viste per il caso triangolare inferiore riguardo ai costi (vedere (\ref{eq:flops_soluzione_sistema_triangolare_superiore})). Un'implementazione efficiente che risove un sistema triangolare superiore, in modo vettoriale e per colonne, è dato dall'Algoritmo \ref{alg:triu}.
 
 \begin{algorithm}\caption{Sistema triangolare superiore.}
-\label{alg:calcSistTriangSup}
+\label{alg:soluzione_sistema_triangolare_superiore}
     \begin{lstlisting}[style=Matlab-editor]
     x = b
     for i = n : -1 : 1
@@ -208,7 +209,7 @@ e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in 
 \end{algorithm}
 
 \begin{algorithm}\caption{Sistema triangolare superiore con accesso per colonne.}
-\label{alg:calcSistTriangSup1}
+\label{alg:soluzione_sistema_triangolare_superiore_colonne}
     \begin{lstlisting}[style=Matlab-editor]
     x = b
     for j = n : -1 : 1
@@ -252,14 +253,14 @@ e gli elementi della soluzione possono essere ottenuti mediante sostituzioni in 
 	\end{lstlisting}
 \end{algorithm}
 
-\paragraph{Nota sul ciclo interno dell'Algoritmo \ref{alg:calcSistTriangSup}:} \footnote{Slide 3 PDF 2.}
+\paragraph{Nota sul ciclo interno dell'Algoritmo \ref{alg:soluzione_sistema_triangolare_superiore}:} \footnote{Slide 3 PDF 2.}
 Data (\ref{eq:solSistTriangSup}), invece di calcolare prima la sommatoria in un ciclo, sottrarla a $b_i$ e dividerla per $a_{ii},\, b_i-\sum_{j=i+1}^{i-1}a_{ij}x_j$ è calcolata nel seguente modo: $x(i)$ è aggiornato con il valore precedente sotratto allo scalare $a(i,j)*x(j)$, dove, per $i=n$, inizialmente $x(i)$ contiene $b(i)(=b(n))$ con $j$ che varia ed $i$ che rimane fisso. Inoltre è un prodotto scalare.
 
 Il relativo costo in termini di spazio e numero di operazioni è \textbf{identico} all'algoritmo del caso triangolare inferiore, ovvero rispettivamente $\frac{n^2}{2}$ e $n^2$. 
 
-L'Algoritmo \ref{alg:calcSistTriangSup} accede agli elementi della matrice $A$ \textbf{per righe}. È possibile ottenere la corrispendente versione che accede ad a \textbf{per colonne} scambiando l'ordine dei due cicli for (vedere Algoritmo \ref{alg:calcSistTriangSup1}).
+L'Algoritmo \ref{alg:soluzione_sistema_triangolare_superiore} accede agli elementi della matrice $A$ \textbf{per righe}. È possibile ottenere la corrispendente versione che accede ad a \textbf{per colonne} scambiando l'ordine dei due cicli for (vedere Algoritmo \ref{alg:soluzione_sistema_triangolare_superiore_colonne}).
 
-Il ciclo interno dell'Algoritmo \ref{alg:calcSistTriangSup1} è una \textit{axpy}.
+Il ciclo interno dell'Algoritmo \ref{alg:soluzione_sistema_triangolare_superiore_colonne} è una \textit{axpy}.
 
 \begin{remark}\footnote{Slide 4 PDF 2.}
     Una \textit{axpy} con vettori di lunghezza $n$ ha lo stesso costo di una \textit{scal} con vettori della stessa dimensione: $\boldsymbol{2n\, flops}$, dove 2 sono il numero di operazioni per ogni ciclo ed $n$ è il numero di cicli.
@@ -327,15 +328,15 @@ Pertanto, sono enunciate alcune importante proprietà (enunciati$\backslash$lemm
 		
 		for i = 1 : n
 		if L(i,i) == 0, error('Matrice singolare'), end
-		y(i) = y(i)/L(i,i);
-		y(i+1:n) = y(i+1:n) - L(i+1:n, i)*y(i):
+		 y(i) = y(i)/L(i,i);
+		 y(i+1:n) = y(i+1:n) - L(i+1:n, i)*y(i):
 		end
 		return
 	\end{lstlisting}
 \end{algorithm}
 
 \subsubsection{Caso \texorpdfstring{$\boldsymbol A$}{A} ortogonale}
-\begin{definition}
+\begin{definition}[Matrice Ortogonale]
     \footnote{Slide 6 PDF 2, PG 45.} $\boldsymbol A$ \textbf{è ortogonale se} $\boldsymbol{A^TA=AA^T=I.}$
 \end{definition}
 Pertanto, se $A$ è ortogonale, allora $A^{-1}=A^T.$ In questo caso, la soluzione a (\ref{eq:sistema_equazioni_lineari}) è data da $\uline x = A^T\uline b.$ Quindi il problema è risolto mediante un \textbf{prodotto matrice-vettore (\textit{matvec})}.
@@ -382,7 +383,7 @@ Pertanto, se $A$ è ortogonale, allora $A^{-1}=A^T.$ In questo caso, la soluzion
 %\vspace{5px}
 \hrule
 %\vspace{-7px}
-\paragraph{Metodi di fattorizzazione}\footnote{Slide 9-11 PDF 2, PG 46.} Nel caso in cui $A$ sia una generica matrice nonsingolare allora è utile che questa sia fattorizzata nel prodotto di un numero, $k$ (in genere $k=1,2$), di fattori $F_1,\, F_2,\,\hdots,\, F_k\in\mathbb R^{n\times n}$ semplici. Questo significa che:
+\paragraph{Metodi di fattorizzazione}\footnote{Slide 9-11 PDF 2, PG 46.} Nel caso in cui $A$ sia una generica matrice \gls{nonsingolare} allora è utile che questa sia fattorizzata nel prodotto di un numero, $k$ (in genere $k=1,2$), di fattori $F_1,\, F_2,\,\hdots,\, F_k\in\mathbb R^{n\times n}$ semplici. Questo significa che:
 \begin{enumerate}
     \item $A=F_1\cdots F_k;$
     \item $F_i\,\begin{cases}
@@ -419,18 +420,22 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
 
 \subsection{Fattorizzazione \texorpdfstring{$\boldsymbol{LU}$}{LU} di una matrice}
 \begin{definition}[Matrice fattorizzabile $LU$]\footnote{Slide 2 PDF 3, PG 47.}
-    Data $A$, matrice dei coefficienti del sistema (\ref{eq:sistema_equazioni_lineari}), questa è \textbf{fattorizzabile} $\boldsymbol{LU}$ rappresentabile nella forma
+    Data $A$, matrice dei coefficienti del sistema (\ref{eq:sistema_equazioni_lineari}), questa si dice \textbf{fattorizzabile} $\boldsymbol{LU}$ se rappresentabile nella forma
     \begin{equation}\label{eq:ALU}
         \boldsymbol{A=L\cdot U},
     \end{equation}
-    in cui:
+   con:
     \begin{itemize}
-        \item $\boldsymbol L$ è una matrice \textbf{triangolare inferiore a \ul{diagonale unitaria}}, ovvero: \footnote{$A$ è a diagonale uniaria se $\forall i=1,\hdots, n,\, a_{ii}=1$.}
+        \item $\boldsymbol L$ è una matrice \textbf{triangolare inferiore a \ul{diagonale unitaria}}, ovvero: 
         \begin{equation*}
             L=(l_{ij}),\, \boldsymbol{l_{ij}=0,\, j>i,\, \forall i,j=1,\hdots, n};
         \end{equation*}
-        \item $\boldsymbol U$ è \textbf{triangolare superiore}, ovvero $U=(u_{ij}),\, \boldsymbol{u_{ij}=0,\, i>j}$ (condizione restritiva).
+        \item $\boldsymbol U$ è \textbf{triangolare superiore}, ovvero $U=(u_{ij}),\, \boldsymbol{u_{ij}=0,\, i>j,\, \forall i,j=1,\hdots, n}$ (condizione restritiva).
     \end{itemize}
+\end{definition}
+
+\begin{definition}[Matrice a diagonale unitaria]
+	Si dice che $A\in\mathbb{R}^{n\times n}$ è a diagonale unitaria se $a_{ii}=1,\, \forall i=1,\hdots, n$.
 \end{definition}
 
 \begin{remark}\footnote{Slide 3 PDF 3.}
@@ -445,10 +450,14 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
 \end{remark}
 
 \begin{theorem}[Unicità della fattorizzazione $LU$]\footnote{Slide 3 PDF 3, Teorema 3.1 PG 47.}\label{th:unicita_fattorizzazione_LU}
-    Se $A$ è fattorizzabile $LU$ (ed è nonsingolare), la fattorizzazione è unica. 
+    Se $A$ è fattorizzabile $LU$ ed $A$ è \gls{nonsingolare} allora la fattorizzazione è unica. 
 \end{theorem}
 \begin{proof}
-    \footnote{Slide 4 PDF 3, PG 47. È importante per successive trattazioni.} Supposto $A=L\cdot U = L_1\cdot U_1,$ con:
+    \footnote{Slide 4 PDF 3, PG 47. È importante per successive trattazioni.} Supposto
+    \begin{equation}\label{eq:uguaglianza_dimostrazione_LU_unica}
+    	A=L\cdot U = L_1\cdot U_1,
+    \end{equation}
+     con:
     \begin{itemize}
         \item $L, L_1$ triangolari inferiori a diagonale unitaria;
         \item $U, U_1$ triangolari superiori.
@@ -459,40 +468,49 @@ Inoltre, è possibile osservare che non è necessario memorizzare tutte le soluz
     \end{equation*}
     Poiché
     \begin{equation*}
-        0\neq\det(A)=\det(L\cdot U)= \equaltoup{\det(L)}{1}\cdot \det(U)=\det(U),
+        0\neq\det(A)=\det(L\cdot U)= \overbrace{\det(L)}^{1}\cdot \det(U)=\det(U),
     \end{equation*}
-    è possibile affermare che $U$ è nonsingolare. In modo analogo $U_1$ è nonsingolare.
+    è possibile affermare che $U$ è \gls{nonsingolare}. In modo analogo $U_1$ è \gls{nonsingolare}.
 
-    Dall'uguaglianza $L\cdot U= L_1\cdot U_1$ è ottenuto, moltiplicando a sinistra, membro a membro, per $L_1^{-1}$ (a sinistra): 
+    \noindent Dall'uguaglianza (\ref{eq:uguaglianza_dimostrazione_LU_unica}) è ottenuto, moltiplicando a sinistra, membro a membro, per $L_1^{-1}$ è ottenuto
     \begin{equation*}
-        L_1^{-1}L\cdot U= \underbrace{L_1^{-1}L_1}_{I}\cdot U_1=U_1\longrightarrow L_1^{-1}L\cdot U= U_1.
+        L_1^{-1}L\cdot U= \underbrace{L_1^{-1}L_1}_{I}\cdot U_1 = U_1,
+    \end{equation*}
+    quindi
+    \begin{equation*}
+    	L_1^{-1}L\cdot U= U_1.
     \end{equation*}
 
-    Moltiplicando, da destra, membro a membro per $U^{-1}$ è ottenuto $\boldsymbol{L_1^{-1}L=}L_1^{-1}L\cdot \underbrace{U\cdot U^{-1}}_I= \boldsymbol{U_1U^{-1}}.$
+    \noindent Moltiplicando a destra, membro a membro, per $U^{-1}$ è ottenuto
+    \begin{equation*}
+    	\boldsymbol{L_1^{-1}L\cdot \underbrace{U\cdot U^{-1}}_I}=L_1^{-1}L\boldsymbol{=U_1U^{-1}}.
+    \end{equation*}
     
-    In conclusione: \begin{equation*}
+    \noindent In conclusione: \begin{equation*}
         \boldsymbol{L_1^{-1}L}=\boldsymbol{U_1U^{-1}}.
     \end{equation*}
     È possibile osservare che:
     \begin{itemize}
+    	\item \textbf{a primo membro}, $L_1$ è triangolare inferiore a diagonale unitaria allora $L_1^{-1}$ è triangolare inferiore a diagonale unitaria; poiché anche $L$ è triangolare inferiore a diagonale unitaria $\boldsymbol{L_1^{-1}L}$ \textbf{è triangolare inferiore a diagonale unitaria}.
         \item \textbf{a secondo membro}, $U$ è triangolare superiore, allora $U^{-1}$ è triangolare superiore; poiché anche $U_1$ è triangolare superiore, è possibile concludere che $\boldsymbol{U_1U^{-1}}$ \textbf{è triangolare superiore};
-        \item \textbf{a primo membro}, $L_1$ è triangolare inferiore a diagonale unitaria allora $L_1^{-1}$ è triangolare inferiore a diagonale unitaria; poiché anche $L$ è triangolare inferiore a diagonale unitaria $\boldsymbol{L_1^{-1}L}$ \textbf{è triangolare inferiore a diagonale unitaria}.
     \end{itemize}
     Da questo è concluso che $L_1^{-1}L=I=U_1U^{-1},$ ovvero:
     \begin{itemize}
         \item $L_1^{-1}L=I\Rightarrow L=L_1$,
         \item $U_1U^{-1}=I\Rightarrow U_1=U.$
     \end{itemize}
-    Quindi è provata l'unicità della fattorizzazione di una matrice nonsingolare.
+    Quindi è provata l'unicità della fattorizzazione di una matrice \gls{nonsingolare}.
 \end{proof}
 
-Rimane da stabilirne l'esistenza e per questo è definito quanto segue.
+Sono date le seguenti definizioni utili prima di stabilire quale sia la condizione di esistenza della fattorizzazione $LU$ (Teorema \ref{th:esistenza_fattorizzazione_LU}).
 
 \begin{remark}
     Affinché $A$ sia definita la fattorizzazione $LU\Rightarrow\det(U)\neq 0$.
 \end{remark}
 
-Al fine di definire un algoritmo per ottenere la fattorizzione $LU$ di $A$, è considerato il seguente problema: dato un vettore $\uline v\in\mathbb R^n$, è supposto di voler definire una matrice $\boldsymbol L\in\mathbb R^{n\times n}$ \textbf{triangolare inferiore a diagonale unitaria} tale che:
+\subsubsection{Algoritmo di fattorizzazione \texorpdfstring{$\boldsymbol{LU}$}{LU}}
+
+Al fine di definire un algoritmo per ottenere la fattorizzazione $LU$ di $A$, è considerato il seguente problema: dato un vettore $\uline v\in\mathbb R^n$, è supposto di voler definire una matrice $\boldsymbol {L\in\mathbb R^{n\times n}}$ \textbf{triangolare inferiore a diagonale unitaria} tale che:
 \begin{equation}\label{eq:Lv}
     L\uline v \equiv L\cdot \begin{bmatrix}
         v_1\\
@@ -702,7 +720,7 @@ tali che
     La procedura (\ref{eq:fattLU}) è definita s.se $a_{ii}^{(i)}\neq 0,\, i=1,\hdots, n.$
 \end{theorem}
 \begin{proof}
-    Se $A$ è nonsingolare, $U$ deve essere nonsingolare e, quindi, è necessario che $a_{nn}^{(n)}\neq 0$, oltre alle condizioni (\ref{eq:condDefElemGauss}).
+    Se $A$ è \gls{nonsingolare}, $U$ deve essere \gls{nonsingolare} e, quindi, è necessario che $a_{nn}^{(n)}\neq 0$, oltre alle condizioni (\ref{eq:condDefElemGauss}).
 \end{proof}
 
 \begin{remark}
@@ -808,16 +826,16 @@ Per trattare meglio l'esistenza della fattorizzazione $LU$, stabilita dal Teorem
     \end{itemize}
 \end{proof}
 
-Il Lemma precedente stabilisce che una matrice triangolare superiore è nonsingolare s.se tutti i suoi minori principali sono nonnulli. 
+Il Lemma precedente stabilisce che una matrice triangolare superiore è \gls{nonsingolare} s.se tutti i suoi minori principali sono nonnulli. 
 
-Finora è stato stabilito che se $A$ è nonsingolare, allora
+Finora è stato stabilito che se $A$ è \gls{nonsingolare}, allora
 \begin{equation}\label{eq:det(LU)neq0}
     A=LU \iff \det(U)\neq 0\iff \det(U_k)\neq 0,\quad \forall k=1,\hdots,n.
 \end{equation}
 
 \begin{lemma}
     \footnote{Slide 9 PDF 4, Lemma 3.6 PG 52.}
-    Se $A$ è nonsingolare ed $A=LU$, allora $\det(A_k)=\det(U_k),\, \forall k=1,\hdots, n.$
+    Se $A$ è \gls{nonsingolare} ed $A=LU$, allora $\det(A_k)=\det(U_k),\, \forall k=1,\hdots, n.$
 \end{lemma}
 \begin{proof}
     Siano $A=LU\in\mathbb R^{n\times n},\, I_k\in\mathbb R^{k\times k}$ e $O\in\mathbb R^{n-k\times k}$, segue che
@@ -859,8 +877,8 @@ Finora è stato stabilito che se $A$ è nonsingolare, allora
 
 Allora, unendo tutto, dalla (\ref{eq:det(LU)neq0}) segue il Teorema di esistenza della fattorizzazione $LU$.
 
-\begin{theorem}[Esistenza della fattorizzazione della fattorizzazione $LU$]\label{th:esistenza_fattorizzazione_LU}\footnote{Slide 10 PDF 4, Teorema 3.2 PG 52.}\label{th:esFattLU}
-    Sia $A\in\mathbb R^{n\times n}$ un matrice nonsingolare, allora:
+\begin{theorem}[Esistenza della fattorizzazione $LU$]\label{th:esistenza_fattorizzazione_LU}\footnote{Slide 10 PDF 4, Teorema 3.2 PG 52.}\label{th:esFattLU}
+    Sia $A\in\mathbb R^{n\times n}$ un matrice \gls{nonsingolare}, allora:
     \begin{equation*}
         A = LU \iff \det(A_k)\neq 0,\quad \forall k=1,\hdots, n.
     \end{equation*}
@@ -868,11 +886,7 @@ Allora, unendo tutto, dalla (\ref{eq:det(LU)neq0}) segue il Teorema di esistenza
 Ovvero: $A$ è fattorizzabile $LU$ s.se tutti i minori principali di $A$ sono non nulli.
 
 \begin{remark}
-    Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ nonsingolare), la quale sarà eriditata dalle sottomatrici di ordine $k$ di $A$. Nelle Sezioni \ref{ssec:matrici_diagonale_dominante} e \ref{ssec:matrSDPFattLDL} sarà visto come non è restittiva per le classi trattate, per le quali:
-    \begin{itemize}
-        \item la nonsingolarità di $A$ deriva da una sua specifica proprietà strutturale;
-        \item la proprietà di essere fattorizzabile $LU$ è goduta da tutte le sue sottomatrici principali, le quali sono nonsingolari.
-    \end{itemize}
+    Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ \gls{nonsingolare}), la quale sarà ereditata dalle sottomatrici di ordine $k$ di $A$.
 \end{remark}
 
 \subsection{Costo computazionale}
@@ -894,7 +908,7 @@ Tuttavia:
 \end{itemize}
 
 Pertanto, saranno processate solo le ultime $(n-i)$ righe e colonne di $A^{(i)}$, svolgendo 2 operazioni per componente, per un totale di $2(n-i)^2$ flops e, sommando gli $n-1$ passi, è ottenuto:
-\begin{equation}\label{eq:costoFattLU}
+\begin{equation}\label{eq:costo_fattorizzazione_LU}
     2\sum_{i=1}^{n-1}(n-i)^2=2\sum_{i=1}^{n-1}i^2\overset{\footnotemark}{\approx}\boldsymbol{\frac{2}{3}n^3}\text{ \textbf{flops}.}
 \end{equation}
 \footnotetext{Utilizzando la somma notevole $\sum_{i=1}^ni^2=\frac{n(n+1)(2n+1)}{6}\Rightarrow\sum_{i=1}^{n-1}i^2=\frac{(n-1)(n-1+1)((2n-1)+1)}{6}=\frac{(n-1)n(2n-1)}{6}$}
@@ -917,6 +931,11 @@ La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \re
 \end{algorithm}
 
 \subsection{Matrici a diagonale dominante}\label{ssec:matrici_diagonale_dominante}
+In questa Sezione e nella \ref{ssec:matrice_SDP_fattorizzabile_LDL} sarà visto come matrici delle classi trattate soddisfino il Teorema \ref{th:esistenza_fattorizzazione_LU} di Esistenza della fattorizzazione $LU$. Il fatto che valga il Teorema è dovuto da quanto segue:
+\begin{itemize}
+	\item la nonsingolarità di $A$ deriva da una sua specifica proprietà strutturale;
+	\item la proprietà di essere fattorizzabile $LU$ è goduta da tutte le sue sottomatrici principali, le quali sono nonsingolari.
+\end{itemize}
 \begin{definition}[Matrice diagonale dominante]\label{def:matrice_diagonale_dominante}\footnote{Slide 3 PDF 5, Definizione 3.2 PG 55.}
     Sia $A=(a_{ij})\in\mathbb R^{n\times n}$, questa è
     \begin{itemize}
@@ -987,7 +1006,7 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
 
 Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero $A$ \textit{d.d.} $\Rightarrow\forall k=1,\hdots,n:A_k$ \textit{d.d.} $\Rightarrow \boldsymbol{A=LU}$ \textbf{se vale il seguente risulato}:
 \begin{theorem}\label{th:matrice_diagonale_dominante_nonsingolare}\footnote{Slide 5 PDF 5, Lemma 3.9 PG 55.}
-    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ nonsingolare ($\rightarrow A$ è fattorizzabile $LU$).
+    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ \gls{nonsingolare} ($\rightarrow A$ è fattorizzabile $LU$).
 \end{theorem}
 \begin{proof}
     È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:AddSSeATDD}). Per assurdo, inoltre, è assunto che $A$ sia singolare $\Rightarrow\exists\,\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
@@ -1011,7 +1030,7 @@ Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero 
     \begin{equation*}
         |a_{kk}|=\left|\sum_{j=1,\, j\neq k}^n a_{kj}x_j\right|\leq \sum_{j=1,\, j\neq k}^n |a_{kj}|\underbrace{|x_j|}_{\leq 1}\leq \sum_{j=1,\, j\neq k}^n |a_{kj}|.
     \end{equation*}
-    Questo contraddice l'ipotesi che $A$ sia \textit{d.d.} per righe. L'assurdo è aver assunto che $A$ fosse singolare, è concluso che $A$ deve essere nonsingolare.
+    Questo contraddice l'ipotesi che $A$ sia \textit{d.d.} per righe. L'assurdo è aver assunto che $A$ fosse singolare, è concluso che $A$ deve essere \gls{nonsingolare}.
 \end{proof}
 
 \addtocounter{footnote}{-1}
@@ -1038,7 +1057,7 @@ Il Corollario \ref{cor:matrice_diagonale_dominante_LU} è derivato dai Teoremi \
 	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ è d.d. $\Rightarrow A=LU$.
 \end{enumerate}
 
-\subsection{Matrici Simmetriche e Definite Positive}\label{ssec:matrSDPFattLDL}\footnote{Slide 7-12 PDF 5, 6.}
+\subsection{Matrici Simmetriche e Definite Positive}\label{ssec:matrice_SDP_fattorizzabile_LDL}\footnote{Slide 7-12 PDF 5, 6.}
 \begin{definition}
     Sia $A\in\mathbb R^{n\times n}$, questa è simmetrica e definita positiva \textbf{(\textit{sdp})} se:
     \begin{itemize}
@@ -1071,13 +1090,13 @@ $\begin{pmatrix}
 
 \paragraph{Intermezzo:}{$\left[\begin{rcases}
     \Vrightarrow{A\text{ \textit{sdp}}}{}\iff A_k\text{ \textit{sdp}}, \forall k=1,\hdots,n\\
-    A\text{ nonsingolare}
+    A\text{ \gls{nonsingolare}}
 \end{rcases}\overset{\footnotemark}{\Rightarrow} A=LU\right]$}
 
 \footnotetext{Da $\Rightarrow$ e $\iff$.}
 
 \begin{theorem}\label{th:matrSDPNonSing}
-    $A$ \textit{sdp} $\Rightarrow A$ nonsingolare.
+    $A$ \textit{sdp} $\Rightarrow A$ \gls{nonsingolare}.
 \end{theorem}
 \begin{proof}
     Se, per assurdo, $A$ fosse singolare, allora $\exists\, \uline x\in\mathbb R^n\backslash\{\uline 0\}: A\uline x\neq \uline 0 \Rightarrow \uline x^T A \uline x = \uline x^T\uline 0 = 0,$ il che contraddice il fatto che $A$ sia definita positiva. Pertanto, $A$ è non singolare.
@@ -1210,7 +1229,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
         \begin{equation*}
             \uline x^T A \uline x = \underbrace{\left(\uline x^TL\right)}_{\boldsymbol{\uline y^T}}D\overbrace{\left(L^T\uline x\right)}^{\uline y}>0.
         \end{equation*}
-        Se $\uline y=L^T\uline x\in\mathbb R^n,$ allora $\uline y\neq \uline 0$ perché $L^T$ è nonsingolare. Inoltre:
+        Se $\uline y=L^T\uline x\in\mathbb R^n,$ allora $\uline y\neq \uline 0$ perché $L^T$ è \gls{nonsingolare}. Inoltre:
         \begin{equation*}
             \uline x^TA\uline x=\uline y^TD\uline y=\sum_{i=1}^n d_iy_i^2,
         \end{equation*}
@@ -1255,7 +1274,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
           \end{bmatrix}\overset{\footnotemark}{\Rightarrow} d_i>0,\; \forall i = 1,\hdots,n.
         \end{equation*}
         
-        Fissato un generico $i\in\{1,\hdots, n\},\, \exists!\, \uline x\in\mathbb R^n:\boldsymbol{L^T\uline x=\uline e_i}$, l'$i$-esimo versore di $\mathbb R^n.$  Essendo $L$ nonsingolare, è evidente che $\uline x \neq \uline 0$.
+        Fissato un generico $i\in\{1,\hdots, n\},\, \exists!\, \uline x\in\mathbb R^n:\boldsymbol{L^T\uline x=\uline e_i}$, l'$i$-esimo versore di $\mathbb R^n.$  Essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$.
         
         Pertanto, è ottenuto:
         \begin{equation*}
@@ -1276,7 +1295,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
 \end{remark}
 
 \begin{theorem}
-	Se $B$ è nonsingolare allora $A=B^TB$ è una matrice sdp.
+	Se $B$ è \gls{nonsingolare} allora $A=B^TB$ è una matrice sdp.
 \end{theorem}
 \begin{proof}
 	Se $A=B^TB$ allora
@@ -1383,13 +1402,13 @@ Quindi $\boldsymbol{a_{ij}=\sum_{k=1}^jl_{ik}l_{jk}d_k},\,j=1,\hdots, n,\,i=j,\h
 
 I precedenti $v_k$ non sono ricalcolati più volte perché sono lo stesso elemento, in sommatorie diverse.
 
-Al fine di valutare il costo computazionale è implementato l'Algoritmo \ref{alg:fattLDL}, il quale implementa il precedente algoritmo di fattorizzazione $LDL^T$.
+Al fine di valutare il costo computazionale è implementato l'Algoritmo \ref{alg:fattorizzazione_LDL}, il quale implementa il precedente algoritmo di fattorizzazione $LDL^T$.
 
-Il costo principale dell'Algoritmo \ref{alg:fattLDL}, per ogni iterazione, è il termine A(j+1:n, 1:j-1)*v (ultima riga utile). Questo termine rende quadratico l'algoritmo, è un prodotto matrice-vettore, con una matrice $(n-j)\times (j-1)$ e rappresenta $\sum_{k=1}^{j-1}l_{ik}\left(l_{jk}dk\right),\, \forall i=j+1,\hdots,n.$
+Il costo principale dell'Algoritmo \ref{alg:fattorizzazione_LDL}, per ogni iterazione, è il termine A(j+1:n, 1:j-1)*v (ultima riga utile). Questo termine rende quadratico l'algoritmo, è un prodotto matrice-vettore, con una matrice $(n-j)\times (j-1)$ e rappresenta $\sum_{k=1}^{j-1}l_{ik}\left(l_{jk}dk\right),\, \forall i=j+1,\hdots,n.$
 
 \begin{algorithm}
 \caption{Fattorizzazione $LDL^T$ di una matrice (implementa le formule (\ref{eq:d_j,l_ij})).}
-\label{alg:fattLDL}
+\label{alg:fattorizzazione_LDL}
     \begin{lstlisting}[style=Matlab-editor]
         %A e' la matrice n*n in ingresso. La parte triangolare inferiore di questa contiene l'informazione dei fattori L e D
         for j = 1 : n %passi della fattorizzazione
@@ -1403,15 +1422,15 @@ Il costo principale dell'Algoritmo \ref{alg:fattLDL}, per ogni iterazione, è il
     \end{lstlisting}
 \end{algorithm}
 
-È possibile dimostrare che il costo dell'Algoritmo \ref{alg:fattLDL}, considerando $2(nj-j^2+j)\approx 2(nj-j^2)$ \textit{flops} da sommare $n$ volte, sia:
+È possibile dimostrare che il costo dell'Algoritmo \ref{alg:fattorizzazione_LDL}, considerando $2(nj-j^2+j)\approx 2(nj-j^2)$ \textit{flops} da sommare $n$ volte, sia:
 \begin{equation}
    \boldsymbol{2\sum_{j=1}^n(n_j-j^2)}=2n\sum_{j=1}^n j - 2\sum_{j=1}^n j^2\approx \cancel{2}n \frac{n^2}{\cancel{2}} - \cancel{2}\frac{2n^3}{\underset{3}{\cancel{6}}}=n^3-\frac{2}{3}n^3=\boldsymbol{\frac{1}{3}n^3\; flops}.
 \end{equation}
 
-Pertanto, il costo computazionale è dimezzato rispetto a quello della fattorizzazione $LU$ classica (vedere (\ref{eq:costoFattLU})).
+Pertanto, il costo computazionale è dimezzato rispetto a quello della fattorizzazione $LU$ classica (vedere (\ref{eq:costo_fattorizzazione_LU})).
 
 \begin{remark}
-    Applicando quanto scritto per ridurre la memoria occupata, l'Algoritmo \ref{alg:fattLDL} riscrive la porzione triangolare inferiore di $A$ come segue:
+    Applicando quanto scritto per ridurre la memoria occupata, l'Algoritmo \ref{alg:fattorizzazione_LDL} riscrive la porzione triangolare inferiore di $A$ come segue:
     \begin{equation*}
         A=
         \begin{bmatrix}
@@ -1512,7 +1531,7 @@ Per la soluzione dei sistemi lineari (\ref{eq:sistLinLDL}) è possibile utilizza
     \end{lstlisting}
 \end{algorithm}
 
-\paragraph{Raffinatezza Algoritmo \ref{alg:LUfatt}:} Il fatto che A sia nonsingolare garantisce che, facendo il ciclo, anche l'ultimo elemento del fattore $LU$ sia diverso da 0.
+\paragraph{Raffinatezza Algoritmo \ref{alg:LUfatt}:} Il fatto che A sia \gls{nonsingolare} garantisce che, facendo il ciclo, anche l'ultimo elemento del fattore $LU$ sia diverso da 0.
 
 \paragraph{Errore da non fare nell'implementazione della fattorizzazione $LU$:} calcolare il determinante della matrice da fattorizzare e controllare che questo sia diverso da 0. Matlab, per calcolare il determinante, utilizza la fattorizzazione $LU$ e calcola il determinante come prodotto degli elementi sulla diagonale. Il controllo sul determinante costa quanto la fattorizzazione della \textit{function}.
 
@@ -1640,7 +1659,7 @@ Questo metodo consente di risolvere un sistema lineare,
 \end{equation*}
 con una propagazione dell'errore minore rispetto alla fattorizzazione $LU$ classica. %, soprattutto se $A$ è \textit{d.d.} o \textit{sdp}.
 
-È utilizzata la stessa notazione dell'algoritmo di eliminazione di Gauss, (\ref{eq:A1}). Quindi, se $A$ è nonsingolare, allora vi è sicuramente un elemento nonnullo nella sua prima colonna. Pertanto, è ricercato
+È utilizzata la stessa notazione dell'algoritmo di eliminazione di Gauss, (\ref{eq:A1}). Quindi, se $A$ è \gls{nonsingolare}, allora vi è sicuramente un elemento nonnullo nella sua prima colonna. Pertanto, è ricercato
 \begin{equation*}
     \boldsymbol{\left|a_{k_11}^{(1)}\right|=\underset{k=1,\hdots,n}{\max}\left|a_{k1}^{(1)}\right|}\overset{\footnotemark}{\boldsymbol >}\boldsymbol 0,
 \end{equation*}
@@ -1842,12 +1861,12 @@ Quindi, ponendo
 \end{equation*}
 Questo dimostra il seguente Teorema:
 \begin{theorem}\label{th:fattLUPerm}\footnotemark
-    Se $A$ è nonsingolare, allora $\exists P$ matrice di permutazione, tale che:
+    Se $A$ è \gls{nonsingolare}, allora $\exists P$ matrice di permutazione, tale che:
     \begin{equation}\label{eq:PA=LU}
         P\cdot A = LU.
     \end{equation}
 \end{theorem}
-\footnotetext{Slide 8 PDF 8, TH 3.7 PG 63. Sul libro il Teorema \ref{th:fattLUPerm} è come segue: Se $A$ è una matrice nonsingolare, allora esiste una matrice di permutazione $P$ tale che $PA$ è fattorizzabile $LU$.}
+\footnotetext{Slide 8 PDF 8, TH 3.7 PG 63. Sul libro il Teorema \ref{th:fattLUPerm} è come segue: Se $A$ è una matrice \gls{nonsingolare}, allora esiste una matrice di permutazione $P$ tale che $PA$ è fattorizzabile $LU$.}
 
 Il significato del Teorema è il seguente: se $A$ non è fattorizzabile $LU$ allora, per una permutazione, può diventarlo.
 
@@ -2042,7 +2061,7 @@ Calcolando in $\varepsilon=0$, ricordando che $x(0)=x$ e $A(0)=A$, è ottenuto:
 \begin{equation*}
     F\cdot x + A \dot x(0) = f \Rightarrow \underset{\footnotemark}{A} \dot x(0) = f - Fx\Rightarrow \dot x(0) = A^{-1}(f - Fx),
 \end{equation*}
-\footnotetext{$A$ nonsingolare, se fosse singolare allora il problema sarebbe mal posto.}
+\footnotetext{$A$ \gls{nonsingolare}, se fosse singolare allora il problema sarebbe mal posto.}
 
 moltiplicando per $\varepsilon$ membro a membro, è ottenuto:
 \begin{equation}
@@ -2222,7 +2241,7 @@ Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistema_lineare_
     Data $A\in\mathbb R^{m\times n}$ (definita come in (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) allora esistono
     \begin{enumerate}
         \item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale},
-        \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e nonsingolare},
+        \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e \gls{nonsingolare}},
     \end{enumerate}
     tali che, data $R =
     \begin{bmatrix}
@@ -2297,7 +2316,7 @@ Scegliendo $\boldsymbol{\uline x}$ \textbf{come soluzione del sistema lineare},
 \begin{equation}\label{eq:Rx=g1}
     \boldsymbol{\widehat R\uline x=\uline g_1},
 \end{equation}
-il quale ammette soluzione, e questa è unica, essendo $\boldsymbol{\widehat R}$ \textbf{nonsingolare}. Inoltre, il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore}.
+il quale ammette soluzione, e questa è unica, essendo $\boldsymbol{\widehat R}$ \textbf{\gls{nonsingolare}}. Inoltre, il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore}.
 
 \begin{theorem}\footnote{Slide 9 PDF 10.}
     Se $A\in\mathbb R^{m\times n},\; m>n=\rank(A)$, la soluzione ai minimi quadrati (Definizione \ref{def:soluzione_minimi_quadrati}) del sistema lineare $A\uline x=\uline b$ (del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) \textbf{esiste ed è unica}.
@@ -2726,21 +2745,19 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
 \footnotetext{Calcolata solo una volta, ovvero nell'approssimazione iniziale $x_0$.}
 
 \subsection{Intermezzi (Appendice A.1)}
-\begin{remark}\label{re:diagonali}\footnote{Slide 6 PDF 1. Questa osservazione serve per le matrici grandi e quindi con molti elementi nulli. Gli elementi diversi da 0 sono sulla diagonale. Per salvare qual è la diagonale corretta, ovvero quella sulla quale sono presenti i numeri, è possibile utilizzare gli indici $j-i$ per salvare l'indice della diagonale: in questo caso è necessario un offset per individuare qual è la diagonale giusta.}
+\begin{remark}\label{rem:diagonali}\footnote{Slide 6 PDF 1.}
 	Data
-    \begin{equation}
+    \begin{equation*}
         A=\begin{bmatrix}
             a_{11} & a_{12} & a_{13} & a_{14}\\
             a_{21} & a_{22} & a_{23} & a_{24}\\
             a_{31} & a_{32} & a_{33} & a_{34}\\
             a_{41} & a_{42} & a_{43} & a_{44}\\
         \end{bmatrix}
-    \end{equation}
+    \end{equation*}
     allora $(a_{11},\, a_{22},\, a_{33},\, a_{44})$ è la diagonale principale, $(a_{12},\, a_{23},\, a_{34})$ è la prima sopradiagonale, $(a_{21},\, a_{32},\, a_{43})$ è la prima sottodiagonale, $(a_{13},\, a_{24})$ è la seconda sopradiagonale,  $(a_{31},\, a_{42})$ è la seconda sottodiagonale, $(a_{14})$ è la terza sopradiagonale e $(a_{41})$ è la terza sottodiagonale. 
-\end{remark}
-
-\begin{example}
-    Dato un generico elemento $a_{ij}\in A$, si verificano le seguenti differenze: 
+	
+	\noindent Quindi, dato un generico elemento $a_{ij}\in A$, si verificano le seguenti differenze: 
     \begin{equation*}
         j-i=\begin{cases}
         k, &\text{sulla $k$-esima sopradiagonale};\\
@@ -2748,7 +2765,8 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
         -k, &\text{sulla $k$-esima sottodiagonale};
     \end{cases}
     \end{equation*}
-\end{example}
+    Pertanto, per matrici molto grandi e con molti elementi nulli, è possibile memorizzare gli elementi non nulli su una  diagonale e salvare l'offset $j-i$ della diagonale sulla quale sono gli elementi non nulli.
+\end{remark}
 
 \subsubsection{Norme su vettori}\label{sssec:normVett}
 \begin{definition}\footnote{Slide 15 PDF 9, PG 136-139.}
