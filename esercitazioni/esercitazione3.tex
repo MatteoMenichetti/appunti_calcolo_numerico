@@ -80,7 +80,7 @@ Valgono le seguenti proprietà:
          |a_{ii}|>\sum_{j\neq i, j=1}^n|a_{ij}|\geq \sum_{j\neq i, j=1}^k|a_{ij}|,
     \end{equation*}
     ovvero, $A_k$ è diagonale d.d. per righe. Analogamente per $A$ d.d. per colonne.\qed
-    \item[\textbf{P3)}] Se $A$ è d.d. per righe (o per colonne), allora $A$ è non singolare. Infatti, se $A$ fosse singolare, esisterebbe $\uline{x}\in\mathbb R^n,\, x\neq 0\,:\, A\uline{x}=\uline 0$. Questa equazione vale per ogni multiplo di $\uline x$ quindi è possibile normalizzare $\uline x$ in modo che $x_k=\underset{i=1,\hdots,n}{\max}|x_i|=1$. Pertanto, la $k$-esima equazione di $A\uline x=\uline 0$ diviene: $\sum_{j=1}^na_{kj}x_j=0.$ Da questo segue che $a_{kk}\,x_k=-\sum_{j=1,j\neq k}^n a_{kj}x_j.$ Pertanto:
+    \item[\textbf{P3)}] Se $A$ è d.d. per righe (o per colonne), allora $A$ è non singolare. Infatti, se $A$ fosse \gls{singolare} esisterebbe $\uline{x}\in\mathbb R^n,\, x\neq 0\,:\, A\uline{x}=\uline 0$. Questa equazione vale per ogni multiplo di $\uline x$ quindi è possibile normalizzare $\uline x$ in modo che $x_k=\underset{i=1,\hdots,n}{\max}|x_i|=1$. Pertanto, la $k$-esima equazione di $A\uline x=\uline 0$ diviene: $\sum_{j=1}^na_{kj}x_j=0.$ Da questo segue che $a_{kk}\,x_k=-\sum_{j=1,j\neq k}^n a_{kj}x_j.$ Pertanto:
     \begin{equation*}
         |a_{kk}|=|a_{kk}x_k|=\left|\sum_{j=1,j\neq k}^n a_{kj}x_j\right|\leq\sum_{j=1,j\neq k}^n |a_{kj}|\cdot\underbrace{|x_j|}_{\leq 1}\leq\sum_{j=1,j\neq k}^n |a_{kj}|,
     \end{equation*}
@@ -105,7 +105,7 @@ Per dimostrare che, se $A$ è sdp, allora $A=LU$, sarà dimostrato che:
     \item $A$ sdp $\Rightarrow A$ è nonsingolare.
 \end{enumerate}
 
-\noindent Riguardo la 2), se $A$ non fosse singolare, allora $\exists\,\uline x\in\mathbb R^n\backslash\{\uline 0\}\, : \, A\uline x=\uline 0\Rightarrow\uline x^T A \uline x = 0,$ contraddicendo la definita positiva di A.
+\noindent Riguardo la 2), se $A$ non fosse \gls{singolare}, allora $\exists\,\uline x\in\mathbb R^n\backslash\{\uline 0\}\, : \, A\uline x=\uline 0\Rightarrow\uline x^T A \uline x = 0,$ contraddicendo la definita positiva di A.
 Pertanto, $A$ è nonsingolare.
 
 \noindent Riguardo la 1): 
@@ -345,7 +345,7 @@ Ovvero, la fattorizzazione $LU$ è unica.
 \begin{enumerate}
 	\item $A$ d.d. per righe s.se $A^T$ d.d. per colonne;
 	\item $A$ d.d. s.se $\forall k=1,\hdots, n,\, A_k$ d.d., essendo $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
-	\item $A$ d.d. allora $\det(A)\neq 0$. Infatti, supponiamo che $A$ sia diagonale dominante per righe (altrimenti considero $A^T$). Se fosse $A$ singolare allora $\exists \uline x\in\mathbb{R}^m,\, (x_1,\hdots, x_n)^T\equiv \uline x \neq 0\,\colon\, A\uline x = \uline 0$. Poiche' questo vale per ogni multiplo scalare di $\uline x$, è possibile assumere che $x_k=1=\underset{i=1,\hdots, n}{\max}|x_i|$. Se scriviamo la $k$-esima equazione di $A\uline x=\uline 0$ è ottenuto:
+	\item $A$ d.d. allora $\det(A)\neq 0$. Infatti, supponiamo che $A$ sia diagonale dominante per righe (altrimenti considero $A^T$). Se fosse $A$ \gls{singolare} allora $\exists \uline x\in\mathbb{R}^m,\, (x_1,\hdots, x_n)^T\equiv \uline x \neq 0\,\colon\, A\uline x = \uline 0$. Poiche' questo vale per ogni multiplo scalare di $\uline x$, è possibile assumere che $x_k=1=\underset{i=1,\hdots, n}{\max}|x_i|$. Se scriviamo la $k$-esima equazione di $A\uline x=\uline 0$ è ottenuto:
 	\begin{equation*}
 		\begin{matrix}
 			\sum_{j=1}^{n}a_{kj} x_j=0 &\Rightarrow& a_{kk}x_k = -\sum_{\underset{j\neq k}{j=1}}^{n}a_{kj} x_j && \\\\

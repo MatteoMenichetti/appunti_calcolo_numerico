@@ -16,7 +16,7 @@ Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incog
 La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
 
 \begin{definition}[Matrice singolare]\label{def:matrice_singolare}
-	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è singolare se $\rank(A)\neq n$ (\textbf{quindi} $\boldsymbol{\det(A) = 0}$).
+	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è \gls{singolare} se $\rank(A)\neq n$ (\textbf{quindi} $\boldsymbol{\det(A) = 0}$).
 \end{definition}
 
 \begin{remark}
@@ -820,7 +820,7 @@ La soluzione di un sistema lineare con $A=LU$ è implementata nell'Algoritmo \re
 \subsubsection{Esistenza della Fattorizzazione \texorpdfstring{$\boldsymbol{LU}$}{LU}}
 Per trattare meglio l'esistenza della fattorizzazione $LU$, stabilita dal Teorema \ref{th:condDefFattLU}, occorre qualche definizione.
 
-\begin{definition}[Sottomatrice principale di ordine]\footnote{Slide 7 PDF 4, Definizione 3.1 PG 51.}
+\begin{definition}[Sottomatrice principale di ordine $\boldsymbol{k}$]\footnote{Slide 7 PDF 4, Definizione 3.1 PG 51.}
     Sia
     \begin{equation}
         A=
@@ -830,7 +830,7 @@ Per trattare meglio l'esistenza della fattorizzazione $LU$, stabilita dal Teorem
             a_{n1} & \hdots & a_{nn}
         \end{bmatrix}\in\mathbb R^{n\times n}.
     \end{equation}
-    È definita \textbf{sottomatrice principale di ordine} $\boldsymbol k$ di A:
+    È definita \textbf{sottomatrice principale di ordine} $\boldsymbol k$ di A
     \begin{equation}
         \boldsymbol{A_k=}
         \begin{bmatrix}
@@ -839,7 +839,7 @@ Per trattare meglio l'esistenza della fattorizzazione $LU$, stabilita dal Teorem
             a_{k1} & \hdots & a_{kk}
         \end{bmatrix}\in\mathbb R^{k\times k}.
     \end{equation}
-    $\boldsymbol{\det(A_k)}$ è chiamato \textbf{minore principale di ordine} $\boldsymbol k$.
+    Inoltre, $\boldsymbol{\det(A_k)}$ è chiamato \textbf{minore principale di ordine} $\boldsymbol k$.
 \end{definition}
 
 \begin{remark}
@@ -919,7 +919,7 @@ Finora è stato stabilito che se $A$ è \gls{nonsingolare}, allora
 
 Allora, unendo tutto, dalla (\ref{eq:det(LU)neq0}) segue il Teorema di esistenza della fattorizzazione $LU$.
 
-\begin{theorem}[Esistenza della fattorizzazione $LU$]\label{th:esistenza_fattorizzazione_LU}\footnote{Slide 10 PDF 4, Teorema 3.2 PG 52.}\label{th:esFattLU}
+\begin{theorem}[Esistenza della fattorizzazione $LU$]\label{th:esistenza_fattorizzazione_LU}\footnote{Slide 10 PDF 4, Teorema 3.2 PG 52.}
     Sia $A\in\mathbb R^{n\times n}$ un matrice \gls{nonsingolare}, allora:
     \begin{equation*}
         A = LU \iff \det(A_k)\neq 0,\quad \forall k=1,\hdots, n.
@@ -928,11 +928,11 @@ Allora, unendo tutto, dalla (\ref{eq:det(LU)neq0}) segue il Teorema di esistenza
 Ovvero: $A$ è fattorizzabile $LU$ s.se tutti i minori principali di $A$ sono non nulli.
 
 \begin{remark}
-    Il Teorema \ref{th:esFattLU} è una proprietà restrittiva ($A$ \gls{nonsingolare}), la quale sarà ereditata dalle sottomatrici di ordine $k$ di $A$.
+    Il Teorema \ref{th:esistenza_fattorizzazione_LU} è una proprietà restrittiva per l'ipotesi che $A$ sia \gls{nonsingolare}), ovvero che solo il minore principale di ordine massimo sia non nullo.
 \end{remark}
 
 \subsection{Matrici a diagonale dominante}\label{ssec:matrici_diagonale_dominante}
-In questa Sezione e nella \ref{ssec:matrice_SDP_fattorizzabile_LDL} sarà visto come matrici delle classi trattate soddisfino il Teorema \ref{th:esistenza_fattorizzazione_LU} di Esistenza della fattorizzazione $LU$. Il fatto che valga il Teorema è dovuto da quanto segue:
+In questa Sezione e nella Sezione \ref{ssec:matrice_SDP_fattorizzabile_LDL} sarà visto come le matrici delle classi trattate (matrici dd e sdp) soddisfino il Teorema \ref{th:esistenza_fattorizzazione_LU} di Esistenza della fattorizzazione $LU$ e quindi le matrici \textit{dd} e \textit{sdp} sono fattorizzabili $LU$. Il fatto che valga il Teorema è dovuto da quanto segue:
 \begin{itemize}
 	\item la nonsingolarità di $A$ deriva da una sua specifica proprietà strutturale;
 	\item la proprietà di essere fattorizzabile $LU$ è goduta da tutte le sue sottomatrici principali, le quali sono nonsingolari.
@@ -984,78 +984,82 @@ In questa Sezione e nella \ref{ssec:matrice_SDP_fattorizzabile_LDL} sarà visto 
     \end{itemize}
 \end{example}
 
-È necessario ricordare che la famiglia di matrici \textit{d.d.} e \textit{sdp} soddisfano le ipostesi del Teorema \ref{th:esFattLU} e, pertanto, sono fattorizzabili $LU$.
-
 Valgono le seguenti proprietà delle matrici diagonali dominanti.
-\begin{theorem}\label{th:AddSSeATDD}\footnote{Slide 4 PDF 5, Lemma 3.8 PG 55.}
-    $A$ è \textit{d.d.} per righe s.se $A^T$ è \textit{d.d.} per colonne. Rispettivamente per il caso opposto.
+\begin{theorem}\label{th:A_dd_sse_AT_dd}\footnote{Slide 4 PDF 5, Lemma 3.8 PG 55.}
+    Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} per righe s.se $A^T$ è \textit{d.d.} per colonne. Rispettivamente per il caso opposto.
 \end{theorem}
 
-\begin{theorem}\label{th:matrDDsseSottoMatrDD}\footnote{Slide 4 PDF 5, Lemma 3.7 PG 55.}
-    $A$ è \textit{d.d.} per righe ($\backslash$ colonne), s.se $\forall k=1,\hdots,n:A_k$ è \textit{d.d.} per righe ($\backslash$ colonne).
+\begin{theorem}\label{th:matrice_DD_sse_ogni_sottomatrice_DD}\footnote{Slide 4 PDF 5, Lemma 3.7 PG 55.}
+    $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} per righe ($\backslash$ colonne) s.se $A_k$ è \textit{d.d.} per righe ($\backslash$ colonne) $\forall k=1,\hdots,n$.
 \end{theorem}
 \begin{proof}
     È trattato il caso per righe, il caso per colonne è analogo.
     \begin{itemize}
         \item [$\Leftarrow$] ovvio (se $k=n\Rightarrow A_k=A$);
-        \item[$\Rightarrow$] $A$ \textit{d.d.} per righe $\iff \forall i = 1,\hdots,n: |a_{ii}|>\sum_{j=1, j\neq i}^n|a_{ij}|\Rightarrow$ per un generico $k\in\{1,\hdots,n\}$:
+        \item[$\Rightarrow$] se $A$ \textit{d.d.} per righe allora, per un generico $k\in\{1,\hdots,n\}$:
         \begin{equation*}
-            \forall i= 1,\hdots, k: |a_{ii}|> \sum_{j=1, j\neq i}^n|a_{ij}|\geq \sum_{j=1,j\neq i}^k|a_{ij}|\iff A_k\text{ è \textit{d.d.} per righe.}
+            \forall i= 1,\hdots, k: |a_{ii}|> \sum_{\underset{j\neq i}{j=1}}^n|a_{ij}|\geq \sum_{\underset{j\neq i}{j=1}}^k|a_{ij}|\iff A_k\text{ è \textit{d.d.} per righe.}
         \end{equation*}
     \end{itemize}
 \end{proof}
 
-Se $A$ è una matrice diagonale dominante allora è fattorizzabile $LU$, ovvero $A$ \textit{d.d.} $\Rightarrow\forall k=1,\hdots,n:A_k$ \textit{d.d.} $\Rightarrow \boldsymbol{A=LU}$ \textbf{se vale il seguente risulato}:
 \begin{theorem}\label{th:matrice_diagonale_dominante_nonsingolare}\footnote{Slide 5 PDF 5, Lemma 3.9 PG 55.}
-    $A$ \textit{d.d.} (per righe o per colonne) $\Rightarrow A$ \gls{nonsingolare} ($\rightarrow A$ è fattorizzabile $LU$).
+    Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} per righe (o per colonne) $\Rightarrow A$ \gls{nonsingolare} ($\rightarrow A$ è fattorizzabile $LU$).
 \end{theorem}
 \begin{proof}
-    È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:AddSSeATDD}). Per assurdo, inoltre, è assunto che $A$ sia singolare $\Rightarrow\exists\,\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
-    \begin{equation}\label{eq:normX}
-        \underset{\footnotemark}{1} = \underset{i=1,\hdots,n}{\max}|x_i|\equiv x_{\boldsymbol k},
+    È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:A_dd_sse_AT_dd}). Per assurdo è assunto che $A$ sia \gls{singolare} allora esiste $\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
+    \begin{equation}\label{eq:norma_xi}
+       1 = \underset{i=1,\hdots,n}{\max}|x_i|\equiv x_{\boldsymbol k}, 
     \end{equation}
-    con $x_i$ la componente $i$-esima di $\uline x$. Allora, è esaminata la $\boldsymbol{k-}$\textbf{esima} equazione del sistema $A\uline x=\uline 0.$ Formalmente, moltiplicando, membro a membro, per $\boldsymbol{\uline e_k^T}$, il trasposto del $k$-esimo versore della base canonica $\underbrace{\left(\uline e_k^T A\right)}_{\footnotemark}\uline x=\uline e_k^T\uline 0\boldsymbol{=0}$.
-    È ottenuto $\boldsymbol{(a_{k1}, a_{k2},\hdots, a_{kn})=0},$ ovvero,
+    con $x_i$ la componente $i$-esima di $\uline x$. Allora, è esaminata la $\boldsymbol{k}$\textbf{-esima} equazione del sistema $A\uline x=\uline 0.$ Formalmente, moltiplicando, membro a membro, per $\boldsymbol{\uline e_k^T}$, il trasposto del $k$-esimo versore della base canonica
     \begin{equation*}
-        \sum_{j=1}^n a_{kj}\underset{\footnotemark}{x_j}=0.
+    	\underbrace{\left(\uline e_k^T A\right)}_{\footnotemark}\uline x=\uline e_k^T\uline 0\boldsymbol{=0},
+    \end{equation*}
+    è ottenuto
+    \begin{equation*}
+        \sum_{j=1}^n a_{kj}\underset{\footnotemark}{x_j}=0,
+    \end{equation*}
+    ovvero,
+    \begin{equation*}
+    	\boldsymbol{(a_{k1}, a_{k2},\hdots, a_{kn})=0}.
     \end{equation*}
     Segue (una somma equivalente alla precedente sommatoria)
     \begin{equation*}
-        a_{kk}\equalto{x_k}{1} +  \sum_{j=1, j\neq k}^n a_{kj}x_j=0,
+        a_{kk}\equalto{x_k}{1} +  \sum_{\underset{ j\neq k}{j=1}}^n a_{kj}x_j=0,
     \end{equation*}
     da cui
     \begin{equation*}
-        a_{kk}= -\sum_{j=1, j\neq k}^n a_{kj}x_j.
+        a_{kk}= -\sum_{\underset{ j\neq k}{j=1}}^n a_{kj}x_j.
     \end{equation*}
     Applicando i valori assoluti:
     \begin{equation*}
-        |a_{kk}|=\left|\sum_{j=1,\, j\neq k}^n a_{kj}x_j\right|\leq \sum_{j=1,\, j\neq k}^n |a_{kj}|\underbrace{|x_j|}_{\leq 1}\leq \sum_{j=1,\, j\neq k}^n |a_{kj}|.
+        |a_{kk}|=\left|-\sum_{\underset{ j\neq k}{j=1}}^n a_{kj}x_j\right|\leq \sum_{\underset{ j\neq k}{j=1}}^n |a_{kj}|\underbrace{|x_j|}_{\leq 1}\leq \sum_{\underset{ j\neq k}{j=1}}^n |a_{kj}|.
     \end{equation*}
-    Questo contraddice l'ipotesi che $A$ sia \textit{d.d.} per righe. L'assurdo è aver assunto che $A$ fosse singolare, è concluso che $A$ deve essere \gls{nonsingolare}.
+    Questo contraddice l'ipotesi che $A$ sia \textit{d.d.} per righe. L'assurdo è aver assunto che $A$ fosse \gls{singolare} è concluso che $A$ deve essere \gls{nonsingolare}.
 \end{proof}
 
 \addtocounter{footnote}{-1}
 \footnotetext{$k$-esima riga di $A$.}
 
 \stepcounter{footnote}
-\footnotetext{Per (\ref{eq:normX}) $|x_j|\leq 1,\; \forall j=1,\hdots,n.$}
+\footnotetext{Per (\ref{eq:norma_xi}) $|x_j|\leq 1,\; \forall j=1,\hdots,n.$}
 
+\noindent \textbf{Dai Teoremi \ref{th:A_dd_sse_AT_dd}-\ref{th:matrice_diagonale_dominante_nonsingolare}:}
 \begin{corollary}\label{cor:matrice_diagonale_dominante_LU}\footnote{Slide 6 PDF 5, Teorema 3.3 PG 56}
-    Se $A$ è \textit{d.d.} (per righe e/o colonne), allora $A=LU$.
+    Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} (per righe e/o colonne), allora $\det(A)\neq 0$ quindi $A=LU$.
 \end{corollary}
+\begin{proof}
+	Dimostrazione Teoremi \ref{th:matrice_DD_sse_ogni_sottomatrice_DD} e \ref{th:matrice_diagonale_dominante_nonsingolare}.
+\end{proof}
 
-Il Corollario \ref{cor:matrice_diagonale_dominante_LU} è derivato dai Teoremi \ref{th:AddSSeATDD}, \ref{th:matrDDsseSottoMatrDD} e \ref{th:matrice_diagonale_dominante_nonsingolare} ed è dimostrabile enenuciando i teoremi stessi con le corrispondenti dimostrazioni.
-
-\begin{remark}
-    Le matrici diagonali dominanti compaiono in importanti applicazioni.
-\end{remark}
+\paragraph{N.B.:}Le matrici diagonali dominanti compaiono in importanti applicazioni.
 
 \paragraph{Caratteristiche di una matrice diagonale dominante:}
 \begin{enumerate}
-	\item $A$ d.d. per righe s.se $A^T$ d.d. per colonne;
-	\item $A$ d.d. s.se $\forall k=1,\hdots, n,\, A_k$ d.d., essendo $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
-	\item $A$ d.d. allora $\det(A)\neq 0$ (quindi $A$ è non singolare);
-	\item $A$ d.d. $\Rightarrow\forall k=1,\hdots,n\colon A_k$ è d.d. $\Rightarrow A=LU$.
+	\item $A$ \textit{d.d.} per righe $\iff A^T$ d.d. per colonne;
+	\item $A$ \textit{d.d.} $\iff A_k$ d.d. $\forall k=1,\hdots, n$, dove $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
+	\item $A$ \textit{d.d.} $\Rightarrow\det(A)\neq 0$ (quindi $A$ è non singolare);
+	\item $A$ \textit{d.d.} $\Rightarrow$ 2. e 3. $\Rightarrow A=LU$.
 \end{enumerate}
 
 \subsection{Matrici Simmetriche e Definite Positive}\label{ssec:matrice_SDP_fattorizzabile_LDL}\footnote{Slide 7-12 PDF 5, 6.}
@@ -1100,7 +1104,7 @@ $\begin{pmatrix}
     $A$ \textit{sdp} $\Rightarrow A$ \gls{nonsingolare}.
 \end{theorem}
 \begin{proof}
-    Se, per assurdo, $A$ fosse singolare, allora $\exists\, \uline x\in\mathbb R^n\backslash\{\uline 0\}: A\uline x\neq \uline 0 \Rightarrow \uline x^T A \uline x = \uline x^T\uline 0 = 0,$ il che contraddice il fatto che $A$ sia definita positiva. Pertanto, $A$ è non singolare.
+    Se, per assurdo, $A$ fosse \gls{singolare} allora $\exists\, \uline x\in\mathbb R^n\backslash\{\uline 0\}: A\uline x\neq \uline 0 \Rightarrow \uline x^T A \uline x = \uline x^T\uline 0 = 0,$ il che contraddice il fatto che $A$ sia definita positiva. Pertanto, $A$ è non singolare.
 \end{proof}
 
 \begin{theorem}\label{th:sottoMatrSDP}
@@ -1545,7 +1549,7 @@ Per la soluzione dei sistemi lineari (\ref{eq:sistLinLDL}) è possibile utilizza
 
 \subsection{Pivoting}\label{sscetion:Pivoting}
 \footnote{Slide 7 PDF 7, PG 59-64.}
-È esaminato il caso in cui le ipotesi Teorema \ref{th:esFattLU} non sono soddisfatte, anche se $A$ è nonsingonale, quindi quando la fattorizzazione $LU$ non esiste. È possibile modificare la fattorizzazione $LU$, in modo da definire una nuova matrice che soddisfi le ipotesi del Teorema \ref{th:esFattLU}.
+È esaminato il caso in cui le ipotesi Teorema \ref{th:esistenza_fattorizzazione_LU} non sono soddisfatte, anche se $A$ è nonsingonale, quindi quando la fattorizzazione $LU$ non esiste. È possibile modificare la fattorizzazione $LU$, in modo da definire una nuova matrice che soddisfi le ipotesi del Teorema \ref{th:esistenza_fattorizzazione_LU}.
 
 Supposto di voler permutare le componenti del vettore $\uline x$ come segue:
 \begin{equation*}
@@ -1776,7 +1780,7 @@ in cui, $\forall i=1,\hdots, n-1:$
 dove
 \begin{itemize}
     \item $k_i\geq i$,
-    \item se $\left|a_{k_i i}^{(i)}\right|=0\Rightarrow A$ è non singolare,
+    \item se $\left|a_{k_i i}^{(i)}\right|=0\Rightarrow A$ è non \gls{singolare},
 \end{itemize}
 ed il vettore elementare $i$-esimo di Gauss definito come
 \begin{equation*}
@@ -2062,7 +2066,7 @@ Calcolando in $\varepsilon=0$, ricordando che $x(0)=x$ e $A(0)=A$, è ottenuto:
 \begin{equation*}
     F\cdot x + A \dot x(0) = f \Rightarrow \underset{\footnotemark}{A} \dot x(0) = f - Fx\Rightarrow \dot x(0) = A^{-1}(f - Fx),
 \end{equation*}
-\footnotetext{$A$ \gls{nonsingolare}, se fosse singolare allora il problema sarebbe mal posto.}
+\footnotetext{$A$ \gls{nonsingolare}, se fosse \gls{singolare} allora il problema sarebbe mal posto.}
 
 moltiplicando per $\varepsilon$ membro a membro, è ottenuto:
 \begin{equation}
