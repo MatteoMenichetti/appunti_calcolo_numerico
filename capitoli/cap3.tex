@@ -952,36 +952,38 @@ In questa Sezione e nella Sezione \ref{ssec:matrice_SDP_fattorizzabile_LDL} sar�
     \end{itemize}
 \end{definition}
 
+\paragraph{Intermezzo:}{$\left[\begin{rcases}
+		\Vrightarrow{A\text{ \textit{dd}}}{}\iff A_k\text{ \textit{dd}}, \forall k=1,\hdots,n\\
+		A\text{ \gls{nonsingolare}}
+	\end{rcases}\Rightarrow A=LU\right]$}
+
 \begin{example}
-    \begin{itemize}
-        \item
-        \begin{equation*}
-            A=
-            \begin{bmatrix}
-                -4 & 2 & 1\\
-                0 & -3 & 2\\
-                7 & -5 & 14
-            \end{bmatrix}
-        \end{equation*} è diagonale dominante per righe e non è diagonale dominante per colonne;
-        \item
-        \begin{equation*}
-            A=
-            \begin{bmatrix}
-                -4 & 2 & 1\\
-                0 & -5 & 2\\
-                3 & 0 & -5
-            \end{bmatrix}
-        \end{equation*} è sia diagonale dominante per righe che per colonne;
-        \item 
-        \begin{equation*}
-            A=
-            \begin{bmatrix}
-                7 & 6 & 1\\
-                0 & 6 & 1\\
-                7 & 7 & 6
-            \end{bmatrix}
-        \end{equation*} non è diagonale domaninante.
-    \end{itemize}
+    \begin{equation*}
+        A=
+        \begin{bmatrix}
+            -4 & 2 & 1\\
+            0 & -3 & 2\\
+            7 & -5 & 14
+        \end{bmatrix}
+    \end{equation*} è diagonale dominante per righe e non è diagonale dominante per colonne.\\
+    
+    \begin{equation*}
+        A=
+        \begin{bmatrix}
+            -4 & 2 & 1\\
+            0 & -5 & 2\\
+            3 & 0 & -5
+        \end{bmatrix}
+    \end{equation*} è sia diagonale dominante per righe che per colonne.\\
+
+    \begin{equation*}
+        A=
+        \begin{bmatrix}
+            7 & 6 & 1\\
+            0 & 6 & 1\\
+            7 & 7 & 6
+        \end{bmatrix}
+    \end{equation*} non è diagonale dominante.
 \end{example}
 
 Valgono le seguenti proprietà delle matrici diagonali dominanti.
@@ -998,7 +1000,7 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
         \item [$\Leftarrow$] ovvio (se $k=n\Rightarrow A_k=A$);
         \item[$\Rightarrow$] se $A$ \textit{d.d.} per righe allora, per un generico $k\in\{1,\hdots,n\}$:
         \begin{equation*}
-            \forall i= 1,\hdots, k: |a_{ii}|> \sum_{\underset{j\neq i}{j=1}}^n|a_{ij}|\geq \sum_{\underset{j\neq i}{j=1}}^k|a_{ij}|\iff A_k\text{ è \textit{d.d.} per righe.}
+            \forall i= 1,\hdots, k: |a_{ii}|> \sum_{\underset{j\neq i}{j=1}}^n|a_{ij}|\geq \sum_{\underset{j\neq k}{j=1}}^k|a_{ij}|\iff A_k\text{ è \textit{d.d.} per righe.}
         \end{equation*}
     \end{itemize}
 \end{proof}
@@ -1011,13 +1013,13 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
     \begin{equation}\label{eq:norma_xi}
        1 = \underset{i=1,\hdots,n}{\max}|x_i|\equiv x_{\boldsymbol k}, 
     \end{equation}
-    con $x_i$ la componente $i$-esima di $\uline x$. Considerata la $\boldsymbol{k}$\textbf{-esima} equazione del sistema $A\uline x=\uline 0$, ovvero
+    con $x_i$ la componente $i$-esima di $\uline x$. Considerata la $\boldsymbol{k}$\textbf{-esima} equazione $\left( \uline e_k^T A \right)$ del sistema $A\uline x=\uline 0$
     \begin{equation*}
-    	\boldsymbol{\underbrace{\uline e_k^T A}_{\footnotemark}\uline x=}\uline e_k^T\uline 0 \boldsymbol{= 0},
+    	\boldsymbol{\uline e_k^T A \uline x=}\uline e_k^T\uline 0 \boldsymbol{= 0},
     \end{equation*}
     è ottenuto
     \begin{equation*}
-        \sum_{j=1}^n a_{kj}\underset{\footnotemark}{x_j}=0,
+        \sum_{j=1}^n a_{kj}x_j \overset{\footnotemark}{=} 0,
     \end{equation*}
     ovvero
     \begin{equation*}
@@ -1027,7 +1029,7 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
     \begin{equation*}
         a_{kk}\equalto{x_k}{1} +  \sum_{\underset{ j\neq k}{j=1}}^n a_{kj}x_j=0,
     \end{equation*}
-    da cui
+    da cui, per (\ref{eq:norma_xi})
     \begin{equation*}
         a_{kk}= -\sum_{\underset{ j\neq k}{j=1}}^n a_{kj}x_j.
     \end{equation*}
@@ -1038,15 +1040,11 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
     Questo contraddice l'ipotesi che $A$ sia \textit{d.d.} per righe. L'assurdo è aver assunto che $A$ fosse \gls{singolare} è concluso che $A$ deve essere \gls{nonsingolare}.
 \end{proof}
 
-\addtocounter{footnote}{-1}
-\footnotetext{$k$-esima riga di $A$.}
-
-\stepcounter{footnote}
 \footnotetext{Per (\ref{eq:norma_xi}) $|x_j|\leq 1,\; \forall j=1,\hdots,n.$}
 
-\noindent \textbf{Dai Teoremi \ref{th:A_dd_sse_AT_dd}-\ref{th:matrice_diagonale_dominante_nonsingolare}:}
+\noindent \textbf{Dai Teoremi \ref{th:A_dd_sse_AT_dd}, \ref{th:matrice_DD_sse_ogni_sottomatrice_DD} e \ref{th:matrice_diagonale_dominante_nonsingolare}:}
 \begin{corollary}\label{cor:matrice_diagonale_dominante_LU}\footnote{Slide 6 PDF 5, Teorema 3.3 PG 56}
-    Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} (per righe e/o colonne), allora $\det(A)\neq 0$ quindi $A=LU$.
+    Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} (per righe e/o colonne), allora $\det(A)\neq 0$, allora $A=LU$.
 \end{corollary}
 \begin{proof}
 	Dimostrazione Teoremi \ref{th:matrice_DD_sse_ogni_sottomatrice_DD} e \ref{th:matrice_diagonale_dominante_nonsingolare}.
@@ -1054,16 +1052,16 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
 
 \paragraph{N.B.:}Le matrici diagonali dominanti compaiono in importanti applicazioni.
 
-\paragraph{Caratteristiche di una matrice diagonale dominante:}
+\paragraph{Proprietà importanti di una matrice diagonale dominante:}
 \begin{enumerate}
 	\item $A$ \textit{d.d.} per righe $\iff A^T$ d.d. per colonne;
 	\item $A$ \textit{d.d.} $\iff A_k$ d.d. $\forall k=1,\hdots, n$, dove $A_k\in\mathbb{R}^{k\times k}$ la sottomatrice principale di ordine $k$;
-	\item $A$ \textit{d.d.} $\Rightarrow\det(A)\neq 0$ (quindi $A$ è non singolare);
+	\item $A$ \textit{d.d.} $\Rightarrow\det(A)\neq 0$ (quindi $A$ è nonsingolare);
 	\item $A$ \textit{d.d.} $\Rightarrow$ 2. e 3. $\Rightarrow A=LU$.
 \end{enumerate}
 
 \subsection{Matrici Simmetriche e Definite Positive}\label{ssec:matrice_SDP_fattorizzabile_LDL}\footnote{Slide 7-12 PDF 5, 6.}
-\begin{definition}
+\begin{definition}[Matrice Simmetrica e Definita Positiva]
     Sia $A\in\mathbb R^{n\times n}$, questa è simmetrica e definita positiva \textbf{(\textit{sdp})} se:
     \begin{itemize}
         \item $A$ è \textbf{simmetrica} $\iff \boldsymbol{A=A^T}$;
@@ -1096,42 +1094,40 @@ $\begin{pmatrix}
 \paragraph{Intermezzo:}{$\left[\begin{rcases}
     \Vrightarrow{A\text{ \textit{sdp}}}{}\iff A_k\text{ \textit{sdp}}, \forall k=1,\hdots,n\\
     A\text{ \gls{nonsingolare}}
-\end{rcases}\overset{\footnotemark}{\Rightarrow} A=LU\right]$}
+\end{rcases}\Rightarrow A=LU\right]$}
 
-\footnotetext{Da $\Rightarrow$ e $\iff$.}
-
-\begin{theorem}\label{th:matrSDPNonSing}
-    $A$ \textit{sdp} $\Rightarrow A$ \gls{nonsingolare}.
+\begin{theorem}\label{th:matrice_SDP_nonsingolare}
+    Se $A\in\mathbb{R}^{n\times n}$ è \textit{sdp} $\Rightarrow A$ \gls{nonsingolare}.
 \end{theorem}
 \begin{proof}
-    Se, per assurdo, $A$ fosse \gls{singolare} allora $\exists\, \uline x\in\mathbb R^n\backslash\{\uline 0\}: A\uline x\neq \uline 0 \Rightarrow \uline x^T A \uline x = \uline x^T\uline 0 = 0,$ il che contraddice il fatto che $A$ sia definita positiva. Pertanto, $A$ è non singolare.
+    Se, per assurdo, $A$ fosse \textit{sdp} e \gls{singolare} allora $\exists\, \uline x\in\mathbb R^n\backslash\{\uline 0\}: A\uline x = \uline 0$ allora  $\uline x^T A \uline x = \uline x^T\uline 0 = 0$, il che contraddice il fatto che $A$ sia definita positiva. Pertanto, $A$ è nonsingolare.
 \end{proof}
 
-\begin{theorem}\label{th:sottoMatrSDP}
+\begin{theorem}\label{th:A_sdp_sse_Ak_sdp}
     $A\in\mathbb R^{n\times n}$ è \textit{sdp} $\iff\forall k=1,\hdots, n:\; A_k$ è \textit{sdp}.
 \end{theorem}
 \begin{proof}
     \begin{itemize}
         \item[$\Leftarrow$] ovvia (se $k=n\Rightarrow A_k=A$);
-        \item[$\Rightarrow$] Considerato un generico $k\in\{1,\hdots,n\}$, allora:
+        \item[$\Rightarrow$] Considerato un generico $k\in\{1,\hdots,n\}$, allora
         \begin{equation*}
             A=\left[
             \begin{array}{c|c}
             A_k & B\\
             \hline
             C & D
-        \end{array}\right],\text{ con } A_k\in\mathbb R^{k\times k}, D\in\mathbb R^{(n-k)\times (n-k)},\text{ da cui è evinto che } B\in\mathbb R^{k\times (n-k)}\; e\; C\in\mathbb R^{(n-k)\times k}.
+        \end{array}\right],
         \end{equation*}
-        Poiché i blocchi diagonali sono quadrati, allora
+        con $A_k\in\mathbb R^{k\times k}$, $D\in\mathbb R^{(n-k)\times (n-k)}$ (da cui è evinto che $B\in\mathbb R^{k\times (n-k)}$ e $C\in\mathbb R^{(n-k)\times k}$).\\
+        Poiché $A$ è simmetrica (è \textit{sdp}), ovvero $A=A^T$, da
         \begin{equation*}
             A^T=\left[\begin{array}{c|c}
             A_k^T & C^T\\
             \hline
             B^T & D^T
-        \end{array}\right].
+        \end{array}\right],
         \end{equation*}
-        Data la simmetria, allora $A=A^T$.\\
-        Uguagliando i blocchi omologhi è ottenuto che:
+        uguagliando i blocchi omologhi è ottenuto che:
         \begin{itemize}
             \item $A_k=A_k^T\boldsymbol{\Rightarrow A_k}$ \textbf{è simmetrica}; (punto dimostrato)
             \item $D=D^T$;
@@ -1141,25 +1137,30 @@ $\begin{pmatrix}
     
     Rimane da dimostare che $A_k$ è anche definita positiva, ovvero
     \begin{equation*}
-        \forall\uline y\in\mathbb R^k,\,\uline y\neq \uline 0: \uline y^T A_k \uline y>0.
+        \forall\uline y\in\mathbb R^k,\,\uline y\neq \uline 0 : \uline y^T A_k \uline y>0.
     \end{equation*}
     
-    A questo fine, considerando, dato un generico $\uline y\in\mathbb R^k,\,\uline y\neq \uline 0$, il vettore a blocchi:
-    $\uline x\overset{\footnotemark}{=}\begin{pmatrix}
-            \uline y\\
-            \uline 0
-    \end{pmatrix}\in\mathbb R^n.$
-
-    Segue che, poichè $\uline y\neq\uline 0\Rightarrow\uline x\neq\uline 0.$ Pertanto, essendo $A$ \textit{sdp}:
+    A questo fine, è considerato, dato un generico $\uline y\in\mathbb R^k,\,\uline y\neq \uline 0$, il vettore a blocchi
     \begin{equation*}
-        0<\uline x^T A\uline x=\left(\uline y^T,\, \uline 0^T\right)\left(\left[\begin{array}{c|c}
+    	\uline x\overset{\footnotemark}{=}
+    	\begin{pmatrix}
+    		\uline y\\
+    		\uline 0
+    	\end{pmatrix}\in\mathbb R^n,
+    \end{equation*}
+    il quale è diverso da $\uline 0$ poiché $\uline y\neq\uline 0$. Pertanto, essendo $A$ \textit{sdp}:
+    \begin{equation*}
+        0<\uline x^T A\uline x=\left(\uline y^T,\, \uline 0^T\right)\left(\left[
+        \begin{array}{c|c}
             A_k & B\\
             \hline
             C & D
         \end{array}\right]\begin{pmatrix}
             \uline y\\
             \uline 0
-        \end{pmatrix}\right) \overset{\footnotemark}{=}\left(\uline y^T,\,\uline 0^T\right) \begin{pmatrix}
+        \end{pmatrix}\right)
+        \overset{\footnotemark}{=}\left(\uline y^T,\,\uline 0^T\right)
+        \begin{pmatrix}
             A_k\, \uline y\\
             C\uline y
         \end{pmatrix}=\uline y^T A_k \uline y.
@@ -1184,13 +1185,17 @@ $\left(\left[
     \uline 0
 \end{pmatrix}\right) =
 \begin{pmatrix}
-    A_k\, \uline y\\2
+    A_k\, \uline y\\
     C\uline y
 \end{pmatrix}$.}
 
-\begin{remark}[$A$ sdp è fattorizzabile $LU$]
-    \textbf{I Teoremi \ref{th:sottoMatrSDP} e \ref{th:matrSDPNonSing} permettono di affermare che \uline{se una matrice $A$ \textit{sdp} allora è fattorizzabile $LU$}. Per dimostrare che ciò è vero è necessario enunciare le dimostrazioni di entrambi i Teoremi.}
-\end{remark}
+\textbf{Dati i Teoremi \ref{th:matrice_SDP_nonsingolare} e \ref{th:A_sdp_sse_Ak_sdp}, allora:}
+\begin{corollary}
+	Se $A\in\mathbb{R}^{n\times n}$ è \textit{sdp} allora è fattorizzabile $LU$. 
+\end{corollary}
+\begin{proof}
+	La dimostrazione è data delle dimostrazioni dei Teoremi \ref{th:A_sdp_sse_Ak_sdp} e \ref{th:matrice_SDP_nonsingolare}.
+\end{proof}
 
 Quindi è possibile concludere che, se $A$ è \textit{sdp}, allora $A=LU$. La fattorizzazione $LU$ non tiene di conto della proprietà di simmetria di $A$.
 
@@ -1296,22 +1301,9 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
 \footnotetext{Dovuto al fatto che $A$ è definita positiva.}
 
 \begin{remark}
-    $\widehat U^TD L^T$ (definite nella dimostrazione del Teorema \ref{th:matrice_SDP_sse_LDL}) è una fattorizzazione $LU$ di $A$.
+    $\widehat U^TD L^T$ (\footnotemark) è una fattorizzazione $LU$ di $A$.
 \end{remark}
-
-\begin{theorem}
-	Se $B$ è \gls{nonsingolare} allora $A=B^TB$ è una matrice sdp.
-\end{theorem}
-\begin{proof}
-	Se $A=B^TB$ allora
-	\begin{equation*}
-		A^T=(B^TB)^T=B^TB=A.
-	\end{equation*}
-	Inoltre, se $\uline x\neq\uline 0$, allora
-	\begin{equation*}
-		\uline x^T A \uline x = \uline x^T B^T B \uline x = (B\uline x)^T(B\uline x) = \left|\left| B\uline x \right|\right|_2^2\neq 0, \text{ poiché } \det(B)\neq 0.
-	\end{equation*}
-\end{proof}
+\footnotetext{Sono definite come nella dimostrazione del Teorema \ref{th:matrice_SDP_sse_LDL}, ovvero: $\widehat{U}$ triangolare inferiore a diagonale unitaria, $D$ diagonale ad elementi diagonali positivi ed $L^T$ triangolare superiore a diagonale unitaria.}
 
 \begin{example}
     \begin{equation*}
@@ -1335,6 +1327,20 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
         \end{bmatrix}}_{\widehat U}
     \end{equation*}
 \end{example}
+
+\begin{theorem}
+Se $B$ è \gls{nonsingolare} allora $A=B^TB$ è una matrice \textit{sdp}.
+\end{theorem}
+\begin{proof}
+Se $A=B^TB$ allora
+\begin{equation*}
+	A^T=(B^TB)^T=B^TB=A.
+\end{equation*}
+Inoltre, se $\uline x\neq\uline 0$, allora
+\begin{equation*}
+	\uline x^T A \uline x = \uline x^T B^T B \uline x = (B\uline x)^T(B\uline x) = \left|\left| B\uline x \right|\right|_2^2\neq 0, \text{ poiché } \det(B)\neq 0.
+\end{equation*}
+\end{proof}
 
 \begin{remark}\footnote{Slide 4 PDF 6.}
     Quanto esposto dal Teorema \ref{th:matrice_SDP_sse_LDL} permette di generare facilmente matrici \textit{sdp}, considerando una matrice triangolare inferiore a diagonale unitaria casuale ed una matrice diagonale ad elementi casuali positivi.
@@ -2208,7 +2214,7 @@ E' ricercata
 \end{remark}
 
 Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\uline x$ che rende $\uline r$ il più piccolo possibile, cosicché $A\uline x$ sia il più vicino possibile a $\uline b$. Questo traduce nella ricerca della soluzione  che minimizzi il residuo, ovvero:
-\begin{equation}\label{eq:normRes}
+\begin{equation}\label{eq:norma_residuo}
     \uline x\text{ t.c }||\uline r||_{\boldsymbol 2}^2=\min!
 \end{equation}
 \begin{remark}
@@ -2225,7 +2231,7 @@ Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\
 \footnotetext{La radice di $\sqrt{\sum_{i=2}^m r_i^2}$ è annullata perché $||r_i||_2^2=\left(\sqrt{\sum_{i=2}^m r_i^2}\right)^2$.}
 
 \begin{definition}[Soluzione ai minimi quadrati]\label{def:soluzione_minimi_quadrati}
-    Il vettore $\uline x$ soluzione di (\ref{eq:normRes}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). 
+    Il vettore $\uline x$ soluzione di (\ref{eq:norma_residuo}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). 
 \end{definition}
 
 \paragraph{Perche' il nome "soluzione ai minimi quadrati"?} Per comprendere la scelta è necessario comprendere il motivo della scelta della \textbf{norma 2} (ovvero euclidea): è possibile osservare che $||\uline r||_2^2=\uline r^T\uline r$ e considerando una matrice \textbf{ortogonale} $\boldsymbol{U\in\mathbb R^{m\times m}}$ (ovvero tale che $U^TU=I$), è noto che 
