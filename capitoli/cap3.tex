@@ -1211,16 +1211,17 @@ Al fine di individuare una fattorizzazione più convenitente per $A$ \textit{sdp
 Un fatto derivante dal precedente Teorema è il seguente: data una matrice simmetrica, se sono presenti elementi diagonali nulli o negativa, allora la matrice non è definita positiva. 
 
 \begin{theorem}\label{th:matrice_SDP_sse_LDL}\footnote{Slide 10 PDF 5, Teorema 3.6 PG 57}
-    $A$ \textit{sdp} s.se \begin{equation}\label{eq:A=LDL}
-        \boldsymbol{A=LDL^T},
-    \end{equation} con\begin{enumerate}
+    $A\in\mathbb{R}^{n\times n}$ \textit{sdp} s.se \begin{equation}\label{eq:A=LDL}
+        A=LDL^T,
+    \end{equation} con
+    \begin{enumerate}
         \item $D$ diagonale ad elementi diagonali positivi;
         \item $L$ triangolare inferiore a diagonale unitaria.
     \end{enumerate}
 \end{theorem}
 \begin{proof}
     \begin{itemize}
-        \item[$\Leftarrow$]
+        \item[$\Leftarrow$] Se
         \begin{equation*}
             A=LDL^T,
         \end{equation*}
@@ -1239,15 +1240,15 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
         \end{equation*}
         essendo $D$ diagonale (dimostrando così che $A$ è simmetrica).
         
-        È necessario dimostrare che, $\forall\uline x\in\mathbb R^n\backslash\{\uline 0\}$:
+        È necessario dimostrare che $A$ è definita positiva, ovvero che
         \begin{equation*}
-            \uline x^T A \uline x = \underbrace{\left(\uline x^TL\right)}_{\boldsymbol{\uline y^T}}D\overbrace{\left(L^T\uline x\right)}^{\uline y}>0.
+            \forall\uline x\in\mathbb R^n\backslash\{\uline 0\}: \uline x^T A \uline x = \underbrace{\left(\uline x^TL\right)}_{\boldsymbol{\uline y^T}}D\overbrace{\left(L^T\uline x\right)}^{\uline y}>0.
         \end{equation*}
         Se $\uline y=L^T\uline x\in\mathbb R^n,$ allora $\uline y\neq \uline 0$ poiché $L^T$ è \gls{nonsingolare}. Inoltre:
         \begin{equation*}
             \uline x^TA\uline x=\uline y^TD\uline y=\sum_{i=1}^n d_iy_i^2>0,
         \end{equation*}
-         poiché $\uline y\neq\uline 0\Rightarrow\exists\, k:y_k\neq 0$ e $d_i>0$ per ipotesi.
+         dove $\uline y\neq\uline 0\Rightarrow\exists\, k:y_k\neq 0$ e $d_i>0$ per ipotesi.
          
         \item[$\Rightarrow$] Dato che $A$ \textit{sdp} allora è fattorizzabile $LU$ ed è noto che la fattorizzazione $LU$ sia unica. Pertanto, $U$ può essere espressa nella forma
         \begin{equation*}
@@ -1274,7 +1275,7 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
         \end{itemize}
         Per l'unicità di questa fattorizzazione $LU$ è ottenuto che
         \begin{equation*}
-            L=\widehat U^T\iff \widehat U=L^T,
+            L=\widehat U^T,\quad \widehat U=L^T,
         \end{equation*}
         da cui, sostituendo in (\ref{eq:dim}) è ottenuto che
         \begin{equation*}
@@ -1291,7 +1292,11 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
           \end{bmatrix}
         \end{equation*}
         allora, per il Teorema \ref{th:elDiagPosMatrSDP}, $d_i>0,\; \forall i = 1,\hdots,n$.
-        Fissato un generico $i\in\{1,\hdots, n\},\, \exists!\, \uline x\in\mathbb R^n\backslash\{\uline 0\}:\boldsymbol{L^T\uline x=\uline e_i}$, l'$i$-esimo versore di $\mathbb R^n.$  Essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$.
+        Fissato un generico $i\in\{1,\hdots, n\}$,
+        \begin{equation*}
+        	\exists!\, \uline x\in\mathbb R^n\backslash\{\uline 0\}:\boldsymbol{L^T\uline x=\uline e_i},
+        \end{equation*}
+        l'$i$-esimo versore di $\mathbb R^n$.  Essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$.
         
         Pertanto, essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$ ed essendo $A$ definita positiva, è ottenuto:
         \begin{equation*}
