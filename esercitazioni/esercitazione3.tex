@@ -5,7 +5,7 @@
     \item Definire la fattorizzazione $LU$ di una matrice nonsingolare. Dimostrare che, se fattorizzabile, la fattorizzazione $LU$ di una matrice è unica.
     \item  Sotto quali condizioni esiste la fattorizzazione $LU$ di una matrice?
     \item Definire cosa si intende per matrice a diagonale dominante. Dimostrare che una matrice diagonale dominante è fattorizzabile $LU$.
-    \item  Definire cosa si intende per matrice simmetrica e definita positiva (sdp). Dimostrare che una matrice sdp è fattorizzabile $LU$ .
+    \item  Definire cosa si intende per matrice simmetrica e definita positiva (sdp). Dimostrare che una matrice \textit{sdp} è fattorizzabile $LU$ .
     \item Dimostrare che una matrice simmetrica e definita positiva è fattorizzabile nella forma $LDL^T$, con $L$ triangolare inferiore a diagonale unitaria, e $D$ matrice diagonale.
     \item  Definire cosa si intende per norma indotta su matrice. Dare qualche esempio di tali norme.
     \item  Definire cosa è il numero di condizionamento di una matrice. Spiegarne il significato.
@@ -102,7 +102,7 @@ Valgono le seguenti proprietà:
 Per dimostrare che, se $A$ è sdp, allora $A=LU$, sarà dimostrato che:
 \begin{enumerate}
     \item $\forall k=1,\hdots, n$, $A_k$, detta sottomatrice principale di $A$ di ordine $k$, è sdp;
-    \item $A$ sdp $\Rightarrow A$ è nonsingolare.
+    \item $A$ \textit{sdp} $\Rightarrow A$ è nonsingolare.
 \end{enumerate}
 
 \noindent Riguardo la 2), se $A$ non fosse \gls{singolare}, allora $\exists\,\uline x\in\mathbb R^n\backslash\{\uline 0\}\, : \, A\uline x=\uline 0\Rightarrow\uline x^T A \uline x = 0,$ contraddicendo la definita positiva di A.
@@ -134,7 +134,7 @@ $A^T=\left[
 \begin{pmatrix}
     \uline y\\
     \uline 0
-\end{pmatrix}\in\mathbb R^n$. Chiaramente $\uline x\neq 0$. Dato che $A$ è sdp allora da (\ref{eq:ACompSimm}) segue che:
+\end{pmatrix}\in\mathbb R^n$. Chiaramente $\uline x\neq 0$. Dato che $A$ è \textit{sdp} allora da (\ref{eq:ACompSimm}) segue che:
 \begin{equation*}
     0<\uline x^T A \uline x = (\uline y^T\; \uline 0^T)\,\left[\begin{array}{c|c}
        A_k & B\\

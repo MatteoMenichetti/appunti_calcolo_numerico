@@ -1222,14 +1222,18 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
     \begin{itemize}
         \item[$\Leftarrow$]
         \begin{equation*}
-            A=LDL^T,\; D=
-            \begin{bmatrix}
-                d_1\\
-                &\ddots\\
-                & & d_n
-            \end{bmatrix},\, d_i>0,\, i=1,\hdots,n,
+            A=LDL^T,
         \end{equation*}
-        allora $A$ è \textit{sdp}. Infatti:
+        con
+        \begin{equation*}
+        	D=
+        	\begin{bmatrix}
+        		d_1\\
+        		&\ddots\\
+        		& & d_n
+        	\end{bmatrix},
+        \end{equation*}
+        dove $d_i>0,\forall i=1,\hdots,n,$ allora $A$ è \textit{sdp}. Infatti:
         \begin{equation*}
             \boldsymbol{A^T}=\left(LDL^T\right)^T=LD^TL^T=LDL^T=\boldsymbol A,
         \end{equation*}
@@ -1239,54 +1243,57 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
         \begin{equation*}
             \uline x^T A \uline x = \underbrace{\left(\uline x^TL\right)}_{\boldsymbol{\uline y^T}}D\overbrace{\left(L^T\uline x\right)}^{\uline y}>0.
         \end{equation*}
-        Se $\uline y=L^T\uline x\in\mathbb R^n,$ allora $\uline y\neq \uline 0$ perché $L^T$ è \gls{nonsingolare}. Inoltre:
+        Se $\uline y=L^T\uline x\in\mathbb R^n,$ allora $\uline y\neq \uline 0$ poiché $L^T$ è \gls{nonsingolare}. Inoltre:
         \begin{equation*}
-            \uline x^TA\uline x=\uline y^TD\uline y=\sum_{i=1}^n d_iy_i^2,
+            \uline x^TA\uline x=\uline y^TD\uline y=\sum_{i=1}^n d_iy_i^2>0,
         \end{equation*}
-        essendo $y_i$ la $i$-esima componente di $\uline y$.
-        
-        Poiché $\uline y\neq\uline 0\Rightarrow\exists\, k:y_k\neq 0$.
-        
-        Pertanto,
-        \begin{equation*}
-            \uline x^T A\uline x=\uline y^T D\uline y=\sum_{i=1}^nd_i y_i^2\geq d_ky_k^2>0,
-        \end{equation*}
-        poiché $d_k>0$ per ipotesi. Pertanto, $A$ è definita positiva.
-        \item[$\Rightarrow$] $U$ può essere espressa nella forma
+         poiché $\uline y\neq\uline 0\Rightarrow\exists\, k:y_k\neq 0$ e $d_i>0$ per ipotesi.
+         
+        \item[$\Rightarrow$] Dato che $A$ \textit{sdp} allora è fattorizzabile $LU$ ed è noto che la fattorizzazione $LU$ sia unica. Pertanto, $U$ può essere espressa nella forma
         \begin{equation*}
             U=D\widehat U,
         \end{equation*}
-        con $D$ diagonale (contenente, come elementi diagonali, gli elementi di $U$) ed $\widehat U$ triangolare superiore a diagonale unitaria.
+        con
+        \begin{itemize}
+        	\item  $D$ diagonale, matrice diagonale contenente gli elementi diagonali di $U$;
+        	\item $\widehat U$ triangolare superiore a diagonale unitaria.
+        \end{itemize}
         
         Pertanto, è ottenuto
+        \begin{equation*}
+            A = LU= LD\widehat U
+        \end{equation*}
+        ma, per la simmetria di $A$, è ottenuto che
         \begin{equation}\label{eq:dim}
-            A = LU= LD\widehat U \overset{\footnotemark}{=} \widehat U^T\left(D L^T\right) = \left(LD\widehat U\right)^T = A^T
+        	A^T =\left(LD\widehat U\right)^T =  \widehat U^T\left(D L^T\right),
         \end{equation}
-        \footnotetext{$A$ è simmetrica.}
         dove:
         \begin{itemize}
             \item $\widehat U^T$ triangolare inferiore a diagonale unitaria;
             \item $DL^T$ trianglare superiore.
         \end{itemize}
-        Quindi è stata ottenuta una riscrittura della fattorizzazione $A=LU$ e, per l'unicità di questa fattorizzazione, è ottenuto che
+        Per l'unicità di questa fattorizzazione $LU$ è ottenuto che
         \begin{equation*}
-            L=\widehat U^T\iff \widehat U=L^T.
+            L=\widehat U^T\iff \widehat U=L^T,
         \end{equation*}
-        Sostituendo nella prima espressione (ovvero nella seconda metà di (\ref{eq:dim})) è ottenuto ciò che $A=LDL^T$ (dimostrando la parte iniziale del teorema).\\
-        Per completare l'asserto, rimane da dimostrare che (gli elementi diagonali di $D$, matrice simmetrica, siano positivi e non che la matrice sia diagonale perché lo è già per definizione):
+        da cui, sostituendo in (\ref{eq:dim}) è ottenuto che
         \begin{equation*}
-            \text{se } D=
+        	A=LDL^T.
+        \end{equation*}
+        Per completare l'asserto, rimane da dimostrare che gli elementi diagonali di $D$ siano positivi (e non che la matrice sia simmetrica perché lo è già per definizione), ovvero che data
+        \begin{equation*}
+            D=
             \begin{bmatrix}
                 d_1 \\
                 & d_2\\
                 & & \ddots \\
                 & & & d_n
-          \end{bmatrix}\overset{\footnotemark}{\Rightarrow} d_i>0,\; \forall i = 1,\hdots,n.
+          \end{bmatrix}
         \end{equation*}
+        allora, per il Teorema \ref{th:elDiagPosMatrSDP}, $d_i>0,\; \forall i = 1,\hdots,n$.
+        Fissato un generico $i\in\{1,\hdots, n\},\, \exists!\, \uline x\in\mathbb R^n\backslash\{\uline 0\}:\boldsymbol{L^T\uline x=\uline e_i}$, l'$i$-esimo versore di $\mathbb R^n.$  Essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$.
         
-        Fissato un generico $i\in\{1,\hdots, n\},\, \exists!\, \uline x\in\mathbb R^n:\boldsymbol{L^T\uline x=\uline e_i}$, l'$i$-esimo versore di $\mathbb R^n.$  Essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$.
-        
-        Pertanto, è ottenuto:
+        Pertanto, essendo $L$ \gls{nonsingolare}, è evidente che $\uline x \neq \uline 0$ ed essendo $A$ definita positiva, è ottenuto:
         \begin{equation*}
             0\overset{\footnotemark}{<}\uline x^T A\uline x = \uline x^T LDL^T \uline x = \left(L^T \uline x\right)^T D \left(L^T \uline x\right) = \uline e_i^T D \uline e_i = d_i.
         \end{equation*}
@@ -1294,10 +1301,6 @@ Un fatto derivante dal precedente Teorema è il seguente: data una matrice simme
     \end{itemize}
 \end{proof}
 
-\addtocounter{footnote}{-1}
-\footnotetext{Per il Teorema \ref{th:elDiagPosMatrSDP} (?).}
-
-\stepcounter{footnote}
 \footnotetext{Dovuto al fatto che $A$ è definita positiva.}
 
 \begin{remark}
@@ -1347,7 +1350,7 @@ Inoltre, se $\uline x\neq\uline 0$, allora
     Con il prodotto $LDL^T$ sarà ottenuta \textbf{sicuramente} una matrice \textit{sdp}.
 \end{remark}
 
-Il grande pregio della fattorizzazione $LDL^T$ (\ref{eq:A=LDL}) consiste nell'ottenere un algoritmo di risoluzione per sistemi lineari più efficiente dal punto di vista computazionale e dal punto di vista dell'occupazione di memoria rispetto alla fattorizzazione $LU$ classica, non è necessario il calcolo del fattore $U$ e la memorizzazione di una matrice sdp può essere svolta in forma compatta memorizzandone solo una parte triangolare (inferiore o superiore, nello specifico, sarà considerata la porzione \textbf{triangolare inferiore}). Queste locazioni di memoria possono essere riscritte con la porzione strettamente triangolare di $L$ (o $L^T$) e la diagonale $D$.
+Il grande pregio della fattorizzazione $LDL^T$ (\ref{eq:A=LDL}) consiste nell'ottenere un algoritmo di risoluzione per sistemi lineari più efficiente dal punto di vista computazionale e dal punto di vista dell'occupazione di memoria rispetto alla fattorizzazione $LU$ classica, non è necessario il calcolo del fattore $U$ e la memorizzazione di una matrice \textit{sdp} può essere svolta in forma compatta memorizzandone solo una parte triangolare (inferiore o superiore, nello specifico, sarà considerata la porzione \textbf{triangolare inferiore}). Queste locazioni di memoria possono essere riscritte con la porzione strettamente triangolare di $L$ (o $L^T$) e la diagonale $D$.
 
 Per ottenere la fattorizzazione (\ref{eq:A=LDL}) sarà sufficiente uguagliare gli elementi delle due matrici ai due membri dell'uguaglianza, relativi ad una porzione \textbf{triangolare}, poiché gli altri derivano dalla simmetria di $A$.
 
@@ -1550,10 +1553,10 @@ Per la soluzione dei sistemi lineari (\ref{eq:sistLinLDL}) è possibile utilizza
 \begin{itemize}
     \item utilizzabile nel caso di matrici \textit{d.d.};
     \item nella variante $LDL^T$ è applicabile al caso di matrici \textit{sdp};
-    \item negli altri casi, ovvero il caso generale, è necessario parlare di Pivoting.
+    \item negli altri casi, ovvero il caso generale, è necessario parlare di Pivoting (vedere Sezione \ref{ssec:pivoting}).
 \end{itemize}
 
-\subsection{Pivoting}\label{sscetion:Pivoting}
+\subsection{Pivoting}\label{ssec:pivoting}
 \footnote{Slide 7 PDF 7, PG 59-64.}
 È esaminato il caso in cui le ipotesi Teorema \ref{th:esistenza_fattorizzazione_LU} non sono soddisfatte, anche se $A$ è nonsingonale, quindi quando la fattorizzazione $LU$ non esiste. È possibile modificare la fattorizzazione $LU$, in modo da definire una nuova matrice che soddisfi le ipotesi del Teorema \ref{th:esistenza_fattorizzazione_LU}.
 
@@ -2847,7 +2850,7 @@ In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenut
 		\item $||A||_p\geq 0 \wedge ||A||_p=0 \Rightarrow A=0\in\mathbb{R}^{m\times n};$
 		\item $||\alpha A||_p=|\alpha|\cdot||A||_p;$
 		\item $||A+B||_p\leq||A||_p+||B||_p;$
-		\item 
+		\item (Compatibilità tra norma su vettore e norma indotta su matrice)
 		\begin{equation}\label{eq:norma_prodotto_scalare_matrice_vettore_minore_norme_singole}
 			\boldsymbol{||Ay||_p\leq ||A||_p\cdot||y||_p}.
 		\end{equation}
@@ -2899,6 +2902,7 @@ dove $\rho$ è il raggio spettrale della matrice in argomento, ovvero il massimo
         \end{matrix}
     \end{equation*}
 \end{example}
+
 \begin{remark}
     Matlab dispone della function built-in \textit{norm} per calcolare la norma di un/a vettore/matrice.
 \end{remark}
