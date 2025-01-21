@@ -154,14 +154,33 @@ $A^T=\left[
 \end{equation*}\qed
 
 \paragraph{6.}\footnote{Slide 11 PDF 14.}
-È noto che, se $A$ è sdp, allora $A=LU$ ed è noto che la fattorizzazione $LU$ è unica. Pertanto, osservando il fattore $U$ può essere scritto come $D\widehat{U}$, con $D$ diagonale ed $\widehat{U}$ triangolare superiore a diagonale unitaria, segue che $A=LU=LD\widehat{U}$. Essendo $A=A^T\Rightarrow A=LD\widehat{U}=(LD\widehat{U})^T=A^T.$ Segue che $LD\widehat{U}=\widehat{U}^TDL^T.$
+È noto che, se $A$ è sdp, allora $A=LU$ ed è noto che la fattorizzazione $LU$ è unica. Pertanto, osservando che il fattore $U$ può essere scritto come
+\begin{equation*}
+	U = D\widehat{U},
+\end{equation*}
+con
+\begin{itemize}
+	\item $D$ diagonale,
+	\item $\widehat{U}$ triangolare superiore a diagonale unitaria.
+	\end{itemize}
+	Segue che $A=LU=LD\widehat{U}$. Essendo $A=A^T$, allora
+	\begin{equation*}
+		A=LD\widehat{U}=(LD\widehat{U})^T=A^T.
+	\end{equation*}
+	Segue che
+	\begin{equation*}
+		LD\widehat{U}=\widehat{U}^TDL^T.
+	\end{equation*}
 
 \noindent Essendo:
 \begin{itemize}
     \item $\widehat{U}^T$ triangolare inferiore a diagonale unitaria,
     \item $DL^T$ triangolare superiore,
 \end{itemize}
-per l'unicità della fattorizzazione $LU$ segue che $L=\widehat{U}^T$. Da questo è possibile concludere che $A=LDL^T.$\qed
+per l'unicità della fattorizzazione $LU$ segue che $L=\widehat{U}^T$. Da questo è possibile concludere che
+\begin{equation*}
+	A=LDL^T.\qed
+\end{equation*}
 
 \paragraph{7.}\footnote{Slide 12 PDF 14.} Sia $||\cdot||$ una norma assegnata su vettore. È definito, data $A\in\mathbb R^{m\times n}$, la sua norma indotta dalla norma su vettore considerata: $||A||=\underset{\uline x\in\mathbb R^n, ||x||=1}{\max}||A\uline x||$.
 
