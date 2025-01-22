@@ -1009,7 +1009,7 @@ Valgono le seguenti proprietà delle matrici diagonali dominanti.
     Se $A\in\mathbb{R}^{n\times n}$ è \textit{d.d.} per righe (o per colonne) $\Rightarrow A$ \gls{nonsingolare}.
 \end{theorem}
 \begin{proof}
-    È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:A_dd_sse_AT_dd}). Per assurdo è assunto che $A$ sia \gls{singolare} allora esiste $\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
+    È considerata $A$ \textit{d.d.} per righe, altrimenti è considerata $A^T$ (Teorema \ref{th:A_dd_sse_AT_dd}). Per assurdo è assunto che $A$ sia \gls{singolare}, allora esiste $\uline x\in\mathbb R^n,\, \uline x\neq\uline 0: A\uline x=\uline 0.$ Inoltre, poiché questa uguaglianza vale per ogni multiplo scalare di $\uline x$, è possibile normalizzare $\uline x$ in modo tale che 
     \begin{equation}\label{eq:norma_xi}
        1 = \underset{i=1,\hdots,n}{\max}|x_i|\equiv x_{\boldsymbol k}, 
     \end{equation}
@@ -2290,29 +2290,30 @@ Lo strumento principale per risolvere sistemi sovradimensionati del tipo (\ref{e
         \item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale},
         \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e \gls{nonsingolare}},
     \end{enumerate}
-    tali che, data $R =
-    \begin{bmatrix}
-        \widehat R\\
-        O
-    \end{bmatrix}\in \mathbb R^{m\times n}$, da cui segue che $O\in\mathbb R^{(m-n)\times n}$, allora
+    tali che,
     \begin{equation}\label{eq:fattorizzazione_QR}
-        \boldsymbol{A=QR.}
+        \boldsymbol{A=QR},
     \end{equation}
+    dove $R =
+    \begin{bmatrix}
+    	\widehat R\\
+    	O
+    \end{bmatrix}\in \mathbb R^{m\times n}$ e $O\in\mathbb R^{(m-n)\times n}$.
 \end{theorem}
 \begin{proof}
 	Vedere \ref{sssec:esistenza_fattorizzazione_QR}.
 \end{proof}
 
-$\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'ortogonalità ($\det(Q)=1\vee \det(Q)=-1$). La matrice $R$ è triangolare superiore.
+$\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'ortogonalità $\det(Q)=1\vee \det(Q^T)=-1$. La matrice $R$ è triangolare superiore.
 
-\begin{remark}\label{rem:fattQRNonSing}\footnote{Slide 7 PDF 10.}
+\begin{remark}\label{rem:fattorizzazione_QR_nonsingolare}\footnote{Slide 7 PDF 10.}
     Poiché $\boldsymbol Q$ \textbf{è \gls{nonsingolare}}, allora:
     \begin{equation*}
         n = \rank(A) = \rank (QR) \boldsymbol = \rank(R) = \rank(\widehat R)\Rightarrow \det(\widehat R)\neq 0.
     \end{equation*}
 \end{remark}
 
-È possibile calcolare la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), ovvero è cercata la soluzione definita dalla Definizione \ref{def:soluzione_minimi_quadrati}, tramite:
+È ricercata la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), ovvero la soluzione definita dalla Definizione \ref{def:soluzione_minimi_quadrati}, che minimizza $ ||\uline r||_2^2$, ovvero:
 \begin{equation}\label{eq:norma_2_residuo_minimo}
     \begin{matrix}
         ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\\\
@@ -2379,13 +2380,12 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
 	\item il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore};
 	\item $Q$ non è richiesto esplicitamente se è possibile effettuare il prodotto $Q^Tb$ per ottenere $g$.
 \end{itemize}
-il quale . Inoltre, .
 
 \begin{theorem}[Soluzione ai minimi quadrati esiste ed è unica]\footnote{Slide 9 PDF 10.}
     Se $A\in\mathbb R^{m\times n},\; m>n=\rank(A)$, la soluzione ai minimi quadrati (Definizione \ref{def:soluzione_minimi_quadrati}) del sistema lineare $A\uline x=\uline b$ (del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) \textbf{esiste ed è unica}.
 \end{theorem}
 \begin{proof}
-     Il Teorema \ref{th:esistenza_fattorizzazione_QR}, l'Osservazione \ref{rem:fattQRNonSing} e quanto scritto per (\ref{eq:norma_2_residuo_minimo})-(\ref{eq:Rx=g1}) forniscono la dimotrazione del Teorema.
+    Quanto scritto dal Teorema \ref{th:esistenza_fattorizzazione_QR} fino al Teorema (l'Osservazione \ref{rem:fattorizzazione_QR_nonsingolare} puo' essere omessa) forniscono la dimotrazione del Teorema.
 \end{proof}
 
 \begin{remark}
@@ -2530,7 +2530,7 @@ L'equivalenza (\ref{eq:matrHHNorm}) è una proprietà utile al fine di ottimizza
 È possibile definire l'algoritmo di fattorizzazione $QR$ (di Householder). È utilizzata la notazione $a_{\boldsymbol{ij}}^{\boldsymbol{(k)}}$ per denotare l'elemento $(i,j)$ della matrice al passo $\boldsymbol k$, ovvero il più recente in cui l'elemento è stato modificiato, come per il metodo di Gauss.
 
 \subsubsubsection{Dimostrazione esistenza della fattorizzazione \texorpdfstring{$\boldsymbol{QR}$}{QR}}\label{ssssec:dimostrazione_esistenza_fattorizzazione_QR}
-\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistenza_fattorizzazione_QR} di esistenza della fattorizzazione} $\boldsymbol{QR}$]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
+\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistenza_fattorizzazione_QR}} $\boldsymbol{QR}$]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
     Data
     \begin{equation*}
         A=\begin{bmatrix}
