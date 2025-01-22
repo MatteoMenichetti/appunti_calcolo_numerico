@@ -201,19 +201,27 @@ per l'unicità della fattorizzazione $LU$ segue che $L=\widehat{U}^T$. Da questo
 
 \paragraph{9.}\footnote{Slide 13 PDF 14.} Sia $A\in\mathbb R^{m\times n},$ con $m>n=rank(A).$ È definita \textbf{soluzione nel senso dei minimi quadrati} del sistema lineare $\boldsymbol{A\uline x=\uline b},$ il vettore $\boldsymbol{\uline x}$ \textbf{che minimizza la norma euclidea (al quadrato) del corrispondente vettore residue} $\boldsymbol{\uline r=A\uline x-\uline b}.$ \footnote{Necessario specificare la parte in grassetto affinché la risposta sia corretta.}
 
-\noindent Il motivo della scelta della norma euclidea è dovuto al fatto che questa è invariante per moltiplicazione del vettore in argomento per una matrice ortogonale $Q$:
+\noindent Il motivo della scelta della norma euclidea è dovuto al fatto che questa è invariante per moltiplicazione del vettore in argomento per una matrice ortogonale $Q$ (quindi $Q^TQ=I$):
 \begin{equation*}
-    ||Q\uline v||_2^2=(Q\uline v)^T(Q\uline v)=\uline v^T \underbrace{Q^TQ}_{\footnotemark}=\uline v^T\uline v=||\uline V||_2^2.
-\end{equation*}\footnotetext{Uguale ad $I$ perché $Q$ è ortogonale.}
+    ||Q\uline v||_2^2=(Q\uline v)^T(Q\uline v)=\uline v^T \underbrace{Q^TQ}_{I}=\uline v^T\uline v=||\uline V||_2^2.
+\end{equation*}
 La soluzione ai minimi quadrati di $A\uline x=\uline b$ è ottenuta osservando che, se $A\in\mathbb{m\times n},\; m>n=rank(A)$, allora esistono:
 \begin{itemize}
     \item $Q\in\mathbb R^{m\times m},\; Q$ ortogonale ;
     \item $\widehat{R}\in\mathbb R^{n\times n},\;\widehat{R}$ triangolare superiore e nonsingolare,
 \end{itemize}
-tali che.: $A=QR,$ con $R=\begin{pmatrix}
-    \widehat{R}\\
-    0
-\end{pmatrix}\in\mathbb R^{m\times n}.$ Per minimizzare:
+tali che
+\begin{equation*}
+	A=QR,
+\end{equation*}
+con 
+\begin{equation*}
+	R=\begin{pmatrix}
+		\widehat{R}\\
+		0
+	\end{pmatrix}\in\mathbb R^{m\times n}.
+\end{equation*}
+Per minimizzare:
 \begin{equation*}
     \begin{matrix}
         ||\uline r||_2^2&=&||A\uline x-\uline b||_2^2&=&||QR\uline x-\uline b||_2^2 &=& ||Q(R\uline x - Q^T\uline b)||_2^2&\overset{\footnotemark}{=}&||R\uline x-\uline g||_2^2\\

@@ -1562,10 +1562,11 @@ Per la soluzione dei sistemi lineari (\ref{eq:sistLinLDL}) è possibile utilizza
 \end{itemize}
 
 \subsection{Pivoting}\label{ssec:pivoting}
+\subsubsection{Introduzione}
 \footnote{Slide 7 PDF 7, PG 59-64.}
-È esaminato il caso in cui le ipotesi Teorema \ref{th:esistenza_fattorizzazione_LU} di esistenza della fattorizzazione $LU$ non sono soddisfatte, anche se $A$ è nonsingonale. Quindi è esaminato il caso in cuila fattorizzazione $LU$ non esiste. È possibile modificare la fattorizzazione $LU$, in modo da definire una nuova matrice che soddisfi le ipotesi del Teorema \ref{th:esistenza_fattorizzazione_LU}.
+È esaminato il caso in cui le ipotesi Teorema \ref{th:esistenza_fattorizzazione_LU} di esistenza della fattorizzazione $LU$ non sono soddisfatte, anche se $A$ è nonsingonale. Quindi è esaminato il caso in cui la fattorizzazione $LU$ non esiste. È possibile modificare la fattorizzazione $LU$, in modo da definire una nuova matrice che soddisfi le ipotesi del Teorema \ref{th:esistenza_fattorizzazione_LU} e che quindi esista una fattorizzazione.
 
-Supposto di voler permutare le componenti del vettore $\uline x$ come segue:
+Supposto di voler permutare le componenti del vettore
 \begin{equation*}
         \uline x=
         \begin{bmatrix}
@@ -1575,7 +1576,7 @@ Supposto di voler permutare le componenti del vettore $\uline x$ come segue:
             4
         \end{bmatrix}
 \end{equation*}
-quindi
+in
 \begin{equation*}
 	\uline y=
 	\begin{bmatrix}
@@ -1605,7 +1606,7 @@ Utilizzando \textbf{matrici di permutazione elementari}, ovvero matrici che scam
         \uline e_2^T\\
         \uline e_1^T\\
         \uline e_4^T
-    \end{bmatrix}\quad\text{e}\quad
+    \end{bmatrix},\quad
     P_2=
     \begin{bmatrix}
         \uline e_1^T\\
@@ -1614,7 +1615,15 @@ Utilizzando \textbf{matrici di permutazione elementari}, ovvero matrici che scam
         \uline e_2^T
     \end{bmatrix}.
 \end{equation*}
-Quindi $P=P_1\cdot P_2=P_2\cdot P_1$ e $P_2P_1\uline x=\uline y$. Le matrici elementari $P_1$ e $P_2$ sono definite come:
+Quindi
+\begin{equation*}
+	P=P_1\cdot P_2=P_2\cdot P_1
+\end{equation*}
+e
+\begin{equation*}
+	P_2P_1\uline x=\uline y,
+\end{equation*}
+ dove le matrici elementari $P_1$ e $P_2$ sono definite come:
 \begin{equation*}
     P_1 =
     \begin{bmatrix}
@@ -1678,7 +1687,7 @@ permutazione del vettore iniziale? È sufficiente $p$. Infatti, se è permutato 
 \subsubsection{Fattorizzazione \texorpdfstring{$\boldsymbol{LU}$}{LU} con pivoting parziale}\label{ssec:fattLUPivParz}\footnote{PDF 8, PG 60-64.}
 Questo metodo consente di risolvere un sistema lineare,
 \begin{equation*}
-    A\uline x=\uline b, \quad A\in\mathbb R^{n \times n}, \quad \boldsymbol{\det(A)\neq 0}
+    A\uline x=\uline b, \quad A\in\mathbb R^{n \times n}, \quad \boldsymbol{\det(A)\neq 0},
 \end{equation*}
 con una propagazione dell'errore minore rispetto alla fattorizzazione $LU$ classica. %, soprattutto se $A$ è \textit{d.d.} o \textit{sdp}.
 
@@ -1884,7 +1893,7 @@ Quindi, ponendo
 \end{equation*}
 Questo dimostra il seguente Teorema:
 \begin{theorem}\label{th:fattLUPerm}\footnotemark
-    Se $A$ è \gls{nonsingolare}, allora $\exists P$ matrice di permutazione, tale che:
+    Se $A$ è \gls{nonsingolare}, allora $\exists P\in\mathbb{R}^{n\times n}$ matrice di permutazione, tale che:
     \begin{equation}\label{eq:PA=LU}
         P\cdot A = LU.
     \end{equation}
@@ -1933,6 +1942,7 @@ alle quali è necessario aggiungere $(n-1)$ permutazioni di righe di $A$ e $\app
 \end{algorithm}
 
 \subsection{Condizionamento del problema}\footnote{PDF 9, Slide 2-4 PDF 10, PG 64-66.}
+\subsubsection{Introduzione}
 Considerato il sistema lineare
 \begin{equation}\label{eq:sistema_lineare_bidiagonale}
     \begin{bmatrix}
@@ -2026,6 +2036,7 @@ e poiché il sistema lineare è
 
 L'esecuzione dell'Algoritmo \ref{alg:bidia} restituisce i risultati di Tabella \ref{tab:risulati_algoritmo_bidia}. Ciò che è evinto dalla Tabella \ref{tab:risulati_algoritmo_bidia} è che il sistema lineare (\ref{eq:sistema_equazioni_lineari}), la cui soluzione è rappresentata con i precedenti dati, è perturbato.
 
+\subsubsection{Definizione del problema}
 È necessario studiare il \textbf{condizionamento di un sistema lineare} del tipo (\ref{eq:sistema_equazioni_lineari}), con $m=n$ ed $\uline x$ soluzione esatta. Se sono perturbati i dati in ingresso, $A$ e $\uline b$, è studiato come questo si ripercuote sul risultato, ovvero:
 \begin{equation}\label{eq:sistema_lineare_perturbato}
     \left(A+\Delta A\right)\left(\uline x + \Delta\uline x\right) = \uline b +\Delta\uline b,
@@ -2047,7 +2058,7 @@ Quindi:
     \item  $b(\varepsilon)=b+\varepsilon f\Rightarrow b(0)=b\; \wedge\; \dot{b}(\varepsilon)\equiv f.$
 \end{itemize}
 
-\noindent(\ref{eq:sistema_lineare_perturbato}) può essere scritto come
+\noindent È possibile considerare (\ref{eq:sistema_lineare_perturbato}) come
 \begin{equation}\label{eq:sistEqLinPertEps}
     A(\varepsilon) x(\varepsilon)= b(\varepsilon),\quad \varepsilon\approx 0,
 \end{equation}
@@ -2099,9 +2110,10 @@ Passando alle norme, è ottenuto (utilizzando la compatibilità tra norma su vet
 \begin{equation}\label{eq:condizionamento_sistema_lineare}
     \begin{matrix}
         ||\Delta \uline x|| &\approx& ||A^{-1}(\Delta\uline b \boldsymbol- \Delta A\cdot x)|| &\leq& ||A^{-1}||\cdot ||\Delta\uline b - \Delta A\cdot \uline x||\\\\
-        &\overset{\footnotemark}{\leq}& ||A^{-1}|| (||\Delta\uline b||\boldsymbol + ||\Delta A\cdot \uline x||) &\leq& ||A^{-1}|| (||\Delta\uline b|| + ||\Delta A||\cdot ||\uline x||)\\\\
-        &\Rightarrow& \frac{||\Delta \uline x||}{||\uline x||}&\leq& ||A^{-1}|| \cdot\left(\frac{||\Delta\uline b||}{||\uline x||} + ||\Delta A||\right)\\\\
-        & & &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||A||\cdot ||\uline x||} + \frac{||\Delta A||}{||A||}\right) &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right)\\\\
+        &&&\overset{\footnotemark}{\leq}& ||A^{-1}|| (||\Delta\uline b||\boldsymbol + ||\Delta A\cdot \uline x||) \\\\
+        && &\leq& ||A^{-1}|| (||\Delta\uline b|| + ||\Delta A||\cdot ||\uline x||)\\\\
+        &\Rightarrow& \frac{||\Delta \uline x||}{||\uline x||}&\leq& ||A^{-1}|| \cdot\left(\frac{||\Delta\uline b||}{||\uline x||} + ||\Delta A||\right) &=& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||A||\cdot ||\uline x||} + \frac{||\Delta A||}{||A||}\right)\\\\
+        & &  &\leq& ||A||\cdot||A^{-1}||\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right)\\\\
         &\rightarrow& \frac{||\Delta\uline x||}{||\uline x||} &\leq& \underbrace{||A||\cdot||A^{-1}||}_{\kappa(A)}\left(\frac{||\Delta\uline b||}{||\uline b||} + \frac{||\Delta A||}{||A||}\right)
     \end{matrix}
 \end{equation}
@@ -2144,12 +2156,26 @@ Una proprietà importante del numero di condizionamento è la seguente:
 	\end{equation*}
 \end{remark}
 
+\paragraph{Qual è il significato nel numero di condizionamento di una matrice?} Il numero di condizionamento $\kappa(A)$ serve per studiare il condizionamento di un sistema lineare
+\begin{equation*}
+	A\uline x = \uline b.
+\end{equation*}
+Infatti, considerando le perturbazioni sui dati $\Delta A$ e $\Delta b$, l'errore sulla soluzione $\Delta \uline x$, il sistema perturbato (\ref{eq:sistema_lineare_perturbato})
+\begin{equation*}
+	\left(A+\Delta A\right)\left(\uline x + \Delta\uline x\right) = \uline b +\Delta\uline b,
+\end{equation*}
+soddisfa (\ref{eq:condizionamento_sistema_lineare}), ovvero
+\begin{equation*}
+	\frac{||\Delta \uline x||}{||\uline x||} \leq \kappa(A) \left(\frac{||\Delta  A||}{|| A||} + \frac{||\Delta \uline b||}{||\uline b||}\right).
+\end{equation*}
 \begin{example}
     Data $A$ in (\ref{eq:sistema_lineare_bidiagonale}) allora
-    $\begin{cases}
-         \kappa(A) = 10^{200}, &\text{se misurato in }||\cdot||_1\text{ o }||\cdot||_\infty,\\
-         \kappa(A)\approx 10^{200}, &\text{se misurato in }||\cdot||_2.
-    \end{cases}$
+    \begin{equation*}
+    	\begin{cases}
+    		\kappa(A) = 10^{200}, &\text{se misurato in }||\cdot||_1\text{ o }||\cdot||_\infty,\\
+    		\kappa(A)\approx 10^{200}, &\text{se misurato in }||\cdot||_2.
+    	\end{cases}
+    \end{equation*}
 
     Poiché $\kappa(A)\cdot u$, dove $u\,(\approx 10^{-16})$ è la precisione di macchina, è maggiore di 1, è necessario aspettarsi (in generale) risultati privi di senso nella risoluzione del sistema lineare.
     
@@ -2185,7 +2211,7 @@ Un caso rilevante del problema (\ref{eq:sistema_lineare_equazioni_sovradimension
 
 Il sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) ammette soluzione se $\uline b\in$\gls{range(A)}, dove
 \begin{equation*}
-	\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim\ran(A)=n).
+	\range(A)\equiv\ran(A)=\{y\in\mathbb R^m:\exists x\in\mathbb R^n, y=Ax\}\, (\dim\ran(A)=n).
 \end{equation*}
 
 È possibile osservare che il vettore $A\uline x\in ran(A)$. Infatti, se
@@ -2203,10 +2229,10 @@ allora
 \end{equation*}
 \footnotetext{Quindi $ran(A)$ è uno spazio vettoriale di dimensione $n$.}
 
-$\uline b\in\mathbb R^m$, con $m>n$, è generico vettore e nel caso in cui $\uline b\in ran(A)\Rightarrow\exists! \,\uline x\in\mathbb R^n:A\uline x=\uline b.$ L'unicità di $\uline x$ deriva dal fatto che $null(A)=\{\uline 0\}$ (in genere questo non avviene). Pertanto, non esiste, in genere una soluzione classica a (\ref{eq:sistema_lineare_equazioni_sovradimensionato}).
+$\uline b\in\mathbb R^m$, con $m>n$, è generico vettore e nel caso in cui $\uline b\in ran(A)\Rightarrow\exists! \,\uline x\in\mathbb R^n:A\uline x=\uline b.$ L'unicità di $\uline x$ deriva dal fatto che $null(A)=\{\uline 0\}$ (in genere questo non avviene). Pertanto, non esiste, in genere una soluzione classica a (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). Tuttavia è possibile definire il vettore residuo.
 
 \begin{definition}[Vettore residuo]
-	Sia necessario risolvere (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), è definito il vettore residuo come
+	Sia necessario risolvere (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), $\forall \uline x \in\mathbb{R}^n$ è definito il vettore residuo come
 	\begin{equation}\label{eq:vettore_residuo}
 		\uline r = A\uline x-\uline b=
 		\begin{bmatrix}
@@ -2218,8 +2244,6 @@ $\uline b\in\mathbb R^m$, con $m>n$, è generico vettore e nel caso in cui $\uli
 		\in\mathbb R^m.
 	\end{equation}
 \end{definition}
-
-E' ricercata 
 
 \begin{remark}\footnote{Slide 5 PDF 10.}
     Se $\uline x$ è soluzione, in senso classico, di (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), allora $\uline r=\uline 0$
@@ -2243,7 +2267,7 @@ Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\
 \footnotetext{La radice di $\sqrt{\sum_{i=2}^m r_i^2}$ è annullata perché $||r_i||_2^2=\left(\sqrt{\sum_{i=2}^m r_i^2}\right)^2$.}
 
 \begin{definition}[Soluzione ai minimi quadrati]\label{def:soluzione_minimi_quadrati}
-    Il vettore $\uline x$ soluzione di (\ref{eq:norma_residuo}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). 
+    Il vettore $\uline x$ soluzione di (\ref{eq:norma_residuo}) è detto \textbf{soluzione ai minimi quadrati} (o \textbf{nel senso dei minimi quadrati}) del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}). 
 \end{definition}
 
 \paragraph{Perche' il nome "soluzione ai minimi quadrati"?} Per comprendere la scelta è necessario comprendere il motivo della scelta della \textbf{norma 2} (ovvero euclidea): è possibile osservare che $||\uline r||_2^2=\uline r^T\uline r$ e considerando una matrice \textbf{ortogonale} $\boldsymbol{U\in\mathbb R^{m\times m}}$ (ovvero tale che $U^TU=I$), è noto che 
@@ -2257,7 +2281,7 @@ Quando $\uline x$ non è una soluzione in senso classico, allora è ricercato $\
     La norma euclidea di un vettore è \textbf{invariante} rispetto alla moltiplicazione alla moltiplicazione per una matrice ortogonale.
 \end{theorem}
 
-Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è la fattorizzazione $QR$ della matrice $A$, descritta dal seguente Teorema e dimostrata in seguito.
+Lo strumento principale per risolvere sistemi sovradimensionati del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato}) è la fattorizzazione $QR$ della matrice $A$, descritta dal seguente Teorema e dimostrata in seguito.
 
 \subsubsection{Fattorizzazione \texorpdfstring{$QR$}{QR}}
 \begin{theorem}[Esistenza della fattorizzazione $QR$]\label{th:esistenza_fattorizzazione_QR}\footnote{Slide 7 PDF 10, Teorema 3.8 PG 68.}
@@ -2275,6 +2299,9 @@ Lo strumento principale per risolvere sistemi del tipo (\ref{eq:sistema_lineare_
         \boldsymbol{A=QR.}
     \end{equation}
 \end{theorem}
+\begin{proof}
+	Vedere \ref{sssec:esistenza_fattorizzazione_QR}.
+\end{proof}
 
 $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'ortogonalità ($\det(Q)=1\vee \det(Q)=-1$). La matrice $R$ è triangolare superiore.
 
@@ -2289,7 +2316,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
 \begin{equation}\label{eq:norma_2_residuo_minimo}
     \begin{matrix}
         ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\\\
-        &\overset{\footnotemark}{=}& ||R\uline x-Q^T\uline b||_2^2 &\overset{\footnotemark}{=}& ||R\uline x - \uline g||_2^2 &=& 
+        &\overset{\footnotemark}{=}& ||R\uline x-Q^T\uline b||_2^2 &\overset{\footnotemark}{=}& ||R\uline x - \uline g||_2^2 &\overset{\footnotemark}{\equiv}& 
         \left|\left|\begin{bmatrix}
             \widehat R\\
             O
@@ -2310,11 +2337,11 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
             \widehat R\uline x-\uline g_1\\
             -\uline g_2
         \end{bmatrix}&=& \left(\widehat R\uline x-\uline g_1\right)^T\left(\widehat R\uline x-\uline g_1\right)+\uline g_2^T\uline g_2 \\\\
-        &\overset{\footnotemark}{=}& \left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2+||\uline g_2||_2^2 &\overset{\footnotemark}{=}& ||\uline g_2||_2^2&=&\min !
+        &\overset{\footnotemark}{=}& \left|\left|\widehat R\uline x - \uline g_1\right|\right|_2^2+||\uline g_2||_2^2 &\overset{\footnotemark}{=}& ||\uline g_2||_2^2&=&\min !,
     \end{matrix}
 \end{equation}
 
-\addtocounter{footnote}{-6}
+\addtocounter{footnote}{-7}
 \footnotetext{Sostituzione (\ref{eq:resNorm2}).}
 
 \stepcounter{footnote}
@@ -2330,18 +2357,31 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
 \footnotetext{Ponendo $\uline g = \boldsymbol{Q^T\uline b}$, la quale è l'unica funzione di $Q$.}
 
 \stepcounter{footnote}
+\footnotetext{$g = \begin{bmatrix}
+		g_1\\
+		g_2
+	\end{bmatrix},\; g_1\in\mathbb{R}^n$.}
+
+\stepcounter{footnote}
 \footnotetext{$\uline g_1\in\mathbb R^n,\; \uline g_2\in\mathbb R^{m-n}$.}
 
 \stepcounter{footnote}
 \footnotetext{$(\widehat R\uline x-\uline g_1)^T(\widehat R\uline x-\uline g_1) = ||\widehat R\uline x - \uline g_1||_2^2,\; \uline g_2^T\uline g_2 = ||\uline g_2||_2^2$.}
 
-Scegliendo $\boldsymbol{\uline x}$ \textbf{come soluzione del sistema lineare},
+\noindent scegliendo $\boldsymbol{\uline x}$ \textbf{come soluzione del sistema lineare},
 \begin{equation}\label{eq:Rx=g1}
-    \boldsymbol{\widehat R\uline x=\uline g_1},
+    \boldsymbol{\widehat R\uline x=\uline g_1}.
 \end{equation}
-il quale ammette soluzione, e questa è unica, essendo $\boldsymbol{\widehat R}$ \textbf{\gls{nonsingolare}}. Inoltre, il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore}.
 
-\begin{theorem}\footnote{Slide 9 PDF 10.}
+È possibile osservare che:
+\begin{itemize}
+	\item (\ref{eq:Rx=g1}) ammette soluzione unica, essendo $\boldsymbol{\widehat R}$ \textbf{\gls{nonsingolare}};
+	\item il sistema lineare (\ref{eq:Rx=g1}) è di \textbf{facile soluzione}, poichè $\boldsymbol{\widehat R}$ \textbf{è triangolare superiore};
+	\item $Q$ non è richiesto esplicitamente se è possibile effettuare il prodotto $Q^Tb$ per ottenere $g$.
+\end{itemize}
+il quale . Inoltre, .
+
+\begin{theorem}[Soluzione ai minimi quadrati esiste ed è unica]\footnote{Slide 9 PDF 10.}
     Se $A\in\mathbb R^{m\times n},\; m>n=\rank(A)$, la soluzione ai minimi quadrati (Definizione \ref{def:soluzione_minimi_quadrati}) del sistema lineare $A\uline x=\uline b$ (del tipo (\ref{eq:sistema_lineare_equazioni_sovradimensionato})) \textbf{esiste ed è unica}.
 \end{theorem}
 \begin{proof}
@@ -2388,7 +2428,7 @@ $H$ è della seguente forma:
 \begin{equation}\label{eq:matrice_householder}
     \boldsymbol{H=I-\frac{2}{\uline v^T\uline v}\uline v\uline v^T,\quad \uline v\in\mathbb R^n\backslash\{\uline 0\}},
 \end{equation}
-dove $v$ è scelto in modo da soddisfare (\ref{eq:Hz=ae1}) ($||v||_2>0$). $H$ definita come (\ref{eq:matrice_householder}) è $\overset{\footnotemark}{\text{\textbf{simmetrica}}}$ e $\overset{\footnotemark}{\text{\textbf{ortogonale}}}$. Infatti:
+dove $v$ è scelto in modo da soddisfare (\ref{eq:Hz=ae1}) ($||v||_2>0$). $H$ definita come (\ref{eq:matrice_householder}) è \textbf{simmetrica}\footnotemark e \textbf{ortogonale}\footnotemark. Infatti:
 \addtocounter{footnote}{-1}
 \footnotetext{Perché $H$ è una somma tra $I$ ed una matrice di rango 1 ($\frac{2}{\uline v^T\uline v}\uline v\uline v^T$ è uno scalare).}
 
@@ -2458,8 +2498,12 @@ pertanto, è svolta un'unica operazione sulla prima componente del vettore. Al f
     \end{cases}}
 \end{equation*}
 
-\begin{definition}
-    Il vettore $\uline v$ definito come (\ref{eq:vettore_householder}) prende il nome di \textbf{vettore elementare di Householder}. La matrice $H$ corrispondente, definita come (\ref{eq:matrice_householder}), prende il nome di \textbf{matrice elementare di Householder}.
+\begin{definition}[Vettore di Householder]
+    Il vettore $\uline v$ definito come (\ref{eq:vettore_householder}) prende il nome di \textbf{vettore elementare di Householder}. 
+\end{definition}
+
+\begin{definition}[Matrice di Householder]
+	La matrice $H$ corrispondente al vettore di Householder, definita come (\ref{eq:matrice_householder}), prende il nome di \textbf{matrice elementare di Householder}.
 \end{definition}
 
 Il vettore $\uline v$ scelto in forma (\ref{eq:vettore_householder}), con $\alpha$ è definita come in (\ref{eq:aNormZ}). La scelta del segno di $\alpha$ è importante perché fa differenza. Tipicamente fa la differenza quando $z_1$ è l'elemento di massimo modulo e, di conseguenza, la norma di $z$ è grosso modo uguale al modulo di $a_1$. In questo caso la sottrazione (\ref{eq:vettore_householder}), con il segno di $\alpha$ scelto in modo opportuno, da origine alla cancellazione.
@@ -2485,7 +2529,8 @@ L'equivalenza (\ref{eq:matrHHNorm}) è una proprietà utile al fine di ottimizza
 
 È possibile definire l'algoritmo di fattorizzazione $QR$ (di Householder). È utilizzata la notazione $a_{\boldsymbol{ij}}^{\boldsymbol{(k)}}$ per denotare l'elemento $(i,j)$ della matrice al passo $\boldsymbol k$, ovvero il più recente in cui l'elemento è stato modificiato, come per il metodo di Gauss.
 
-\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistenza_fattorizzazione_QR}}]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
+\subsubsubsection{Dimostrazione esistenza della fattorizzazione \texorpdfstring{$\boldsymbol{QR}$}{QR}}\label{ssssec:dimostrazione_esistenza_fattorizzazione_QR}
+\begin{proof}[\textbf{Dimostrazione del Teorema \ref{th:esistenza_fattorizzazione_QR} di esistenza della fattorizzazione} $\boldsymbol{QR}$]\footnote{Slide 9 PDF 11. Ciò che sarà fatto è un processso semi-iterativo, con un numero minimo di passi ($n$ se $n$ è il numero di colonne della matrice). Sarà fatto ciò che stato fatto con il metodo di Gauss, ovvero trasformare la matrice in una che, al passo $i$-esimo, ha la colonna $i$-esima di una matrice triangolare superiore (quindi saranno azzerati tutti gli elementi sotto la diagonale). Per fare questo saranno utilizzate le matrici ortogonali.}
     Data
     \begin{equation*}
         A=\begin{bmatrix}

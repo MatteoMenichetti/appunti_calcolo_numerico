@@ -902,12 +902,6 @@ con $x_0$ ed $x_1$ approssimazioni iniziali assegnate (sono richiesti per il cal
 	Assegnato $x_0$ è possibile calcolare $x_1$, tramite il metodo di Newton, come $x_1=x_0-\frac{f(x_0)}{f'(x_0)}$.
 \end{remark}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\textwidth]{immagini/GraficoSecanti.png}
-	\caption{\label{fig:GraficoSecanti} Metodo delle secanti (\ref{eq:approxSecanti}). La linea rossa dovrebbe passare per $x_{i+1},\; x_i\; e\; x_{i-1}$.}
-\end{figure}
-
 \paragraph{Costo computazionale:}\footnote{Slide 9 PDF lez11.}
 L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale per iterazione, in quanto $f(x_{i-1})$ è calcolato al passo $i-1$. La prima iterazione ne richiede due, ma sono trascurabili.
 
@@ -915,9 +909,17 @@ L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale p
 
 \paragraph{Ordine di convergenza:} $p = \frac{\sqrt{5}+1}{2}\approx 1.618$ per radici semplici, $p=1$ nel caso di radici multiple. Anche se l'ordine di convergenza è minore rispetto a quello del metodo di Newton è preferibile a quest'ultimo, in quanto non viene effettuata una valutazione della derivata ad ogni iterazione.
 
+\paragraph{Implementazione:} Algoritmo \ref{alg:metodo_secanti}.
+
 \begin{remark}
-	Nella conversione dei precenti metodi in algoritmi è buona norma eseguire controlli sul demominatore, affinchè non siano svolte divisioni per 0. Nel caso dell'approssimazione di radici multiple, mediante il metodo di Newton modificato o il metodo di accelerazione Aitken, quando la derivata si annulla ed il valore della funzione è molto piccolo, significa che è stata raggiunta la migliore approssimazione possibile della soluzione.
+	Nella conversione dei precedenti metodi in algoritmi è buona norma eseguire controlli sul denominatore, affinché non siano svolte divisioni per 0. Nel caso dell'approssimazione di radici multiple, mediante il metodo di Newton modificato o di accelerazione Aitken, se la derivata si annulla ed il valore della funzione è molto piccolo, significa che è stata raggiunta la migliore approssimazione possibile della soluzione.
 \end{remark}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/GraficoSecanti.png}
+	\caption{\label{fig:GraficoSecanti} Metodo delle secanti (\ref{eq:approxSecanti}). La linea rossa dovrebbe passare per $x_{i+1},\; x_i\; e\; x_{i-1}$.}
+\end{figure}
 
 \begin{algorithm}
 	\caption{Implementazione del metodo delle secanti.}\label{alg:metodo_secanti}
