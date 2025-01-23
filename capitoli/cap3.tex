@@ -2290,7 +2290,7 @@ Lo strumento principale per risolvere sistemi sovradimensionati del tipo (\ref{e
         \item $Q\in\mathbb R^{\boldsymbol{m\times m}},$ \textbf{ortogonale},
         \item $\widehat R\in\mathbb R^{\boldsymbol{n\times n}},$ \textbf{triangolare superiore e \gls{nonsingolare}},
     \end{enumerate}
-    tali che,
+    tali che
     \begin{equation}\label{eq:fattorizzazione_QR}
         \boldsymbol{A=QR},
     \end{equation}
@@ -2313,7 +2313,7 @@ $\widehat R$ e $Q$ sono nonsingolari, rispettivamente per specifica e per l'orto
     \end{equation*}
 \end{remark}
 
-È ricercata la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), ovvero la soluzione definita dalla Definizione \ref{def:soluzione_minimi_quadrati}, che minimizza $ ||\uline r||_2^2$, ovvero:
+È ricercata la soluzione ai minimi quadrati del sistema lineare sovradimensionato (\ref{eq:sistema_lineare_equazioni_sovradimensionato}), la soluzione definita come Definizione \ref{def:soluzione_minimi_quadrati}, che minimizza $ ||\uline r||_2^2$, ovvero:
 \begin{equation}\label{eq:norma_2_residuo_minimo}
     \begin{matrix}
         ||\uline r||_2^2 &\overset{\footnotemark}{=}& ||A\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}&||QR\uline x-\uline b||_2^2 &\overset{\footnotemark}{=}& \left|\left|Q\left(R\uline x-Q^T\uline b\right)\right|\right|_2^2\\\\
