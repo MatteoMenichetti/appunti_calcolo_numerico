@@ -1,6 +1,6 @@
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104. L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati.}
-In molte applicazioni è spesso richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le ascisse (tra loro \underline{distinte}):
+In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le ascisse (tra loro \underline{distinte}):
 \begin{equation}\label{eq:ascisse_distinte}
 	a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
 \end{equation}
@@ -55,7 +55,7 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
         p(x_i)\equiv\sum_{k=0}^{n}a_kx_i^k=f_i,\quad i=0,\hdots,n.
     \end{equation}
     Questo è un sistema di equazioni lineari $(n+1)$, nelle $n+1$ incognite $a_0,\hdots,a_n$. Il sistema può essere denotato in forma vettoriale come
-    \begin{equation}\label{eq:sistemaVand}
+    \begin{equation}\label{eq:sistema_lineare_vandermonde}
         V\underline{a}=\underline{b},
     \end{equation}
     dove
@@ -87,7 +87,7 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
     	\det(V) \overset{\footnotemark}{=} \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\footnotemark.
     \end{equation*}
     
-    In virtù dell'ipotesi (\ref{eq:ascisse_distinte}), segue che $\det(V)\overset{\footnotemark}{\neq} 0 \Rightarrow \exists!$ la soluzione per (\ref{eq:sistemaVand}) $\iff\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione \ref{eq:condizioni_interpolazione}.
+    In virtù dell'ipotesi (\ref{eq:ascisse_distinte}), segue che le ascisse sono distinte e che $\det(V)\overset{\footnotemark}{\neq} 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
 \end{proof}
 
 \addtocounter{footnote}{-1}
@@ -96,44 +96,46 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
 \stepcounter{footnote}
 \footnotetext{Non nullo dato che le ascisse si interpolazione $x_0, \hdots, x_n$ sono distinte.}
 
-Il problema discreto (\ref{eq:sistemaVand}), per la determinazione di (\ref{eq:InterpEqLin}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
+Il problema discreto (\ref{eq:sistema_lineare_vandermonde}), per la determinazione di (\ref{eq:InterpEqLin}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
 
 \begin{definition}[Polinomio Interpolante]
     Il polinomio (\ref{eq:InterpEqLin}) è noto come \textbf{polinomio interpolante} la funzione sulle ascisse assegnate.
 \end{definition}
 
-Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistemaVand}) è inefficiente per il costo computazionale elevato e per il numero di condizionamento di $V$, il quale cresce rapidamente al crescere di $n$.
+Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema_lineare_vandermonde}) è inefficiente per il costo computazionale elevato e per il numero di condizionamento di $V$, il quale cresce rapidamente al crescere di $n$.
 
 È necessario cercare un modo alternativo per il calcolo del polinomio interpolante $p(x)$, ovvero utilizzare una base diversa da quella delle potenze per il polinomio interpolante. Per questo sono definiti i polinomi della seguente Sezione, atti a calcolare il polinomio interpolante con una base diversa.
 
 \subsection{Forma di Lagrange e di Newton}
-\begin{definition}[Base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
-    La \textbf{base di Lagrange} è definita dai seguenti \textbf{polinomi di Lagrange}:
+\begin{definition}[Polinomi di base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
+    La \textbf{base di Lagrange} è definita dai seguenti \textbf{polinomi di base di Lagrange}:
     \begin{equation}\label{eq:polLagrange}
         L_{in}=\prod_{j=0,\,j\neq i}^{n} \frac{x-x_j}{x_i-x_j},\quad i=0,1,\hdots,n, 
     \end{equation}
-    dove $i$ stabilisce quale polinomio è considerato ed $n$ determina il grado del polinomio.
+    dove $i$ stabilisce quale polinomio è considerato ed $n$ determina il grado del polinomio $L_{in}$.
 \end{definition}
 
-Date le ascisse definite come (\ref{eq:ascisse_distinte}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
-\begin{itemize}
-    \item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_distinte}).};
-    \item [P2)]\footnotemark $L_{in}(x)\in\Pi_n,\; \forall i=0,\hdots,n$;
-    \footnotetext{La proprietà, il grado dei polinomi $L_{in}$, non è determinata dal denominatore di $L_{in}$, ma dal nominatore di questa. $L_{in}(x)$ è una moltiplicazione di polinomi monici di grado $n$ moltiplicati $n$ volte.}
-    \item[P3)]\footnote{Dimostrazione di P2).}$L_{in}(x_k)=
-   \begin{cases}
-     1 & \text{se $\;k=i$ (quindi nom=denom);}\\
-     \underset{\footnotemark}{0} & \text{se $\;k\neq i$.}
-   \end{cases}$
-    \footnotetext{$x=x_j$ in almeno una moltiplicazione, quindi è 0.}
-    \item[P4)] I polinomi $\{L_{0n}(x), \hdots, L_{nn}(x)\}$ sono tra loro \uline{linearmente indipendenti}\footnotemark.
-    Infatti, se
-    \begin{equation*}
-        \sum_{i=0}^n \alpha_i\, L_{in}(x)=0, \, \forall x \Longrightarrow \alpha_i=0,\quad i=0,\hdots,n.
-    \end{equation*}
-    È possibile dimostrare la tesi per un generico $k\in \{0,\hdots,n\}$ valutando $0=\sum_{i=0}^n \alpha_i\, L_{in}(x_k)=\alpha_k\,\underbrace{L_{kn}(x_k)}_{1 \text{ per P3)}}=\alpha_k.$ Pertanto, $\boldsymbol{\{\underbrace{L_{0n}(x), \hdots,L_{nn}(x)}_{n+1}\}}$ costituiscono una base per $\Pi_n$, detta \textbf{base di Lagrange}.
-\end{itemize}
-\footnotetext{Significa che una combinazione lineare per $p$, polinomio nullo, deve essere a coefficienti nulli.}
+\begin{property}
+	Date le ascisse definite come (\ref{eq:ascisse_distinte}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
+	\begin{itemize}
+		\item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_distinte}).};
+		\item [P2)]\footnotemark $L_{in}(x)\in\Pi_n,\; \forall i=0,\hdots,n$;
+		\footnotetext{La proprietà, il grado dei polinomi $L_{in}$, non è determinata dal denominatore di $L_{in}$, ma dal nominatore di questa. $L_{in}(x)$ è una moltiplicazione di polinomi monici di grado $n$ moltiplicati $n$ volte.}
+		\item[P3)]\footnote{Dimostrazione di P2).}$L_{in}(x_k)=
+		\begin{cases}
+			1 & \text{se $\;k=i$ (quindi nom=denom);}\\
+			\underset{\footnotemark}{0} & \text{se $\;k\neq i$.}
+		\end{cases}$
+		\footnotetext{$x=x_j$ in almeno una moltiplicazione, quindi è 0.}
+		\item[P4)] I polinomi $\{L_{0n}(x), \hdots, L_{nn}(x)\}$ sono tra loro \uline{linearmente indipendenti}\footnotemark.
+		Infatti, se
+		\begin{equation*}
+			\sum_{i=0}^n \alpha_i\, L_{in}(x)=0, \, \forall x \Longrightarrow \alpha_i=0,\quad i=0,\hdots,n.
+		\end{equation*}
+		È possibile dimostrare la tesi per un generico $k\in \{0,\hdots,n\}$ valutando $0=\sum_{i=0}^n \alpha_i\, L_{in}(x_k)=\alpha_k\,\underbrace{L_{kn}(x_k)}_{1 \text{ per P3)}}=\alpha_k.$ Pertanto, $\boldsymbol{\{\underbrace{L_{0n}(x), \hdots,L_{nn}(x)}_{n+1}\}}$ costituiscono una base per $\Pi_n$, detta \textbf{base di Lagrange}.
+	\end{itemize}
+	\footnotetext{Significa che una combinazione lineare per $p$, polinomio nullo, deve essere a coefficienti nulli.}
+\end{property}
 
 Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
 
@@ -381,38 +383,40 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 
 La definizione in forma di Newton di $p(x)$ come (\ref{eq:polInterNewt}) permette di ottenere funzioni di base in funzione delle precedenti. Pertanto, questo non permette di calcolare la differenza divisa e la rappresentazione $f[x_0,\hdots, x_r]$ non è algoritmicamente preferibile. Per arrivare al fine di ottenere un algoritmo efficiente, sono esaminate alcune proprietà delle differenze divise.
 
-\paragraph{\underline{Proprietà differenze divise (\ref{eq:diffDivisa})}:} \footnote{Slide 9-11 PDF 16, TH 4.4 PG 82.}
-\begin{itemize}
-    \item[P1)](Linearità dell'operatore) Se $f$ e $g$ sono funzioni in variabili reali $\alpha,\,\beta \in\mathbb R$, allora
-    \begin{equation*}
-        (\alpha\cdot f + \beta\cdot g)[x_0,\hdots, x_r]=\alpha\cdot f[x_0,\hdots, x_r]+\beta\cdot g[x_0,\hdots, x_r];
-    \end{equation*}
-    \item[P2)](Simmetria dell'operatore) Se $\{i_0,\hdots,i_r\}$ è una permutazione di $\{0,\hdots, r\}$, allora:
-    \begin{equation*}
-        f[x_0,\hdots,x_r]=f[x_{i_0},\hdots,x_{i_r}];
-    \end{equation*}
-    \item[P3)] Se $f(x)=\sum_{i=0}^ka_ix^i$, allora $f[x_0,\hdots, x_r]=
-    \begin{cases}
-        a_k,\; r=k;\\
-        0,\; r>k.
-    \end{cases}$
-    \footnote{Sia $g(x)\in\Pi_n$, allora il polinomio $p(x)\in\Pi_n$ che interpola $g(x)$ sulle ascisse distinte $x_0,\hdots,x_n$ è $g(x)$ stesso ($p(x)=g(x)$), per l'unicità del polinomio interpolante.
-    Il polinomio $p(x)\in\Pi_r,$ con $r>n$, che interpola $g(x)$ sulle $r+1$ ascisse distinte $x_0, \hdots, x_r$, è sempre $g(x)$ per lo stesso motivo.}
+\begin{property}[Differenze divise]
+	\footnote{Slide 9-11 PDF 16, TH 4.4 PG 82.}
+	\begin{itemize}
+		\item[P1)](Linearità dell'operatore) Se $f$ e $g$ sono funzioni in variabili reali $\alpha,\,\beta \in\mathbb R$, allora
+		\begin{equation*}
+			(\alpha\cdot f + \beta\cdot g)[x_0,\hdots, x_r]=\alpha\cdot f[x_0,\hdots, x_r]+\beta\cdot g[x_0,\hdots, x_r];
+		\end{equation*}
+		\item[P2)](Simmetria dell'operatore) Se $\{i_0,\hdots,i_r\}$ è una permutazione di $\{0,\hdots, r\}$, allora:
+		\begin{equation*}
+			f[x_0,\hdots,x_r]=f[x_{i_0},\hdots,x_{i_r}];
+		\end{equation*}
+		\item[P3)] Se $f(x)=\sum_{i=0}^ka_ix^i$, allora $f[x_0,\hdots, x_r]=
+		\begin{cases}
+			a_k,\; r=k;\\
+			0,\; r>k.
+		\end{cases}$
+		\footnote{Sia $g(x)\in\Pi_n$, allora il polinomio $p(x)\in\Pi_n$ che interpola $g(x)$ sulle ascisse distinte $x_0,\hdots,x_n$ è $g(x)$ stesso ($p(x)=g(x)$), per l'unicità del polinomio interpolante.
+			Il polinomio $p(x)\in\Pi_r,$ con $r>n$, che interpola $g(x)$ sulle $r+1$ ascisse distinte $x_0, \hdots, x_r$, è sempre $g(x)$ per lo stesso motivo.}
+		
+		\item[P4)] Se $f\in C^{(\boldsymbol r)}[a,b],\, a=\underset{i=0,\hdots,\boldsymbol r}{\min}x_i,\, b=\underset{i=0,\hdots,\boldsymbol r}{\max}x_0$, allora
+		\begin{equation}\label{eq:P4DiffDiv}
+			f[x_0,\hdots, x_{\boldsymbol r}]=\frac{f^{(\boldsymbol r)}(\xi)}{\boldsymbol r!},\; \xi\in [a,b],
+		\end{equation}
+		
+		dove $[a,b]$ è il più piccolo intervallo che contiene le ascisse di interpolazione. Questa proprietà vale anche nel caso in cui 2 o più ascisse coincidano. In questo caso, la definizione di differenza divisa vale come limite.
+		
+		\item[P5)] \begin{equation}\label{eq:P5_differenze_divise}
+			f[\underbrace{x_0,\hdots,x_r}_{r+1}]=\frac{f[\overbrace{x_1,\hdots,x_r}^{r}]-f[\overbrace{x_0,\hdots,x_{r-1}}^{r}]}{x_r-x_0}.\footnotemark
+		\end{equation}
+		\footnotetext{Le due differenze divise al nominatore differiscono solo per l'ascissa $x_0$. Il concetto è che, se è applicata iterativamente questa proprietà, allora è possibile scrivere le differenze divise come combinazione di differenze divise, con $r-1$ argomenti, fino ad ottenere un solo argomento. Quando l'argomento è unico allora la differenza divisa coinciderà con il valore calcolato nell'argomento.}
+	\end{itemize}
+\end{property}
 
-    \item[P4)] Se $f\in C^{(\boldsymbol r)}[a,b],\, a=\underset{i=0,\hdots,\boldsymbol r}{\min}x_i,\, b=\underset{i=0,\hdots,\boldsymbol r}{\max}x_0$, allora
-    \begin{equation}\label{eq:P4DiffDiv}
-        f[x_0,\hdots, x_{\boldsymbol r}]=\frac{f^{(\boldsymbol r)}(\xi)}{\boldsymbol r!},\; \xi\in [a,b],
-    \end{equation}
-
-    dove $[a,b]$ è il più piccolo intervallo che contiene le ascisse di interpolazione. Questa proprietà vale anche nel caso in cui 2 o più ascisse coincidano. In questo caso, la definizione di differenza divisa vale come limite.
-
-    \item[P5)] \begin{equation}\label{eq:P5DiffDiv}
-        f[\underbrace{x_0,\hdots,x_r}_{r+1}]=\frac{f[\overbrace{x_1,\hdots,x_r}^{r}]-f[\overbrace{x_0,\hdots,x_{r-1}}^{r}]}{x_r-x_0}.\footnotemark
-    \end{equation}
-    \footnotetext{Le due differenze divise al nominatore differiscono solo per l'ascissa $x_0$. Il concetto è che, se è applicata iterativamente questa proprietà, allora è possibile scrivere le differenze divise come combinazione di differenze divise, con $r-1$ argomenti, fino ad ottenere un solo argomento. Quando l'argomento è unico allora la differenza divisa coinciderà con il valore calcolato nell'argomento.}
-\end{itemize}
-
-(\ref{eq:P5DiffDiv}) è  una proprietà algoritmica importante, è utilizzata per il calcolo efficiente della differenze divisa ed è possibile dimostrarla come segue.
+(\ref{eq:P5_differenze_divise}) è  una proprietà algoritmica importante, è utilizzata per il calcolo efficiente della differenze divisa ed è possibile dimostrarla come segue.
 
 \begin{proof}[Dimostrazione P5)] \footnote{Tramite la definizione di differenza divisa. Sono calcolate due differenze divise, è effettuata la somma ed è ottenuta l'espressione ricercata.}
     \begin{equation}\label{eq:dimPropDiffDiv}
@@ -445,7 +449,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polInterNewt}) permett
     \footnotetext{Ovvero ciò che è necessario dimostrare.}
 \end{proof}
 
-\paragraph{Esempio di utilizzo della proprietà (\ref{eq:P5DiffDiv}):} Considerando il caso $\boldsymbol{n=3}$:
+\paragraph{Esempio di utilizzo della proprietà (\ref{eq:P5_differenze_divise}):} Considerando il caso $\boldsymbol{n=3}$:
 \begin{equation*}
     \boldsymbol{p(x)=f[x_0]\;\equalto{\omega_0(x)}{1}+f[x_0,x_1]\omega_1(x)+f[x_0,x_1,x_2]\omega_2(x)+f[x_0,x_1,x_2,x_3]\omega_3(x)},
 \end{equation*}
@@ -841,7 +845,7 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
         \widehat p(\widehat x) &=& f(\widehat x),
         \end{matrix}
     \end{equation*}
-    Ovvero, $\widehat p(x)$ interpola $f(x)$ anche in $\widehat x$, oltre che nelle ascisse $x_0,\hdots,x_n$.
+    ovvero, $\widehat p(x)$ interpola $f(x)$ anche in $\widehat x$, oltre che nelle ascisse $x_0,\hdots,x_n$.
     
     (È imposta la seguente condizione:) Utilizzando la forma di Newton del polinomio interpolante (Teorema \ref{th:formaNewt}) è ottenuto che
     \begin{equation*}
@@ -849,7 +853,7 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
     \end{equation*}
     la quale soddisfa le condizioni di interpolazione
     \begin{equation*}
-        \widehat p(x_i)=\equalto{p(x_i)}{f(x_i)} + f[x_0,\hdots,x_n,\widehat x]\,\overbrace{\omega_{n+1}(x_i)}^{0} \boldsymbol = f(x_i),\quad i=0,\hdots,n,
+        \widehat p(x_i)=\underbrace{p(x_i)}_{f(x_i)} + f[x_0,\hdots,x_n,\widehat x]\,\underbrace{\omega_{n+1}(x_i)}_{0} \boldsymbol = f(x_i),\quad i=0,\hdots,n,
     \end{equation*}
     ed inoltre:
     \begin{equation*}
@@ -1142,7 +1146,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
     \item[P4)] la scelta di ascisse equidistanti da una costante di Lebesque genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
 \end{itemize}
 
-\subsubsection{Connesssioni tra condizionamento ed errore dell'interpolazione polinomiale}
+\subsubsection{Connessioni tra condizionamento ed errore dell'interpolazione polinomiale}
 \footnotemark Allo scopo di studiare le connessioni tra condizionamento ed errore dell'interpolazione polinomiale sarà assunto di aver fissato un intervallo di riferimento $[a,b]$, la corrispondente norma $||\cdot||$ ed una funzione $f(x)\in C^{(0)}[a,b]$. Lo studio che sarà trattato varrà per ogni intervallo, in quanto la proprietà P3) del precedente elenco è invariante rispetto all'intervallo considerato.
 \footnotetext{Cose da non dimostare (tranne il teorema di Jackson), ma da conoscere perché utili per le future trattazioni di diversi tipi di interpolazione, le quali si giustificano per i risultati diversi di questa analisi.}
 
@@ -1151,7 +1155,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
     \begin{equation}\label{eq:errMiglAppross}
         ||f-p^*||=\underset{p\in\Pi_n}{\min}||f-p||,
     \end{equation}
-    dove $\boldsymbol{p^*(x)}$ è detto \textbf{polinomio di migliore approssimazione di $f(x)$, di grado $n$ (sull'intervallo $[a,b]$)} e $\boldsymbol{||f-p^*||}$ è detto l'\textbf{errore di migliore approssimazione}.
+    dove $\boldsymbol{p^*(x)}$ è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$, di grado $\boldsymbol n$ (sull'intervallo $\boldsymbol{[a,b]}$)} e $\boldsymbol{||f-p^*||}$ è detto l'\textbf{errore di migliore approssimazione}.
 \end{definition}
 
 \begin{remark}
@@ -1838,7 +1842,7 @@ Dividendo membro a membro per $h_i+h_{i+1}=x_{i+1}-x_{i-1},$ è ottenuto:
         \equaltoup{\boxed{\frac{h_i}{h_i+h_{i+1}}}}{\varphi_i}\,m_{i-1}+2m_i+\equaltoup{\boxed{\frac{h_{i+1}}{h_i+h_{i+1}}}}{\xi_i}\,m_{i+1}&=&6\,\frac{f[x_i,x_{i+1}]-f[x_{i-1},x_i]}{x_{i+1}-x_{i-1}}&\overset{\footnotemark}{=}&6\,f[x_{i-1},x_i,x_{i+1}],\\
         && && i=1,\hdots,n-1.
     \end{matrix}
-\end{equation}\footnotetext{Per (\ref{eq:P5DiffDiv}).} 
+\end{equation}\footnotetext{Per (\ref{eq:P5_differenze_divise}).} 
 
 \begin{remark}\label{re:varphi+xi=1}\footnote{Slide 9 PDF 24.}
     $\boldsymbol{\varphi_i,\, \xi_i>0,\, \varphi_i+\xi_i=1.}$
