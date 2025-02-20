@@ -1,25 +1,26 @@
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104. L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati.}
 In molte applicazioni è spesso richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le ascisse (tra loro \underline{distinte}):
-\begin{equation}\label{eq:ascisseDistinte}
-a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
+\begin{equation}\label{eq:ascisse_distinte}
+	a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
 \end{equation}
 
-Con (\ref{eq:ascisseDistinte}) sono rappresentate $n+1$ ascisse distinte.
+Con (\ref{eq:ascisse_distinte}) sono rappresentate $n+1$ ascisse distinte.
 
 \subsection{Polinomio Interpolante}
 In seguito sarà considerata la notazione
 \begin{equation*}
     f_i=f(x_i),\; (x_i,f_i),\; i=0,\hdots,n,
 \end{equation*}
-per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisseDistinte}), in modo che, con $p(x_i)\in \Pi_n$, valgano le condizioni di interpolazione 
-\begin{equation}\label{eq:condInterp}
+per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_distinte}), in modo che, con $p(x_i)\in \Pi_n$, valgano le condizioni di interpolazione 
+\begin{equation}\label{eq:condizioni_interpolazione}
     p(x_i)=f_i,\; i=0,\hdots,n.
 \end{equation}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
-\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisseDistinte})}
+\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_distinte})}
 \end{figure}
 
 \paragraph{Divagazione su $\Pi_n$:}{
@@ -27,17 +28,29 @@ $\boldsymbol{\Pi_n}$ \textbf{è lo spazio vettoriale dei polinomi di grado al pi
 Infatti, $\forall q_1, q_2\in\Pi_n$ e $\forall \alpha,\beta\in\mathbb R$, è ottenuto che $\alpha \cdot q_1(x)+\beta\cdot q_2(x)\in\Pi_n$. $\alpha \cdot q_1(x)$ e $\beta\cdot q_2(x)$ sono moltiplicazioni che non aumentano il grado della somma, al massimo lo diminuiscono.
 
 Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriverlo come
-\begin{equation}\label{eq:PolGenerico}
+\begin{equation}\label{eq:polinomio_generico}
     p(x)=\sum_{k=0}^{n}a_kx^k.
 \end{equation}
 I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipendenti e questi costituiscono la base canonica di $\Pi_n$. Pertanto, $\dim(\Pi_n)=n+1$. Questo significa che, per individuare univocamente un polinomio di $\Pi_n$,  saranno necessarie $n+1$ condizioni linearmente indipendenti.}
 
-L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente teorema.
-\begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:EsisUnicPolInterp}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
-    $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$, date le coppie di dati $(x_i,f_i),\; i=0,\hdots,n$, soddisfacenti (\ref{eq:ascisseDistinte}).
+ \begin{definition}[Matrice di Vandermonde]
+	Una matrice di Vandermonde ha la caratteristica di essere definita con attraverso una progressione geormetrica, ovvero gli elementi di $V$ sono del tipo $v_{i,j}=v_i^{j-1}$.
+\end{definition}
+
+\begin{property}\label{prop:determinante_matrice_vandermonde}
+	Data $V\in\mathbb{R}^{n\times n}$ matrice di Vandermonde, allora
+	\begin{equation}\label{eq:determinante_matrice_vandermonde}
+		\det(V)\overset{\footnotemark}{=}\prod_{\underbrace{i>j}_{i\neq j}}(v_i-v_j).
+	\end{equation}
+\end{property}
+\footnotetext{Produttoria di tutte le coppie di elementi ascisse $x$ con indice $i>j$.}
+
+L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Teorema.
+\begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:esistenza_unicita_polinomio_interpolante}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
+    Date le ascisse distinte del tipo (\ref{eq:ascisse_distinte}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
 \end{theorem}
 \begin{proof}
-    Considerato il polinomio incognito in forma (\ref{eq:PolGenerico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condInterp})}:
+    Considerato il polinomio incognito in forma (\ref{eq:polinomio_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})}:
     \begin{equation}\label{eq:InterpEqLin}
         p(x_i)\equiv\sum_{k=0}^{n}a_kx_i^k=f_i,\quad i=0,\hdots,n.
     \end{equation}
@@ -68,21 +81,19 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente te
     \end{bmatrix}\in\mathbb R^{(n+1)\times (n+1)}.
     \end{equation*}
     $V$ è la matrice dei coefficienti, definita univicomente dalle ascisse, e trasposta di una matrice di Vandermonde.
-
-    \begin{definition}[Matrice di Vandermonde]
-        Una matrice di Vandermonde ha la caratteristica di essere definita con attraverso una progressione geormetrica, ovvero gli elementi di $V$ sono del tipo $v_{i,j}=v_i^{j-1}$.
-    \end{definition}
     
-    \begin{remark}
-        È nota la seguente proprietà delle matrici di Vandermonde, quindi di $V$: 
-        \begin{equation*}
-            \det(V)\overset{\footnotemark}{=}\prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j).\footnotemark
-        \end{equation*}
-    \end{remark}
-    \footnotetext{Produttoria di tutte le coppie di elementi ascisse $x$ con indice $i>j$. Le ascisse $x_0, \hdots, x_n$ soddisfano (\ref{eq:ascisseDistinte}).}
+    Inoltre, $V$ ha la seguente proprietà (Proprietà \ref{prop:determinante_matrice_vandermonde})
+    \begin{equation*}
+    	\det(V) \overset{\footnotemark}{=} \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\footnotemark.
+    \end{equation*}
     
-    In virtù dell'ipotesi (\ref{eq:ascisseDistinte}), segue che $\det(V)\overset{\footnotemark}{\neq} 0 \Rightarrow \exists!$ la soluzione per (\ref{eq:sistemaVand}) $\iff\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione \ref{eq:condInterp}.
+    In virtù dell'ipotesi (\ref{eq:ascisse_distinte}), segue che $\det(V)\overset{\footnotemark}{\neq} 0 \Rightarrow \exists!$ la soluzione per (\ref{eq:sistemaVand}) $\iff\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione \ref{eq:condizioni_interpolazione}.
 \end{proof}
+
+\addtocounter{footnote}{-1}
+\footnotetext{. Le ascisse $x_0, \hdots, x_n$ soddisfano (\ref{eq:ascisse_distinte}).}
+
+\stepcounter{footnote}
 \footnotetext{Non nullo dato che le ascisse si interpolazione $x_0, \hdots, x_n$ sono distinte.}
 
 Il problema discreto (\ref{eq:sistemaVand}), per la determinazione di (\ref{eq:InterpEqLin}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
@@ -104,9 +115,9 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
     dove $i$ stabilisce quale polinomio è considerato ed $n$ determina il grado del polinomio.
 \end{definition}
 
-Date le ascisse definite come (\ref{eq:ascisseDistinte}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
+Date le ascisse definite come (\ref{eq:ascisse_distinte}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
 \begin{itemize}
-    \item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisseDistinte}).};
+    \item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_distinte}).};
     \item [P2)]\footnotemark $L_{in}(x)\in\Pi_n,\; \forall i=0,\hdots,n$;
     \footnotetext{La proprietà, il grado dei polinomi $L_{in}$, non è determinata dal denominatore di $L_{in}$, ma dal nominatore di questa. $L_{in}(x)$ è una moltiplicazione di polinomi monici di grado $n$ moltiplicati $n$ volte.}
     \item[P3)]\footnote{Dimostrazione di P2).}$L_{in}(x_k)=
@@ -127,7 +138,7 @@ Date le ascisse definite come (\ref{eq:ascisseDistinte}), allora i polinomi di L
 Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
 
 \begin{theorem}[Forma di Lagrange]
-    Il polinomio interpolante $p(x)\in \Pi_n$, che soddisfa le condizioni (\ref{eq:condInterp}), è dato da 
+    Il polinomio interpolante $p(x)\in \Pi_n$, che soddisfa le condizioni (\ref{eq:condizioni_interpolazione}), è dato da 
     \begin{equation}\label{eq:polInterpd}
         \boldsymbol{p(x)=\sum_{k=0}^{n}} \underset{\footnotemark}{\boldsymbol{f_k}}\, \boldsymbol{L_{kn}(x)}.
     \end{equation}\footnotetext{Coefficienti di rappresentazione del polinomio interpolante rispetto alla base interpolante.}
@@ -219,7 +230,7 @@ Date le $n+1$ coppie $(x_i,f_i),\; i=0,\hdots,n$, con $x_i\neq x_j$, se $i\neq j
 \footnotetext{Condizione ideale perché non è sempre vero che $f$ possa essere calcolata (nel nostro lo è possibile).}
 dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate.
 
-Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:PolGenerico}) e (\ref{eq:polInterpd}) sono algebricamente uguali, quindi segue che: 
+Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_generico}) e (\ref{eq:polInterpd}) sono algebricamente uguali, quindi segue che: 
 \begin{equation}\label{eq:equivBasi}
 p(x)=\sum_{i=0}^n \boldsymbol{a_i}\, x^i \equiv \sum_{i=0}^n f_i\, \boldsymbol{L_{in}(x)},
 \end{equation}
@@ -515,7 +526,7 @@ Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate
     \end{itemize}
 \end{remark}
 
-\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton. Del polinomio sono noti i coefficienti ed è necessario calcolare la sommatoria. Sarà utilizzata la proprietà ricorsiva del polinomio di Newton. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:PolGenerico})  $\left(p(x)=\sum_{k=0}^{n}a_kx^k\right)$.
+\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton. Del polinomio sono noti i coefficienti ed è necessario calcolare la sommatoria. Sarà utilizzata la proprietà ricorsiva del polinomio di Newton. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_generico})  $\left(p(x)=\sum_{k=0}^{n}a_kx^k\right)$.
 
 Partendo da un caso semplice, ovvero con $n=3$:
 \begin{equation*}
@@ -639,7 +650,7 @@ Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (d
     a\leq\overbrace{x_0 < x_{\frac{1}{2}} < x_1 < x_{\frac{3}{2}} < \hdots < x_n < x_{n+\frac{1}{2}}}^{2n+2\text{ ascisse}}\leq b.
 \end{equation}
 
-Pertanto, sotto la precedente ipotesi di ascisse distinte, $\boldsymbol{\exists!\, p(x)}\in\Pi_{\boldsymbol{2n+1}}$ (condizione importante) tale che le condizioni del polinomio interpolante (\ref{eq:condInterp}) diventano le seguenti:
+Pertanto, sotto la precedente ipotesi di ascisse distinte, $\boldsymbol{\exists!\, p(x)}\in\Pi_{\boldsymbol{2n+1}}$ (condizione importante) tale che le condizioni del polinomio interpolante (\ref{eq:condizioni_interpolazione}) diventano le seguenti:
 \begin{equation}\label{eq:hermCondPolInterp}
     \begin{rcases}
         \boldsymbol{p(x_i)=f(x_i)}\\
@@ -685,7 +696,7 @@ Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4D
     $p_{\boldsymbol H}(x)$ è il polinomio interpolante di Hermite.  
 \end{definition}
 
-Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisseDistinte}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polInterHer}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
+Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisse_distinte}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polInterHer}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
 
 \begin{example}\footnote{Slide 5 PDF 18.}
     Considerate le ascisse $x_i=i\cdot\pi,\; i=0,1,2$ e considerando la funzione
@@ -810,13 +821,13 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
 \end{figure}
  
 \begin{remark}
-    \footnote{Slide 3, PDF 19. Da (\ref{eq:condInterp}) segue l'osservazione.} $e(x_i)=f(x_i)-p(x_i)=f(x_i)-f(x_i)=0,\; i=0,\hdots,n.$
+    \footnote{Slide 3, PDF 19. Da (\ref{eq:condizioni_interpolazione}) segue l'osservazione.} $e(x_i)=f(x_i)-p(x_i)=f(x_i)-f(x_i)=0,\; i=0,\hdots,n.$
 \end{remark}
 
 Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È necessario stabilire quanto $e(x)$ sia "distante" da 0, per $x\notin \{x_0,\hdots, x_n\}.$
 
 \begin{theorem}\label{th:errInterFormaNewt}
-    \footnote{Slide 3 PDF 19, TH 4.3 PG 86.} Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polInterNewt}), sulle ascisse distinte (definite come in (\ref{eq:ascisseDistinte})), vale:
+    \footnote{Slide 3 PDF 19, TH 4.3 PG 86.} Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polInterNewt}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_distinte})), vale:
     \begin{equation}\label{eq:errInterFormaNewt}
         \boldsymbol{e(x)=f[x_0,x_1,\hdots,x_n,x]\,\omega_{n+1}(x),\quad w_{n+1}(x)=\prod_{j=0}^{n}(x-x_j)}.
     \end{equation}
@@ -1001,12 +1012,12 @@ Nelle Figure \ref{fig:funzRunge_n=2}-\ref{fig:funzRunge_n=22} [\footnote{Nelle f
 
 In genere è possibile verificare che $e(x)\rightarrow\infty,\;\, n\rightarrow\infty$, quindi il problema è malcodizionato. Tuttavia, è necessario studiare il condizionamento del problema dell'interpolazione dove, per ciascuna delle classi di problemi considerati, è noto quale sia il coefficiente di perturbazione del problema.
 
-È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisseDistinte}), è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ come
+È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisse_distinte}), è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ come
 \begin{equation*}
  \boldsymbol{p(x_i)=f(x_i)},\quad\boldsymbol{i=0,\hdots,n}.
 \end{equation*}
 
-Considerando una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse (\ref{eq:ascisseDistinte}), come
+Considerando una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse (\ref{eq:ascisse_distinte}), come
 \begin{equation*}
  \boldsymbol{\tilde{p}(x_i)=\tilde{f}(x_i),\quad i=0,\hdots,n},
 \end{equation*}
