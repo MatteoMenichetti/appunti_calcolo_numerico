@@ -143,9 +143,9 @@ Pertanto,
     P_H(x)=1+7x-2x^2-\frac{1}{3}x^2(x-3).
 \end{equation*}
 
-\paragraph{8.} Algoritmo \ref{alg:cheby}.
+\paragraph{8.} Algoritmo \ref{alg:cheby_esercitazione}.
 \begin{algorithm}
-\caption{Implementazione esercizio 8.}\label{alg:cheby}
+\caption{Implementazione esercizio 8.}\label{alg:cheby_esercitazione}
     \begin{lstlisting}[style=Matlab-editor]
     function x = cheby(n, a, b)
     %   
@@ -171,7 +171,7 @@ Pertanto,
 
 \noindent È noto che, se $p(x)\in\Pi_n$ è un polinomio interpolante $f(x)$ su $n+1$ ascisse in $[a,b]$, allora:
 \begin{enumerate}
-    \item $||f-p||\leq (1+\Lambda_n)||f-p||$, essendo $\Lambda_n$ la costante di Lebesque definita sulle ascisse di interpolazione;
+    \item $||f-p||\leq (1+\Lambda_n)||f-p||$, essendo $\Lambda_n$ la costante di Lebesgue definita sulle ascisse di interpolazione;
     \item $||f-p^*||\leq \alpha\cdot\omega\left(f;\frac{b-a}{n}\right)$, dove $\alpha$ è indipendente da $n$ e $\omega\left(f;\frac{b-a}{n}\right)$ è il modulo di continuità di $f(x)$.\\
 \end{enumerate}
 Da 1. e 2. si deduce il Teorema di Jackson:

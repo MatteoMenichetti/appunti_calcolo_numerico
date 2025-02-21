@@ -1,18 +1,18 @@
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104. L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati.}
 In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le ascisse (tra loro \underline{distinte}):
-\begin{equation}\label{eq:ascisse_distinte}
+\begin{equation}\label{eq:ascisse_interpolazione}
 	a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
 \end{equation}
 
-Con (\ref{eq:ascisse_distinte}) sono rappresentate $n+1$ ascisse distinte.
+Con (\ref{eq:ascisse_interpolazione}) sono rappresentate $n+1$ ascisse distinte.
 
 \subsection{Polinomio Interpolante}
 In seguito sarà considerata la notazione
 \begin{equation*}
     f_i=f(x_i),\; (x_i,f_i),\; i=0,\hdots,n,
 \end{equation*}
-per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_distinte}), in modo che, con $p(x_i)\in \Pi_n$, valgano le condizioni di interpolazione 
+per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_interpolazione}), in modo che, con $p(x_i)\in \Pi_n$, valgano le condizioni di interpolazione 
 \begin{equation}\label{eq:condizioni_interpolazione}
     p(x_i)=f_i,\; i=0,\hdots,n.
 \end{equation}
@@ -20,7 +20,7 @@ per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_di
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
-\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_distinte})}
+\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
 \end{figure}
 
 \paragraph{Divagazione su $\Pi_n$:}{
@@ -47,7 +47,7 @@ I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipen
 
 L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Teorema.
 \begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:esistenza_unicita_polinomio_interpolante}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
-    Date le ascisse distinte del tipo (\ref{eq:ascisse_distinte}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
+    Date le ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
 \end{theorem}
 \begin{proof}
     Considerato il polinomio incognito in forma (\ref{eq:polinomio_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})}:
@@ -87,11 +87,11 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
     	\det(V) \overset{\footnotemark}{=} \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\footnotemark.
     \end{equation*}
     
-    In virtù dell'ipotesi (\ref{eq:ascisse_distinte}), segue che le ascisse sono distinte e che $\det(V)\overset{\footnotemark}{\neq} 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
+    In virtù dell'ipotesi (\ref{eq:ascisse_interpolazione}), segue che le ascisse sono distinte e che $\det(V)\overset{\footnotemark}{\neq} 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
 \end{proof}
 
 \addtocounter{footnote}{-1}
-\footnotetext{. Le ascisse $x_0, \hdots, x_n$ soddisfano (\ref{eq:ascisse_distinte}).}
+\footnotetext{. Le ascisse $x_0, \hdots, x_n$ soddisfano (\ref{eq:ascisse_interpolazione}).}
 
 \stepcounter{footnote}
 \footnotetext{Non nullo dato che le ascisse si interpolazione $x_0, \hdots, x_n$ sono distinte.}
@@ -116,9 +116,9 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
 \end{definition}
 
 \begin{property}
-	Date le ascisse definite come (\ref{eq:ascisse_distinte}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
+	Date le ascisse definite come (\ref{eq:ascisse_interpolazione}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
 	\begin{itemize}
-		\item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_distinte}).};
+		\item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_interpolazione}).};
 		\item [P2)]\footnotemark $L_{in}(x)\in\Pi_n,\; \forall i=0,\hdots,n$;
 		\footnotetext{La proprietà, il grado dei polinomi $L_{in}$, non è determinata dal denominatore di $L_{in}$, ma dal nominatore di questa. $L_{in}(x)$ è una moltiplicazione di polinomi monici di grado $n$ moltiplicati $n$ volte.}
 		\item[P3)]\footnote{Dimostrazione di P2).}$L_{in}(x_k)=
@@ -271,7 +271,7 @@ $\omega_r$ definito in (\ref{eq:polBaseNewt}) è una relazione ricorsiva utilizz
     \omega_{k+1}(x)=(x-x_k)\, w_k(x),\quad k=0,\hdots, n.
 \end{equation*}
 oppure è possibile scriverlo come polinomio monico, ovvero il polinomio con coefficiente del termine di grado più alto uguale ad 1, in forma esplicita come
-\begin{equation}\label{polBaseNewt2}
+\begin{equation}\label{polinomio_base_newton2}
     w_k(x)=\prod_{i=0}^{k-1}(x-x_i),\quad k=1,\hdots,n.
 \end{equation}
 
@@ -297,28 +297,28 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 
 \begin{theorem}[Forma di Newton]\label{th:formaNewt}\footnote{Slide 5 PDF 16, TH 4.3 PG 80.}
     La famiglia di polinomi interpolanti definita in (\ref{eq:polNotaz}) è ottenuta ricorsivamente come: 
-    \begin{equation}\label{eq:famPolInt}
+    \begin{equation}\label{eq:famiglia_polinomi_interpolanti}
     \begin{cases}
         p_0(x)\equiv f_0\in\Pi_0\\
         p_r(x) = p_{r-1}(x)+ f[x_0,\hdots, x_r]\,\omega_r(x),\; r=1,2,\hdots
     \end{cases}
     \end{equation}
     dove $\boldsymbol{f[x_0, \hdots, x_r]}$ è la \textbf{differenza divisa di ordine $\boldsymbol r$ della funzione $\boldsymbol f$ sulle ascisse $\boldsymbol{x_0, \hdots, x_r}$}, definita come:
-    \begin{equation}\label{eq:diffDivisa}
+    \begin{equation}\label{eq:differenza_divisa}
        \boldsymbol{f[x_0, \hdots, x_r] \overset{\text{def.}}{=} \sum_{i=0}^r\frac{f_i}{\prod_{j=0, j\neq i}^{r}(x_i-x_j)}}.
     \end{equation}
 \end{theorem}
-\begin{proof}\footnote{Dimostrazione riscorsiva del sistema (\ref{eq:famPolInt}) e di (\ref{eq:diffDivisa}).}
+\begin{proof}\footnote{Dimostrazione riscorsiva del sistema (\ref{eq:famiglia_polinomi_interpolanti}) e di (\ref{eq:differenza_divisa}).}
     Per induzione la tesi è vera, con $r=0$, poiché $p_0(x)\equiv f_0\equiv f[x_0]$. Supposto vero per $r-1$ sarà dimostrato per $r$.
     
     Per ipotesi è supposto che
     \begin{equation*}
         p_{r-1}(x)\in\Pi_{r-1}:\boldsymbol{p_{r-1}(x_i)=f_i,\; i=0,\hdots r-1}
     \end{equation*}
-    e che $p(x)$ sia definto come in (\ref{eq:famPolInt}). Sarà dimostrato quanto segue:
+    e che $p(x)$ sia definto come in (\ref{eq:famiglia_polinomi_interpolanti}). Sarà dimostrato quanto segue:
     \begin{enumerate}
         \item $p_r(x_i)=f_i, \; i=0,\hdots,r$ \footnotemark;
-        \item $f[x_0, \hdots, x_r]$ è definita come in (\ref{eq:diffDivisa}).
+        \item $f[x_0, \hdots, x_r]$ è definita come in (\ref{eq:differenza_divisa}).
     \end{enumerate}
 \footnotetext{Quindi è necessario dimostrare che $p_r$ è calcolabile come $p_{r-1}$.}
     \begin{proof}[Dimostrazione di 1.]
@@ -331,7 +331,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
             f[x_0, \hdots, x_r]\overset{\text{def}}{=}\frac{f_r-p_{r-1}(x_r)}{\omega_r(x_r)},
         \end{equation}
         che è ben definito essendo  $\omega_r(x_r)\neq 0$.
-        È necessario dimostrare che la differenza divisa espressa come (\ref{eq:ridefDifDivisa}) coincide con (\ref{eq:diffDivisa}). A questo fine è possibile osservare che $f[x_0, \hdots, x_r]$ è il coefficiente principale di $p_r(x)$.
+        È necessario dimostrare che la differenza divisa espressa come (\ref{eq:ridefDifDivisa}) coincide con (\ref{eq:differenza_divisa}). A questo fine è possibile osservare che $f[x_0, \hdots, x_r]$ è il coefficiente principale di $p_r(x)$.
         È definito l'algoritmo per la soluzione in due passi: 
         \begin{enumerate}
             \item scrittura di $p_r(x)$ in forma di Lagrange;
@@ -361,7 +361,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
     
     \stepcounter{footnote}
     \footnotetext{Forma diversa da Lagrange.}
-    Da questo è possibile concludere che la (\ref{eq:diffDivisa}) vale.
+    Da questo è possibile concludere che la (\ref{eq:differenza_divisa}) vale.
 
     \begin{proof}[Dimostrazione 2.]
         La seconda parte della dimostrazione del Teorema è svolta come dimostrazione del punto P5), esposto fra poco.
@@ -371,7 +371,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 \begin{remark}[Forma di Newton del polinomio interpolante]\label{rem:formaNewton}\footnote{Slide 8 PDF 16.}
     Sia $p(x)\in\Pi_n$, polinomio interpolante $f(x)$ sulle ascisse $\{x_0,\hdots, x_n\}$, $p(x)$ coincide con $p_n(x)$ in (\ref{eq:polNotaz}).
     Per induzione è ottenuta la \textbf{forma di Newton del polinomio interpolante}: 
-    \begin{equation}\label{eq:polInterNewt}
+    \begin{equation}\label{eq:polinomio_interpolante_newton}
         \boldsymbol{p(x)\equiv p_n(x) = \sum_{i=0}^{n} f[\underbrace{x_0,\hdots, x_i}_{i+1}]\,\omega_i(x)},
     \end{equation}
     dove $\omega_i(x)$ è la dunzione di base.
@@ -381,7 +381,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 
 \paragraph{Esempio di caso d'uso polinomio interpolante:} se fosse richiesto di approssimare ciò che è sotto una certa curva questa viene calcolata con un numero prefissato di punti, poi se ne sono aggiungono uno ad uno fino a che non è più possibile effetturare una stima accurata.
 
-La definizione in forma di Newton di $p(x)$ come (\ref{eq:polInterNewt}) permette di ottenere funzioni di base in funzione delle precedenti. Pertanto, questo non permette di calcolare la differenza divisa e la rappresentazione $f[x_0,\hdots, x_r]$ non è algoritmicamente preferibile. Per arrivare al fine di ottenere un algoritmo efficiente, sono esaminate alcune proprietà delle differenze divise.
+La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante_newton}) permette di ottenere funzioni di base in funzione delle precedenti. Pertanto, questo non permette di calcolare la differenza divisa e la rappresentazione $f[x_0,\hdots, x_r]$ non è algoritmicamente preferibile. Per arrivare al fine di ottenere un algoritmo efficiente, sono esaminate alcune proprietà delle differenze divise.
 
 \begin{property}[Differenze divise]
 	\footnote{Slide 9-11 PDF 16, TH 4.4 PG 82.}
@@ -473,7 +473,7 @@ $x_3$ & $f_3 = f[x_3]$ & $f[x_2, x_3]$ & $f[x_1,x_2,x_3]$ & $\boldsymbol{f[x_0,x
 \stepcounter{footnote}
 \footnotetext{Differenze divise su due ascisse.}
 
-Gli elementi sulla diagonale principale, ovvero quelli in grassetto, sono i coefficienti del polinomio interpolante nella forma di Newton (\ref{eq:polInterNewt}).
+Gli elementi sulla diagonale principale, ovvero quelli in grassetto, sono i coefficienti del polinomio interpolante nella forma di Newton (\ref{eq:polinomio_interpolante_newton}).
 
 La tabella è calcolata dal basso verso l'alto per evitare di memorizzare tutti i dati della tabella. Non è necessario memorizzarla tutta perché è possibile sovrascrivere gli elementi a sinistra con quelli a destra (quindi in fine saranno presenti le differenze divise in grassetto). Per questo è necessario calcolare prima la colonna 0 e poi la 1, 2 e 3 sovrascrivendone, via via, gli elementi. Quanto appena scritto non è valido se gli elementi sono calcolati dall'alto verso il basso.
 
@@ -509,7 +509,7 @@ Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate
 \end{remark}
 
 \begin{algorithm}
-\caption{Calcolo delle differenze divise.}\label{alg:calcDiffDiv}
+\caption{Calcolo delle differenze divise.}\label{alg:calcolo_differenze_divise}
     \begin{lstlisting}[style=Matlab-editor]
         % x - ascisse di interpolazione
         % f - valori della funzione nelle ascisse
@@ -523,7 +523,7 @@ Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate
     \end{lstlisting}
 \end{algorithm}
 
-\begin{remark} Il \textbf{costo computazionale} dell'\textbf{Algoritmo (\ref{alg:calcDiffDiv}}) è
+\begin{remark} Il \textbf{costo computazionale} dell'\textbf{Algoritmo (\ref{alg:calcolo_differenze_divise}}) è
     \begin{itemize}
         \item $\sum_{j=1}^{n}3(n-j+1)\overset{\footnotemark}{=} 3\sum_{j=1}^{n}j=3\cdot\frac{n(n+1)}{2}\boldsymbol{\approx \frac{3}{2}n^2\; flops}$; \footnotetext{Somma naturale.}
         \item \textbf{2 vettori} $\boldsymbol{(x, f)}$ ($x$ memorizza le ascisse interpolanti ed $f$ le differenze divise);
@@ -592,7 +592,7 @@ Inoltre, è possibile generalizzare la differenza divisa al caso della base di N
     Il costo dell'algoritmo è $3n$ flops per componente.
 \end{remark}
 
-\paragraph{Intermezzo per la definizione della "Interpolazione di Hermite"}\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polInterNewt}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcP(x)} per calcolare $p(x)$.
+\paragraph{Intermezzo per la definizione della "Interpolazione di Hermite"}\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polinomio_interpolante_newton}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcP(x)} per calcolare $p(x)$.
 
 \begin{algorithm}\caption{Pseudo-codice calcolo $p(x)$.}\label{alg:calcP(x)}
     \begin{algorithmic}
@@ -700,7 +700,7 @@ Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4D
     $p_{\boldsymbol H}(x)$ è il polinomio interpolante di Hermite.  
 \end{definition}
 
-Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisse_distinte}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polInterHer}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
+Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisse_interpolazione}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polInterHer}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
 
 \begin{example}\footnote{Slide 5 PDF 18.}
     Considerate le ascisse $x_i=i\cdot\pi,\; i=0,1,2$ e considerando la funzione
@@ -742,10 +742,10 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
 
 \begin{remark}[Calcolo $p_H(x)$, caso generale]
     In generale, per $\boldsymbol n$ generico, il polinomio di Hermite sarà ottenuto tramite 
-    \begin{equation}\label{eq:polHerBaseNewt}
+    \begin{equation}\label{eq:polinomio_hermite_base_newton}
         p_H(x)=f[x_0]\cdot 1 + f[x_0,x_0]\cdot(x-x_0)+\hdots+f[x_0,x_0,\hdots,x_{\boldsymbol n},x_{\boldsymbol n}](x-x_0)^2\cdot\hdots\cdot(x-x_{\boldsymbol{n-1}})^2(x-x_{\boldsymbol n}).
     \end{equation}
-    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcDiffDiv}, tenendo di conto di (\ref{eq:equivApproxf'}). Nell'Algoritmo, il vettore in ingresso, \textbf{f} contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polHerBaseNewt}).
+    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivApproxf'}). Nell'Algoritmo, il vettore in ingresso, \textbf{f} contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polinomio_hermite_base_newton}).
 \end{remark}
 \begin{algorithm}
 \caption{Polinomio di Hermite: calcolo delle differenze divise}\label{alg:calcDiffDivPolHer}
@@ -804,13 +804,13 @@ Inoltre, è possibile calcolare $p_H(x)$ in Matlab tramite una versione modifica
     \end{equation*}
 \end{example}
 
-Pertanto, è possibile modificare leggermente l'algoritmo classico per il calcolo delle differenze divise (ovvero l'Algoritmo \ref{alg:calcDiffDiv}), in modo che, dove sono presenti ascisse ripetute, sia utilizzato il corrispondente valore della derivata della funzione $f(x)$, come appena esposto. In questo modo sono presenti tutti gli elementi per implementare efficientemente il calcolo del polinomio interpolante di Hermite nella sua forma di Newton.
+Pertanto, è possibile modificare leggermente l'algoritmo classico per il calcolo delle differenze divise (ovvero l'Algoritmo \ref{alg:calcolo_differenze_divise}), in modo che, dove sono presenti ascisse ripetute, sia utilizzato il corrispondente valore della derivata della funzione $f(x)$, come appena esposto. In questo modo sono presenti tutti gli elementi per implementare efficientemente il calcolo del polinomio interpolante di Hermite nella sua forma di Newton.
 
 \begin{remark}
     Nella tabella precedente, utilizzata per il calcolo delle differenze divise, il vettore delle ascisse uilizzato è del tipo $x=[x_0\, x_0\, x_1\, x_1 \hdots x_{\boldsymbol n}\, x_{\boldsymbol n}].$
 \end{remark}
 
-\subsection{Errore nell'interpolazione polinomiale}\label{ssec:errInter}\footnote{Slide 2-23 PDF 19, PG 86-87.}
+\subsection{Errore nell'interpolazione polinomiale}\label{ssec:errore_interpolazione_polinomiale}\footnote{Slide 2-23 PDF 19, PG 86-87.}
 È necessario studiare il comportamento della funzione errore $e$ definita come
 \begin{equation}\label{eq:defErrInter}
     \boldsymbol{e(x)=f(x)-p(x)},\quad x\in [a,b],
@@ -830,8 +830,8 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
 
 Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È necessario stabilire quanto $e(x)$ sia "distante" da 0, per $x\notin \{x_0,\hdots, x_n\}.$
 
-\begin{theorem}\label{th:errInterFormaNewt}
-    \footnote{Slide 3 PDF 19, TH 4.3 PG 86.} Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polInterNewt}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_distinte})), vale:
+\begin{theorem}\label{th:errore_interpolazione_forma_newt}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
+	Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})), vale:
     \begin{equation}\label{eq:errInterFormaNewt}
         \boldsymbol{e(x)=f[x_0,x_1,\hdots,x_n,x]\,\omega_{n+1}(x),\quad w_{n+1}(x)=\prod_{j=0}^{n}(x-x_j)}.
     \end{equation}
@@ -873,12 +873,12 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
 \footnotetext{Se al posto di $\widehat x$ è sostituito $x$ allora $\widehat p(x)$ continua a variare.}
 
 \begin{remark}
-    Il Teorema \ref{th:errInterFormaNewt} definisce la forma dell'errore di interpolazione polinomiale (e di conseguenza è necessario impararlo).
+    Il Teorema \ref{th:errore_interpolazione_forma_newt} definisce la forma dell'errore di interpolazione polinomiale (e di conseguenza è necessario impararlo).
 \end{remark}
 
 \begin{corollary}
     \footnote{Slide 5 PDF 19, Corollario 4.1 PG 87; Importante perché esiste un legame tra le differenze divise e le derivate della funzione $f$, se questa è sufficientemente regolare.}
-    Utilizzando le ipotesi del Teorema \ref{th:errInterFormaNewt} e supposto che $f\in C^{(n+1)}$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errInterFormaNewt}), allora (vedere (\ref{eq:P4DiffDiv})):
+    Utilizzando le ipotesi del Teorema \ref{th:errore_interpolazione_forma_newt} e supposto che $f\in C^{(n+1)}$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errInterFormaNewt}), allora (vedere (\ref{eq:P4DiffDiv})):
     \begin{equation}\label{eq:errInterP4}
         \begin{matrix}
             e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
@@ -887,9 +887,9 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
     \end{equation}
 \end{corollary}
 
-\begin{remark}[Errore polinomio di Hermite]\label{rem:errPolHerm}
+\begin{remark}[Errore polinomio di Hermite]\label{rem:errore_polinomio_hermite}
     \footnote{Da sapere. Slide 5 PDF 19, Oss. 4.4 PG 87.}
-    Per il polinomio di Hermite (\ref{eq:polHerBaseNewt}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}[I(x)]\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
+    Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}[I(x)]\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
     \begin{equation}\label{eq:errPolInterHer}
         e_H(x)= f(x)-p_H(x) \overset{\footnotemark}{=} f[\overbrace{x_0,x_0,\hdots,x_n,x_n,x}^{2n+3}]\,\omega^2_{n+1}(x)\equiv\frac{\boxed{f^{(2n+2)}(\widehat\xi_x)}}{(2n+2)!}\,\omega^2_{n+1}(x).
     \end{equation}
@@ -898,7 +898,7 @@ $e_H(x)$ è di grado $2n+2$.
 \footnotetext{Le funzioni di base del polinomio di Newton hanno ascisse raddoppiate.}
 
 \begin{remark}\footnote{Slide 5 PDF 19.}
-    Da quanto esposto nell'Osservazione \ref{rem:errPolHerm} è ottenuta una controprova del fatto che:
+    Da quanto esposto nell'Osservazione \ref{rem:errore_polinomio_hermite} è ottenuta una controprova del fatto che:
     \begin{enumerate}
         \item $p(x)\equiv f(x),\; \text{se } f(x)\in\Pi_n\; \left(f^{(n+1)}\equiv 0\right)$;
         \item $p_H(x)\equiv f(x),\; \text{se } f(x)\in\Pi_{2n+1}\; \left(f^{(2n+2)}\equiv 0\right)$.
@@ -906,23 +906,23 @@ $e_H(x)$ è di grado $2n+2$.
 \end{remark}
 
 \begin{remark}\label{rem:consErrInterP4}\footnote{Slide 6 PDF 19.}
-    Osservando la struttura dell'errore (\ref{eq:errInterP4})
-    \begin{center}
-        $e(x)=\,\boxed{\boxed{\frac{f^{(n+1)}(\xi_x)}{(n+1)!}}\;\boxed{\omega_{n+1}(x)}}$
-    \end{center}
+    Osservando la struttura dell'errore (\ref{eq:errInterP4}), ovvero di
+    \begin{equation*}
+        e(x)=\,\boxed{\boxed{\frac{f^{(n+1)}(\xi_x)}{(n+1)!}}\;\boxed{\omega_{n+1}(x)}}
+    \end{equation*}
+    (analoghe considerazioni varranno per $e_H(x)$), è possibile osservare che questo è costituito da due parti:
+    \begin{itemize}
+    	\item la prima che dipende da $\boxed{f(x)}$, per cui, più $f(x)$ è regolare, tanto più velocemente questo termine tende a 0, per $n\rightarrow\infty$ (dovuto a $(n+1)!$ al denominatore);
+    	\item la seconda, $\boxed{\omega_{n+1}(x)=\prod_{j=0}^n(x-x_j)}$, dipende solo dalla scelta delle ascisse di interpolazione.
+    	
+    	È necessario osservare che, per $x>\underset{i}{\max}\{x_i\}$ o per $x<\underset{i}{\min}\{x_i\},\, \omega_{n+1}(x)\approx x^{n+1}$ (vedere Figura \ref{fig:osservazione_errore_interpolazione}). Da questa considerazione è evinto che $x$ debba essere scelta nel più piccolo intervallo che contiene le ascisse di interpolazione (in Figura \ref{fig:osservazione_errore_interpolazione} tra $x_0$ e $x_2$). \textbf{Quindi sarà scelta $\boldsymbol{x\in [a,b]}$ che contiene le ascisse}.
+    \end{itemize}
 \end{remark}
-(analoghe considerazioni varranno per $e_H(x)$), è possibile osservare che questo è costituito da due parti:
-\begin{itemize}
-    \item la prima che dipende da $\boxed{f(x)}$, per cui, più $f(x)$ è regolare, tanto più velocemente questo termine tende a 0, per $n\rightarrow\infty$ (dovuto a $(n+1)!$ al denominatore);
-    \item la seconda, $\boxed{\omega_{n+1}(x)=\prod_{j=0}^n(x-x_j)}$, dipende solo dalla scelta delle ascisse di interpolazione.
-    
-    È necessario osservare che, per $x>\underset{i}{\max}\{x_i\}$ o per $x<\underset{i}{\min}\{x_i\},\, \omega_{n+1}(x)\approx x^{n+1}$ (vedere Figura \ref{fig:ossErrInterp}). Da questa considerazione è evinto che $x$ debba essere scelta nel più piccolo intervallo che contiene le ascisse di interpolazione (in Figura \ref{fig:ossErrInterp} tra $x_0$ e $x_2$). \textbf{Quindi sarà scelta $\boldsymbol{x\in [a,b]}$ che contiene le ascisse}.
-\end{itemize}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/es. n=2.png}
-    \caption{\label{fig:ossErrInterp} Esempio con numero di ascisse $n=2$.}
+    \caption{\label{fig:osservazione_errore_interpolazione} Esempio con numero di ascisse $n=2$.}
 \end{figure}
 
 Il polinomio interpolante coincide con la funzione $f$, come per il riquadro principale di $e(x)$ nell'Osservazione \ref{rem:consErrInterP4}, se $f$ è un polinomio di grado al più $n$ con la sua derivata $(n+1)$-esima che si annulla identicamente. Quindi, se la funzione $f$ è un polinomio di grado al più $n$ l'errore è identicamente nullo, il che significa che il polinomio interpolante coincide con la funzione di Hermite (ovvero l'uguaglianza (\ref{eq:errPolInterHer})).
@@ -945,9 +945,9 @@ $||e||$ sarà approssimata, dato che non è possibile calcolarla, con la differe
 \paragraph{Progetto e scelta di $N$:} Per il progetto $N$ deve essere molto grande. Negli esempi richiesti nell'elaborato non saranno ammessi $N<10000$ (saranno considerati sbagliati). Inoltre, per un polinomio di grado 5 assegnare $N=3$ sarà considerato sbagliato in quanto la sottostima dell'errore è importante.
 
 \begin{example}
-    Per $f(x)=\sin(x)$ è possibile ottenere ottimi risultati (vedere Figure \ref{fig:approxErrIntepolaz4}-\ref{fig:approxErrIntepolaz19}), utilizzando un numero di ascisse crescenti ed equidistanti, dato che tutte le derivate di $\sin(x)$ sono limitate.
+    Per $f(x)=\sin(x)$ è possibile ottenere ottimi risultati (vedere Figure \ref{fig:approxErrIntepolaz4}-\ref{fig:approssimazione_errore_intepolazione19}), utilizzando un numero di ascisse crescenti ed equidistanti, dato che tutte le derivate di $\sin(x)$ sono limitate.
 
-    Date le Figure \ref{fig:approxErrIntepolaz4}-\ref{fig:approxErrIntepolaz19}, per $f(x)=\sin(x)$, è ottenuto un numero crescente di ascisse equidistanti, dato che le derivate di $\sin(x)$ sono tutte limitate.
+    Date le Figure \ref{fig:approxErrIntepolaz4}-\ref{fig:approssimazione_errore_intepolazione19}, per $f(x)=\sin(x)$, è ottenuto un numero crescente di ascisse equidistanti, dato che le derivate di $\sin(x)$ sono tutte limitate.
 \end{example}
 
 \begin{figure}%[H]
@@ -971,71 +971,73 @@ $||e||$ sarà approssimata, dato che non è possibile calcolarla, con la differe
 \begin{figure}%[H]
 \centering
 \includegraphics[width=0.5\textwidth]{immagini/sin(n=19).jpg}
-\caption{Esempio con numero di ascisse $n=19$.}\label{fig:approxErrIntepolaz19}
+\caption{Esempio con numero di ascisse $n=19$.}\label{fig:approssimazione_errore_intepolazione19}
 \end{figure}
 
-È possibile provare, come nel precedente esempio, appplicare un numero di ascisse crescenti ed equidistanti, applicando la formula di Runge, alla seguente funzione (grafico  Figura \ref{fig:funzRunge-5,5}):
-\begin{equation}\label{eq:funzExRunge}
+È possibile provare ad applicare, come nel precedente esempio, un numero di ascisse crescenti ed equidistanti alla seguente funzione di Runge (grafico Figura \ref{fig:funzione_runge-5,5}):
+\begin{equation}\label{eq:funzione_runge}
     f(x)\overset{\footnotemark}{=}\frac{1}{1+x^2},\quad x\in [-5,5].
 \end{equation}
 
-\footnotetext{Simmetrica rispetto all'asse $y$ e massimo in $x=0$, vedere Figura \ref{fig:funzRunge-5,5}.}
+\footnotetext{Simmetrica rispetto all'asse $y$ e massimo in $x=0$, vedere Figura \ref{fig:funzione_runge-5,5}.}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/funzioneRunge-5,5.png}
-    \caption{Grafico di (\ref{eq:funzExRunge})}\label{fig:funzRunge-5,5}
+    \caption{Grafico di (\ref{eq:funzione_runge})}\label{fig:funzione_runge-5,5}
 \end{figure}
 
-Nelle Figure \ref{fig:funzRunge_n=2}-\ref{fig:funzRunge_n=22} [\footnote{Nelle figure i puntini rappresentano la funzione di Runge.}] è utilizzata la funzione di Runge per approssimare (\ref{eq:funzExRunge}), con un numero crescente di ascisse equidistanti.
+Nelle Figure \ref{fig:funzione_runge_n=2}-\ref{fig:funzione_runge_n=22} [\footnote{Nelle figure i puntini rappresentano la funzione di Runge.}] è utilizzata la funzione di Runge per approssimare (\ref{eq:funzione_runge}), con un numero crescente di ascisse equidistanti.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/funzioneRunge_n=2.jpg}
-    \caption{Approssimazione di (\ref{eq:funzExRunge})}\label{fig:funzRunge_n=2}
+    \caption{Approssimazione di (\ref{eq:funzione_runge})}\label{fig:funzione_runge_n=2}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/funzioneRunge_n=6.jpg}
-    \caption{Approssimazione di (\ref{eq:funzExRunge})}\label{fig:funzRunge_n=6}
+    \caption{Approssimazione di (\ref{eq:funzione_runge})}\label{fig:funzione_runge_n=6}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/funzioneRunge_n=10.jpg}
-    \caption{Approssimazione di (\ref{eq:funzExRunge})}\label{fig:funzRunge_n=10}
+    \caption{Approssimazione di (\ref{eq:funzione_runge})}\label{fig:funzione_runge_n=10}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/funzioneRunge_n=22.jpg}
-    \caption{Approssimazione di (\ref{eq:funzExRunge})}\label{fig:funzRunge_n=22}
+    \caption{Approssimazione di (\ref{eq:funzione_runge})}\label{fig:funzione_runge_n=22}
 \end{figure}
-
-\begin{remark}[Dettagli impotanti per il progetto]
-    Distinguere fra numeri pari e dispari di ascisse è importante. Se $n$ è pari allora  le ascisse sono dispari. Un esempio è graficare il polinomio (\ref{eq:funzExRunge}) per un valore pari di $n$, quindi con un numero dispari di ascisse (ovvero $n+1$), così da trovare i punti cerchiati in rosso delle Figure \ref{fig:funzRunge_n=2}-\ref{fig:funzRunge_n=22} con un metodo affidabile.  Avere un numero di ascisse dispari permette di trovare il massimo della funzione in modo più efficace rispetto ad avere un numero pari di ascisse (vedere Figura \ref{fig:funzRunge_n=6}). Inoltre, nel caso del numero di ascisse pari, l'errore diventa importante (una parte di funzione viene tagliata fuori).
-\end{remark}
 
 In genere è possibile verificare che $e(x)\rightarrow\infty,\;\, n\rightarrow\infty$, quindi il problema è malcodizionato. Tuttavia, è necessario studiare il condizionamento del problema dell'interpolazione dove, per ciascuna delle classi di problemi considerati, è noto quale sia il coefficiente di perturbazione del problema.
 
-È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisse_distinte}), è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ come
-\begin{equation*}
- \boldsymbol{p(x_i)=f(x_i)},\quad\boldsymbol{i=0,\hdots,n}.
-\end{equation*}
+\begin{remark}[Dettagli impotanti per il progetto]
+	Distinguere fra numeri pari e dispari di ascisse è importante. Se $n$ è pari allora  le ascisse sono dispari. Un esempio è graficare il polinomio (\ref{eq:funzione_runge}) per un valore pari di $n$, quindi con un numero dispari di ascisse (ovvero $n+1$), così da trovare i punti cerchiati in rosso delle Figure \ref{fig:funzione_runge_n=2}-\ref{fig:funzione_runge_n=22} con un metodo affidabile.  Avere un numero di ascisse dispari permette di trovare il massimo della funzione in modo più efficace rispetto ad avere un numero pari di ascisse (vedere Figura \ref{fig:funzione_runge_n=6}). Inoltre, nel caso del numero di ascisse pari, l'errore diventa importante (una parte di funzione viene tagliata fuori).
+\end{remark}
 
-Considerando una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse (\ref{eq:ascisse_distinte}), come
-\begin{equation*}
- \boldsymbol{\tilde{p}(x_i)=\tilde{f}(x_i),\quad i=0,\hdots,n},
-\end{equation*}
+\subsection{Condizionamento del problema}\label{ssec:condizionamento_problema_approsimazione_funzione}
+È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) $a\leq x_0<x_1<\hdots<x_n\leq b$, è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ come
+\begin{equation}\label{eq:polinomio_interpolante_f}
+	\boldsymbol{p(x_i)=f(x_i)\equiv f_i},\quad\boldsymbol{i=0,\hdots,n}.
+\end{equation}
+
+Considerando una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse di interpolazione assegante \ref{eq:polinomio_interpolante_f}, come
+\begin{equation}\label{eq:polinomio_interpolante_perturbazione_f}
+	\boldsymbol{\tilde{p}(x_i)=\tilde{f}(x_i)\equiv\tilde{f}_i,\quad i=0,\hdots,n},
+\end{equation}
 allora sono introdotte le seguenti misure degli errori:
 
 \begin{itemize}
-    \item $||f-\Tilde{f}||$, misura degli errori sui dati di ingresso;
-    \item $||p-\Tilde{p}||$, misura degli errori sul risultato (minore è migliore è il condizionamento del problema).
+	\item $||f-\Tilde{f}||$, misura degli errori sui dati di ingresso;
+	\item $||p-\Tilde{p}||$, misura degli errori sul risultato (minore è migliore è il condizionamento del problema).
 \end{itemize}
 
 Il problema riguarda anche come sono scelte le ascisse di interpolazione.
 
-\subsection{Condizionamento del problema}\label{ssec:condProbApproxfun}
-Il problema del condizionamento dell'errore prima citato può essere "trasformato" nello studio di come $||p-\Tilde{p}||$ dipenda da $||f-\Tilde{f}||$. Studiare il condizionamento del problema significa stabilire in che modo piccole perturbazioni del problema, ovvero $||f-\Tilde{f}||$, si riflettano con perturbazioni sul risultato, ovvero su $||p-\Tilde{p}||$:
+Il problema del condizionamento dell'errore citato per (\ref{eq:funzione_runge}) può essere "trasformato" nello studio di come $||p-\Tilde{p}||$ dipenda da $||f-\Tilde{f}||$. 
+
+Studiare il condizionamento del problema significa stabilire in che modo piccole perturbazioni del problema, ovvero $||f-\Tilde{f}||$, si riflettano con perturbazioni sul risultato, ovvero su $||p-\Tilde{p}||$:
 \begin{itemize}
     \item se le perturbazioni sul risultato sono piccole allora il problema è ben condizionato;
     \item se piccole perturbazioni ne provacano di grandi sul risultato il problema è malcondizionato.
@@ -1046,20 +1048,18 @@ Ciò che sarà studiato è il problema della valutazione del polinomio interpola
 %%\vspace{6px}
 %%\hrule
 %%\vspace{-7px}
-\paragraph{Intermezzo}{Lo studio del condizionamento è svolto in aritmetica esatta. Non è svolto in aritmetica finita in quanto sarebbe necessario studiare le singole operazioni elementari e verificare come gli errori si propagano per ognuna di essa. Lo studio del condizionamento è uno studio semplificato della modalità con la quale gli errori si propagano.
-
-Quindi, lo studio deò condizionamento di un problema sarà fatto in aritmetica esatta. Questo significa che qualunque rappresentazione algebrica del polinomio interpolante è equivalente. Ciò non è vero in aritmetica finita, il metodo di calcolo del polinomio influisce sul risultato finale, quindi due metodi di calcolo diversi non forniranno il medesimo risultato.}
+\paragraph{Intermezzo}{Lo studio del condizionamento è svolto in aritmetica esatta. Questo significa che qualunque rappresentazione algebrica del polinomio interpolante è equivalente. Non è svolto in aritmetica finita in quanto sarebbe necessario studiare le singole operazioni elementari e verificare come gli errori si propagano per ognuna di essa, dato che il metodo di calcolo del polinomio influisce sul risultato finale (due metodi di calcolo diversi non forniranno il medesimo risultato). Lo studio del condizionamento è uno studio semplificato della modalità con la quale gli errori si propagano.}
 %%\vspace{5px}
 %%\hrule
 %%\vspace{6px}
 
-Al fine di avere una misura degli errori è necessario introdurre la norma infinito su $C^{(0)}[a,b]:$
+Al fine di avere una misura degli errori è necessario introdurre la norma infinito su $C^{(0)}[a,b]$:
 
 \begin{equation}\label{eq:defNormaInfG}
     \forall g\in C^{(0)}[a,b]\,:\, ||g||\overset{\footnotemark}{=}\underset{a\leq x\leq b}{\max}|g(x)|.
 \end{equation}\footnotetext{Applicazione del Teorema di Weistrass: esiste un massimo per $g$ perché questa è limitata tra $a$ e $b$.}
 
-Da quanto appena scritto, per $x\in [a,b]$, è ottenuto che
+Dati (\ref{eq:polinomio_interpolante_f}) e (\ref{eq:polinomio_interpolante_perturbazione_f}), per $x\in [a,b]$, è ottenuto che
 \begin{equation*}
     \begin{matrix}
         \left|p(x)-\Tilde{p}(x)\right|&\overset{\footnotemark}{=}&
@@ -1083,13 +1083,18 @@ Da quanto appena scritto, per $x\in [a,b]$, è ottenuto che
 \footnotetext{Massimo dei valori assoluti della differenza $f_i-\Tilde{f},\; i=0,\hdots,n$ (ovvero la norma $||f - \Tilde{f}||$), anche se $x_1,\hdots,x_n\in [a,b]$. La differenza  $f_i-\Tilde{f}$ è minore della norma $||f_i-\Tilde{f}||$ che segue nella diseguaglianza. \\
 Inoltre è possibile affermare quanto segue:$\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f}_i|=\underset{i=0,\hdots,n}{\max}|f(x_i)-\Tilde{f}(x_i)|\leq\underset{a\leq x\leq b}{\max}|f(x)-\Tilde{f}(x)|=||f-\Tilde{f}||$.}
 
-\noindent dove $\boldsymbol{\lambda_n(x)}$ è la \textbf{funzione di Lebesque}. Tale funzione è positiva per definizione e dipende solo dalla scelta delle ascisse di interpolazione. Pertanto, dalla precedente disuguaglianza è ottenuto che
+\noindent dove $\boldsymbol{\lambda_n(x)}$ è la \textbf{funzione di Lebesgue}. Tale funzione è positiva per definizione e dipende solo dalla scelta delle ascisse di interpolazione. Pertanto, dalla precedente disuguaglianza è ottenuto che
 \begin{equation*}
-    \forall x\in [a,b]:\; |p(x)-\Tilde{p}(x)|\leq\lambda_n(x)||p-\Tilde{p}||\Rightarrow  ||p-\Tilde{p}||\leq ||\lambda_n\cdot\underbrace{||f-\Tilde{f}||}_{\footnotemark}||=\underbrace{||\lambda_n||}_{\boldsymbol{\Lambda_n}}\cdot||f-\Tilde{f}||,
+    \forall x\in [a,b]:\; |p(x)-\Tilde{p}(x)|\leq\lambda_n(x)||p-\Tilde{p}||
+\end{equation*}
+allora
+
+\begin{equation*}
+	||p-\Tilde{p}||\leq ||\lambda_n\cdot\underbrace{||f-\Tilde{f}||}_{\footnotemark}||=\underbrace{||\lambda_n||}_{\boldsymbol{\Lambda_n}}\cdot||f-\Tilde{f}||,
 \end{equation*}
 \footnotetext{Costante positiva da portare fuori.}
 
-\noindent dove $\boldsymbol{\Lambda_n=||\lambda_n||}$ è detta \textbf{costante di Lebesque}. Questa costante misura la massima amplificazione sul risultato dell'errore sui dati di ingresso e definisce il numero di condizionamento. Per questo è ottenuto quanto segue:
+\noindent dove $\boldsymbol{\Lambda_n=||\lambda_n||}$ è detta \textbf{costante di Lebesgue}. Questa costante misura la massima amplificazione sul risultato dell'errore sui dati di ingresso e definisce il numero di condizionamento. Per questo è ottenuto quanto segue:
 \begin{equation}\label{eq:maggPertDiffPTildeP}
     \boxed{\underbrace{||\equaltoup{p}{f(x)}-\equaltoup{\Tilde{p}}{\Tilde{f}(x)}||}_{\footnotemark}\leq\boldsymbol{\Lambda_n}\,\underbrace{||f-\Tilde{f}||}_{\footnotemark}}
 \end{equation}
@@ -1100,7 +1105,7 @@ Inoltre è possibile affermare quanto segue:$\underset{i=0,\hdots,n}{\max}|f_i-\
 \stepcounter{footnote}
 \footnotetext{Misura degli errori in ingresso.}
 
-Data l'importanza della costante di Lebesque è utile sturdiarne alcune importanti proprietà.
+Data l'importanza della costante di Lebesgue è utile sturdiarne alcune importanti proprietà.
 
 \noindent$\boldsymbol{\Lambda_n}$ \textbf{è indipendente dal particolare intervallo $[a,b]$ considerato.} Questa proprietà è importante perché se i risultati sono contenuti in un uno specifico intervallo di riferimento, allora le ascisse di interpolazione dell'intervallo speficico sono estendibili ad uno generico intervallo che le contiene.
 
@@ -1140,45 +1145,49 @@ Alle ascisse di interpolazione $x_i\in [a,b]$ corrispondono
 L'intervallo di riferimento non è importante, in quanto è possibile definire le seguenti proprietà, le quali valgono considerando solo il numero delle ascisse, ovvero:
 
 \begin{itemize}
-    \item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesque rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesque, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
+    \item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
     \item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n\geq O(\log n)$;
     \item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
-    \item[P4)] la scelta di ascisse equidistanti da una costante di Lebesque genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
+    \item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
 \end{itemize}
 
 \subsubsection{Connessioni tra condizionamento ed errore dell'interpolazione polinomiale}
 \footnotemark Allo scopo di studiare le connessioni tra condizionamento ed errore dell'interpolazione polinomiale sarà assunto di aver fissato un intervallo di riferimento $[a,b]$, la corrispondente norma $||\cdot||$ ed una funzione $f(x)\in C^{(0)}[a,b]$. Lo studio che sarà trattato varrà per ogni intervallo, in quanto la proprietà P3) del precedente elenco è invariante rispetto all'intervallo considerato.
 \footnotetext{Cose da non dimostare (tranne il teorema di Jackson), ma da conoscere perché utili per le future trattazioni di diversi tipi di interpolazione, le quali si giustificano per i risultati diversi di questa analisi.}
 
-\begin{definition}[Errore e polinomio di migliore approssimazione]\label{def:err&polMiglAppr}\footnote{Slide 7 PDF 20, Definizione 4.2 + Teorema 4.6 PG 90.}
-    $\forall n\geq 0,\;\exists\, p^*\in\Pi_n$, un polinomio, tale che:
-    \begin{equation}\label{eq:errMiglAppross}
+\begin{definition}[Errore e polinomio di migliore approssimazione]\label{def:errore_polinomio_migliore_approssimazione}\footnote{Slide 7 PDF 20, Definizione 4.2 + Teorema 4.6 PG 90.}
+    $\forall n\geq 0,\;\exists\, p^*\in\Pi_n$ (polinomio di grado $n$) tale che:
+    \begin{equation}\label{eq:errore_migliore_approssimazione}
         ||f-p^*||=\underset{p\in\Pi_n}{\min}||f-p||,
     \end{equation}
-    dove $\boldsymbol{p^*(x)}$ è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$, di grado $\boldsymbol n$ (sull'intervallo $\boldsymbol{[a,b]}$)} e $\boldsymbol{||f-p^*||}$ è detto l'\textbf{errore di migliore approssimazione}.
+    dove
+    \begin{equation*}
+    	\boldsymbol{p^*(x) = \arg\underset{p\in\Pi_n}{\min}||f-p||}
+    \end{equation*}
+    è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$, di grado $\boldsymbol n$ (tramite le ascisse di interpolazione in $\boldsymbol{[a,b]}$)} e $\boldsymbol{||f-p^*||}$ è detto l'\textbf{errore di migliore approssimazione}.
 \end{definition}
 
 \begin{remark}
-    È possibile trattare (\ref{eq:errMiglAppross}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
+    È possibile trattare (\ref{eq:errore_migliore_approssimazione}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
 \end{remark}
 
-La Definizione \ref{def:err&polMiglAppr} denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
+La Definizione \ref{def:errore_polinomio_migliore_approssimazione} denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
 Fra tutti i polinomi di grado $n$ che approssimano la norma, $||f-p||$ è non minore di $||f-p^*||$ (dove $p^*\in\Pi_n$). Esiste un polinomio della migliore approssimazione che approssima $f$ meglio degli altri.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{immagini/esempioGrafMiglApprox.jpg}
-    \caption{Esempio grafico della approssimazione $p$ e dell'errore (\ref{eq:errMiglAppross}) conseguente.}\label{fig:esempioGrafMiglApprox}
+    \caption{Esempio grafico della approssimazione $p$ e dell'errore (\ref{eq:errore_migliore_approssimazione}) conseguente.}\label{fig:esempioGrafMiglApprox}
 \end{figure}
 
-Dato $p(x)$, polinomio interpolante $f(x)$ di grado $n$, è trattato come l'errore di interpolazione sia legato all'errore di migliore approssimazione (\ref{eq:errMiglAppross}). A questo scopo è definito $\boldsymbol{||e||=||f-p||}$, ovvero l'\textbf{errore massimo di interpolazione}.
+Dato $p(x)$, polinomio interpolante $f(x)$ di grado $n$, è trattato come l'errore di interpolazione sia legato all'errore di migliore approssimazione (\ref{eq:errore_migliore_approssimazione}). A questo scopo è definito $\boldsymbol{||e||=||f-p||}$, ovvero l'\textbf{errore massimo di interpolazione}.
 
-\begin{theorem}\label{th:approxErrMiglApprox}\footnote{Slide 8 PDF 20, Teorema 4.7 PG 90}
-    Sia $p*(x)$ il polinomio di migliore approssimazione di grado $n$ di $f(x)$, allora, per l'errore di interpolazione (\ref{eq:defErrInter}), vale:
-    \begin{equation}\label{eq:errInterpMiglApprox}
+\begin{theorem}\label{th:approssimazione_errore_migliore_approssimazione}\footnote{Slide 8 PDF 20, Teorema 4.7 PG 90}
+    Sia $p^*(x)$ il polinomio di migliore approssimazione di grado $n$ di $f(x)$, allora, per l'errore di interpolazione (\ref{eq:defErrInter}), vale:
+    \begin{equation}\label{eq:approssimazione_errore_migliore_approssimazione}
         ||e||\leq (1+\boldsymbol{\Lambda_n})\overbrace{||f-p^*||}^{\footnotemark},
     \end{equation}
-    dove $\boldsymbol{\Lambda_n}$ è la costante di Lebesque, definita sulle ascisse di interpolazione.
+    dove $\boldsymbol{\Lambda_n}$ è la costante di Lebesgue, definita sulle ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) in $[a, b]$.
 \end{theorem}\footnotetext{Quantità che tende a 0 quando $n$ cresce (lentamente in generale).}
 \begin{proof}
 Considerando $p^*\in\Pi_n$:
@@ -1197,7 +1206,7 @@ Considerando $p^*\in\Pi_n$:
     \end{itemize}
 \end{proof}
 
-È necessaria un'approssimazione dell'errore di migliore approssimazione (\ref{eq:errMiglAppross}) in quanto l'errore crescerà al crescere di $n$, se la costante di Lebesque diverge esponenzialmente. Per questo è fornita una maggiorazione per (\ref{eq:errMiglAppross}), introducendo il modulo di continuità di una funzione.
+È necessaria un'approssimazione dell'errore di migliore approssimazione (\ref{eq:errore_migliore_approssimazione}) in quanto l'errore crescerà al crescere di $n$, se la costante di Lebesgue diverge esponenzialmente. Per questo è fornita una maggiorazione per (\ref{eq:errore_migliore_approssimazione}), introducendo il modulo di continuità di una funzione.
 
 \begin{definition}[Modulo di continuità di una funzione]
     Data $f\in C^{(0)}[a,b]$ è definito il modulo di continuità di $f$, per $h>0$ (variazione), come:
@@ -1229,7 +1238,7 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
 
 \begin{theorem}[Jackson]\label{th:Jackson}\footnote{Slide 10 PDF 20, Teorema 4.8 PG 91}
     Se $f\in C^{(0)}[a,b]$ e $p^*$ è il suo polinomio di migliore approssimazione di grado $n$, allora $\exists\, \alpha$, indipendente da $n$, tale che:
-    \begin{equation}\label{eq:approxJackson}
+    \begin{equation}\label{eq:approssimazione_jackson}
         ||f-p^*||\leq \alpha\cdot\omega\left(f;\frac{\overset{\footnotemark}{b-a}}{\underset{\footnotemark}{n}}\right).
     \end{equation}
 \end{theorem}
@@ -1251,9 +1260,9 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
 
 È possibile affermare che esiste una relazione fra l'errore nell'approssimazione polinomiale ed il condizionamento del problema (dato il Teorema di Jackson).
 
-\begin{corollary}\footnote{Slide 10 PDF 20, PG 91. Dalle (\ref{eq:errInterpMiglApprox})-(\ref{eq:approxJackson}) vale quanto segue.}
-    $\forall n\geq 0$, data una funzione $f(x)$ generica, $p(x)$ il polinomio interpolante di grado $n$ su $n+1$ ascisse assegnate e $\Lambda_n$ la corrispondente costante di Lebesque, vale che:
-    \begin{equation}\label{eq:maggErrMiglAprrox}
+\begin{corollary}\footnote{Slide 10 PDF 20, PG 91. Dalle (\ref{eq:approssimazione_errore_migliore_approssimazione})-(\ref{eq:approssimazione_jackson}) vale quanto segue.}
+    $\forall n\geq 0$, data una funzione $f(x)$ generica, $p(x)$ il polinomio interpolante di grado $n$ su $n+1$ ascisse assegnate e $\Lambda_n$ la corrispondente costante di Lebesgue, vale che:
+    \begin{equation}\label{eq:maggiorazione_errore_migliore_approssimazione}
         \boxed{||e||=||f-p||\leq\underset{\footnotemark}{\alpha}\underbrace{(1+\Lambda_n)\,\omega\left(f;\frac{b-a}{n}\right)}_{\footnotemark}}.
     \end{equation}
 \end{corollary}
@@ -1262,7 +1271,7 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
 \footnotetext{Non dipende da $n$, ovvero il grado del polinomio approssimante.}
 
 \stepcounter{footnote}
-\footnotetext{Definita nella dimostrazione del Teorema \ref{th:approxErrMiglApprox}.}
+\footnotetext{Definita nella dimostrazione del Teorema \ref{th:approssimazione_errore_migliore_approssimazione}.}
 
 Quest'utlima espressione sarà utile per introdurre nuovi metodi di interpolazione. Inoltre, è necessario che la costante $\Lambda_n$ non cresca più rapidamente della quantità per la quale è moltiplicata, ma tenda a 0, al crescere del numero di ascisse di interpolazione.
 
@@ -1270,29 +1279,29 @@ Quest'utlima espressione sarà utile per introdurre nuovi metodi di interpolazio
     Al crescere del numero delle ascisse di interpolazione $(n+1)$ è necessario fare in modo che $\Lambda_n$ cresca in modo ottimale, affinché $||e||$ diminuisca.
 \end{remark}
 
-\subsection{Ascisse di Chebyshev}\label{ssec:AscCheb}\footnote{PDF 21, PG 91-93.}
-Le Sezioni \ref{ssec:errInter} e \ref{ssec:condProbApproxfun} sono riassumibili nei seguenti punti:
+\subsection{Ascisse di Chebyshev}\label{ssec:ascisse_chebyshev}\footnote{PDF 21, PG 91-93.}
+Le Sezioni \ref{ssec:errore_interpolazione_polinomiale} e \ref{ssec:condizionamento_problema_approsimazione_funzione} sono riassumibili nei seguenti punti:
 \begin{itemize}
-    \item $\Lambda_n$ è indipendente dal particolare intervallo considerato; cresce esponenzialmente con $n$ se sono utilizzate ascisse equidistanti, altrimenti ha una crescita moderta (quella ottimale è di tipo logaritmico) rispetto ad $n$; \footnote{$n$ è il grado del polinomio interpolante.}
-    \item Data la maggiorazione $||e||\leq \frac{\overbrace{||f^{(n+1)}||}^{\footnotemark}}{(n+1)!}||\omega_{n+1}||,\text{ con } \omega_{n+1}(x)=\prod_{j=0}^n(x-x_j)$, è necessario capire come questa sia collegata con (\ref{eq:maggErrMiglAprrox}). 
+    \item la costante di Lebesgue $\Lambda_n$ è indipendente dal particolare intervallo considerato; cresce esponenzialmente con $n$ se sono utilizzate ascisse equidistanti, altrimenti ha una crescita moderta (quella ottimale è di tipo logaritmico) rispetto ad $n$; \footnote{$n$ è il grado del polinomio interpolante.}
+    \item Data la maggiorazione $||e||\leq \frac{\overbrace{||f^{(n+1)}||}^{\footnotemark}}{(n+1)!}||\omega_{n+1}||,\text{ con } \omega_{n+1}(x)=\prod_{j=0}^n(x-x_j)$, è necessario capire come questa sia collegata con (\ref{eq:maggiorazione_errore_migliore_approssimazione}). 
 \end{itemize}\footnotetext{Indipendente dalle ascisse, non come $||w_{n+1}||$.}
 
-L'obbiettivo della Sezione è  quello di scegliere le ascisse di interpolazione $x_j$ in modo da minimizzare $||\omega_{n+1}||$. Per fare questo è necessario rendere la costante di Lebesque piccola o almeno con una precisione accettabile.
+L'obbiettivo di questa Sezione è quello di scegliere le ascisse di interpolazione $x_j$ in modo da minimizzare $||\omega_{n+1}||$. Per fare questo è necessario rendere la costante di Lebesgue piccola o almeno con una precisione accettabile.
 
-Considerando l'intervallo di riferimento $\boldsymbol{[-1,1]}$, è necessario scegliere le ascisse $x_0,\hdots,x_n$ in modo tale da risolvere il problema del \textbf{minmax}, ovvero il seguente: \footnotemark
+Considerando l'intervallo di riferimento $\boldsymbol{[-1,1]}$, è necessario scegliere le ascisse di interpolazione $x_0,\hdots,x_n$ in modo tale da risolvere il \textbf{problema del minmax}, ovvero il seguente: \footnotemark
 \begin{equation}\label{eq:minmax}
     \underset{a=-1\leq x_0<\hdots<x_n\leq 1=b}{\min}||w_{n+1}||=\boldsymbol{\underset{a=-1\leq x_0<\hdots<x_n\leq 1=b}{\min}\quad\underset{-1\leq x\leq 1}{\max}|}\overbrace{\boldsymbol{w_{n+1}(x)}}^{\footnotemark}\boldsymbol|,
 \end{equation}
-con $w_{n+1}(x)$ calcolata come in (\ref{polBaseNewt2}), ovvero $\prod_{j=0}^n(x-x_j)$.
+con $w_{n+1}(x)=\prod_{j=0}^n(x-x_j)$ (calcolata come in (\ref{polinomio_base_newton2})).
 \addtocounter{footnote}{-1}
 \footnotetext{Slide 5 PDF 21, PG 91.}
 
 \stepcounter{footnote}
 \footnotetext{Polinomio monico che ha come radici le ascisse, rispetto alle quali è svolta la minimizzazione.}
 
-A questo scopo è introdotta la seguente Definizione:
+A questo scopo è introdotta la seguente Definizione.
 
-\begin{definition}[Polinomi di Chebyshev di I specie]\label{th:polChebIsp}
+\begin{definition}[Polinomi di Chebyshev di I specie]\label{def:polinomi_chebyshev_I_specie}
     Assunto $x\in [-1,1]$, la \textbf{famiglia di polinomi di Chebyshev di I specie} è definita come segue:
     \begin{equation}\label{eq:polChebISp}
         \begin{cases}
@@ -1314,39 +1323,63 @@ A questo scopo è introdotta la seguente Definizione:
     \qed
 \end{example}
 
-Alcune proprietà dei polinomi di Chebyshev di I specie sono le seguenti:
-\begin{itemize}
-    \item [P1)] $\boldsymbol{T_k(x)}$ è un \textbf{polinomio di grado esatto} $\boldsymbol k,\,\forall k=0,1,\hdots$;
-    \item[P2)]\footnotemark Il coefficiente principale di $\boldsymbol{T_k(x)}$ è $\boldsymbol{2^{k-1}},\,\forall\,k=1,2,\hdots$;
-    \footnotetext{A cosa serve questa proprietà? Dato il polinomio $4x^2-1$, è necessario dividerlo per 4 per renderlo monico (4 è il coeficiente principale del polinomio). Data una famiglia di polinomi di grado $k$, se è necessario derivare una famiglia di polinomi monici è necessario conoscere qual è il coefficiente principale di ciascuno di loro.}
-    \item[P3)]\footnotemark I polinomi $\boldsymbol{\left\{\widehat T_k\right\}_{k\geq 0}}$ definiti come
-    \begin{equation*}
-        \begin{cases}
-            \widehat T_0(x)=T_0\equiv 1,\\
-            \widehat T_k(x) =\boldsymbol{2^{1-k}}\, T_k(x),\;\; k=1,2,\hdots
-        \end{cases}
-    \end{equation*}
-    sono una \textbf{famiglia di polinomi monici} (perché $2^{1-k}$ è il reciproco del precedente coefficiente $2^{k-1}$);
-    \footnotetext{Dati i polinomi di grado $k$ con 8 coefficienti principali, è possibile derivare da questa una famiglia di polinomi monici.}
-    \item[P4)] 
-    \begin{equation*}
-        \forall\, k\geq 1: \widehat T_k(x)=\prod_{j=0}^{k-1}\left(x-x_j^{(k)}\right),
-    \end{equation*}
-    con $T_k\left(\boldsymbol{x_j^{(k)}}\right)=0,\; j=0,\hdots,k-1,\;\text{dove } \boldsymbol{x_j^{(k)}}$ sono le \textbf{radici} di $\boldsymbol{T_k(x)}$. \footnote{Se le radici $x_j^{(k)}$ fossero tutte distinte e nell'intervallo $[-1,1]$, allora per il polinomio $\widehat T_k(x)$ è possibile scegliere un'ascissa di interpolazione.}
-\end{itemize}
-
-\begin{remark}\label{re:ver1&2}\footnote{Slide 7 PDF 21.}
-    Considerata $\widehat T_{n+1}(x)=\prod_{j=0}^n\left(x-x_j^{(n+1)}\right)$, dove $x_j^{(n+1)},\; j=0,\hdots,n$, sono le radici di $T_{n+1}(x)$ e date le seguenti condizioni sulle radici:
-    \begin{enumerate}
-        \item $x_i^{(n+1)}\neq x_j^{(n+1)},\quad i\neq j,\; i,j=0,\hdots,n;$ \footnote{Definisce le ascisse distinte.}
-        \item $x_j^{(n+1)}\in [-1,1],\quad \forall j=0,\hdots,n;$ \footnote{Definisce le ascisse in un intervallo.}
-    \end{enumerate}
-    allora è possibile sceglierle come ascisse di interpolazione, per cui:
-    \begin{equation*}
-        \boldsymbol{\omega_{n+1}\equiv\widehat T_{n+1}=\prod_{j=0}^{n}\left(x-x_j^{(n+1)}\right)}.
-    \end{equation*}
-    Per verificare che 1. e 2. siano soddisfatte, sarà ottenuta un'espressione esplicita delle ascisse stesse. Poiché $x\in [-1,1]$, è posto $x=\cos(\theta),\, \theta\in [0,\pi],$ allora $\theta=\arccos{x}$ (vedere Figura \ref{fig:cosThetaChebyshev}).
-\end{remark}
+\begin{property}[dei polinomi di Chebyshev di I specie]
+	Alcune proprietà dei polinomi di Chebyshev di I specie sono le seguenti:
+	\begin{itemize}
+		\item [P1)] $\boldsymbol{T_k(x)}$ è un \textbf{polinomio di grado esatto} $\boldsymbol k,\,\forall k=0,1,\hdots$;
+		\item[P2)]\footnotemark Il coefficiente principale di $\boldsymbol{T_k(x)}$ è $\boldsymbol{2^{k-1}},\,\forall\,k=1,2,\hdots$;
+		\footnotetext{A cosa serve questa proprietà? Dato il polinomio $4x^2-1$, è necessario dividerlo per 4 per renderlo monico (4 è il coeficiente principale del polinomio). Data una famiglia di polinomi di grado $k$, se è necessario derivare una famiglia di polinomi monici è necessario conoscere qual è il coefficiente principale di ciascuno di loro.}
+		\item[P3)]\footnotemark I polinomi $\boldsymbol{\left\{\widehat T_k\right\}_{k\geq 0}}$ definiti come
+		\begin{equation}\label{eq:polinomio_monico}
+			\begin{cases}
+				\widehat T_0(x)=T_0\equiv 1,\\
+				\widehat T_k(x) =\boldsymbol{2^{1-k}}\, T_k(x),\;\; k=1,2,\hdots
+			\end{cases}
+		\end{equation}
+		sono una \textbf{famiglia di polinomi monici} (perché $2^{1-k}$ è il reciproco del precedente coefficiente $2^{k-1}$);
+		\footnotetext{Dati i polinomi di grado $k$ con 8 coefficienti principali, è possibile derivare da questa una famiglia di polinomi monici.}
+		\item[P4)] 
+		\begin{equation*}
+			\forall\, k\geq 1: \widehat T_k(x)=\prod_{j=0}^{k-1}\left(x-x_j^{(k)}\right),
+		\end{equation*}
+		con $T_k\left(\boldsymbol{x_j^{(k)}}\right)=0,\; j=0,\hdots,k-1,\;\text{dove } \boldsymbol{x_j^{(k)}}$ sono le \textbf{radici} di $\boldsymbol{T_k(x)}$. \footnote{Se le radici $x_j^{(k)}$ fossero tutte distinte e nell'intervallo $[-1,1]$, allora per il polinomio $\widehat T_k(x)$ è possibile scegliere un'ascissa di interpolazione.}
+		 \item[P5)] Se $\boldsymbol{x=\cos\theta}$ allora $T_k(x)=T_k(\cos\theta)=\cos{k\theta}$. \footnote{Polinomio di Chebyschev, se $x$ è parametrizzata in modo idoneo.}
+		\begin{proof}
+			È svolta per induzione su $k$.
+			\begin{equation*}
+				\begin{matrix}
+					k=0&\Rightarrow& T_0(x) &=& T_0(\cos\theta) &=& \cos{(0\cdot\theta)} &\equiv& 1,\\
+					k=1 &\Rightarrow& T_1(x) &=& T_1(\cos\theta) &=& \cos\theta &=& x,
+				\end{matrix}
+			\end{equation*}
+			supposto vero per $k$ e $k-1$ è dimostrato per $k+1$ ciò che segue:
+			\begin{equation*}
+				\begin{matrix}
+					\boldsymbol{T_{k+1}(x)}&\boldsymbol =& 2x\,T_k(x)-T_{k-1}(x) &=& 2cos\theta\cdot\cos{(k\theta)}-\cos{((k-1)\theta)}\\
+					&=&2cos\theta\cdot\cos{(k\theta)}-\cos\theta\cdot\cos{(k\theta)}-\sin\theta\sin{(k\theta)} &=& \cos\theta\cdot\cos{(k\theta)}-\sin\theta\cdot\sin{(k\theta)}\\
+					&&&=&\boldsymbol{\cos{((k+1)\,\theta)}}
+				\end{matrix}
+			\end{equation*}
+		\end{proof}
+		\item[P6)]\footnotemark $||T_k||=\underset{\theta\in [0,\pi]}{\max}|\cos{k\theta}|
+		\underset{\footnotemark}{=} 1,\;\forall k\geq 0$;
+		\addtocounter{footnote}{-1}
+		\footnotetext{Deriva dalla precedente proprietà.}
+		\stepcounter{footnote}
+		\footnotetext{In $[0,\pi]$ il massimo vale 1.}
+		\item[P7)]$||\widehat T_k||=2^{1-k}||T_k||=2^{1-k},\;\forall k\geq 1$, con $\widehat T_k$ detto polinomio monicizzato;
+		\item[P8)] Gli zeri di $T_k(x)$ sono ottenuti imponendo che $x=\cos\theta,\;\theta\in [0,\pi]$ e 
+		\begin{equation*}
+			\begin{matrix}
+				T_k(x)&=&T_k(\cos\theta)=\cos{(k\theta)}=0\\
+				&\underset{\footnotemark}{\Rightarrow}& k\theta=\frac{\pi}{2}+i\,\pi\\
+				&\Rightarrow&\theta =\frac{(2i+1)\pi}{2k},\, \boldsymbol{i=0,\hdots,k-1}\\
+				&\Rightarrow& x_i^{(k)} = \cos{\left(\frac{2i+1}{2k}\pi\right)},\, i=0,\hdots,k-1.
+			\end{matrix}
+		\end{equation*}\footnotetext{$\cos{(k\theta)}$ si annulla per $k\theta$ come segue.}
+		con le ascisse risultanti reali, distintinte tra loro e appartenenti a $(-1,1)$.
+	\end{itemize}
+\end{property}
 
 \begin{figure}
     \centering
@@ -1354,51 +1387,25 @@ Alcune proprietà dei polinomi di Chebyshev di I specie sono le seguenti:
     \caption{Grafico osservazione \ref{re:ver1&2}.}\label{fig:cosThetaChebyshev}
 \end{figure}
 
-\begin{itemize}
-    \item[P5)] Se $\boldsymbol{x=\cos\theta}\Rightarrow T_k(x)=T_k(\cos\theta)=\cos{k\theta}\;\footnotemark.$
-    \footnotetext{Polinomio di Chebyschev, se $x$ è parametrizzata in modo idoneo.}
-    \begin{proof}
-        È svolta per induzione su $k$.
-        \begin{equation*}
-            \begin{matrix}
-                k=0&\Rightarrow& T_0(x) &=& T_0(\cos\theta) &=& \cos{(0\cdot\theta)} &\equiv& 1,\\
-                k=1 &\Rightarrow& T_1(x) &=& T_1(\cos\theta) &=& \cos\theta &=& x,
-            \end{matrix}
-        \end{equation*}
-        supposto vero per $k$ e $k-1$ è dimostrato per $k+1$ ciò che segue:
-        \begin{equation*}
-            \begin{matrix}
-                \boldsymbol{T_{k+1}(x)}&\boldsymbol =& 2x\,T_k(x)-T_{k-1}(x) &=& 2cos\theta\cdot\cos{(k\theta)}-\cos{((k-1)\theta)}\\
-                &=&2cos\theta\cdot\cos{(k\theta)}-\cos\theta\cdot\cos{(k\theta)}-\sin\theta\sin{(k\theta)} &=& \cos\theta\cdot\cos{(k\theta)}-\sin\theta\cdot\sin{(k\theta)}\\
-                &&&=&\boldsymbol{\cos{((k+1)\,\theta)}}
-            \end{matrix}
-        \end{equation*}
-    \end{proof}
-    \item[P6)]\footnotemark $||T_k||=\underset{\theta\in [0,\pi]}{\max}|\cos{k\theta}|
-    \underset{\footnotemark}{=} 1,\;\forall k\geq 0$;
-    \addtocounter{footnote}{-1}
-    \footnotetext{Deriva dalla precedente proprietà.}
-    \stepcounter{footnote}
-    \footnotetext{In $[0,\pi]$ il massimo vale 1.}
-    \item[P7)]$||\widehat T_k||=2^{1-k}||T_k||=2^{1-k},\;\forall k\geq 1$, con $\widehat T_k$ detto polinomio monicizzato;
-    \item[P8)] Gli zeri di $T_k(x)$ sono ottenuti imponendo che $x=\cos\theta,\;\theta\in [0,\pi]$ e 
-    \begin{equation*}
-        \begin{matrix}
-            T_k(x)&=&T_k(\cos\theta)=\cos{(k\theta)}=0\\
-            &\underset{\footnotemark}{\Rightarrow}& k\theta=\frac{\pi}{2}+i\,\pi\\
-            &\Rightarrow&\theta =\frac{(2i+1)\pi}{2k},\, \boldsymbol{i=0,\hdots,k-1}\\
-            &\Rightarrow& x_i^{(k)} = \cos{\left(\frac{2i+1}{2k}\pi\right)},\, i=0,\hdots,k-1.
-        \end{matrix}
-    \end{equation*}\footnotetext{$\cos{(k\theta)}$ si annulla per $k\theta$ come segue.}
-    con le ascisse risultanti reali, distintinte tra loro e appartenenti a $(-1,1)$.
-\end{itemize}
+\begin{remark}\label{re:ver1&2}\footnote{Slide 7 PDF 21.}
+	Considerata $\widehat T_{n+1}(x)=\prod_{j=0}^n\left(x-x_j^{(n+1)}\right)$, dove $x_j^{(n+1)},\; j=0,\hdots,n$, sono le radici di $T_{n+1}(x)$ e date le seguenti condizioni sulle radici:
+	\begin{enumerate}
+		\item $x_i^{(n+1)}\neq x_j^{(n+1)},\quad i\neq j,\; i,j=0,\hdots,n;$ \footnote{Definisce le ascisse distinte.}
+		\item $x_j^{(n+1)}\in [-1,1],\quad \forall j=0,\hdots,n;$ \footnote{Definisce le ascisse in un intervallo.}
+	\end{enumerate}
+	allora è possibile sceglierle come ascisse di interpolazione, per cui:
+	\begin{equation*}
+		\boldsymbol{\omega_{n+1}=\prod_{j=0}^{n}\left(x-x_j^{(n+1)}\right)\equiv\widehat T_{n+1}}.
+	\end{equation*}
+	Per verificare che 1. e 2. siano soddisfatte, sarà ottenuta un'espressione esplicita delle ascisse stesse. Poiché $x\in [-1,1]$, è posto $x=\cos(\theta),\, \theta\in [0,\pi],$ allora $\theta=\arccos{x}$ (vedere Figura \ref{fig:cosThetaChebyshev}).
+\end{remark}
 
 \begin{definition}[Ascisse di Chebyshev]\footnote{Slide 10 PDF 21, TH 4.9 PG 92.}
-    Dato il polinomio interpolante $f$ di grado $n$, le ascisse di Chebyshev sono definite come
+    Dato il polinomio interpolante $f$ di grado $n$, le ascisse di Chebyshev sono definite sull'intervallo $[-1, 1]$ come
     \begin{equation}\label{eq:ascisseChebyshev}
-        x_i=\cos{\left(\frac{(2i+1)\pi}{2(n+1)}\right)},\quad i=0,\hdots,n,
+        x_{n-i}=\cos{\left(\frac{(2i+1)\pi}{2(n+1)}\right)},\quad i=0,\hdots,n,
     \end{equation}
-    le quali sono le radici di $\widehat T_{n+1}(x)$.
+    le quali sono le radici di $\widehat T_{n+1}(x)$ (definito come (\ref{eq:polinomio_monico})).
 \end{definition}
 
 Dato che le ascisse di Chebyshev, appena definite, sono radici di $\widehat T_{n+1}(x)$ allora la norma
@@ -1407,20 +1414,21 @@ Dato che le ascisse di Chebyshev, appena definite, sono radici di $\widehat T_{n
 \end{equation*}
 è \textbf{minima} tra tutti \textbf{polinomi monici di grado} $\boldsymbol{n+1}$.\footnote{Comunque siano date le ascisse in $[-1,1]$ è ottenuto un valore più grande del $\min\max$ (\ref{eq:minmax}).} Pertanto, il polinomio di Chebyshev monicizzato di grado $n+1$ è soluzione del prodotto $\min\max$ (\ref{eq:minmax}). 
 
-Inoltre, con la scelta delle ascisse di Chebyshev come ascisse di interpolazione è minimizzata la maggiorazione dell'errore (\ref{eq:approxJackson}), portando la costante di Lebesque a $\boldsymbol{\Lambda_n\approx\frac{2}{\pi}\log n}$. Quindi, la scelta delle ascisse di Chebyshev permette una crescita \textbf{ottimale} della costante di Lebesque, per $\boldsymbol{n\rightarrow\infty}$.
+\begin{remark}
+	La scelta delle ascisse di Chebyshev come ascisse di interpolazione minimizza la maggiorazione dell'errore (\ref{eq:approssimazione_jackson}), portando la costante di Lebesgue a $\boldsymbol{\Lambda_n\approx\frac{2}{\pi}\log n}$. Quindi, la scelta delle ascisse di Chebyshev permette una crescita \textbf{ottimale} della costante di Lebesgue, per $\boldsymbol{n\rightarrow\infty}$.
+\end{remark}
 
 %%\vspace{6px}
 %\hrule
 %\vspace{-7px}
-\paragraph{Ricapitolando:} Sono scelte le ascisse di interpolazione, nell'intervallo $[-1,1]$, distinte fra loro e che utilizzano la norma del polinomio monico (il quale ha come radici le ascisse del tipo $x_i$ definite in (\ref{eq:ascisseChebyshev})). 
-
-È stato dimostrato che $||w_{n+1}||=2^{-n}$, con $n$ ottenuto attraverso le ascisse di interpolazione e le ascisse del polinomio di Chebyshev di grado $n$. 
-
-Le ascisse del polinomio di Chebyshev di grado $n+1$ ha $n+1$ radici (necessario che un polinomio di Chebyshev di grado $n+1$ abba $n+1$ radici); con $n+1$ ascisse di interpolazione è possibile definire il polinomio interpolante di grado $n$. Quindi, se è richiesta una function per calcolare le ascisse relative al grado $n$, è neceessario ricordare di contare fino ad $n+1$ per Matlab, altrimenti sono contati $n-1$ (quindi il polinomio interpolante sarebbe di grado $n-1$).
-
-%\vspace{3px}
-%\hrule
-%\vspace{6px}
+\paragraph{Ricapitolando:} 
+\begin{enumerate}
+	\item Sono scelte le ascisse di interpolazione, nell'intervallo $[-1,1]$, distinte fra loro e che utilizzano la norma del polinomio monico (il quale ha come radici le ascisse del tipo $x_i$ definite in (\ref{eq:ascisseChebyshev})). 
+	
+	\item È stato dimostrato che $||w_{n+1}||=2^{-n}$, con $n$ ottenuto attraverso le ascisse di interpolazione e le ascisse del polinomio di Chebyshev di grado $n$. 
+	
+	\item Le ascisse del polinomio di Chebyshev di grado $n+1$ ha $n+1$ radici (necessario che un polinomio di Chebyshev di grado $n+1$ abba $n+1$ radici); con $n+1$ ascisse di interpolazione è possibile definire il polinomio interpolante di grado $n$. Quindi, se è richiesta una function per calcolare le ascisse relative al grado $n$, è neceessario ricordare di contare fino ad $n+1$ per Matlab, altrimenti sono contati $n-1$ (quindi il polinomio interpolante sarebbe di grado $n-1$).
+\end{enumerate}
 
 \begin{figure}
     \centering
@@ -1439,46 +1447,65 @@ Dalla Figura \ref{fig:graficoAscisseChebyshev} è possibile notare che sopra il 
 \end{remark}
 \footnotetext{Punto medio dell'intervallo.}
 
-Utilizzando le ascisse di Chebyshev nell'intervallo $[-5,5]$ sono ottenute le Figure \ref{fig:fRungeAscChebN=2}-\ref{fig:fRungeAscChebN=22}. Nelle figure è possibile notare che, da $n=10$ (vedere Figura \ref{fig:fRungeAscChebN=10}), la precisione di approssimazione è buona. Nella precedente approssimazione di $f(x)=\frac{1}{1+x^2}$ tramite la funzione di Runge, è possibile notare come, con 10 e più ascisse, erano presenti oscillazioni enormi agli estremi (vedere Figura \ref{fig:funzRunge_n=10} e \ref{fig:funzRunge_n=22}). Inoltre, è possibile notare come le ascisse addensate agli estremi dell'intervallo sono più vicine l'una alla altra di quanto lo siano quelle centrali.
+Utilizzando le ascisse di Chebyshev nell'intervallo $[-5,5]$ sono ottenute le Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22}. Nelle figure è possibile notare che, da $n=10$ (vedere Figura \ref{fig:funzione_runge_ascisse_cheby_n=10}), la precisione di approssimazione è buona. Nella precedente approssimazione di $f(x)=\frac{1}{1+x^2}$ tramite la funzione di Runge, è possibile notare come, con 10 e più ascisse, erano presenti oscillazioni enormi agli estremi (vedere Figura \ref{fig:funzione_runge_n=10} e \ref{fig:funzione_runge_n=22}). Inoltre, è possibile notare come le ascisse addensate agli estremi dell'intervallo sono più vicine l'una alla altra di quanto lo siano quelle centrali.
 
 È possibile trovare un'implementazione dell'algoritmo che calcola le ascisse di Chebyshev, per costruire il polinomio interpolante di grado $n$, su un generico intervallo $[a, b]$, nell'Algoritmo \ref{alg:cheby}.
 
 \begin{remark}
-    È necessario ricordare che al crescere del grado $n$ del polinomio interpolante, la scelta delle ascisse di interpolazione non deve fare crescere troppo la costante di Lebesque $\Lambda_n$.
+    È necessario ricordare che al crescere del grado $n$ del polinomio interpolante, la scelta delle ascisse di interpolazione non deve fare crescere troppo la costante di Lebesgue $\Lambda_n$.
 \end{remark}
 
+\paragraph{Algormitmo calcolo ascisse di Chebyshev:} Un'implementazione dell'algoritmo che calcola le ascisse di Chebyshev, per costruire il polinomio interpolante di grado $n$, su un generico intervallo $[a, b]$, è l'Algoritmo \ref{alg:cheby}.
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{immagini/fRungeAscChebN=2.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:fRungeAscChebN=2}
+    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=2.jpg}
+    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=2}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{immagini/fRungeAscChebN=10.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:fRungeAscChebN=10}
+    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=10.jpg}
+    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=10}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{immagini/fRungeAscChebN=18.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:fRungeAscChebN=18}
+    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=18.jpg}
+    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=18}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{immagini/fRungeAscChebN=22.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:fRungeAscChebN=22}
+    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=22.jpg}
+    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=22}
 \end{figure}
+
+\begin{algorithm}\caption{Calcolo delle ascisse di Chebyshev per costruire il polinomio interpolante di grado $n$ su un generico intervallo $[a, b]$.}
+	\label{alg:cheby}
+	\begin{lstlisting}[style=Matlab-editor]
+		function x = cheby(a,b, n)
+		%	function x = cheby(a, b, n)
+		%	Calcola le ascisse di Chebyshev per il polinomio interpolante di grado n su [a, b]
+		if nargin < 3 || n <= 0 || a > b, error('argomenti non validi'), end
+		
+		x = cos((2 * (n + 1) : -2 : 1) * pi / ( 2 * n + 2));
+		
+		x = (a+b) + x * ((b-a) / 2);
+		
+		return 
+		end
+	\end{lstlisting}
+\end{algorithm}
 
 \subsection{Interpolazione mediante funzioni spline} \footnote{Slide 10-15 PDF 22, Slide 2-3 PDF 23, PG 94 - 100.}
-Dalle Figure \ref{fig:fRungeAscChebN=2}-\ref{fig:fRungeAscChebN=22} è possibile ottenere che l'approssimazione migliora all'aumentare del numero di ascisse. Inoltre, è necessario notare che 40 è il numero limite di ascisse per il quale l'approssimazione non migliora, anche se queste sono aumentate. Questo è dovuto al fatto che il numero di condizionamento, pur non essendo particolarmente grande, è influenzato dagli errori di round-off.
+Dalle Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22} è possibile ottenere che l'approssimazione migliora all'aumentare del numero di ascisse. Inoltre, è necessario notare che 40 è il numero limite di ascisse per il quale l'approssimazione non migliora, anche se queste sono aumentate. Questo è dovuto al fatto che il numero di condizionamento, pur non essendo particolarmente grande, è influenzato dagli errori di round-off.
 
 In analisi matematica i problemi sono concepiti in aritmetica infinita (ovvero esatta),  ma gli algoritmi sono in aritmetica finita (il problema rappresentato è perturbato, in quanto non è quello reale). Al crescere della grado del polinomio interpolante, le ascisse di Chebyshev evidenziano i limiti dell'utilizzo dell'aritmetica finita, dove il problema è quello di valutare un polinomio di grado elevato in aritmetica finita.
 
 La necessità, quindi, è quella di definire un algoritmo poco sensibile a perturbazioni. Se il numero di ascisse è fatto tendere all'infinito allora l'errore tenderà a 0, ma se è considerato l'errore di round-off accade che gli errori, dovuti all'approssimazione, sono più piccoli degli errori di round-off e sotto questo livello non è possibile scendere. Lo scopo è quello di fornire una soluzione a questo problema tramite ciò che sarà introdotto.
 
-Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:maggErrMiglAprrox}). Il problema con la maggiorazione (\ref{eq:maggErrMiglAprrox}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
+Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:maggiorazione_errore_migliore_approssimazione}). Il problema con la maggiorazione (\ref{eq:maggiorazione_errore_migliore_approssimazione}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
 
 In alternativa all'approccio classico è possibile definire quanto segue.
 
@@ -1499,12 +1526,12 @@ In alternativa all'approccio classico è possibile definire quanto segue.
 \footnotetext{Massima ampiezza tra i sottointervalli e la partizione. Ciò che è assunto è: aumentanto il numero dei punti $h\rightarrow 0$, quindi non rimangano zone dell'intervallo $[a,b]$ che, se il numero delle ascisse tende all'infinito, sono senza punti. Se sono aggiunti punti questi sono aggiunti per tutti. Una partizione uniforme garantisce queste proprietà, ovvero (\ref{eq:condUnifPart}).}
 
 È assunto che $h\rightarrow 0,\, n\rightarrow\infty$. Inoltre, è assunto che su ciascun sottointervallo $[x_{i-1}, x_i],\, i=1,\hdots, n$, di $\Delta$ è utilizzato un polinomio di \textbf{grado $\boldsymbol m$ fissato}, interpolante $f(x)$ agli estremi del sottointervallo. Quindi, la nuova funzione interpolante è polinomiale a tratti (ovvero, in ogni sottointervallo è presente un polinomio).
-Così facendo, (\ref{eq:maggErrMiglAprrox}) diviene
+Così facendo, (\ref{eq:maggiorazione_errore_migliore_approssimazione}) diviene
 \begin{equation*}
     \underset{\footnotemark}{||e||}\leq\underbrace{\alpha (1+\Lambda_m)}_{\text{non varia}}\underbrace{\omega\left(f;\frac{h}{m}\right)}_{\text{tende a 0}},
 \end{equation*}
 dove:
-\footnotetext{Se $f$ e $p$ hanno grado $m$, significa che la costante di Lebesque si trasforma in $\Lambda_m$, la quale è fissata, non cambia, ed al posto di $\frac{b-a}{m}$ è inserita la massima ampiezza dell'intervallo.}
+\footnotetext{Se $f$ e $p$ hanno grado $m$, significa che la costante di Lebesgue si trasforma in $\Lambda_m$, la quale è fissata, non cambia, ed al posto di $\frac{b-a}{m}$ è inserita la massima ampiezza dell'intervallo.}
 \begin{itemize}
     \item $\boldsymbol{m}$ è fissato,
     \item $h\rightarrow 0$, se $\boldsymbol{n}\rightarrow\infty$,
@@ -1526,20 +1553,19 @@ Con una lente più formale è possibile definire quanto segue:
 
 1. e 2. sono condizioni diverse: 1. definisce cos'è una spline di grado $m$ e 2. afferma che la spline coincide con il grado assegnato in ciascun sottointervallo. Una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$). È necessario imporre sulla 2. la condizione (\ref{eq:condInterpSpline2}).
 
-\begin{remark}\label{rem:n+mCondIndip}
+\begin{remark}\label{rem:n+m_condizioni_indipendenti}
     \footnote{Slide 12 PDF 22, Teorema 4.11 PG 95.} Denotando con $\boldsymbol{S_m(\Delta)}$ l'insieme delle spline di grado $m$ sulla partizione $\Delta$, contenente $n+1$ ascisse, questo è uno \textbf{spazio vettoriale} di dimensione $\boldsymbol{m+n}$.
 \end{remark}
 
-La dimensione di uno spazio vettoriale è importante per individuare una spline univocamente. Un risultato importante dell'Osservazione \ref{rem:n+mCondIndip} è il seguente: è possibile individuare in modo univoco una spline di grado $m$ sulla partizione $\Delta$, con $m+n$ condizioni distinte, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare un oggetto.
+\paragraph{Risultato importante dell'Osservazione \ref{rem:n+m_condizioni_indipendenti} è il seguente:} è possibile individuare in modo univoco una spline di grado $m$ sulla partizione $\Delta$, con $m+n$ condizioni distinte, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare un oggetto.
 
 \begin{remark}
     \footnote{Slide 12 PDF 22.} $\Pi_m\subset S_m(\Delta).$
 \end{remark}
 
-Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sottointervallo, coincide con se stesso.
+Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sotto-intervallo, coincide con se stesso.
 
-\begin{definition}\label{def:interpFInDelta}
-    \footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
+\begin{definition}[Condizioni di interpolazione]\label{def:condizioni_aggiuntive_spline}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
     Una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ (nei nodi della partizione) se (valgono le seguenti condizioni di interpolazione): 
     \begin{equation}\label{eq:condInterpSpline}
         \boldsymbol{s_m(x_i)=f(x_i)\equiv f_i,\quad i=0,\hdots,n.}
@@ -1603,14 +1629,16 @@ I motivi per i quali è scelta la spline cubica sono le condizioni solitamente a
 
 Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condInterpSpline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
 
-Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante.
+Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alla condizione definita nella Definizione \ref{def:condizioni_aggiuntive_spline}.
 \subsubsection{Spline cubica naturale}
 \footnote{Slide 4 PDF 23, PG 96.} 
-Questa spline è determinata dalle due seguenti condizioni:
-\begin{equation}\label{eq:condSplineCubNat}
+\begin{definition}[Condizioni spline cubica naturale]
+	Una spline cubica è detta naturale se impone le due condizioni aggiuntive
+	\begin{equation}\label{eq:condSplineCubNat}
     \boxed{s''_3(a)=0,\quad s''_3(b)=0.}
 \end{equation}
 
+\end{definition}
 La spline cubica naturale è quella che minimizza la curvatura totale della curva (non sarà trattato). Questa spline è scelta perché porta all'algoritmo di misurazione più efficiente tra tutti (non sarà trattato).
 
 \subsubsection{Spline cubica completa}\footnote{Nota precedente.}
