@@ -1,5 +1,6 @@
 \section{Formule di quadratura numerica (approssimazione di integrali definiti)}
 \footnote{Slide 10 PDF 25, 26-27, PG 105-114.}
+\subsection{Introduzione}
 Il problema da risolvere è quello di approssimare il valore dell'integrale nella forma
 \begin{equation}\label{eq:probQuadratura}
     I(f)=\int_{a}^{b}f(x) dx,\quad -\infty<\overset{\footnotemark}{\boldsymbol{a<b}}<\infty ,
@@ -25,30 +26,32 @@ Prima di trattare i metodi di approssimazione è studiato il condizionamento del
     \footnotetext{Il valore assoluto di un integrale di una funzione è minore uguale dell'integrazione del valore assoluto della funzione. Questo è specificato anche dal criterio di integrabilità.}
     
     \noindent dove
-    \begin{equation*}
-        \boldsymbol{\kappa=(b-a)},\quad \boldsymbol{||f-\Tilde{f}||}=\underset{a\leq x\leq b}{\max} |f(x)-\Tilde{f}(x)|
-    \end{equation*}
-    definiscono, rispettivamente, il \textbf{numero di condizionamento del problema} (\ref{eq:probQuadratura}) e la misura l'\textbf{errore sui dati d'ingresso}.
+    \begin{enumerate}
+    	\item $\boldsymbol{\kappa=(b-a)}$ misura il condnizionamento del problema (\ref{eq:probQuadratura}),
+    	\item $\boldsymbol{||f-\Tilde{f}||}=\underset{a\leq x\leq b}{\max} |f(x)-\Tilde{f}(x)|$ misura l'errore sui dati in ingresso.
+    \end{enumerate}
 \end{definition}
 
 \subsection{Formule di Newton-Cotes}\label{ssec:formN-C}\footnote{Slide 10 PDF 25-26, PG 106-108.}
-Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante la funzione $f(x)$ su $n+1$ ascisse equidistanti, ovvero:
-\begin{equation}\label{eq:condAscEqN-C}
+Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante $p(x)$ la funzione $f(x)$ su $n+1$ ascisse equidistanti, ovvero:
+\begin{equation}\label{eq:condizione_ascisse_equidistanti_N-C}
     \begin{matrix}
         &x_i=a+ih,&\quad i=0,\hdots,n,\\
         &p_n(x_i)=f_i \equiv f(x_i),&\quad h=\frac{b-a}{n}.
     \end{matrix}
 \end{equation}
 
-Sia $p(x)$ il polinomio interpolante $f(x)$, è considerata la sua forma di Lagrange (\ref{eq:polLagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. Segue la definizione della \textbf{formula di Newton-Cotes di grado} $\boldsymbol n$ (esprimile in (\ref{eq:formN-C})):
-\begin{equation*}
-    I(f)\approx \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f).
-\end{equation*}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
+\begin{definition}[Formula di Newton-Cotes]
+	Sia $p(x)$ il polinomio interpolante $f(x)$, è considerata la sua forma di Lagrange (\ref{eq:polLagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
+	\begin{equation*}
+		I(f)\approx \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
+	\end{equation*}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
+\end{definition}
 
 Una formulazione più conveniente della precedente, poste le seguenti condizioni, per $x=a+th$ e $t\in [0,n]$:
 \begin{enumerate}
     \item $\underbrace{x_i=a+ih}_{\footnotemark}\Rightarrow x_i\rightarrow i,\quad i=0,\hdots ,n$,
-    \item $dx=\boldsymbol{h}dt\quad (h=\frac{b-a}{n}$, ovvero $h$ di (\ref{eq:condAscEqN-C})),
+    \item $dx=\boldsymbol{h}dt\quad (h=\frac{b-a}{n}$, per (\ref{eq:condizione_ascisse_equidistanti_N-C})),
 \end{enumerate}\footnotetext{Trasformazione lineare di $x=a+th$.}
 è la seguente:
 \begin{equation*}
@@ -60,10 +63,12 @@ Una formulazione più conveniente della precedente, poste le seguenti condizioni
 
 \footnotetext{Semplificando $a$ e raggruppando $h$.}
 
-Pertanto, la \textbf{formula di Newton-Cotes di grado} $\boldsymbol n$ è esprimibile come:
-\begin{equation}\label{eq:formN-C}
-    \boldsymbol{I_n(f)\approx h\sum_{i=0}^n f_ic_{in}},\quad \boldsymbol{c_{in}=\int_0^n\prod_{j=0, j\neq i}^n \frac{t-j}{i-j}dt.}
-\end{equation}
+\begin{definition}[Formula di Newton-Cotes (conveniente)]
+	La \textbf{formula di Newton-Cotes di grado} $\boldsymbol n$ è esprimibile come:
+	\begin{equation}\label{eq:formN-C}
+	    \boldsymbol{I_n(f)\approx h\sum_{i=0}^n f_ic_{in}},\quad \boldsymbol{c_{in}=\int_0^n\prod_{j=0, j\neq i}^n \frac{t-j}{i-j}dt.}
+	\end{equation}
+\end{definition}
 
 Alcune proprietà dei coefficienti $\{c_{in}\}_{i\in\{0, \hdots,n\}}$ sono le seguenti:
 \begin{enumerate}
@@ -218,7 +223,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left
 
 \subsubsection{Formula dei trapezi composita}
 \begin{definition}[\textbf{Formula dei trapezi composita}]\footnote{Slide 11 PDF 26.}
-    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condAscEqN-C}), è ottenuta la \textbf{formula dei trapezi composita}:
+    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}), è ottenuta la \textbf{formula dei trapezi composita}:
     \begin{equation}\label{eq:formTrapComp}
         \begin{matrix}
             \boldsymbol{I(f)}&=&\int_a^b f(x) dx &\overset{\footnotemark}{=}&\sum_{i=1}^n\overbrace{\int_{x_{i-1}}^{x_i} f(x)dx}^{\footnotemark}\\
@@ -262,7 +267,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left
 
 \subsubsection{Formula di Simpson composita}
 \begin{definition}[\textbf{Formula di Simpson composita}]
-    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condAscEqN-C}) e dato $\boldsymbol n$ \textbf{pari}, la \textbf{formula di Simpson composita} è
+    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}) e dato $\boldsymbol n$ \textbf{pari}, la \textbf{formula di Simpson composita} è
     \begin{equation}\label{eq:formSimpComp}
         \begin{matrix}
             \boldsymbol{I(f)}&=&\int_a^bf(x)dx\\
@@ -354,7 +359,7 @@ Applicando quanto scritto all'esempio (\ref{eq:approxIntSinx}) sono derivate le 
 \end{figure}
 
 In Figura \ref{fig:approxInt} il numero di condizionamento è 99.5, ovvero l'ampiezza dell'intervallo. Il problema è che nell'estremo inferiore, se $x\rightarrow 0$, allora $x^{-2}$ e $x^{-3}$ diventano molto grandi e $\cos{(x^{-2})}$, per $x\rightarrow 0$, oscilla molto. La parte sinistra del grafico è la parte in cui il grafico inizia ad oscillare molto. La questione importante è che la funzione è liscia poco dopo $10^0$ e oscilla poco prima di $10^0$. Se fosse utilizzata una mesh costante accadrebbe che, per ottenere la tolleranza desiderata, diventerebbero necessari punti molto vicini prima di $10^0$, i quali dovrebbero essere riportati anche nella parte liscia. Il problema posto è quello di definire un approccio adattivo per la definizione delle ascisse di interpolazione in modo adattivo, infatti sui punti laddove la funzione è più variabile saranno inseriti più punti ed invece meno dove la funzione è liscia. Per quanto appena scritto, sono introdotte le funzioni di Newton-Cotes adattive della Sezione \ref{ssec:formN-CAdatt}.
-In Figura \ref{fig:tabErrQuad} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condAscEqN-C}).
+In Figura \ref{fig:tabErrQuad} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}).
 
 \subsection{Formule di Newton-Cotes adattive}\label{ssec:formN-CAdatt}
 \footnote{Slide 7-12 PDF 27, PG 111-114.}

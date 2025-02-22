@@ -1754,7 +1754,7 @@ La rappresentazione delle condizioni (\ref{eq:condSplineCubNotAKnot}) tramite le
 
 \begin{remark}
     \footnote{Slide 2 PDF 24, Osservazione 4.5 PG 97.} L'ampiezza dell'intervallo $i$-esimo della partizione $\Delta$, definita come (\ref{eq:defPartizione}), è definita come
-    \begin{equation}\label{eq:defAmpiezzaInt}
+    \begin{equation}\label{eq:ampiezza_partizione}
         \boldsymbol{h_i=x_i-x_{i-1},\quad i=1,\hdots,n},
     \end{equation}
     dove la massima ampiezza definita come 
@@ -1771,12 +1771,12 @@ Quanto osservato significa che le spline cubiche consentono di approssimare effi
 
 Approssimare la funzione significa approssimare uniformemente anche la derivata prima e seconda. Questo risultato è esatto per tutte le spline cubiche tranne per la naturale, dove, se forzata, la derivata seconda negli estremi è 0. Questo non è sempre vero in quanto è possibile introdurre errori sistematici. È possibile affermare che l'errore diminuisce rapidamente quando è ottenuto dagli estremi dell'intervallo.
 
-\subsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcSplineCub}\footnote{Slide 2-13 PDF 24, PG 97-101.}
-Per trattare questa Sezione è utile la Sezione \ref{ssec:risSistTridiag}.
+\subsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcolo_spline_cubiche}\footnote{Slide 2-13 PDF 24, PG 97-101.}
+Per trattare questa Sezione è utile la Sezione \ref{ssec:risoluzione_sistema_tridiagonale}.
 
 Il problema da affrontare è quello del calcolo della spline cubica $s_3(x)$ interpolante $f(x)$ sulla partizione, definita come in (\ref{eq:defPartizione}), $\Delta=\{a=x_0<x_1<\hdots<x_n=b\}$.
 
-Per determinare un algoritmo efficiente per il calcolo di una spline cubica, oltre a (\ref{eq:defAmpiezzaInt}), sarà usata la notazione seguente:
+Per determinare un algoritmo efficiente per il calcolo di una spline cubica, oltre a (\ref{eq:ampiezza_partizione}), sarà usata la notazione seguente:
 \begin{equation}\label{eq:s''3(xi)}
     \boldsymbol{m_i=s''_3(x_i),\quad i=0,\hdots,n.}
 \end{equation}
@@ -1788,7 +1788,7 @@ Il calcolo della spline cubica naturale è semplice ed, inoltre, è stato tratta
     \boldsymbol{m_0=0=m_n}.
 \end{equation}
 
-Imponendo (\ref{eq:defAmpiezzaInt}), \textbf{le condizioni aggiuntive della spline not-a-knot}, ovvero degli estremi sinistro e destro (\ref{eq:condSplineCubNotAKnot}), diventano
+Imponendo (\ref{eq:ampiezza_partizione}), \textbf{le condizioni aggiuntive della spline not-a-knot}, ovvero degli estremi sinistro e destro (\ref{eq:condSplineCubNotAKnot}), diventano
 \begin{equation*}
     \frac{m_1-m_0}{h_1}=\frac{m_2-m_1}{h_2},\quad \frac{m_{n-1}-m_{n-2}}{h_{n-1}}=\frac{m_n-m_{n-1}}{h_n}
 \end{equation*}
@@ -1971,7 +1971,9 @@ il sistema lineare (\ref{eq:sisTridSpline}) è equivalente a
 che risulta essere ancora tridiagonale e, avendo tutti i minori principali non nulli, fattorizzabile $LU$.
 
 \subsection{Approssimazione polinomiale nel senso dei minimi quadrati}\label{ssec:approssimazione_polinomiale_minimi_quadrati}
-\footnote{Slide 6-9 PDF 25, PG 101-104.} L'argomento trattato in questa Sezione è un diverso tipo di approssimazione. Spesso sono presenti troppi dati da approssimare affetti da errore, tipicamente senza bias, con una distribuzione gaussiana. Il concetto è che se il dato è affetto da errore interpolare non ha significato. È necessario trovare un'altra approssimazione ed a titolo di esempio sono presenti le Figure \ref{fig:4.10(1)}-\ref{fig:4.10(4)}.
+\subsubsection{Introduzione}
+\footnote{Slide 6-9 PDF 25, PG 101-104.}
+L'argomento trattato in questa Sezione è un diverso tipo di approssimazione. Spesso sono presenti troppi dati da approssimare affetti da errore, tipicamente senza bias, con una distribuzione gaussiana. Il concetto è che se il dato è affetto da errore interpolare non ha significato. È necessario trovare un'altra approssimazione (a titolo di esempio sono presenti le Figure \ref{fig:4.10(1)}-\ref{fig:4.10(4)}).
 
 Inoltre, è bene sottolineare che \textbf{è stato utilizzato} il termine "\textbf{Approssimazione}" \textbf{e non} "\textbf{Interpolazione}".
 
@@ -1990,7 +1992,7 @@ Per la Figura \ref{fig:4.10(1)} è possibile affermare che la retta che passa pe
     \caption{Esempio di 1000 dati affetti da errore.}\label{fig:4.10(2)}
 \end{figure}
 
-Supposto di avere 1000 dati effetti da errore non sistematico, è ottenuta Figura \ref{fig:4.10(2)}. I dati, i puntini nella figura, sono ottenuti partendo dalla retta ed aggiungendo un termine d'errore, non lo stesso della retta, da un distribuzione gaussiana. Se fosse necessario interpolare allora il grafico oscillerebbe tra gli estremi dei puntini blu (più o meno periodicamente), non fornendo informazioni utili. La retta rossa, rappresentante la retta in Figura \ref{fig:4.10(1)}, approssima bene i dati.
+Supposto di avere 1000 dati affetti da errore non sistematico, è ottenuta Figura \ref{fig:4.10(2)}. I dati, i puntini nella figura, sono ottenuti partendo dalla retta ed aggiungendo un termine d'errore, non lo stesso della retta, da un distribuzione gaussiana. Se fosse necessario interpolare allora il grafico oscillerebbe tra gli estremi dei puntini blu (più o meno periodicamente), non fornendo informazioni utili. La retta rossa, rappresentante la retta in Figura \ref{fig:4.10(2)}, approssima bene i dati.
 
 \begin{figure}
     \centering
@@ -2008,31 +2010,40 @@ Per la Figura \ref{fig:4.10(4)} non ha senso calcolare il polinomio interpolante
 
 Dalle Figure \ref{fig:4.10(1)}-\ref{fig:4.10(4)} è possibile affermare che è un caso che un punto utile sia trovato (perché sono troppi), infatti in genere non è trovato. 
 
+\subsubsection{Trattazione}
 Supposto di avere un fenomeno da rilevare, dipendente da un variabile indipendente $x$, che soddisfa una legge di tipo polinomiale (non inventata):
 \begin{equation*}
-    y=p(x),\quad p(x)\in\Pi_{\boldsymbol{m}}.
+    y=p(x),\quad p(x)\in\Pi_{\boldsymbol{m}},
 \end{equation*}
+dove, in genere, il grado $\boldsymbol m$ è noto a priori.
 
-\begin{remark}
-    In genere il grado $\boldsymbol m$ è noto a priori.
+Tuttavia, $y$ è un polinomio del tipo
+
+
+\begin{definition}[Polinomio di approssimazione ai minimi quadrati di grado $m$]
+	Il polinomio
+	\begin{equation}\label{eq:polinomio_minimi_quadrati}
+		y = p(x)=\sum_{k=0}^{m}a_kx^k,
+	\end{equation}
+	è detto polinomio di approssimazione ai minimi quadrati di grado $m$, per il quale non sono noti i coefficienti del polinomio ma sono note le seguenti misurazioni del fenomeno
+	\begin{equation}\label{eq:misurazioni_fenomeno_minimo_quadrato}
+		\boldsymbol{(x_i,y_i),\quad i=0,\hdots,n,\quad n\geq m,\quad n}\overset{\footnotemark}{\boldsymbol{>>}}\boldsymbol{m+1}.
+	\end{equation}\footnotetext{$n$ è tipicamente molto maggiore di $m+1$, quindi il numero di misurazioni deve essere almeno pari al numero di coefficienti. Se $n=m+1$, ovvero $n$ è pari al numero di coefficienti, allora è calcolata l'interpolazione.}
+\end{definition}
+
+\begin{remark}[Condizione di esistenza ed unicità del polinomio ai minimi quadrati]\label{rem:ascisse_distinte_polinomio}
+     È assunto che almeno $m+1$ delle ascisse $\{x_i\}$ siano distinte tra loro (dato $m$ il grado del polinomio da determinare)\footnote{Le $\{x_i\}$ possono essere utilizzate per effettuare più misurazioni in un punto in cui è necessario. È necessario che la condizione ($m+1$ ascisse distinte) sia soddisfatta per ammettere che la formulazione abbia soluzione unica.}.
 \end{remark}
 
-Tuttavia, $y$, data l'uguaglianza sopra, è un polinomio del tipo
-\begin{equation}\label{eq:polIgnMinQuad}
-    p(x)=\sum_{k=0}^{m}a_kx^k,
-\end{equation}
-per il quale non sono noti i coefficienti del polinomio ma sono note le seguenti misurazioni del fenomeno:
-\begin{equation}\label{eq:misFenMinQuad}
-    \boldsymbol{(x_i,y_i),\quad i=1,\hdots,n,\quad n\geq m,\quad n}\overset{\footnotemark}{\boldsymbol{>>}}\boldsymbol{k+1}.
-\end{equation}\footnotetext{$n$ è tipicamente molto maggiore di $k+1$, quindi il numero di misurazioni deve essere almeno pari al numero di coefficienti. Se $n=k+1$, ovvero $n$ è pari al numero di coefficienti, allora è calcolata l'interpolazione.}
-
-\textbf{Il problema dell'approssimazione polinomiale nel senso dei minimi quadrati è determinare il polinomio (\ref{eq:polIgnMinQuad}), ovvero determinare i coefficienti} $\boldsymbol{a_0,\hdots, a_n}$\textbf{, che meglio approssima le coppie di dati definite come (\ref{eq:misFenMinQuad}).} Inoltre, è possibile osservare che il problema da risolvere è un sistema sovradimensionato ($n\geq m$).
-
-\begin{remark}\label{re:ascDistPolm}
-     È assunto che almeno $k+1$ delle ascisse $\{x_i\}$ siano distinte tra loro (dato $k$ il grado del polinomio da determinare)\footnote{Le $\{x_i\}$ possono essere utilizzate per effettuare più misurazioni in un punto in cui è necessario. È necessario che la condizione ($k+1$ ascisse distinte) sia soddisfatta per ammettere che la formulazione abbia soluzione unica.}.
-\end{remark}
-
-Per determinare i coefficienti incogniti del polinomio è necessario definire la migliore approssimazione dei dati. Il problema è rappresentato in forma vettoriale, quindi, dati i vettori
+L'obbiettivo dell'approssimazione polinomiale nel senso dei minimi quadrati è stimare il polinomio del tipo (\ref{eq:polinomio_minimi_quadrati}), ovvero determinare i coefficienti 
+\begin{equation*}
+a = (a_0,\hdots, a_m)^T,
+\end{equation*}
+imponendo che l'errore
+\begin{equation*}
+	||r||_2^2=\sum_{i=0}^n|y_i-z_i|^2,
+\end{equation*}
+sia minimizzato. Il problema può essere rappresentato in forma vettoriale mediante i seguenti vettori
 \begin{equation}
     \underline{y}=
     \begin{bmatrix}
@@ -2053,11 +2064,13 @@ Per determinare i coefficienti incogniti del polinomio è necessario definire la
         \sum_{k=0}^m a_kx_n^k
     \end{bmatrix},
 \end{equation}
-contenenti rispettivamente i valori attesi ed i valori misurati in corrispondenza delle ascisse $x_0,\hdots,x_n$, è determinato il vettore $a=(a_0,\hdots,a_m)^T$, il quale minimizza la norma $||r||_2^2=\sum_{k=0}^n|y_i-z_i|^2$ (ovvero la norma euclidea al quadrato del vettore residuo $\underline{r}=\underline{z}-\underline{y}$). Tuttavia, è possibile esprimere $\underline{z}$ come
+contenenti rispettivamente i valori attesi ed i valori misurati in corrispondenza delle ascisse $x_0,\hdots,x_n$. È possibile osservare che il problema da risolvere è un sistema sovradimensionato ($n\geq m$).
+
+Tuttavia, è possibile esprimere $\underline{z}$ come
 \begin{equation*}
     \underline{z}\underset{\footnotemark}{=}
     \begin{bmatrix}
-        x_1^0&\hdots &x_1^m\\
+        x_0^0&\hdots &x_0^m\\
         &\vdots&\\
         x_n^0& \hdots &x_n^m
     \end{bmatrix}
@@ -2067,7 +2080,7 @@ contenenti rispettivamente i valori attesi ed i valori misurati in corrispondenz
         a_m
     \end{bmatrix}
     \equiv V\underline{a},
-\end{equation*}\footnotetext{La moltiplicazione riga di $V$ per a da la forma base di Lagrange.}con $V\in \mathbb R^{n\times k+1}$ matrice del tipo di Vandermonde. Quindi, ricercando il vettore $r$ di minima norma euclidea tale che $V\underline{a}=\underline{y}+\underline{r}$, il problema dell'approssimazione polinomiale si traduce nella ricerca della soluzione del sistema lineare sovradimensionato
+\end{equation*}\footnotetext{La moltiplicazione riga di $V$ per a da la forma base di Lagrange.}con $V\in \mathbb R^{n\times m+1}$ matrice del tipo di Vandermonde. Quindi, ricercando il vettore $\uline r$ di minima norma euclidea tale che $V\underline{a}=\underline{y}+\underline{r}$, il problema dell'approssimazione polinomiale si traduce nella ricerca della soluzione del sistema lineare sovradimensionato
 \begin{equation}\label{eq:Va=y}
     V\underline{a}=\underline{y},
 \end{equation}
@@ -2075,44 +2088,67 @@ nel senso dei minimi quadrati.
 
 \begin{remark}
     \footnote{OSS 1 Slide 8 PDF 25.}
-    $\overset{\footnotemark}{V\in\mathbb R^{n\times k+1}}$, con $n>k+1$. Questo significa che sono presenti più equazioni ($n$) che incognite ($k+1$).
+    $\overset{\footnotemark}{V\in\mathbb R^{n\times m+1}}$, con $n>m+1$. Questo significa che sono presenti più equazioni ($n$) che incognite ($m+1$).
 \end{remark}\footnotetext{Sul libro, pagina 103, ha notazione diversa perché $n$ è indicizzato da 0, quindi è $n+1$.}
 
-$\boldsymbol{V\underline{a}=\underline{y}}$ \textbf{è risolto tramite fattorizzazione $\boldsymbol{QR}$, sotto la condizione che la $\boldsymbol V$ abbia rango massimo ($\boldsymbol{m+1}$) affinché esista soluzione e questa sia unica.} Quindi, almeno $m+1$ delle ascisse $\{x_i\}$ devono essere distinte fra loro.
+\begin{remark}
+	Il sistema (\ref{eq:Va=y}) può essere risolto tramite la dattoriazzazione $QR$ di $V$ sotto la condizione che $V$ abbia rango massimo, ovvero $m+1$, affinché esista la suluzione e che quasta sia unica. Per l'Osservazione \ref{rem:ascisse_distinte_polinomio} $V$ ha rango massimo.
+\end{remark}
 
 \begin{remark}
     \footnote{OSS 2 Slide 8 PDF 25, Teorema 4.12 PG 103.}
-    La matrice $V$ ha rango massimo ($k+1$) sotto le ipotesi dell'Osservazione \ref{re:ascDistPolm}.
+    La matrice $V$ ha rango massimo ($m+1$) sotto le ipotesi dell'Osservazione \ref{rem:ascisse_distinte_polinomio}.
 \end{remark}
 
-Data $V$, del tipo di Vandermonde e le $k+1$ righe corrispondenti alle $k+1$ ascisse distinte, è ottenuta una matrice quadrata, la quale è una matrice di Vandermonde definita da ascisse distinte (quindi è nonsingolare). Se esiste una sottomatrice di dimensione $k+1$, ma singolare, questa ha rango massimo.
+Data $V$, del tipo di Vandermonde e le $m+1$ righe corrispondenti alle $m+1$ ascisse distinte, è ottenuta una matrice quadrata, la quale è una matrice di Vandermonde definita da ascisse distinte (quindi è nonsingolare). Se esiste una sottomatrice di dimensione $m+1$, ma singolare, questa ha rango massimo.
 
-\paragraph{Fuori dalla lezione:} il vettore $\uline a$ in (\ref{eq:Va=y}) esiste ed è unico. Di conseguenza esiste ed è unico il polinomio di approssimazione ai minimi quadrati (\ref{eq:polIgnMinQuad}). Riguardo al costo computazionale per ottenere il polinomo di approssimazione ai minimi quadrati, è possibile affermare che valgono le stesse considerazioni riguardo alla fattorizzazione $QR$ fatte nelle Sezioni \ref{ssec:sistemi_lineari_sovradimensionati} e \ref{sssec:complHH}.
+\paragraph{Fuori dalla lezione:} il vettore $\uline a$ in (\ref{eq:Va=y}) esiste ed è unico. Di conseguenza esiste ed è unico il polinomio di approssimazione ai minimi quadrati (\ref{eq:polinomio_minimi_quadrati}). Riguardo al costo computazionale per ottenere il polinomo di approssimazione ai minimi quadrati, è possibile affermare che valgono le stesse considerazioni riguardo alla fattorizzazione $QR$ fatte nelle Sezioni \ref{ssec:sistemi_lineari_sovradimensionati} e \ref{sssec:complHH}.
 
 \begin{remark}
-    \footnote{OSS 3 Slide 9 PDF 25} Pertanto, il problema è risolvibile utilizzando la fattorizzazione $V=QR$, con $Q\in\mathbb R^{n\times n}$ ortogonale e $R=\begin{pmatrix}\widehat R\\ 0\end{pmatrix}\in\mathbb R^{n\times k+1}$, dove $\widehat R\in\mathbb R^{(k+1)\times (k+1)}$, triangolare superiore e nonsingolare.
+    \footnote{OSS 3 Slide 9 PDF 25} Il problema (\ref{eq:Va=y}) è risolvibile utilizzando la fattorizzazione
+    \begin{equation*}
+    	V=QR,
+    \end{equation*}
+    con $Q\in\mathbb R^{n\times n}$ ortogonale e $R=\begin{pmatrix}\widehat R\\ \uline 0\end{pmatrix}\in\mathbb R^{n\times m+1}$, dove $\widehat R\in\mathbb R^{(m+1)\times (m+1)}$, triangolare superiore e nonsingolare (e $\uline 0 \in \mathbb{R}^{(n-(m+1))\times (n-(m+1))}$).
 \end{remark}
+
+Dalla precedente Osservazione è ottenuto che
+\begin{equation*}
+	\begin{matrix}
+		\left|\left|V \uline a - \uline y\right|\right|^2_2 &=& \left|\left|QR\uline a - \uline y\right|\right|^2_2 &=& \left|\left|Q\left[R\uline a -  \uline g\right]\right|\right|_2^2 && \uline g = Q^T\uline y\in\mathbb{R}^{m+1}\\
+		&=&\left|\left|R\uline a -\uline g\right|\right|_2^2 &=& 
+		\left|\left|\begin{pmatrix}
+			\widehat{R}\\
+			O
+		\end{pmatrix}\uline a -
+		\begin{pmatrix}
+			\uline g_1\\
+			\uline g_2
+		\end{pmatrix}\right|\right|_2^2 && \uline g_1\in\mathbb{R}^{m+1}\\
+		&=& \left|\left| \begin{pmatrix}
+			\widehat{R}\uline a - \uline g_1\\
+			- \uline g_2
+		\end{pmatrix}\right|\right|_2^2 &=& \left|\left|\widehat{R}\uline a - \uline g_1 \right|\right|_2^2 + \left|\left|\uline g_2\right|\right|_2^2\\
+		&=& \left|\left|\uline g_2\right|\right|_2^2 &=& \min! &&  \text{\textbf{se}}\quad \widehat{R} \uline a = \uline g_1.
+	\end{matrix}
+\end{equation*}
+
+Questo dimostra che esiste ed è unico il polinomio di approssimazione ai minimi qiadrati di grado $m$, se almeno $m+1$ delle ascisse $\{x_i\}$ sono tra loro distinte.
 
 \begin{remark}
     \footnote{OSS 4 Slide 8 PDF 25}
-    Se $\boxed{n=k+1}$ è ottenuto il polinomio di grado $k$ che interpola $(x_i,y_i),\, i=0,\hdots,k$. 
-\end{remark}
-
-Per $n=k+1,\, V$ è quadrata ed ha rango massimo, quindi il sistema $V\uline a$ è risolvibile.
-
-\begin{remark}
-    \footnote{OSS 5 Slide 9 PDF 25, Osservazione 4.8 PG 104.} Questa tecnica di risoluzione è implementata nella funzione \textit{\textbf{polyfit}} di Matlab.
+    Se $\boldsymbol{n=m+1}$ è ottenuto il polinomio di grado $m$ che interpola $(x_i,y_i),\, i=0,\hdots,m$. Inoltre, se $n=m+1,\, V$ è quadrata ed ha rango massimo, quindi il sistema $V\uline a$ è risolvibile.
 \end{remark}
 
 \begin{remark}
-    \footnote{OSS6 Slide 9 PDF 25.} Dato un sistema lineare quadrato
-    \begin{equation}\label{eq:sistQuad}
-        V\underline{a}=\underline{y}
-    \end{equation}
-    e $D$ una matrice nonsingolare, allora (\ref{eq:sistQuad}) ha la stessa soluzione di
-    \begin{equation}\label{eq:sistQuadD}
-        DV\underline{a}=D\underline{y}.
-    \end{equation}
+	\footnote{OSS6 Slide 9 PDF 25.} Dato un sistema lineare quadrato
+	\begin{equation}\label{eq:sistQuad}
+		V\underline{a}=\underline{y}
+	\end{equation}
+	e $D$ una matrice nonsingolare, allora (\ref{eq:sistQuad}) ha la stessa soluzione di
+	\begin{equation}\label{eq:sistQuadD}
+		DV\underline{a}=D\underline{y}.
+	\end{equation}
 \end{remark}
 
 $\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice $D$ è $\overset{\footnotemark}{\text{rettangolare}}$ (perché (\ref{eq:sistQuad}) e (\ref{eq:sistQuadD}) non avrebbero più la solita soluzione). 
@@ -2125,22 +2161,70 @@ $\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice
 \stepcounter{footnote}
 \footnotetext{Ricavare la soluzione nel senso dei minimi quadrati del sistema lineare è diverso dal ricavare la soluzione nel senso dei minimi quadrati del sistema.}
 
-\subsection{Risoluzione di un sistema tridiagonale}\label{ssec:risSistTridiag}
+\begin{remark}
+    \footnote{OSS 5 Slide 9 PDF 25, Osservazione 4.8 PG 104.} Questa tecnica di risoluzione è implementata nella funzione \textit{\textbf{polyfit}} di Matlab.
+\end{remark}
 
-\noindent\footnote{Slide 8-10 PDF 23} È necessario, ai fini della Sezione \ref{ssec:calcSplineCub}, risolvere il sistema lineare
+\begin{example}
+	Scrivere il problema algebrico che definisce il polinomio di approssimazione ai minimi quadrati di grado 2, per le coppie di dati (1,2), (1,2.1) (2,3), (3,4), (3,3) (4,5).\\
+	È noto che i coefficienti del polinomio di approssimazione ai minimi quadrati sono la soluzione di un sistema lineare sovradimensionati: se $(x_i,y_i),\quad i=0,\hdots,n,$ sono i dati e $(a_0, \hdots, a_m)$ sono i coefficienti incogniti, allora abbiamo un sistema lineare sovradimensionato del tipo
+	\begin{equation*}
+		\begin{bmatrix}
+			x_0^0&\hdots &x_0^m\\
+			&\vdots&\\
+			x_n^0& \hdots &x_n^m
+		\end{bmatrix}
+		\begin{bmatrix}
+			a_0\\
+			\vdots\\
+			a_m
+		\end{bmatrix} =
+		\begin{bmatrix}
+			f_0\\
+			\vdots\\
+			f_n
+		\end{bmatrix}.
+	\end{equation*}
+	Quindi è ottenuto che
+	\begin{equation*}
+		\begin{bmatrix}
+			1^0& 1^1 &1_0^2\\
+			1^0& 1^1 &1_0^2\\
+			2^0& 2^1 & 2^2\\
+			3^0& 3^1 & 3_0^2\\
+			3^0& 3^1 & 3_0^2\\
+			4^0& 4^1 & 4_0^2\\
+		\end{bmatrix}
+		\begin{bmatrix}
+			a_0\\
+			a_1\\
+			a_2
+		\end{bmatrix} =
+		\begin{bmatrix}
+			2\\
+			2.1\\
+			3\\
+			4\\
+			3\\
+			5
+		\end{bmatrix}.
+	\end{equation*}
+	Il sistema ha rango massimo, quindi risolvibile, essendoci più di 3 ascisse distinte.
+\end{example}
+
+\subsection{Risoluzione di un sistema tridiagonale}\label{ssec:risoluzione_sistema_tridiagonale}
+\footnote{Slide 8-10 PDF 23} È necessario, ai fini della Sezione \ref{ssec:calcolo_spline_cubiche}, risolvere il sistema lineare
 \begin{equation*}
     A\underline{x}=\underline{q}\in\mathbb{R}^n,
 \end{equation*}
-
-\noindent dove
-
+dove
 \begin{equation*}
     A=
     \begin{bmatrix}
         a_1 & c_1 & & & &\\
-        b_2 & a_2 & c_2 & & &\\
-            & b_3 & a_3 & c_3 & &\\
-            & & \ddots &\ddots & \ddots &\\
+        b_1 & a_2 & c_2 & & &\\
+            & b_2 & a_3 & c_3 & &\\
+            & & b_3 &\ddots & \ddots &\\
             & & & \ddots & \ddots & c_{n-1}\\
             & & & &  b_n & a_n
     \end{bmatrix}
@@ -2152,16 +2236,11 @@ $\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice
     È possibile \textbf{memorizzare $\boldsymbol A$ con 3 vettori (complessità lineare dei dati)}.
 \end{remark}
 
-%\hrule
-%\vspace{4px}
 \noindent Risolvere per fattori $LU$ ha complessità lineare. Invece di avere $\frac{2}{3}n^3$ flops per la fattorizzazione ed $n^2$ operazioni per i fattori triangolari. In questo caso la complessità è $n$ per la fattorizzazione ed $n$ per la risoluzione.
 
-\noindent Errori da non fare: con complessità lineare è possibile risolvere problemi di qualsivoglia grandezza, con $n^2$ fino ad un certo punto e con ordine superiore al secondo no. Per risolvere il sistema tridiagonale alcune persone utilizzano una matrice piena, assegnano i tre vettori alle tre diagonali e le forniscono in input alla function di risoluzione, tramite fattorizzazione $LU$. In questo caso l'esercizio è valutato 0.
-%\vspace{3px}
-%\hrule
-%\vspace{6px}
+\paragraph{Errori da non fare:} con complessità lineare è possibile risolvere problemi di qualsivoglia grandezza, con $n^2$ fino ad un certo punto e con ordine superiore al secondo no. Per risolvere il sistema tridiagonale alcune persone utilizzano una matrice piena, assegnano i tre vettori alle tre diagonali e le forniscono in input alla function di risoluzione, tramite fattorizzazione $LU$. In questo caso l'esercizio è valutato 0.
 
-\noindent È necessario verificare $A$ che sia fattorizzabile $LU$, ovvero $\underset{\footnotemark}{A}=LU$, con
+\noindent È necessario verificare $A$ che sia fattorizzabile $LU$, ovvero $\underset{\footnotemark}{A}=LU$, dove
 \footnotetext{$A$ è diagonale dominante quindi fattorizzabile $LU$.}
 \begin{equation*}
     \begin{matrix}
@@ -2206,10 +2285,10 @@ d_i=a_i-l_i\cdot c_{i-1},\; i=2,\hdots, n.
 \end{rcases}$
 al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_i\rightarrow a_i$.
 
-\noindent Il sistema bidiagonale per $L$ può essere risolto tramite l'utilizzo dell'Algoritmo \ref{alg:calcSistBdiagL}, con $\underline{x}\leftarrow\underline{q}$.
+\noindent Il sistema bidiagonale per $L$ può essere risolto tramite l'utilizzo dell'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_L}, con $\underline{x}\leftarrow\underline{q}$.
 
 \begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $L$}
-\label{alg:calcSistBdiagL}
+\label{alg:calcolo_sistema_bidiagonale_L}
     \begin{lstlisting}[style=Matlab-editor]
     for i = 2 : n
         x_i = x_i - e_i x_(i - 1) % (2n flops)
@@ -2217,9 +2296,9 @@ al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_
     \end{lstlisting}
 \end{algorithm}
 
-\noindent Il sistema bidiagonale per $U$ può essere risolto con l'Algoritmo \ref{alg:calcSistBdiagU}.
+\noindent Il sistema bidiagonale per $U$ può essere risolto con l'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_U}.
 \begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $U$}
-\label{alg:calcSistBdiagU}
+\label{alg:calcolo_sistema_bidiagonale_U}
     \begin{lstlisting}[style=Matlab-editor]
     x_n = x_n / d_n
     for i = n - 1 : -1 : 1
@@ -2230,4 +2309,48 @@ al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_
 
 \noindent Quindi al posto di $\frac{2}{3}n^3$ flops c'è $3n$ ed al posto di $n^2\; 2n$. Totale $8n$ flops, mentre se è simmestrica $7$ flops.
 
-\noindent Morale: se è richiesto di risolvere un sistema tridiagonale fattorizzabile $LU$ allora è necessario utilizzare l'Algoritmo \ref{alg:calcSistBdiagU}, non assegnando i 3 vettori ad una matrice e richiamando la function per la risoluzione fattorizzabile $LU$.
+\paragraph{Algoritmo risoluzione sistema tridiagonale fattorizzabile $\boldsymbol{LU}$:} se è richiesto di risolvere un sistema tridiagonale fattorizzabile $LU$ allora è necessario utilizzare l'Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU}, non assegnando i 3 vettori ad una matrice e richiamando la function per la risoluzione della fattorizzabile $LU$.
+
+\begin{algorithm}\caption{Algoritmo risoluzione sistema tridiagonale per $LU$}
+	\label{alg:calcolo_sistema_tridiagonale_LU}
+	\begin{lstlisting}[style=Matlab-editor]
+		function x = trilu(a, b, c, f)
+		%	x = trilu(a, b, c, f)
+		%	Risolve un sistema lineare triangolare.
+		%
+		%	Input:
+		%		a - vettore con gli elementi diagonali
+		%		b - vettore con gli elementi sottodiagonali
+		%		c - vettore con gli elementi sopradiagonali
+		%		f - vettore dei termini noti
+		%
+		%	Output:
+		%		x - vettore soluzione
+		
+		if nargin < 4, error('dati insufficienti'), end
+		
+		n = lenght(a);
+		
+		if length(f) ~= n || length(b) ~= n-1 || length(c) ~= n-1
+			error('dati errati')
+		end
+		
+		if a(1) == 0, error('fattorizzaz. non definita'), end
+		
+		x = f;
+		
+		for i = 1 : n-1
+			b(i) = b(i)/a(i);
+			a(i+1) = a(i+1) - b(i) * c(i);
+			if a(i+1) == 0, error('fattorizzaz. non definita'), end
+			x(i+1) = x(i+1) - b(i) * x(i);
+		end
+		
+		x(n) = x(n) / a(n);
+		
+		for i = n-1 : -1 : 1
+			x(i) = (x(i) - c(i) * x(i+1))/a(i);
+		end
+		return
+	\end{lstlisting}
+\end{algorithm}
