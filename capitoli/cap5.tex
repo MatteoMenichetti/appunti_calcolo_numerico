@@ -107,11 +107,13 @@ Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int
 
 \textbf{Utilizzando (\ref{eq:formN-C})-(\ref{eq:coeffN-CEq1}):}
 \begin{enumerate}
-    \item $\boldsymbol{\underline{n=1}}:\; c_{01},\, c_{11}$ sono i coefficienti (da calcolare, anche se non realmente) e dalle precedenti proprietà 1. e 2. segue che $c_{01}=c_{11}=\frac{1}{2}.$ Pertanto, quando il gardo è 1, \textbf{è definita la formula dei trapezi:}
-    \begin{equation}\label{eq:formTrapezi}
-        \boxed{\boldsymbol{I_1(f)=\frac{b-a}{2}(f(a)+f(b))},}
+    \item $\boldsymbol{\underline{n=1}}:\; c_{01},\, c_{11}$ sono i coefficienti (da calcolare, anche se non realmente) e dalle precedenti proprietà 1. e 2. segue che $c_{01}=c_{11}=\frac{1}{2}.$ Pertanto, quando il gardo è 1, \textbf{è definita la formula dei trapezi}.
+   \begin{definition}[Formula dei trapezi]
+   	 \begin{equation}\label{eq:formula_trapezi}
+       \boldsymbol{I_1(f)=\frac{b-a}{2}(f(a)+f(b))}.
     \end{equation}
-    la quale ha un importante significato geometrico, visibile in Figura \ref{fig:grafFormTrapezi}, ovvero quello di approssimare, nel caso di funzioni non negative, l'area sottesa dal grafico di $f(x)$ con quella del trapezio avente come vertici i punti $(a,0),(a,f(a)),(b,f(b)),(b,0)$.
+   \end{definition}
+    Tale formula ha un importante significato geometrico, visibile in Figura \ref{fig:grafFormTrapezi}, ovvero quello di approssimare, nel caso di funzioni non negative, l'area sottesa dal grafico di $f(x)$ con quella del trapezio avente come vertici i punti $(a,0),(a,f(a)),(b,f(b)),(b,0)$.
     \item $\boldsymbol{\underline{n=2}}$: In questo caso sono presenti 3 coefficienti, ovvero $c_{02},\, c_{12}, \,c_{22},$ t.c.:
     \begin{enumerate}
         \item[P1:] $c_{02}+c_{12}+c_{22}=2$;
@@ -126,9 +128,11 @@ Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int
     \end{equation*}
     Quindi $c_{02}=c_{22}=\frac{1}{3}\Rightarrow c_{12}=2-\frac{2}{3}=\frac{4}{3}$.
     La conseguenza di quanto scritto è la \textbf{formula di Simpson}, dato $x_0=a, x_2=b$ e $x_1=\frac{a+b}{2}$:
-    \begin{equation}\label{eq:formSimpson}
-        \boxed{\boldsymbol{I_2(f)=\frac{b-a}{6}\left(f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right)},}
-    \end{equation}
+	\begin{definition}[Formula di Simpson]
+		    \begin{equation}\label{eq:formula_simpson}
+	        \boldsymbol{I_2(f)=\frac{b-a}{6}\left(f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right)}.
+	    \end{equation}
+	\end{definition}
 \end{enumerate}
 
 \begin{figure}
@@ -139,7 +143,7 @@ Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int
 
 \subsubsection{Condizionamento di una formula di Newton-Cotes}
 \footnote{Slide 5-6 PDF 26, PG 108.}
-Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formN-C}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formTrapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
+Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formN-C}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formula_trapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
 
 \begin{definition}[Condizionamento formula di Newton-Cotes]
 	Sia $\tilde{f}(x)$, perturbazione della funzione $f(x)$, allora
@@ -195,9 +199,9 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 		\kappa_n> b-a
 	\end{equation*}
 	ed il rapporto \begin{equation*}
-		\frac{\kappa_n}{\kappa}=\frac{1}{n}\sum_{i=0}^n|c_{in}|
+		\frac{\kappa_n}{\kappa}=\frac{1}{n}\sum_{i=0}^n|c_{in}| \gg 1,
 	\end{equation*}
-	cresce molto rapidamente al crescere di $n$. Pertanto, non è raccomandabile l'utilizzo di formule di Newton-Cotes di grado 8 o, genericamente, maggiori uguali a 10 (vedere Figura \ref{fig:knN-C}).
+	ovvero cresce molto rapidamente al crescere di $n$. Pertanto, non è raccomandabile l'utilizzo di formule di Newton-Cotes di grado 8 o, genericamente, maggiori uguali a 10 (vedere Figura \ref{fig:knN-C}).
 \end{remark}
 
 \begin{figure}[H]
@@ -208,16 +212,28 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 
 \subsection{Errore (di quadratura) e formule composite}
 \subsubsection{Errore di quadratura}
-\footnote{Slide 8 PDF 26 PG 108.} Discutere l'accuratezza di $I_n(f)$ significa quantificare l'errore di quadratura
-\begin{equation}\label{eq:errQuadr}
-    \begin{matrix}
-        \boldsymbol{E_n(f)}&\boldsymbol{\equiv}& I(f)-\overset{\footnotemark}{I_n(f)}&=&\int_a^b f(x)dx-\int_a^bp_n(x)dx\\
-        &=&\int_a^b\underbrace{(f(x)-p_n(x))}_{\footnotemark}dx&=&\int_a^bf[x_0,\hdots,x_n,x]\omega_{n+1}(x)dx\\
-        &&\int_a^bf[x_0,\hdots,x_n,x]\prod_{i=0}^n(x-x_i)dx&\overset{\footnotemark}{=}&\boldsymbol{\nu_n} \underbrace{\boldsymbol{f^{(n+\mu)}(\xi)}}_{\footnotemark}\boldsymbol{\left(\frac{b-a}{n}\right)^{n+\mu+1}},\quad\xi\in [a,b],
-    \end{matrix}
-\end{equation}
-\addtocounter{footnote}{-3}
-\footnotetext{È esattamente l'integrale del polinomio interpolante la $f$.}
+\footnote{Slide 8 PDF 26 PG 108.} Discutere l'accuratezza di $I_n(f)$ significa quantificare l'errore di quadratura.
+\begin{definition}[Errore di quadratura formula di Newton-Cotes]
+	Sia $f\in C^{(n+\mu)}[a,b]$, l'errore di quadratura 
+	\begin{equation}\label{eq:errore_quadratura}
+	    \begin{matrix}
+	        \boldsymbol{E_n(f)}&\boldsymbol{\equiv}& I(f)-\overset{\footnotemark}{I_n(f)}&=&\int_a^b f(x)dx-\int_a^bp_n(x)dx\\
+	        &=&\int_a^b\underbrace{(f(x)-p_n(x))}_{\footnotemark}dx&=&\int_a^bf[x_0,\hdots,x_n,x]\omega_{n+1}(x)dx\\
+	        &&\int_a^bf[x_0,\hdots,x_n,x]\prod_{i=0}^n(x-x_i)dx&\overset{\footnotemark}{=}&\boldsymbol{\nu_n \frac{f^{(n+\mu)}(\xi)}{(n+\nu)!}\left(\frac{b-a}{n}\right)^{n+\mu+1}},\quad\xi\in [a,b],
+	    \end{matrix}
+	\end{equation}
+	\noindent dove:
+	\begin{itemize}
+		\item $\boldsymbol{\nu_n}$ è una costante che dipende solo da $n$ (ed è limitata uniformemente);
+		\item $\boldsymbol{\mu}=
+		\begin{cases}
+			\boldsymbol 1, &\text{se $n$ è dispari;}\\
+			\boldsymbol 2, &\text{se $n$ è pari.}
+		\end{cases}$
+	\end{itemize}
+\end{definition}
+\addtocounter{footnote}{-2}
+\footnotetext{È l'integrale del polinomio interpolante la $f$.}
 
 \stepcounter{footnote}
 \footnotetext{Errore di interpolazione.}
@@ -225,26 +241,15 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 \stepcounter{footnote}
 \footnotetext{L'errore ha una struttura che nel caso $n$ sia dispari è facile da dimostrare, non è così per $n$ pari.}
 
-\stepcounter{footnote}
-\footnotetext{Assunto che $f\in C^{(n+\mu)}[a,b]$.}
-\noindent dove:
+\paragraph{N.B.:}
 \begin{itemize}
-    \item $\boldsymbol{\nu_n}$ è una costante che dipende solo da $n$ (ed è limitata uniformemente);
-    \item $\boldsymbol{\mu}=
-    \begin{cases}
-        \boldsymbol 1, &\text{se $n$ è dispari;}\\
-        \boldsymbol 2, &\text{se $n$ è pari.}
-    \end{cases}$
+	\item Se $n$ è dispari, è calcolata la derivata $n+1$ (dove 1 è $\mu$). Quindi la formula è esatta se è un polinomio di grado $n$, quando $n$ è dispari. Questo fatto è noto perché il polinomio di grado $n$ interpolante la funzione, la quale è un polinomio di grado $n$, coincide con la funzione stessa.
+	\item Se $n$ è pari, l'intergrale è esatto per i polinomi di grado $n+1$ e la derivata $f^{(n+\mu)}(\xi)$, con $m=2\rightarrow n+2$, si annulla se $f$ è un polinomio di grado $n+1$.
 \end{itemize}
-
-Se $n$ è dispari, è calcolata la derivata $n+1$ (dove 1 è $\mu$). Quindi la formula è esatta se è un polinomio di grado $n$, quando $n$ è dispari. Questo fatto è noto perché il polinomio di grado $n$ interpolante la funzione, la quale è un polinomio di grado $n$, coincide con la funzione stessa.
-
-Se $n$ è pari, l'intergrale è esatto per i polinomi di grado $n+1$ e la derivata $f^{(n+\mu)}(\xi)$, con $m=2\rightarrow n+2$, si annulla se $f$ è un polinomio di grado $n+1$.
-
 Quanto appena descritto è l'osservazione seguente.
 
 \begin{remark}
-    \footnote{Slide 10 PDF 26, Corollario 5.1 PG 110.} Una formula di Newton-Cotes di grado $n$, calcolata su $n+1$ punti, è esatta per integrandi polinomiali fino al grado:
+    \footnote{Slide 10 PDF 26, Corollario 5.1 PG 110.} Una formula di Newton-Cotes di grado $n$, calcolata su $n+1$ punti, è esatta per integrandi polinomiali (polonomi) fino al grado:
     \begin{equation*}
         \begin{cases}
             n, &\text{se $n$ dispari};\\
@@ -253,17 +258,17 @@ Quanto appena descritto è l'osservazione seguente.
     \end{equation*}
 \end{remark}
 
-Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left(\frac{b-a}{n}\right)^{n+\mu +1}\rightarrow 0,$ per $ n\rightarrow\infty$, a causa del condizionamento del problema. Per risolvere questo problema è necessario decrementare il rapporto $\frac{b-a}{n}$ senza fare crescere $n$, utilizzando un approccio simile a quello delle spline nel caso di interpolazione, ovvero: l'intervallo $[a,b]$ è suddiviso in più sottointervalli di uguale ampiezza ed è utilizzata, su ciascun intervallo, la formula di Newton-Cotes di grado $k$ fissato. Così facendo sono ottenute le formule di Newton-Cotes composite.
+Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare che $\left(\frac{b-a}{n}\right)^{n+\mu +1}\rightarrow 0,$ per $ n\rightarrow\infty$, a causa del condizionamento del problema. Per risolvere questo problema è necessario decrementare il rapporto $\frac{b-a}{n}$ senza fare crescere $n$, utilizzando un approccio simile a quello delle spline nel caso di interpolazione, ovvero: l'intervallo $[a,b]$ è suddiviso in più sottointervalli di uguale ampiezza ed è utilizzata, su ciascun intervallo, la formula di Newton-Cotes di grado $k$ fissato. Così facendo sono ottenute le formule di Newton-Cotes composite.
 \footnote{L'idea è la seguente: date le ascisse è applicato su ciascun sottointervallo una formula di grado $k$ fissato. Con il numero di questi sottointervalli che tende all'infinito allora, la formula di grado $k$ viene applicata su intervalli sempre più piccoli. Ciò significa che il termine $\frac{b-a}{n}$ si trasformerà in $\left(\frac{b-a}{k}\right)^n$, dove $k$ è il grado della formula ed $n$ il numero di punti.}
 
 \subsubsection{Formula dei trapezi composita}
 \begin{definition}[\textbf{Formula dei trapezi composita}]\footnote{Slide 11 PDF 26.}
-    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}), è ottenuta la \textbf{formula dei trapezi composita}:
+    Siano $\{x_i\}$ ascisse equidistanziate in $[a,b]$ definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}), è ottenuta la \textbf{formula dei trapezi composita}:
     \begin{equation}\label{eq:formTrapComp}
         \begin{matrix}
             \boldsymbol{I(f)}&=&\int_a^b f(x) dx &\overset{\footnotemark}{=}&\sum_{i=1}^n\overbrace{\int_{x_{i-1}}^{x_i} f(x)dx}^{\footnotemark}\\
-            &\approx& h\sum_{i=2}^n\frac{f(x_{i-1})+f(x_i)}{2} &\boldsymbol\equiv& \boldsymbol{I_1^{(n)}(f)}\\
-            &=& h\left(\frac{f_0}{2}+\frac{f_1}{2}+\frac{f_1}{2}+\hdots +\frac{f_{n-1}}{2}+\frac{f_{n-1}}{2}+\frac{f_n}{2}\right)&\boldsymbol =&\boldsymbol{h\left(\frac{f_0}{2}+\sum_{i=1}^{n-1}f_i+\frac{f_n}{2}\right)}
+            &\approx& h\sum_{i=2}^n\frac{f(x_{i-1})+f(x_i)}{2} &=& h\left(\frac{f_0}{2}+\frac{f_1}{2}+\frac{f_1}{2}+\hdots +\frac{f_{n-1}}{2}+\frac{f_{n-1}}{2}+\frac{f_n}{2}\right)\\
+            &\boldsymbol =&\boldsymbol{h\left(\frac{f_0}{2}+\sum_{i=1}^{n-1}f_i+\frac{f_n}{2}\right)} &\boldsymbol\equiv& \boldsymbol{I_1^{(n)}(f)} &\equiv& I_{1n}(f)
         \end{matrix}
     \end{equation}
 \end{definition}
@@ -275,21 +280,27 @@ Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left
 \footnotetext{Ogni integrale è una parte dell'area del sottografo.}
 
 \begin{remark}
-    \footnote{Slide 12 PDF 25.} Se $f(x)$ è periodica allora $f_n=f_0\Rightarrow I_1^{(n)}(f)=h\underset{\footnotemark}{\sum_{i=0}^{n-1}f_i}.$ 
+    \footnote{Slide 12 PDF 26.} Se $f(x)$ è periodica allora $f_n=f_0\Rightarrow I_1^{(n)}(f)=h\underset{\footnotemark}{\sum_{i=0}^{n-1}f_i}.$ 
 \end{remark}\footnotetext{La complesità del calcolo della sommatoria è $\log (n)$ perché sommando 2 a 2 i risultati sommati 2 a 2 è possibile arrivare ad un'approssimazione in $\log (n)$ passi. Se la funzione è periodica allora è possibile approssimarla con $\sin$ e $\cos$, per le quali l'approssimazione diviene esatta, per polinomi parametrici di grado sempre più elevato, man mano che cresce $n$. Ciò significa che è possibile ottenere delle approssimazioni molto accurate di un segnale periodico (con $\sin$ e $\cos$).}
 
-\begin{definition}[\textbf{Errore di quadratura formula dei trapezi}]
+\begin{definition}[\textbf{Errore di quadratura formula dei trapezi composita}]
     L'\textbf{errore commesso} dalla \textbf{formula dei trapezi} è il seguente:
-    \begin{equation}\label{eq:errFormTrapComp}
+    \begin{equation}\label{eq:errore_formula_trapezi_composita}
         \begin{matrix}
             E_1^{(n)}(f) &\overset{\footnotemark}{=}& I(f)-I_1^{(n)}(f)\\
             &\overset{\footnotemark}{=}&\nu_1 \left(\frac{b-a}{n}\right)^3 \sum_{i=1}^n f^{(2)}(\xi_i),\quad \xi_i\in[x_{i-1},x_i]\\
-            &=& \nu_1 \left(\frac{b-a}{\boldsymbol n}\right)^{\boldsymbol 3}\boldsymbol n  f^{(2)}(\xi),\quad \xi\in[a,b] \\
-            &=& \nu_1 \boldsymbol{(b-a)}f^{(2)}(\xi)\,\boldsymbol{\left(\frac{b-a}{n}\right)^2}\rightarrow 0,\; n\rightarrow\infty.
+            &=&\boldsymbol{\nu_1 \left(\frac{b-a}{n}\right)^{3} n  f^{(2)}(\xi)},\quad \xi\in[a,b] \\
+            &=& \nu_1 (b-a)f^{(2)}(\xi)\,\left(\frac{b-a}{n}\right)^2.
         \end{matrix}
     \end{equation}
+    dove $\nu_1=-\frac{1}{12}$ (non specificato a lezione).
 \end{definition}
 
+\begin{remark}
+	\begin{equation*}
+		E_1^{(n)}(f)\underset{n\rightarrow\infty}{\longrightarrow} 0
+	\end{equation*}
+\end{remark}
 \addtocounter{footnote}{-1}
 \footnotetext{Somma di $\sum_{i=1}^n \int_{x_{i-1}}^{x_i} f(x)dx$ e $h\sum_{i=2}^n\frac{f(x_{i-1})+f(x_i)}{2}$.}
 
@@ -299,6 +310,40 @@ Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left
 \begin{remark}
     La formula dei trapezi composita può essere implementata come nell'Algoritmo \ref{alg:trapec}.
 \end{remark}
+
+\paragraph{Implementazione:} Vedere l'Algoritmo \ref{alg:trapec} e Algoritmo \ref{alg:trapec_vettoriale}.
+
+\begin{algorithm}
+	\caption{Implementazione formula dei trapezi composta.}\label{alg:trapec}
+	\begin{lstlisting}[style=Matlab-editor]
+		function If = trapec(fun, a, b, n)
+		%   
+		%   If = trapec(fun, a, b, n)
+		%
+		%   Approssimazione di un integrale definito mediante la formula composita dei trapezi.
+		%
+		%  Input:
+		%   fun - identificatore function funzione intreganda (deve accettare input vettoriali);
+		%   a,b - estremi dell'intervallo di integrazione;
+		%   n   - numero sottointervallli (default=1).
+		%  Output:
+		%   If - stima ottenuta.
+		%
+		if nargin < 3
+		error('numero argomenti insufficiente')
+		elseif nargin == 3
+		n = 1;
+		elseif n <= 0 || n~= fix(n)
+		error('numero di sottointervalli non valido')
+		end
+		x = linspace(a, b, n+1);
+		h = (b-a)/n;
+		f = feval(fun, x); %alternativa: f = feval(fun, (0:n)*h);
+		If = h * (sum(f) - (f(1) + f(n+1))/2);
+		return
+		end
+	\end{lstlisting}
+\end{algorithm}
 
 \subsubsection{Formula di Simpson composita}
 \begin{definition}[\textbf{Formula di Simpson composita}]
@@ -326,21 +371,30 @@ Dato $E_n(f)$ in forma (\ref{eq:errQuadr}) non è possibile affermare che $\left
 \begin{definition}[\textbf{Errore di quadratura formula di Simpson}]
     L'\textbf{errore commesso} dalla \textbf{formula di Simpson} è il seguente:
     \begin{equation}\label{eq:errFormSimpComp}
-        E_2^{(n)}(f)=I(f)-I_2^{(n)}(f)=\nu_2 f^{(4)}(\xi)\left(\frac{b-a}{n}\right)^5 = \nu_2f^{(4)}(\xi)\frac{b-a}{2}\left(\frac{b-a}{n}\right)^{\overset{\footnotemark}{4}}\rightarrow 0,\; n\rightarrow\infty,\quad \xi\in[a,b],
+        \boldsymbol{E_2^{(n)}(f)}=I(f)-I_2^{(n)}(f)=\boldsymbol{\nu_2 f^{(4)}(\xi)\left(\frac{b-a}{n}\right)^5} = \nu_2f^{(4)}(\xi)\frac{b-a}{2}\left(\frac{b-a}{n}\right)^{\overset{\footnotemark}{4}}\rightarrow 0,\; n\rightarrow\infty,\quad \xi\in[a,b],
     \end{equation}
-    dove $\nu_2 = -\frac{1}{180}$ (cosa non speficiata a lezione).
+    dove $\nu_2 = -\frac{n}{180}$ (cosa non speficiata a lezione).
     \footnotetext{$\frac{n}{2}=\frac{2}{2}+\mu=2+1$, con $n$ numero di termini.}
 \end{definition}
 
-Questa procedura si generalizza per tutte le formule di Newton-Cotes di grado $k$, a patto che $n$ sia un multiplo di $k$, ottenendo la formula di Newton-Cotes di grado $k$ è espressa come
-\begin{equation*}
-    I_k^{(n)}=h\sum_{i=0}^nf_ic_{ik}=h\sum_{i=0}^nf_i\int_0^k\prod_{j=0, j\neq i}^k\frac{t-j}{i-j},
-\end{equation*}
-e l'errore associato come
-\begin{equation}\label{eq:EkComposite}
- E_k^{(n)}(f)=\nu_kf^{(k+\mu)}(\xi)\frac{b-a}{k}\left(\frac{b-a}{n}\right)^{k+\mu}, \quad \xi\in[a,b],
+\subsubsection{Errore di quadratura con \texorpdfstring{$n$}{n} multiplo di \texorpdfstring{$k$}{k}}
+Questa procedura si generalizza per tutte le formule di Newton-Cotes di grado $k\in\{1,\hdots, 7, 9\}$, a patto che $n$ sia un multiplo di $k$, ottenendo la formula di Newton-Cotes di grado $k$.
+\begin{definition}
+	Sia $f\in C^{(k+\nu)}[a,b]$, allora la formula di Newton-Cotes di grado $k$ con $n$ multiplo di $k$ è
+	\begin{equation*}
+    	I_k^{(n)}=h\sum_{i=0}^nf_ic_{ik}=h\sum_{i=0}^nf_i\int_0^k\prod_{j=0, j\neq i}^k\frac{t-j}{i-j}.
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Errore di quadratura formula di Newton-Cotes di grado $k$]
+	\begin{equation}\label{eq:EkComposite}
+ E_k^{(n)}(f)=\nu_k\frac{f^{(k+\mu)}(\xi)}{(k+\nu)!}\left(\frac{b-a}{k}\right)\left(\frac{b-a}{n}\right)^{k+\mu}, \quad \xi\in[a,b].
 \end{equation}
-dove $E_k^{(n)}(f)\rightarrow 0,\, n\rightarrow\infty$.
+\end{definition}
+
+\begin{remark}
+	$E_k^{(n)}(f)\rightarrow 0,\, n\rightarrow\infty$.
+\end{remark}
 
 \paragraph{Spiegazione notazione $\boldsymbol{E_k^{(n)}(f)}$:} $k$ è il grado della formula base, $n$ sono i punti utilizzati sui quali è applicata la formula di quadratura composita. Ciò significa che per far diminuire l'errore è possibile far aumentare $n$ lasciando $k$ fisso.
 
@@ -360,7 +414,7 @@ dove $E_k^{(n)}(f)\rightarrow 0,\, n\rightarrow\infty$.
 
 L'espressione (\ref{eq:EkComposite}) permette di derivare, \textbf{a costo nullo} (cosa importante), una stima dell'errore di quadratura, $E_k^{(n)}(f)$, nel caso in cui $\boldsymbol n$ \textbf{sia un multiplo pari di} $\boldsymbol k$.
 
-È necessario che $n$ sia un multiplo di $k$, affinché lo sia anche $\frac{n}{2}$, cosicché sia possibile valutare $\boldsymbol{I_k^{(\frac{n}{2})}(f)}$. $\boldsymbol{I_k^{(\frac{n}{2})}(f)}$ è calcolato su ascisse di indice pari ($0,2,4,\hdots$) e la valutazione di $I_k^{(\frac{n}{2}}(f)$ è ottenuta senza ulteriori valutazioni della funzione $f(x)$ perché è possibile utilizzare le valutazioni
+È necessario che $n$ sia un multiplo di $k$, affinché lo sia anche $\frac{n}{2}$, cosicché sia possibile valutare $\boldsymbol{I_k^{(\frac{n}{2})}(f)}$. $\boldsymbol{I_k^{(\frac{n}{2})}(f)}$ è calcolato su ascisse di indice pari ($0,2,4,\hdots$) e la valutazione di $I_k^{(\frac{n}{2})}(f)$ è ottenuta senza ulteriori valutazioni della funzione $f(x)$ perché è possibile utilizzare le valutazioni
 \begin{equation*}
     \boldsymbol{f_{2i}\equiv f(x_{2i}),\quad i=0,\hdots,\frac{n}{2}},
 \end{equation*}
@@ -401,11 +455,11 @@ In Figura \ref{fig:tabErrQuad} è possibile notare che tanto più cresce $n$ pi�
 Il problema è trovare un metodo per definire le ascisse in base al comportamento della funzione. Dal punto di vista algoritmico è interessante ciò che sarà visto nell'implementazione dei casi più semplici, ovvero dei trapezi e di Simpson, con Matlab, tramite function ricorsive. In ogni caso è sfruttato il fatto he esiste un'espressione asintotica dell'errore quadratico.
 
 \subsubsection{Formula dei trapezi}
-In questo caso, con $n=1$, è ottenuto (da (\ref{eq:errQuadr}))
+In questo caso, con $n=1$, è ottenuto (da (\ref{eq:errore_quadratura}))
 \begin{equation}\label{eq:errQuadN=1}
     I(f)-I_1(f)=\nu_1 f^{(2)}(\xi)(b-a)^3\quad \xi\in[a,b],
 \end{equation}
-ed è ottenuto che, da (\ref{eq:errFormTrapComp}), applicando la formula composita su due sottointervalli ($n=2$), ciò che segue:\begin{equation}\label{eq:errQuadN=2}
+ed è ottenuto che, da (\ref{eq:errore_formula_trapezi_composita}), applicando la formula composita su due sottointervalli ($n=2$), ciò che segue:\begin{equation}\label{eq:errQuadN=2}
     I(f)-I_1^{(2)}(f)=\nu_1 f^{(2)}(\xi)(b-a)\left(\frac{b-a}{2}\right)^2,\quad \xi\in [a,b],
 \end{equation}
 dove $\nu_1=-\frac{1}{12}$

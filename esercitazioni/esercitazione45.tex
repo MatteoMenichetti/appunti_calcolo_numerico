@@ -348,35 +348,4 @@ con $\widehat\xi\in [a,b]$, opportuno. Utilizzando l'approssimazione $\boldsymbo
     I(f)-I_k^{(n)}(f) \approx \frac{I_k^{(n)}(f)-I_k^{(\frac{n}{2})}(f)}{2^{k+\mu}-1}.
 \end{equation*}
 
-\paragraph{24.} Vedere l'Algoritmo \ref{alg:trapec}
-\begin{algorithm}
-\caption{Implementazione esercizio 24.}\label{alg:trapec}
-    \begin{lstlisting}[style=Matlab-editor]
-    function If = trapec(fun, a, b, n)
-    %   
-    %   If = trapec(fun, a, b, n)
-    %
-    %   Calcolo della formula composita dei trapezi.
-    %
-    %  Input:
-    %   fun - identificatore function funzione intreganda (deve accettare input vettoriali);
-    %   a,b - estremi dell'intervallo di integrazione;
-    %   n   - numero sottointervallli (default=1).
-    %  Output:
-    %   If - stima ottenuta.
-    %
-    if nargin < 3
-        error('numero argomenti insufficiente')
-    elseif nargin == 3
-        n = 1;
-    elseif n <= 0 || n~= fix(n)
-        error('numero di sottointervalli non valido')
-    end
-    x = linspace(a, b, n+1);
-    h = (b-a)/n;
-    f = feval(fun, x);
-    If = h * (sum(f) - (f(1) + f(n+1))/2);
-    return
-    end
-    \end{lstlisting}
-\end{algorithm}
+\paragraph{24.} Vedere l'Algoritmo \ref{alg:trapec}.
