@@ -2,7 +2,7 @@
 \footnote{Slide 10 PDF 25, 26-27, PG 105-114.}
 \subsection{Introduzione}
 Il problema da risolvere è quello di approssimare il valore dell'integrale nella forma
-\begin{equation}\label{eq:probQuadratura}
+\begin{equation}\label{eq:problema_quadratura}
     I(f)=\int_{a}^{b}f(x) dx,\quad -\infty<\overset{\footnotemark}{\boldsymbol{a<b}}<\infty ,
 \end{equation}
 dove $f:[a,b]\rightarrow\mathbb R$, almeno continua. In questa trattazione di approssimazione di integrali definiti è considerato solo il caso in cui $f$ è continua, per evitare singolarità integrabili nell'intervallo $[a,b]$ e non sarà considerato il caso di integrali definiti su insiemi illimitati. I metodi di approssimazione trattati saranno definiti mediante l'integrale di una approssimazione polinomiale a tratti di $f(x)$, in quanto l'integrale di un polinomio può essere calcolato facilmente ed in modo esatto.
@@ -27,13 +27,16 @@ Prima di trattare i metodi di approssimazione è studiato il condizionamento del
     
     \noindent dove
     \begin{enumerate}
-    	\item $\boldsymbol{\kappa=(b-a)}$ misura il condnizionamento del problema (\ref{eq:probQuadratura}),
+    	\item \begin{equation}\label{eq:numero_condizionamento_integrale}
+    		\boldsymbol{\kappa=(b-a)},
+    	\end{equation} 
+    	numero condizionamento del problema (\ref{eq:problema_quadratura}),
     	\item $\boldsymbol{||f-\Tilde{f}||}=\underset{a\leq x\leq b}{\max} |f(x)-\Tilde{f}(x)|$ misura l'errore sui dati in ingresso.
     \end{enumerate}
 \end{definition}
 
-\subsection{Formule di Newton-Cotes}\label{ssec:formN-C}\footnote{Slide 10 PDF 25-26, PG 106-108.}
-Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante $p(x)$ la funzione $f(x)$ su $n+1$ ascisse equidistanti, ovvero:
+\subsection{Formule di Newton-Cotes}\label{ssec:formule_N-C}\footnote{Slide 10 PDF 25-26, PG 106-108.}
+Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante $p(x)$ la funzione $f(x)$ su $n+1$ ascisse equidistanti definite come
 \begin{equation}\label{eq:condizione_ascisse_equidistanti_N-C}
     \begin{matrix}
         &x_i=a+ih,&\quad i=0,\hdots,n,\\
@@ -42,9 +45,9 @@ Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$
 \end{equation}
 
 \begin{definition}[Formula di Newton-Cotes]
-	Sia $p(x)$ il polinomio interpolante $f(x)$, è considerata la sua forma di Lagrange (\ref{eq:polLagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
+	Sia $p(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}), è considerata la sua forma di Lagrange (\ref{eq:polLagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
 	\begin{equation*}
-		I(f)\approx \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
+		I(f)=\int_a^b f(x) dx\approx I(p) = \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
 	\end{equation*}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
 \end{definition}
 
@@ -70,25 +73,35 @@ Una formulazione più conveniente della precedente, poste le seguenti condizioni
 	\end{equation}
 \end{definition}
 
-Alcune proprietà dei coefficienti $\{c_{in}\}_{i\in\{0, \hdots,n\}}$ sono le seguenti:
-\begin{enumerate}
-    \item \footnotemark Dalla simmetria delle ascisse $\{x_i\}$ nell'intervallo $[a,b]$ segue che:
-    \begin{equation}\label{eq:simmCoeffN-C}
-        \boldsymbol{c_{in}=c_{n-i,n},\quad i=0,\hdots,n.}
-    \end{equation}
-    \footnotetext{Slide 13 PDF 25, PG 107. Questa proprietà deriva dal fatto che le ascisse di interpolazione sono simmetriche. Affinché la 1. valga è sufficiente che le ascisse siano simmetriche (non è richiesto che siano equidistanti).}
-    \item \footnotemark \begin{equation}\label{eq:coeffN-CEq1}
-        \boldsymbol{\frac{1}{n}\sum_{i=0}^{n}c_{in}=1}.
-    \end{equation}
-    \footnotetext{Slide 13 PDF 25, Teorema 5.1 PG 106.}
-    \begin{proof}[Dimostrazione 2.]
-        Se considerato $\boldsymbol{a=0},\, \boldsymbol{b=1}$ e $\boldsymbol{f(x)\equiv1}$ segue che, poiché $p(x)\equiv f(x)\equiv 1:$
-        \begin{equation*}
-            \int_0^1 1\cdot dx=1\equiv I_n(1)=\frac{1}{n}\sum_{i=0}^n1\cdot c_{in}=\frac{1}{n}\sum_{i=0}^nc_{in}.\quad\footnotemark
-        \end{equation*}
-        \footnotetext{Se $n=1$ sono presenti due coefficienti e non è necessario calcolarli perché è noto che siano uguali (la somma $c$ vale $\frac{1}{2}$). Se $n=2$ sono presenti tre coefficienti, è calcolato il primo (il quale è uguale all'ultimo) e l'altro è ottenuto tramite differenza tra il risultato e i due coefficienti uguali. Il calcolo dei coefficienti è spiegato tra poche righe.}
-    \end{proof}
-\end{enumerate}
+\begin{property}
+	Alcune proprietà dei coefficienti $\{c_{in}\}_{i\in\{0, \hdots,n\}}$ sono le seguenti:
+	\begin{enumerate}
+	    \item \footnotemark Dalla simmetria delle ascisse $\{x_i\}$ nell'intervallo $[a,b]$ segue che:
+	    \begin{equation}\label{eq:simmCoeffN-C}
+	        \boldsymbol{c_{in}=c_{i,n-i},\quad i=0,\hdots,n.}
+	    \end{equation}
+	    \footnotetext{Slide 13 PDF 25, PG 107. Questa proprietà deriva dal fatto che le ascisse di interpolazione sono simmetriche. Affinché la 1. valga è sufficiente che le ascisse siano simmetriche (non è richiesto che siano equidistanti).}
+	    \item \footnotemark \begin{equation}\label{eq:coeffN-CEq1}
+	        \boldsymbol{\frac{1}{n}\sum_{i=0}^{n}c_{in}=1}.
+	    \end{equation}
+	    \footnotetext{Slide 13 PDF 25, Teorema 5.1 PG 106.}
+	    \begin{proof}[Dimostrazione 2.]
+	        Se considerato $\boldsymbol{a=0},\, \boldsymbol{b=1}$ e $\boldsymbol{f(x)\equiv1}$ segue che, poiché $p(x)\equiv f(x)\equiv 1:$
+	        \begin{equation*}
+	            \int_0^1 1\cdot dx=1\equiv I_n(1)=\frac{1}{n}\sum_{i=0}^n1\cdot 	c_{in}=\frac{1}{n}\sum_{i=0}^nc_{in}.\quad\footnotemark
+	        \end{equation*}
+	        \footnotetext{Se $n=1$ sono presenti due coefficienti e non è necessario calcolarli perché è noto che siano uguali (la somma $c$ vale $\frac{1}{2}$). Se $n=2$ sono presenti tre coefficienti, è calcolato il primo (il quale è uguale all'ultimo) e l'altro è ottenuto tramite differenza tra il risultato e i due coefficienti uguali. Il calcolo dei coefficienti è spiegato tra poche righe.}
+	    \end{proof}
+	    \item \footnote{OSS Slide 6 PDF 26.} Se $n\in\{1,2,\hdots, 7, 9\}$, allora
+	    \begin{equation}\label{eq:coefficiente_formula_N-C_GT0}
+	    	\boldsymbol{\forall\, i=0,\hdots, n\; :\; c_{in} > 0},
+	    \end{equation}
+	    \item Se $n=8$ o $n\geq 10$, allora 
+	    \begin{equation}\label{eq:coefficiente_formula_N-C_LT0}
+	    	c_{in} < 0
+	    \end{equation}
+	\end{enumerate}
+\end{property}
 
 Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int_0^n\prod_{j=0,j\neq i}^n\frac{t-j}{i-j}dt.$
 
@@ -126,16 +139,32 @@ Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int
 
 \subsubsection{Condizionamento di una formula di Newton-Cotes}
 \footnote{Slide 5-6 PDF 26, PG 108.}
-Data una perturbazione $\Tilde{f}(x)$ di $f(x)$ e $c_{in}$, definita come in (\ref{eq:formN-C}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formTrapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:probQuadratura}), è ottenuto quanto segue:
+Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formN-C}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formTrapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
 
-\begin{equation*}
-    \begin{matrix}
-        |I_n(f)-I_n(\Tilde{f})|&\overset{\footnotemark}{=}&\frac{b-a}{n}\left|\sum_{i=0}^n c_{in}f_i-\sum_{i=0}^n c_{in}\Tilde{f_i}\right|&=&\\
-        \frac{b-a}{n}\left|\sum_{i=0}^n c_{in}\left(f_i-\Tilde{f_i}\right)\right|&\overset{\footnotemark}{\leq}&\frac{b-a}{n}\sum_{i=0}^n \left|c_{in}\left(f_i-\Tilde{f_i}\right)\right|&=&\\
-        \frac{b-a}{n}\sum_{i=0}^n |c_{in}|\cdot\left|f_i-\Tilde{f_i}\right|&\leq&\left(\frac{b-a}{n}\sum_{i=0}^n|c_{in}|\right)\underset{i=0,\hdots,n}{\max}\left|f_i-\Tilde{f_i}\right|&\leq&\\
-        && \underbrace{\left(\frac{b-a}{n}\sum_{i=0}^n|c_{in}|\right)}_{\boldsymbol{\kappa_n}}\cdot \equalto{\left|\left|f-\Tilde{f}\right|\right|}{\underset{a\leq x\leq b}{\max}||f(x)-\Tilde{f}(x)||}
-    \end{matrix}
-\end{equation*}
+\begin{definition}[Condizionamento formula di Newton-Cotes]
+	Sia $\tilde{f}(x)$, perturbazione della funzione $f(x)$, allora
+	\begin{equation*}
+	    \begin{matrix}
+		        |I_n(f)-I_n(\Tilde{f})|&\overset{\footnotemark}{=}&h\left|\sum_{i=0}^n c_{in}f_i-\sum_{i=0}^n c_{in}\Tilde{f_i}\right|&=&\\
+		        h\left|\sum_{i=0}^n c_{in}\left(f_i-\Tilde{f_i}\right)\right|&\overset{\footnotemark}{\leq}&h\sum_{i=0}^n \left|c_{in}\left(f_i-\Tilde{f_i}\right)\right|&=&\\
+		        h\sum_{i=0}^n |c_{in}|\cdot\left|f_i-\Tilde{f_i}\right|&\leq&\left(h\sum_{i=0}^n|c_{in}|\right)\underset{i=0,\hdots,n}{\max}\left|f_i-\Tilde{f_i}\right|&\leq&\\
+		        &&\left(h\sum_{i=0}^n|c_{in}|\right)\cdot \left|\left|f-\Tilde{f}\right|\right|
+	    \end{matrix}
+	\end{equation*}
+	dove
+	\begin{itemize}
+		\item \begin{equation}\label{eq:numero_condizionamento_N-C}
+			\boldsymbol{\kappa_n = h\sum_{i=0}^n|c_{in}|}
+		\end{equation}
+		è il \textbf{numero di condizionamento della formula di Newton-Cotes},
+		\item \begin{equation*}
+			\boldsymbol{||f-\Tilde{f}|| = \underset{a\leq x\leq b}{\max}||f(x)-\Tilde{f}(x)||}
+		\end{equation*}
+		misura l'\textbf{errore in ingresso},
+		\item $h=\frac{b-a}{n}$,
+		\item $f_i = f(x_i),\, \tilde{f}_i = \tilde{f}(x_i)$, dove $x_i = a + i\cdot h,\, i = 0,\hdots, n$.
+	\end{itemize}
+\end{definition}
 \addtocounter{footnote}{-1}
 \footnotetext{Supposto di aver traspormato il problema in modo tale che $b>a$.}
 
@@ -144,16 +173,11 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$ e $c_{in}$, definita come in (\r
 
 \noindent dove $\boldsymbol{\kappa_n}$ è il \textbf{numero di condizionamento del problema} e $\boldsymbol{||f-\Tilde{f}||}$ misura l'\textbf{errore in ingresso}.
 
-\begin{remark}
-    \footnote{OSS Slide 6 PDF 26.} Se
-    \begin{equation}\label{eq:coeffFormN-CGT0}
-        \boldsymbol{\forall\, i=0,\hdots, n\; :\; c_{in}\leq 0,}
-    \end{equation}
-    allora:
-    \begin{equation}\label{eq:nrCondN-C}
+\begin{remark}\label{rem:numero_condizionamento}
+    Data la Proprietà (\ref{eq:coefficiente_formula_N-C_GT0}), allora
+    \begin{equation}\label{eq:numero_condizionamento_N-C_positivo}
      \boldsymbol{\kappa_n}=\frac{b-a}{n}\sum_{i=0}^n|c_{in}|\overset{\footnotemark}{=}\frac{b-a}{\cancel{n}}\cancel{\sum_{i=0}^nc_{in}}\overset{\footnotemark}{=}b-a\boldsymbol{\equiv\kappa}.
     \end{equation}
-
 \end{remark}
 \addtocounter{footnote}{-1}
 \footnotetext{Eliminato il modulo perché $c_{in}\geq 0$.}
@@ -161,14 +185,25 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$ e $c_{in}$, definita come in (\r
 \stepcounter{footnote}
 \footnotetext{Per (\ref{eq:coeffN-CEq1}) ci sono le eliminazioni.}
 
-Se i coefficienti della formula di Newton-Cotes sono non negativi allora il numero di condizionamento della formula di Newton-Cotes coincide con quello dell'integrale. Questo non significa che è ben condizionato: se l'integrale è ben condizionato allora lo è anche la funzione, se l'integrale è mal condizionato lo è anche la funzione. Ciò può essere riformulato affermando che \textbf{il mal condizionamento coincide con quello del problema continuo} (l'integrale $I(f)$).
+\paragraph{N.B.:} Se è valida l'Osservazione \ref{rem:numero_condizionamento}, ovvero i coefficienti della formula di Newton-Cotes sono non negativi, allora il numero di condizionamento della formula di Newton Cotes (\ref{eq:numero_condizionamento_N-C}) coincide con quello del problema continuo $I(f)$ (\ref{eq:numero_condizionamento_integrale}).
 
-Tuttavia, la proprietà (\ref{eq:coeffFormN-CGT0}) vale solo per $\boldsymbol{n=1,2,\hdots,7,9}$. Per tutti gli altri valori di $n$ compaiono pesi negativi ed il rapporto $\frac{\kappa_n}{\kappa}=\frac{1}{n}\sum_{i=0}^n|c_{in}|$ cresce molto rapidamente al crescere di $n$. Pertanto non è raccomandabile l'utilizzo di formule di Newton-Cotes di grado 8 o, genericamente, maggiori uguali a 10 (vedere Figura \ref{fig:knN-C}).
+Questo non significa che è ben condizionato: se l'integrale è ben condizionato allora lo è anche la funzione, se l'integrale è mal condizionato lo è anche la funzione. Ciò può essere riformulato affermando che \textbf{il mal condizionamento coincide con quello del problema continuo} (l'integrale $I(f)$).
+
+\begin{remark}
+	Se vale la Proprietà (\ref{eq:coefficiente_formula_N-C_LT0}), compaiono pesi negativi nella formula di Newton-Cotes allora 
+	\begin{equation*}
+		\kappa_n> b-a
+	\end{equation*}
+	ed il rapporto \begin{equation*}
+		\frac{\kappa_n}{\kappa}=\frac{1}{n}\sum_{i=0}^n|c_{in}|
+	\end{equation*}
+	cresce molto rapidamente al crescere di $n$. Pertanto, non è raccomandabile l'utilizzo di formule di Newton-Cotes di grado 8 o, genericamente, maggiori uguali a 10 (vedere Figura \ref{fig:knN-C}).
+\end{remark}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/knN-C.png}
-    \caption{numero di condizionamento (\ref{eq:nrCondN-C}) delle formule di Newton-Cotes nel caso $b-a=1$.}\label{fig:knN-C}
+    \caption{numero di condizionamento (\ref{eq:numero_condizionamento_N-C_positivo}) delle formule di Newton-Cotes nel caso $b-a=1$.}\label{fig:knN-C}
 \end{figure}
 
 \subsection{Errore (di quadratura) e formule composite}
