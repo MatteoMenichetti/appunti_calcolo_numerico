@@ -141,7 +141,7 @@ Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
 
 \begin{theorem}[Forma di Lagrange]
     Il polinomio interpolante $p(x)\in \Pi_n$, che soddisfa le condizioni (\ref{eq:condizioni_interpolazione}), è dato da 
-    \begin{equation}\label{eq:polInterpd}
+    \begin{equation}\label{eq:polinomio_interpolante_forma_lagrange}
         \boldsymbol{p(x)=\sum_{k=0}^{n}} \underset{\footnotemark}{\boldsymbol{f_k}}\, \boldsymbol{L_{kn}(x)}.
     \end{equation}\footnotetext{Coefficienti di rappresentazione del polinomio interpolante rispetto alla base interpolante.}
 \end{theorem}
@@ -161,13 +161,13 @@ Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
 \end{proof}
 
 \begin{definition}
-    \textbf{(\ref{eq:polInterpd})} costituisce la \textbf{forma di Lagrange} del polinomio interpolante.
+    \textbf{(\ref{eq:polinomio_interpolante_forma_lagrange})} costituisce la \textbf{forma di Lagrange} del polinomio interpolante.
 \end{definition}
 
-La precedente Definizione significa che (\ref{eq:polInterpd}) è espresso rispetto alla base di Lagrange, anche se il polinomio interpolante non varia.
+La precedente Definizione significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è espresso rispetto alla base di Lagrange, anche se il polinomio interpolante non varia.
 
 \begin{algorithm}
-\caption{Impementazione del polinomio interpolante nella forma di Lagrange.}\label{alg:implPolIntFormaLagr}
+\caption{Impementazione del polinomio interpolante nella forma di Lagrange.}\label{alg:calcolo_polinomio_interpolante_forma_lagrange}
     \begin{lstlisting}[style=Matlab-editor]
     function y = lagrange (xi, fi, x)
     %   function y = lagrange (xi, fi, x)
@@ -196,7 +196,7 @@ La precedente Definizione significa che (\ref{eq:polInterpd}) è espresso rispet
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Impementazione della base del polinomio interpolante nella forma di Lagrange.}\label{alg:implBasePolIntFormaLagr}
+\caption{Impementazione della base del polinomio interpolante nella forma di Lagrange.}\label{alg:calcolo_base_polinomio_interpolante_forma_lagrange}
     \begin{lstlisting}[style=Matlab-editor]
     function L = Lin(i, xi, x)
     %
@@ -223,24 +223,27 @@ La precedente Definizione significa che (\ref{eq:polInterpd}) è espresso rispet
     \end{lstlisting}
 \end{algorithm}
 
-È importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
+\paragraph{N.B.:} Dati gli algoritmi \ref{alg:calcolo_base_polinomio_interpolante_forma_lagrange}-\ref{alg:calcolo_polinomio_interpolante_forma_lagrange}, è importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
 
-Date le $n+1$ coppie $(x_i,f_i),\; i=0,\hdots,n$, con $x_i\neq x_j$, se $i\neq j$ e $f_i\overset{\footnotemark}{\equiv} f(x_i)$,
-\begin{equation*}
-    \boldsymbol{\exists!p(x)\in\Pi_n:p(x_i)=f_i,\quad i=0,\hdots, n},
-\end{equation*}
+\begin{remark}
+	Date le $n+1$ coppie $(x_i,f_i),\; i=0,\hdots,n$, con $x_i\neq x_j$, se $i\neq j$ e $f_i\overset{\footnotemark}{\equiv} f(x_i)$,
+	\begin{equation*}
+	    \boldsymbol{\exists!p(x)\in\Pi_n:p(x_i)=f_i,\quad i=0,\hdots, n},
+	\end{equation*}
+	dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate. Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_generico}) e (\ref{eq:polinomio_interpolante_forma_lagrange}) sono algebricamente uguali, quindi segue che: 
+	\begin{equation}\label{eq:equivalenza_basi}
+		p(x)=\sum_{i=0}^n \boldsymbol{a_i}\, x^i \equiv \sum_{i=0}^n f_i\, \boldsymbol{L_{in}(x)},
+	\end{equation}
+	dove $x_i$ rappresenta la base delle potenze ed $L_{in}(x)$ la base di Lagrange.
+\end{remark}
+
 \footnotetext{Condizione ideale perché non è sempre vero che $f$ possa essere calcolata (nel nostro lo è possibile).}
-dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate.
 
-Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_generico}) e (\ref{eq:polInterpd}) sono algebricamente uguali, quindi segue che: 
-\begin{equation}\label{eq:equivBasi}
-p(x)=\sum_{i=0}^n \boldsymbol{a_i}\, x^i \equiv \sum_{i=0}^n f_i\, \boldsymbol{L_{in}(x)},
-\end{equation}
-dove $x_i$ rappresenta la base delle potenze ed $L_{in}(x)$ la base di Lagrange.
-
-Questa semplicità formale non si concilia con requisiti computazionali per il calcolo, in modo incrementale, del polinomio.
-
-Il problema è capire come modificare la rappresentazione del polinomio $p(x)$ rispetto alla base utilizzata, se aggiunta un'ulteriore ascissa di interpolazione $x_{n+1}\notin\{x_0,\hdots,x_n\}$, in modo da calcolare $f_{n+1}$ (ovvero $f(x_{n+1})$). Data $\widehat{p}(x)\in\Pi_{n+1}:\widehat{p}(x_i)=f_i,\, i=0,\hdots,n+1,$ è interessante capire in che relazione sono $\widehat{p}(x)$ e $p(x)$, considerando che sono considerate due basi per i polinomi. Come visto per (\ref{eq:equivBasi}), allora
+La semplicità formale della forma di Newton rappresentata in \ref{eq:polinomio_interpolante_forma_lagrange} non si concilia con requisiti computazionali per il calcolo, in modo incrementale, del polinomio. Più precisamente, il problema è capire come modificare la rappresentazione del polinomio $p\in\Pi_n$ rispetto alla base utilizzata, se aggiunta un'ulteriore ascissa di interpolazione $x_{n+1}\notin\{x_0,\hdots,x_n\}$, in modo da calcolare $f_{n+1}$ tramite $\widehat{p}_{n+1}\in\Pi_{n+1}$ a partire da $p$ sulle ascisse $x_0,\hdots,x_n, x_{n+1}$. Data
+\begin{equation*}
+	\widehat{p}(x)\in\Pi_{n+1}:\widehat{p}(x_i)=f_i,\quad i=0,\hdots,n+1,
+\end{equation*}
+è interessante capire in che relazione sono $\widehat{p}(x)$ e $p(x)$, considerando che sono due basi per i polinomi. Come visto per (\ref{eq:equivalenza_basi}), allora
 \begin{equation}
     \begin{matrix}
          \widehat{p}(x)&=&\sum_{i=0}^{n+1}\boldsymbol{\widehat{a}_i}\, x^i&\equiv&\sum_{i=0}^{n+1} f_i\, \boldsymbol{L_{i,n+1}(x)},\\
@@ -250,14 +253,16 @@ Il problema è capire come modificare la rappresentazione del polinomio $p(x)$ r
 con rispettivamente $\boldsymbol{\widehat{a}_i}$ ed $\boldsymbol{L_{in+1}(x)}$, $\boldsymbol{x^i}$ ed $\boldsymbol{L_{in}(x)}$ collegate fra loro.
 Le funzioni di base sono le stesse, ma i coefficienti sono diversi, sono soluzione di due sistemi lineari di dimensione diversa, con matrici di coefficienti diverse (le quali non si prestano bene alla costruzione incrementale del polinomio). 
 
-È necessario definire una base di rappresentazione, in modo tale che $\widehat p(x)$ sia ottenuta da $p(x)$, aggiungendo una funzione di base ed il relativo coefficiente, mentre tutti gli altri rimangono gli stessi di $p(x)$. Questo è possibile utilizzando, come base di rappresentazione, i \textbf{polinomi di base di Newton}:
+La definizione in modo incrementale di $\widehat{p}$, in modo tale che $\widehat p(x)$ sia ottenuta da $p(x)$, è possibile ridefinendo la base di  rappresentazione aggiungendo una funzione di base ed il relativo coefficiente, mentre tutti gli altri rimangono gli stessi di $p(x)$. Questo è possibile utilizzando, come base di rappresentazione, i \textbf{polinomi di base di Newton}.
 
-\begin{equation}\label{eq:polBaseNewt}
-    \begin{cases}
-        \omega_0(x)\equiv 1;\\
-        \omega_r(x)\overset{\footnotemark}{=}(x-\overset{\footnotemark}{\boldsymbol{x_{r-1}}})\,\omega_{r-1}(x),\quad r=1,\hdots,n.
-    \end{cases}
-\end{equation}
+\begin{definition}[Polinomi di base di Newton]
+	\begin{equation}\label{eq:polinomio_base_newton}
+	    \begin{cases}
+	        \omega_0(x)\equiv 1;\\
+			\omega_r(x)\overset{\footnotemark}{=}(x-\overset{\footnotemark}{\boldsymbol{x_{r-1}}})\,\omega_{r-1}(x),\quad r=1,\hdots,n.
+	    \end{cases}
+	\end{equation}
+\end{definition}
 \addtocounter{footnote}{-1}
 \footnotetext{Moltiplicazione dell'elemento $\omega_{r-1}(x)$ per un polinomio monico; $x_{r-1}$ è la $(r-1)$-esima ascissa di interpolazione.}
 
@@ -266,34 +271,37 @@ Le funzioni di base sono le stesse, ma i coefficienti sono diversi, sono soluzio
 
 Se gli altri coefficienti delle funzioni di base rimangono gli stessi di $p(x)$ è possibile definire il nuovo polinomio ottenendo una costruzione incrementale del polinomio interpolante.
 
-$\omega_r$ definito in (\ref{eq:polBaseNewt}) è una relazione ricorsiva utilizzata per il calcolo, in modo efficiente, di $p(x)$ e può essere rappresentato come
-\begin{equation*}
-    \omega_{k+1}(x)=(x-x_k)\, w_k(x),\quad k=0,\hdots, n.
-\end{equation*}
-oppure è possibile scriverlo come polinomio monico, ovvero il polinomio con coefficiente del termine di grado più alto uguale ad 1, in forma esplicita come
-\begin{equation}\label{polinomio_base_newton2}
-    w_k(x)=\prod_{i=0}^{k-1}(x-x_i),\quad k=1,\hdots,n.
-\end{equation}
+\begin{remark}
+	$\omega_r$ definito in (\ref{eq:polinomio_base_newton}) è una relazione ricorsiva utilizzata per il calcolo, in modo efficiente, di $p(x)$ e può essere rappresentato come
+	\begin{equation*}
+	    \omega_{k+1}(x)=(x-x_k)\, w_k(x),\quad k=0,\hdots, n.
+	\end{equation*}
+	oppure è possibile scriverlo come polinomio monico, ovvero il polinomio con coefficiente del termine di grado più alto uguale ad 1, in forma esplicita come
+	\begin{equation}\label{polinomio_base_newton2}
+	    w_k(x)=\prod_{i=0}^{k-1}(x-x_i),\quad k=1,\hdots,n.
+	\end{equation}
+\end{remark}
 
-Utilizzando il principio di induzione è possibile verificare le seguenti \textbf{proprietà di} $\omega_r$:
-\begin{enumerate}
-    \item $w_r(x)$ è un polinomio monico di grado $r,\; \forall r\geq 0$ (ovvero $\omega_r\in\Pi_r$);
-    \item $\forall r\geq 0 \, :\, \{\underbrace{\omega_0(x), \hdots, \omega_r(x)}_{r+1}\}$ sono linaremente indipendenti \footnote{Conseguenza del punto precendete dato che i gradi sono distinti.};
-    \item $\{\omega_0(x),\hdots,\omega_r(x)\}$ sono una base per $\Pi_r$ \footnote{Conseguenza del punto precedente.};
-    \item $\forall r \geq 1\,:\, \boldsymbol{w_r(x)=\prod_{j=0}^{r-1}(x-x_j)}$ \footnote{Ottenuta induttivamente dalla seconda riga del sistema (\ref{eq:polBaseNewt}) con gli zeri dei polinomi conosciuti. Questa relazione ricorsiva è utilizzata per il calcolo efficiente del polinomio.};
-    \item Date le ascisse distinte $x_0, \hdots, x_n$:
-        $\begin{cases}
-        \boldsymbol{w_r(x_j)=0}, & \boldsymbol{j\leq r-1},\\
-        w_r(x_j)\neq 0, & j\geq r.
-        \end{cases}$
-\end{enumerate}
+Utilizzando il principio di induzione è possibile verificare le seguenti \textbf{proprietà di} $\omega_r$.
+\begin{property}
+	\begin{enumerate}
+	    \item $w_r(x)$ è un polinomio monico di grado $r,\; \forall r\geq 0$ (ovvero $\omega_r\in\Pi_r$);
+	    \item $\forall r\geq 0 \, :\, \{\underbrace{\omega_0(x), \hdots, \omega_r(x)}_{r+1}\}$ sono linaremente indipendenti \footnote{Conseguenza del punto precendete dato che i gradi sono distinti.};
+	    \item $\{\omega_0(x),\hdots,\omega_r(x)\}$ sono una base per $\Pi_r$ \footnote{Conseguenza del punto precedente.};
+	    \item $\forall r \geq 1\,:\, \boldsymbol{w_r(x)=\prod_{j=0}^{r-1}(x-x_j)}$ \footnote{Ottenuta induttivamente dalla seconda riga del sistema (\ref{eq:polinomio_base_newton}) con gli zeri dei polinomi conosciuti. Questa relazione ricorsiva è utilizzata per il calcolo efficiente del polinomio.};
+	    \item Date le ascisse distinte $x_0, \hdots, x_n$:
+	        $\begin{cases}
+	        \boldsymbol{w_r(x_j)=0}, & \boldsymbol{j\leq r-1},\\
+	        w_r(x_j)\neq 0, & j\geq r.
+	        \end{cases}$
+	\end{enumerate}
+\end{property}
 
-È possibile denotare 
+Tramite 
 \begin{equation}\label{eq:polNotaz}
     p_r(x)\in\Pi_r\, :\, p_r(x_i)=f_i,\quad i=0,\hdots, r.
 \end{equation}
-
-È possibile definire la famiglia dei polinomi $\{p_r\}_{r=0,\hdots,n}$ (dove $n$ è il grado da raggiungere), in modo incrementale, con la seguente modalità.
+è possibile definire la famiglia dei polinomi $\{p_r\}_{r=0,\hdots,n}$ (dove $n$ è il grado da raggiungere), in modo incrementale, con la seguente modalità.
 
 \begin{theorem}[Forma di Newton]\label{th:formaNewt}\footnote{Slide 5 PDF 16, TH 4.3 PG 80.}
     La famiglia di polinomi interpolanti definita in (\ref{eq:polNotaz}) è ottenuta ricorsivamente come: 
@@ -374,7 +382,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
     \begin{equation}\label{eq:polinomio_interpolante_newton}
         \boldsymbol{p(x)\equiv p_n(x) = \sum_{i=0}^{n} f[\underbrace{x_0,\hdots, x_i}_{i+1}]\,\omega_i(x)},
     \end{equation}
-    dove $\omega_i(x)$ è la dunzione di base.
+    dove $\omega_i(x)$ è la funzione di base.
 \end{remark}
 
 \paragraph{\ul{N.B.}:} \textbf{La forma di Lagrange e la forma di Newton di $p(x)$ definiscono lo stesso polinomio interpolante}, il quale esiste ed è unico, se le ascisse di interpolazione sono tra loro distinte. Ciò significa che per $p(x)$ varia solo la sua rappresentazione. Questo ha il pregio di prestarsi alla costruzione incrementale del polinomio aggiornandosi in modo dinamico.
@@ -394,11 +402,14 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 		\begin{equation*}
 			f[x_0,\hdots,x_r]=f[x_{i_0},\hdots,x_{i_r}];
 		\end{equation*}
-		\item[P3)] Se $f(x)=\sum_{i=0}^ka_ix^i$, allora $f[x_0,\hdots, x_r]=
-		\begin{cases}
-			a_k,\; r=k;\\
-			0,\; r>k.
-		\end{cases}$
+		\item[P3)] Se $f(x)=\sum_{i=0}^ka_ix^i$, allora 
+		\begin{equation*}
+					f[x_0,\hdots, x_r]=
+				\begin{cases}
+					a_k,\; r=k;\\
+					0,\; r>k.
+				\end{cases}
+		\end{equation*}
 		\footnote{Sia $g(x)\in\Pi_n$, allora il polinomio $p(x)\in\Pi_n$ che interpola $g(x)$ sulle ascisse distinte $x_0,\hdots,x_n$ è $g(x)$ stesso ($p(x)=g(x)$), per l'unicità del polinomio interpolante.
 			Il polinomio $p(x)\in\Pi_r,$ con $r>n$, che interpola $g(x)$ sulle $r+1$ ascisse distinte $x_0, \hdots, x_r$, è sempre $g(x)$ per lo stesso motivo.}
 		
@@ -416,7 +427,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 	\end{itemize}
 \end{property}
 
-(\ref{eq:P5_differenze_divise}) è  una proprietà algoritmica importante, è utilizzata per il calcolo efficiente della differenze divisa ed è possibile dimostrarla come segue.
+(\ref{eq:P5_differenze_divise}) è  una proprietà algoritmica importante, è utilizzata per il calcolo efficiente della differenze divise.
 
 \begin{proof}[Dimostrazione P5)] \footnote{Tramite la definizione di differenza divisa. Sono calcolate due differenze divise, è effettuata la somma ed è ottenuta l'espressione ricercata.}
     \begin{equation}\label{eq:dimPropDiffDiv}
@@ -611,7 +622,7 @@ Tuttavia, l'Algoritmo \ref{alg:calcP(x)} si presta facilmente per derivare un al
 \begin{equation*}
     \boldsymbol{p'(x)}=\sum_{i=0}^n\underset{\text{coeff.}}{a_i}\,\boldsymbol{\omega'_i(x)}=\sum_{\underset{\footnotemark}{i=1}}^na_i\,\boldsymbol{\omega'_i(x)}.
 \end{equation*}
-\footnotetext{Trasformazione in $i=1$ perché $\omega_0\equiv 1$ (vedere (\ref{eq:polBaseNewt})).}
+\footnotetext{Trasformazione in $i=1$ perché $\omega_0\equiv 1$ (vedere (\ref{eq:polinomio_base_newton})).}
 
 L'obbiettivo è derivare un algoritmo per il calcolo delle derivate $\omega'(x)$ e $p'(x)$. Ciò significa che le righe precedenti si riducono a derivare un algoritmo, relativamente efficiente, per il calcolo delle derivate prime dei polinomi di base di Newton.
 
@@ -647,6 +658,10 @@ Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (d
         \EndFor
     \end{algorithmic}
 \end{algorithm}
+
+\begin{example}
+	Vedere Esercitazione capitolo 4 e 5.
+\end{example}
 
 \subsection{Interpolazione di Hermite}\footnote{Slide 4-11 PDF 18, PG 84-86.}
 [Problema:] Supposto di avere un polinomio interpolante una funzione su un numero pari ($2n+2$) di ascisse, quest'ultime sono numerate come segue:
@@ -830,9 +845,9 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
 
 Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È necessario stabilire quanto $e(x)$ sia "distante" da 0, per $x\notin \{x_0,\hdots, x_n\}.$
 
-\begin{theorem}\label{th:errore_interpolazione_forma_newt}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
+\begin{theorem}\label{th:errore_interpolazione_forma_newton}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
 	Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})), vale:
-    \begin{equation}\label{eq:errInterFormaNewt}
+    \begin{equation}\label{eq:errore_interpolazione_forma_newton}
         \boldsymbol{e(x)=f[x_0,x_1,\hdots,x_n,x]\,\omega_{n+1}(x),\quad w_{n+1}(x)=\prod_{j=0}^{n}(x-x_j)}.
     \end{equation}
 \end{theorem}
@@ -872,24 +887,24 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
 \stepcounter{footnote}
 \footnotetext{Se al posto di $\widehat x$ è sostituito $x$ allora $\widehat p(x)$ continua a variare.}
 
-\begin{remark}
-    Il Teorema \ref{th:errore_interpolazione_forma_newt} definisce la forma dell'errore di interpolazione polinomiale (e di conseguenza è necessario impararlo).
-\end{remark}
+\paragraph{N.B.:} Il Teorema \ref{th:errore_interpolazione_forma_newton} definisce la forma dell'errore di interpolazione polinomiale (e di conseguenza è necessario impararlo).
+
+Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente corollario.
 
 \begin{corollary}
     \footnote{Slide 5 PDF 19, Corollario 4.1 PG 87; Importante perché esiste un legame tra le differenze divise e le derivate della funzione $f$, se questa è sufficientemente regolare.}
-    Utilizzando le ipotesi del Teorema \ref{th:errore_interpolazione_forma_newt} e supposto che $f\in C^{(n+1)}$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errInterFormaNewt}), allora (vedere (\ref{eq:P4DiffDiv})):
+    Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4DiffDiv})):
     \begin{equation}\label{eq:errInterP4}
         \begin{matrix}
             e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
-            &\xi_x\in[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]\boldsymbol{\equiv I(x)}.
+            &\xi_x\in(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})\boldsymbol{\equiv I(x)}.
         \end{matrix}
     \end{equation}
 \end{corollary}
 
 \begin{remark}[Errore polinomio di Hermite]\label{rem:errore_polinomio_hermite}
     \footnote{Da sapere. Slide 5 PDF 19, Oss. 4.4 PG 87.}
-    Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}[I(x)]\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
+    Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}(I(x))\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
     \begin{equation}\label{eq:errPolInterHer}
         e_H(x)= f(x)-p_H(x) \overset{\footnotemark}{=} f[\overbrace{x_0,x_0,\hdots,x_n,x_n,x}^{2n+3}]\,\omega^2_{n+1}(x)\equiv\frac{\boxed{f^{(2n+2)}(\widehat\xi_x)}}{(2n+2)!}\,\omega^2_{n+1}(x).
     \end{equation}
@@ -1511,14 +1526,14 @@ In alternativa all'approccio classico è possibile definire quanto segue.
 
 \begin{definition}[Partizione di insieme]
     Dato $[a,b]$ dominio di $f$, una partizione $\Delta$ sull'intervallo $[a,b]$ è definita come
-    \begin{equation}\label{eq:defPartizione}
+    \begin{equation}\label{eq:definizione_partizione}
             \Delta = \{\boldsymbol{a}=x_0<x_1<\hdots<x_n=\boldsymbol{b}\},
     \end{equation}
     la quale contiene $n+1$ punti (ovvero ascisse).
 \end{definition}
 
 \begin{definition}[Condizione di uniformità della partizione]
-    La condizione di uniformità della partizione $\Delta$ (definita come (\ref{eq:defPartizione})) è definita come
+    La condizione di uniformità della partizione $\Delta$ (definita come (\ref{eq:definizione_partizione})) è definita come
     \begin{equation}\label{eq:condUnifPart}
         \boldsymbol h\overset{\footnotemark}{\boldsymbol =}\underset{\boldsymbol{i=1,\hdots,n}}{\boldsymbol\max}\boldsymbol{(x_i-x_{i-1}).}
     \end{equation}
@@ -1543,7 +1558,7 @@ con $m$ ed $n$ svincolati.
 Con una lente più formale è possibile definire quanto segue:
 \begin{definition}[Spline di $m$ su $\Delta$]\label{def:spline}
     \footnote{Definizione 1 Slide 11 PDF 22, Definizione 4.3 PG 94.}
-    $s_m(x)$ è una funzione definita come spline di grado $m$ sulla partizione $\Delta$, la quale è definita come (\ref{eq:defPartizione}), se:
+    $s_m(x)$ è una funzione definita come spline di grado $m$ sulla partizione $\Delta$, la quale è definita come (\ref{eq:definizione_partizione}), se:
     \begin{enumerate}
         \item $s_m(x)\in C^{(m-1)}[a,b]$; \footnotemark
         \item $s_m|_{[x_{i-1},x_i]}(x)\in\Pi_m,\,\forall i=1,\hdots,n.$
@@ -1753,7 +1768,7 @@ Ciò che è stato appena definito nei riquadri è una conveniente espressione, i
 La rappresentazione delle condizioni (\ref{eq:condSplineCubNotAKnot}) tramite le derivate seconde è utile al fine di definire l'unicità della spline interpolante. Dal punto di vista computazionale è importante che le condizioni siano imposte sulla derivata seconda.
 
 \begin{remark}
-    \footnote{Slide 2 PDF 24, Osservazione 4.5 PG 97.} L'ampiezza dell'intervallo $i$-esimo della partizione $\Delta$, definita come (\ref{eq:defPartizione}), è definita come
+    \footnote{Slide 2 PDF 24, Osservazione 4.5 PG 97.} L'ampiezza dell'intervallo $i$-esimo della partizione $\Delta$, definita come (\ref{eq:definizione_partizione}), è definita come
     \begin{equation}\label{eq:ampiezza_partizione}
         \boldsymbol{h_i=x_i-x_{i-1},\quad i=1,\hdots,n},
     \end{equation}
@@ -1774,7 +1789,7 @@ Approssimare la funzione significa approssimare uniformemente anche la derivata 
 \subsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcolo_spline_cubiche}\footnote{Slide 2-13 PDF 24, PG 97-101.}
 Per trattare questa Sezione è utile la Sezione \ref{ssec:risoluzione_sistema_tridiagonale}.
 
-Il problema da affrontare è quello del calcolo della spline cubica $s_3(x)$ interpolante $f(x)$ sulla partizione, definita come in (\ref{eq:defPartizione}), $\Delta=\{a=x_0<x_1<\hdots<x_n=b\}$.
+Il problema da affrontare è quello del calcolo della spline cubica $s_3(x)$ interpolante $f(x)$ sulla partizione, definita come in (\ref{eq:definizione_partizione}), $\Delta=\{a=x_0<x_1<\hdots<x_n=b\}$.
 
 Per determinare un algoritmo efficiente per il calcolo di una spline cubica, oltre a (\ref{eq:ampiezza_partizione}), sarà usata la notazione seguente:
 \begin{equation}\label{eq:s''3(xi)}
