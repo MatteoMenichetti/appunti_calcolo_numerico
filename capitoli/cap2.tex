@@ -502,6 +502,8 @@ Questo è dovuto al fatto che l'errore $|x^*-x_i|$ non è noto, quindi è necess
 	il quale è ottenuto dalla Sezione \ref{ssec:criterio_arresto} da (\ref{eq:criterio_arresto_aggiornato_bisezione}) e l'approssimazione (\ref{eq:approssimazione_newton}). In questo caso $f(x^*)$ e' calcolata, e non approssimata con il rapporto incrementale (\ref{eq:rapporto_incrementale_xstar}), tramite la derivata di $f$, dato che, a differenza del metodo di bisezione, e' disponibile.
 \end{remark}
 
+\paragraph{N.B.:} Vedere Osservazione \ref{rem:criterio_arresto_derivata_nulla} per criterio d'arresto pratico.
+
 \begin{remark}[Criterio d'arresto ideale per il metodo di Newton]\footnote{Osservazione 2.3 PG 33, Slide 5 PDF lez10.}
 	Oltre alla tolleranza sul massimo errore assoluto, $tolx$, è possibile utilizzare la tolleranza sull'errore relativo, $rtolx$ (o sull'accuratezza dell'approssimazione dello zero). In questo caso il controllo di arresto "ideale" diviene
 	\begin{equation*}
@@ -827,6 +829,10 @@ Il metodo di Aitken è preferibile al metodo di Newton in quanto Newton converge
 \paragraph{Convergenza:} La successione $\{x_i^*\}_{i=1,2,\hdots}$ generata con Aitken \underline{converge quadraticamente} verso $x^*$.
 \paragraph{Costo computazionale} Il prezzo di avere un'iterazione a due livelli è pagato con un costo computazionale doppio rispetto al classico Newton, ad ogni iterazione è applicato Newton due volte (per le quali sono necessarie le valutazioni di $f(x_i)$ e $f'(x_i)$).
 
+\begin{remark}\label{rem:criterio_arresto_derivata_nulla}
+	Nel caso dell'approssimazione di radici multiple, mediante il metodo di Newton modificato o di accelerazione Aitken, se la derivata si annulla ed il valore della funzione è molto piccolo, significa che è stata raggiunta la migliore approssimazione possibile della soluzione.
+\end{remark}
+
 \paragraph{Implementazione:} Vedere \ref{alg:metodo_aitken}.
 \begin{algorithm}
 	\caption{Implementazione metodo di Aitken.}\label{alg:metodo_aitken}
@@ -912,7 +918,7 @@ L'approssimazione (\ref{eq:approxSecanti}) richiede una valutazione funzionale p
 \paragraph{Implementazione:} Algoritmo \ref{alg:metodo_secanti}.
 
 \begin{remark}
-	Nella conversione dei precedenti metodi in algoritmi è buona norma eseguire controlli sul denominatore, affinché non siano svolte divisioni per 0. Nel caso dell'approssimazione di radici multiple, mediante il metodo di Newton modificato o di accelerazione Aitken, se la derivata si annulla ed il valore della funzione è molto piccolo, significa che è stata raggiunta la migliore approssimazione possibile della soluzione.
+	Nella conversione dei precedenti metodi in algoritmi è buona norma eseguire controlli sul denominatore, affinché non siano svolte divisioni per 0.
 \end{remark}
 
 \begin{figure}
