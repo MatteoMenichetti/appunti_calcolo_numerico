@@ -2689,11 +2689,11 @@ La dimostrazione al Teorema \ref{th:esistenza_fattorizzazione_QR} descrive l'alg
 Il costo e l'implementazione dell'algoritmo è analizzato nella seguente Sezione.
 
 \subsubsection{Analisi complessità dell'algoritmo di fattorizzazione \texorpdfstring{$\boldsymbol{QR}$}{QR} (Householder)}\label{sssec:complHH}\footnote{Slide 2-4 PDF 12, PG 73-74}
-Per derivare il costo della fattorizzazione $QR$ è esaminato lo pseudo-codice Matlab che implementa l'algoritmo in questione, ovvero l'Algoritmo \ref{alg:fattQR}. È assunto che $A\in\mathbb R^{m\times n},$ con $m>n,$ la quale sarà sovrascrita con l'informazione della sua fattorizzazione $QR.$
+Per derivare il costo della fattorizzazione $QR$ è esaminato lo pseudo-codice Matlab che implementa l'algoritmo in questione, ovvero l'Algoritmo \ref{alg:fattorizzazione_QR}. È assunto che $A\in\mathbb R^{m\times n},$ con $m>n,$ la quale sarà sovrascrita con l'informazione della sua fattorizzazione $QR.$
 
 \begin{algorithm}
 \caption{Fattorizzazione $QR$ di Householder.}
-\label{alg:fattQR}
+\label{alg:fattorizzazione_QR}
     \begin{lstlisting}[style=Matlab-editor]
         function A = QRfact(A)
         [m,n] = size(A);
@@ -2710,13 +2710,13 @@ Per derivare il costo della fattorizzazione $QR$ è esaminato lo pseudo-codice M
     \end{lstlisting}
 \end{algorithm}
 
-Dato l'Algoritmo \ref{alg:fattQR} è possibile affermare che il \textbf{costo dell'algoritmo di fattorizzazione} $\boldsymbol{QR}$ è il seguente:
+Dato l'Algoritmo \ref{alg:fattorizzazione_QR} è possibile affermare che il \textbf{costo dell'algoritmo di fattorizzazione} $\boldsymbol{QR}$ è il seguente:
 \begin{equation*}
     \sum_{i=1}^n\underbrace{2\times 2(m-i)(n-i)}_{\footnotemark}\approx \frac{2}{3}n^2 (3m-n) \;flops.
 \end{equation*}
-\footnotetext{Data l'ultima riga dell'Algoritmo \ref{alg:fattQR} allora è possibile affermare che il primo 2 sia il costo dovuto alla sottrazione, $(m-i)$ è costo di A(i:m, i), quindi il $2(m-i)$ è dovuto al calcolo due volte e $2(m-i)(n-i)$ è il costo delle moltiplicazioni.}
+\footnotetext{Data l'ultima riga dell'Algoritmo \ref{alg:fattorizzazione_QR} allora è possibile affermare che il primo 2 sia il costo dovuto alla sottrazione, $(m-i)$ è costo di A(i:m, i), quindi il $2(m-i)$ è dovuto al calcolo due volte e $2(m-i)(n-i)$ è il costo delle moltiplicazioni.}
 
-A riguardo l'Algoritmo \ref{alg:fattQR} è possibile affermare quanto segue:
+A riguardo l'Algoritmo \ref{alg:fattorizzazione_QR} è possibile affermare quanto segue:
 \begin{itemize}
     \item è necessario decidere il segno di alfa in base alla prima componente del vettore, a partire dall'elemento diagonale fino alla fine. Se tale componente è maggiore uguale a 0 allora cambia segno;
     \item per l'ultima riga: è necessario calcolare il prodotto della matrice di Householder per la matrice A, dalla riga $i$ alla $m$ e dalla colonna $i$ alla $n$. $H$ è considerata nella versione $H=I-(\beta\,\widehat v)\,\widehat v^T$ per facilitare i calcoli. Questo perché assemblare una matrice di Householder ha costo cubico (in termini di flops), mentre svolgere i calcoli come nell'ultima riga utile a costo quadratico;
@@ -2743,7 +2743,7 @@ A riguardo l'Algoritmo \ref{alg:fattQR} è possibile affermare quanto segue:
 \footnotetext{Sostituzione di $\widehat v$ con $\frac{v}{v_1}$.}
 
 \begin{remark}\footnote{Slide 4 PDF 12, Osservazione 3.10 PG 73.}
-    L'Algorimo \ref{alg:fattQR} può essere utilizzato anche nel caso di matrici quadrate: $m=n.$ Infatti, in questo caso, dato che $m=n$ e $ R=\widehat R$, il costo è di $\frac{4}{3}n^3 \, flops$ (+ spiccioli). Nel caso quadrato è preferibile utilizzare l'algoritmo di fattorizzazione $LU$ con pivoting parziale, il quale ha un costo di $\frac{2}{3}n^3\, flops$ (vedere (\ref{eq:costoFattLUPiv})).
+    L'Algorimo \ref{alg:fattorizzazione_QR} può essere utilizzato anche nel caso di matrici quadrate: $m=n.$ Infatti, in questo caso, dato che $m=n$ e $ R=\widehat R$, il costo è di $\frac{4}{3}n^3 \, flops$ (+ spiccioli). Nel caso quadrato è preferibile utilizzare l'algoritmo di fattorizzazione $LU$ con pivoting parziale, il quale ha un costo di $\frac{2}{3}n^3\, flops$ (vedere (\ref{eq:costoFattLUPiv})).
 \end{remark}
 
 \subsection{Risoluzione di sistemi nonlineari}\label{ssec:risoluzione_sistemi_nonlineari}\footnote{Slide 4-8 PDF 12, PG 74-76.}
@@ -2824,15 +2824,75 @@ dove $F'(\uline x_n)$ è una matrice conosciuta ed $\Delta\uline x_n$ è un vett
     \item \textbf{1 fattorizzazione di} $\boldsymbol{F'(\uline x)}$;
     \item 2 risoluzionei con i fattori + 1 aggiornamento.
 \end{enumerate}
-I punti 2. e 3. sono i più onerosi dell'algoritmo. Per semplificare il costo è possibile fare ricorso al metodo delle corde (o Newton semplificato, vedere Sezione \ref{sssec:metodo_corde}), la cui iterazione è:
+I punti 2. e 3. sono i più onerosi dell'algoritmo e pertanto sono sostenuti una sola volta, prima di iniziare l'iterazione. Per questo motivo, questa iterazione è molto utilizzata nelle applicazioni. Per semplificare questo costo è possibile fare ricorso al metodo delle corde (o Newton semplificato, vedere Sezione \ref{sssec:metodo_corde}), la cui iterazione è:
 \begin{equation*}
     \begin{cases}
-        \underset{\footnotemark}{\boldsymbol{F'(\uline x_0)}}\Delta\uline x_n = - F(\uline x_n)\\
-        \uline x_{n+1} = \uline x_n + \Delta\uline x_n, & n=0,1,2,\hdots
+        \boldsymbol{F'(\uline x_0)}\Delta\uline x_n = - F(\uline x_n)\\
+        \uline x_{n+1} = \uline x_n + \Delta\uline x_n, & n=0,1,2,\hdots,
     \end{cases}
 \end{equation*}
-In questo caso, i costi dei punti 2. e 3. precedentemente esposti, sono sostenuti una sola volta, prima di iniziare l'iterazione. Per questo motivo, questa iterazione è molto utilizzata nelle applicazioni.
-\footnotetext{Calcolata solo una volta, ovvero nell'approssimazione iniziale $x_0$.}
+dove $\boldsymbol{F'(\uline x_0)}$ è calcolata solo una volta, ovvero nell'approssimazione iniziale $x_0$.
+
+\paragraph{Implementazione:} Vedere Algoritmo \ref{alg:soluzione_sistema_nonlineare_newton}.
+
+\begin{algorithm}
+	\caption{Risoluzione di un sistema nonlineare tramite Newton.}
+	\label{alg:soluzione_sistema_nonlineare_newton}
+	\begin{lstlisting}[style=Matlab-editor]
+		function [nit, xstar] = newton_nonlineare(f,jacobian,x0,tol,itmax)
+		%
+		% [x,nit] = newton_nonlineare(fun,jacobian,x0,tol,maxit) 
+		% Risolve i sistemi di equazioni non lineari tramite il metodo di Newton
+		%
+		% Input:
+		%   - f: matrice di funzioni
+		%   - jacobian: matrice jacobiana
+		%   - x0: punto iniziale
+		%   - tol: tolleranza dell'errore (default eps*10)
+		%   - itmax: numero massimo d'iterazioni (deafult 1000)
+		% Output:
+		%   - x: soluzione del sistema
+		%   - nit: numero d'iterazioni impiegate
+		% 
+		
+		if nargin < 3, error('numero argomenti insufficiente'), end
+		
+		if nargin < 5
+			if nargin < 4
+				tol = eps*10;
+			end
+			itmax=1000;
+		end
+		
+		if tol <= 0, error('tolleranza negativa'), end
+		if itmax <= 0, error('iterazione massime negative'), end
+		
+		[m,n] = size(jacobian);
+		
+		if m ~= n, error('jacobiana non quadrata'),end
+		
+		for nit = 1 : itmax
+		fx = -feval(f,x0);
+		
+		j0 = feval(jacobian,x0);
+		
+		xn = risoluzione_sistema(j0, fx); % esempio: fattorizzazione LU per poi risolvere il sistema
+		
+		err = norm((xn./(1+abs(x0))), Inf);
+		
+		xstar = x0+xn;
+		
+		if err<tol, break, end
+		
+		x0 = xstar;
+		end
+		
+		if err>tol, error("metodo non convergente"); end
+		
+		return
+		end
+	\end{lstlisting}
+\end{algorithm}
 
 \subsection{Intermezzi (Appendice A.1)}
 \begin{remark}\label{rem:diagonali}\footnote{Slide 6 PDF 1.}

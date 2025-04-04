@@ -1,11 +1,9 @@
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104. L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati.}
-In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le ascisse (tra loro \underline{distinte}):
+In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
 \begin{equation}\label{eq:ascisse_interpolazione}
 	a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
 \end{equation}
-
-Con (\ref{eq:ascisse_interpolazione}) sono rappresentate $n+1$ ascisse distinte.
 
 \subsection{Polinomio Interpolante}
 In seguito sarà considerata la notazione
@@ -31,10 +29,19 @@ Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriv
 \begin{equation}\label{eq:polinomio_generico}
     p(x)=\sum_{k=0}^{n}a_kx^k.
 \end{equation}
-I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipendenti e questi costituiscono la base canonica di $\Pi_n$. Pertanto, $\dim(\Pi_n)=n+1$. Questo significa che, per individuare univocamente un polinomio di $\Pi_n$,  saranno necessarie $n+1$ condizioni linearmente indipendenti.}
+
+\paragraph{N.B.:} I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipendenti e questi costituiscono la base canonica di $\Pi_n$. Pertanto, $\dim(\Pi_n)=n+1$. Questo significa che, per individuare univocamente un polinomio di $\Pi_n$,  saranno necessarie $n+1$ condizioni linearmente indipendenti.}
 
  \begin{definition}[Matrice di Vandermonde]
-	Una matrice di Vandermonde ha la caratteristica di essere definita con attraverso una progressione geormetrica, ovvero gli elementi di $V$ sono del tipo $v_{i,j}=v_i^{j-1}$.
+	Una matrice di Vandermonde ha la caratteristica di essere definita con attraverso una progressione geormetrica, ovvero gli elementi di $V$ sono del tipo $v_{i,j}=v_i^{j-1}$ ed è della forma
+	 \begin{equation*}
+	 	V=\begin{bmatrix}
+	 		v_0^0 & v_0^1 & \hdots & v_0^n\\
+	 		v_1^0 & v_1^1 & \hdots & v_1^n\\
+	 		\vdots & \vdots &\ddots & \vdots\\
+	 		v_n^0 & v_n^1 & \hdots & v_n^n
+	 	\end{bmatrix}\in\mathbb R^{(n+1)\times (n+1)}
+	 \end{equation*}
 \end{definition}
 
 \begin{property}\label{prop:determinante_matrice_vandermonde}
@@ -42,15 +49,29 @@ I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipen
 	\begin{equation}\label{eq:determinante_matrice_vandermonde}
 		\det(V)\overset{\footnotemark}{=}\prod_{\underbrace{i>j}_{i\neq j}}(v_i-v_j).
 	\end{equation}
+	Se la matrice di Vandermonde è calcolata sulle ascisse di interpolazione $x_0, \hdots, x_n$, le quali soddisfano la condizione (\ref{eq:ascisse_interpolazione}), allora $\det(V)$ sarà nullo dato che le ascisse sono distinte.
 \end{property}
 \footnotetext{Produttoria di tutte le coppie di elementi ascisse $x$ con indice $i>j$.}
 
+\begin{example}
+	La matrice di Vandermonde del vettore $v=(1, 2, 3, 4, 5)$ è la seguente:
+	\begin{equation*}
+		\begin{bmatrix}
+			1 &	16	& 81	& 256	& 625\\
+			1 &	8 &	27	& 64	& 125\\
+			1 &	4 &	9 &	16 &	25\\
+			1 &	2 &	3 &	4 &	5\\
+			1 &	1 &	1 &	1 &	1 \\
+		\end{bmatrix}
+	\end{equation*}
+\end{example}
+
 L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Teorema.
 \begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:esistenza_unicita_polinomio_interpolante}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
-    Date le ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
+    Date $n+1$ ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio $p$ interpolante $f$ che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
 \end{theorem}
 \begin{proof}
-    Considerato il polinomio incognito in forma (\ref{eq:polinomio_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})}:
+    Considerato il polinomio incognito (\ref{eq:polinomio_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})}, allora
     \begin{equation}\label{eq:InterpEqLin}
         p(x_i)\equiv\sum_{k=0}^{n}a_kx_i^k=f_i,\quad i=0,\hdots,n.
     \end{equation}
@@ -84,17 +105,11 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
     
     Inoltre, $V$ ha la seguente proprietà (Proprietà \ref{prop:determinante_matrice_vandermonde})
     \begin{equation*}
-    	\det(V) \overset{\footnotemark}{=} \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\footnotemark.
+    	\det(V)= \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\neq 0.
     \end{equation*}
     
     In virtù dell'ipotesi (\ref{eq:ascisse_interpolazione}), segue che le ascisse sono distinte e che $\det(V)\overset{\footnotemark}{\neq} 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
 \end{proof}
-
-\addtocounter{footnote}{-1}
-\footnotetext{. Le ascisse $x_0, \hdots, x_n$ soddisfano (\ref{eq:ascisse_interpolazione}).}
-
-\stepcounter{footnote}
-\footnotetext{Non nullo dato che le ascisse si interpolazione $x_0, \hdots, x_n$ sono distinte.}
 
 Il problema discreto (\ref{eq:sistema_lineare_vandermonde}), per la determinazione di (\ref{eq:InterpEqLin}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
 
