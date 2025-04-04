@@ -139,8 +139,8 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
 
 Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
 
-\begin{theorem}[Forma di Lagrange]
-    Il polinomio interpolante $p(x)\in \Pi_n$, che soddisfa le condizioni (\ref{eq:condizioni_interpolazione}), è dato da 
+\begin{theorem}[Polinomio interpolante in forma di Lagrange]
+    Il polinomio $p(x)\in \Pi_n$ interpolante $f(x)$, il quale soddisfa le condizioni (\ref{eq:condizioni_interpolazione}), è dato da 
     \begin{equation}\label{eq:polinomio_interpolante_forma_lagrange}
         \boldsymbol{p(x)=\sum_{k=0}^{n}} \underset{\footnotemark}{\boldsymbol{f_k}}\, \boldsymbol{L_{kn}(x)}.
     \end{equation}\footnotetext{Coefficienti di rappresentazione del polinomio interpolante rispetto alla base interpolante.}
@@ -160,11 +160,7 @@ Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
    \end{equation*}
 \end{proof}
 
-\begin{definition}
-    \textbf{(\ref{eq:polinomio_interpolante_forma_lagrange})} costituisce la \textbf{forma di Lagrange} del polinomio interpolante.
-\end{definition}
-
-La precedente Definizione significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è espresso rispetto alla base di Lagrange, anche se il polinomio interpolante non varia.
+Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è espresso rispetto alla base di Lagrange, anche se il polinomio interpolante non varia.
 
 \begin{algorithm}
 \caption{Impementazione del polinomio interpolante nella forma di Lagrange.}\label{alg:calcolo_polinomio_interpolante_forma_lagrange}
@@ -303,7 +299,7 @@ Tramite
 \end{equation}
 è possibile definire la famiglia dei polinomi $\{p_r\}_{r=0,\hdots,n}$ (dove $n$ è il grado da raggiungere), in modo incrementale, con la seguente modalità.
 
-\begin{theorem}[Forma di Newton]\label{th:formaNewt}\footnote{Slide 5 PDF 16, TH 4.3 PG 80.}
+\begin{theorem}[Polinomio interpolante in forma di Newton]\label{th:formaNewt}\footnote{Slide 5 PDF 16, TH 4.3 PG 80.}
     La famiglia di polinomi interpolanti definita in (\ref{eq:polNotaz}) è ottenuta ricorsivamente come: 
     \begin{equation}\label{eq:famiglia_polinomi_interpolanti}
     \begin{cases}
@@ -677,16 +673,15 @@ Pertanto, sotto la precedente ipotesi di ascisse distinte, $\boldsymbol{\exists!
     \end{rcases} i=0,\hdots,n.
 \end{equation}
 
-Se $\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i$, le ascisse che sono tra due interi, quelle con indice frazionario (ovvero $i+\frac{1}{2}$), sono fatte tendere all'ascissa a sinistra, quindi la condizione di interpolazione è duplicata. Per evitare la duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:hermCondPolInterp}), in modo equivalente, come:
+Se $\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i$, le ascisse che sono tra due interi, quelle con indice frazionario (ovvero $i+\frac{1}{2}$), sono fatte tendere all'ascissa a sinistra, quindi la condizione di interpolazione è duplicata. Per evitare la duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:hermCondPolInterp}), in modo equivalente, come
 \begin{equation}\label{eq:hermCondPolInterpMod}
     \begin{rcases}
         \boldsymbol{p(x_i)=f(x_i})\\
         \boxed{\frac{p\left(x_{i+\frac{1}{2}}\right)-p(x_i)}{x_{i+\frac{1}{2}}-x_i}=\frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}}
      \end{rcases} i=0,\hdots,n,
 \end{equation}
-per
+dove, per $x_{i+\frac{1}{2}}\rightarrow x_i$
 \begin{equation*}
-    x_{i+\frac{1}{2}}\rightarrow x_i:
     \begin{cases}
         \frac{p\left(x_{i+\frac{1}{2}}\right)-p(x_i)}{x_{i+\frac{1}{2}}-x_i}\rightarrow p'(x_i)\\
         & i=0,\hdots, n.\\
@@ -845,7 +840,7 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
 
 Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È necessario stabilire quanto $e(x)$ sia "distante" da 0, per $x\notin \{x_0,\hdots, x_n\}.$
 
-\begin{theorem}\label{th:errore_interpolazione_forma_newton}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
+\begin{theorem}[Errore di interpolazione polinomiale]\label{th:errore_interpolazione_forma_newton}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
 	Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})), vale:
     \begin{equation}\label{eq:errore_interpolazione_forma_newton}
         \boldsymbol{e(x)=f[x_0,x_1,\hdots,x_n,x]\,\omega_{n+1}(x),\quad w_{n+1}(x)=\prod_{j=0}^{n}(x-x_j)}.
@@ -878,7 +873,7 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
     \begin{equation*}
         \boldsymbol{e(\widehat x)\equiv} \underbrace{f(\widehat x) - p(\widehat x)}_{\text{errore di $\widehat x$}}=f[x_0,\hdots,x_n,\widehat x]\,\omega_{n+1}(\widehat x).
     \end{equation*}
-    L'aaserto discende dal fatto che $\widehat x$ è un punto generico. [\footnotemark]
+    L'asserto discende dal fatto che $\widehat x$ è un punto generico. [\footnotemark]
 \end{proof}
 
 \addtocounter{footnote}{-1}
@@ -886,8 +881,6 @@ Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È ne
 
 \stepcounter{footnote}
 \footnotetext{Se al posto di $\widehat x$ è sostituito $x$ allora $\widehat p(x)$ continua a variare.}
-
-\paragraph{N.B.:} Il Teorema \ref{th:errore_interpolazione_forma_newton} definisce la forma dell'errore di interpolazione polinomiale (e di conseguenza è necessario impararlo).
 
 Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente corollario.
 

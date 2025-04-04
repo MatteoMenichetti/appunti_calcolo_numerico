@@ -2747,7 +2747,7 @@ A riguardo l'Algoritmo \ref{alg:fattQR} è possibile affermare quanto segue:
 \end{remark}
 
 \subsection{Risoluzione di sistemi nonlineari}\label{ssec:risoluzione_sistemi_nonlineari}\footnote{Slide 4-8 PDF 12, PG 74-76.}
-Con sistemi nonlineari si intende equazioni del tipo $F(\uline x) = \uline 0$ e per determinare la radice di un'equazione scalare, del tipo $f(x)=0$, il metodo di Newton è uno dei metodi più efficaci. Questo metodo è formalmente definito dall'espressione funzionale (\ref{eq:approssimazione_newton}), a partire da un'approsimazione $x_0$ e può essere esteso agevolmente anche al caso di \textbf{sistemi di equazioni nonlineari.} In questo caso, se 
+Con sistemi nonlineari si intende equazioni del tipo $F(\uline x) = \uline 0$ dove $F(\uline x)$ è un vettore di equazioni nonlineari. Per determinare la radice di un'equazione scalare, del tipo $f(x)=0$, il metodo di Newton è uno dei metodi più efficaci. Questo metodo è formalmente definito dall'espressione funzionale (\ref{eq:approssimazione_newton}), a partire da un'approsimazione $x_0$ e può essere esteso agevolmente anche al caso di \textbf{sistemi di equazioni nonlineari.} In questo caso, definite
 \begin{equation}
     \uline x =
     \begin{pmatrix}
@@ -2762,7 +2762,7 @@ Con sistemi nonlineari si intende equazioni del tipo $F(\uline x) = \uline 0$ e 
     \end{bmatrix},
 \end{equation}
 con $f_i:\mathbb R^n\rightarrow R$, la $i$-esima funzione componente, il metodo di Newton diviene 
-\begin{equation}\label{eq:newtSistNonLinEq}
+\begin{equation}\label{eq:metodo_newton_sistema_nonlineare}
     \boldsymbol{\uline x_{n+1} = \uline x_n -} \underbrace{\boldsymbol{(F'(\uline x_n))^{-1}}}_{\footnotemark}\boldsymbol{F(\uline x_n),\quad n=0,1,2,\hdots},
 \end{equation}
 \footnotetext{Calcolare l'inversa di una matrice è molto costoso al livello computazionale.}
@@ -2795,32 +2795,29 @@ dove $F'(\uline x_n)$ è la matrice Jacobiana di $F(\uline x)$ valutata in $\uli
     \end{bmatrix}.$
 \end{example}
 
-Tuttavia, l'equazione (\ref{eq:newtSistNonLinEq}) è equivalente, moltiplicando membro a membro per $F'(\uline x_n)$, a:
+\paragraph{N.B.:} Tuttavia, l'equazione (\ref{eq:metodo_newton_sistema_nonlineare}) è equivalente, moltiplicando membro a membro per $F'(\uline x_n)$, a
 \begin{equation*}
     F'(\uline x_n)\uline x_{n+1} = F'(\uline x_n)\uline x_n - F(\uline x_n),
 \end{equation*}
 ovvero, ponendo $\Delta\uline x_n = \uline x_{n+1} - \uline x_n,$
-\begin{equation}\label{eq:sistEqNonLin}
+\begin{equation}\label{eq:sistema_equazioni_nonlineari}
     \begin{cases}
         F'(\uline x_n) \Delta\uline x_n = - F(\uline x),\\
         \uline x_{n+1} = \uline x_n + \Delta\uline x_n, & n=0,1,\hdots
     \end{cases}
 \end{equation}
-dove $F'(\uline x_n)$ è una matrice conosciuta ed $\Delta\uline x_n$ è un vettore sconosciuto. Pertanto, (\ref{eq:sistEqNonLin}) significa (risolvere un sistema lineare) che:
-
-\textbf{Per} $\overset{\footnotemark}{{\boldsymbol{n=0,1,2,\hdots}}}$ è risolto, tramite il metodo di Newton, il sistema lineare $F'(\uline x_n) \Delta\uline x_n = - F(\uline x_n),$ aggiornando $\uline x_{n+1} = \uline x_n + \Delta\uline x_n$.
-\footnotetext{Rappresenta un ciclo e quindi è necessario un criterio d'arresto.}
+dove $F'(\uline x_n)$ è una matrice conosciuta ed $\Delta\uline x_n$ è un vettore sconosciuto. Pertanto, risolvere (\ref{eq:sistema_equazioni_nonlineari}) significa risolvere \textbf{per} $\boldsymbol{n=0,1,2,\hdots}$ il sistema lineare $F'(\uline x_n) \Delta\uline x_n = - F(\uline x_n)$, tramite il metodo di Newton, aggiornando $\uline x_{n+1} = \uline x_n + \Delta\uline x_n$.
 
 È necessario definire un criterio d'arresto. Innanzitutto, è trasformato un ciclo condizionale ($n=0,1,2,\hdots$) in uno con iterazioni massime prefissate. Se un criterio è soddisfatto, il ciclo è terminato anzitempo. 
 
 \paragraph{Esempio criterio d'arresto:}{il numero massimo di iterazioni può essere legato alla dimensione $\boldsymbol n$ del problema e all'accuratezza \textit{tol} richiesta.} Il problema della scelta dell'accuratezza è concreto e dipende dal problema affrontato: misurare la traiettoria di un asteroide richiede una tolleranza diversa rispetto a quella di un intervento chirurgico. 
 
-\paragraph{Criterio d'arresto:} può essere generalizzato dal caso scalare, ovvero (\ref{eq:critArrNewt}), con:
+\paragraph{Criterio d'arresto:} Il criterio di arresto di Newton (\ref{eq:criterio_arresto_newton}) può essere generalizzato dal caso scalare con:
 \begin{equation}
     ||\Delta x.\slash(1+|x|)||_\infty\leq tol.
 \end{equation}
 
-\paragraph{Costo computazionale:} Il costo per iterazione di (\ref{eq:sistEqNonLin}) ammonta a:
+\paragraph{Costo computazionale:} Il costo per iterazione di (\ref{eq:sistema_equazioni_nonlineari}) ammonta a:
 \begin{enumerate}
     \item \textbf{1 valutaziobe funzionale di} $\boldsymbol{F(\uline x)}$;
     \item \textbf{1 valutazione funzionale di $\boldsymbol{F'(\uline x)}$ (!!!)};
