@@ -1,0 +1,30 @@
+{
+    "InternalPDFViewer": {
+        "Embedded": false,
+        "File": ""
+    },
+    "Session": {
+        "Bookmarks": [
+            {
+                "bookmarkNumber": 1,
+                "fileName": "../../../Desktop/Progetti/latex/CN/esercitazioni/esercitazione12.tex",
+                "lineNumber": 162,
+                "text": "esercitazione12.tex\n\\paragraph{3.}"
+            }
+        ],
+        "CurrentFile": "CN.tex",
+        "FileVersion": 1,
+        "Files": [
+            {
+                "Col": 44,
+                "EditorGroup": 0,
+                "FileName": "CN.tex",
+                "FirstLine": 0,
+                "FoldedLines": "",
+                "Line": 39
+            }
+        ],
+        "MasterFile": "",
+        "VerticalSplit": true
+    }
+}

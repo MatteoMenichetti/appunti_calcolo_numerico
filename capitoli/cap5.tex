@@ -310,7 +310,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
     La formula dei trapezi composita può essere implementata come nell'Algoritmo \ref{alg:trapec}.
 \end{remark}
 
-\paragraph{Implementazione:} Vedere l'Algoritmo \ref{alg:trapec} e Algoritmo \ref{alg:trapec_vettoriale}.
+\paragraph{Implementazione:} Vedere l'Algoritmo \ref{alg:trapec}.
 
 \begin{algorithm}
 	\caption{Implementazione formula dei trapezi composta.}\label{alg:trapec}
@@ -328,17 +328,18 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 		%  Output:
 		%   If - stima ottenuta.
 		%
-		if nargin < 3
-		error('numero argomenti insufficiente')
-		elseif nargin == 3
-		n = 1;
-		elseif n <= 0 || n~= fix(n)
-		error('numero di sottointervalli non valido')
+		if nargin < 3, error('numero argomenti insufficiente')
+		elseif nargin == 3, n = 1;
+		elseif n <= 0 || n~= fix(n), error('numero di sottointervalli non valido')
 		end
 		x = linspace(a, b, n+1);
+		
 		h = (b-a)/n;
-		f = feval(fun, x); %alternativa: f = feval(fun, (0:n)*h);
+		
+		f = feval(fun, x); %alternativa (eliminando precedente calcolo di x): f = feval(fun, (0:n)*h);
+		
 		If = h * (sum(f) - (f(1) + f(n+1))/2);
+		
 		return
 		end
 	\end{lstlisting}
@@ -432,7 +433,7 @@ In altri termini, è possibile ottenere una stima dell'errore di quadratura $E_k
     \boldsymbol{E_k^{(n)}(f)\approx\frac{I_k^{(n)}(f)-I_k^{(\frac{n}{2})}(f)}{2^{n+\mu}-1}\equiv\widehat E_k^{(n)}(f)}.
 \end{equation*}
 
-Applicando quanto scritto all'esempio (\ref{eq:approxIntSinx}) sono derivate le Figure \ref{fig:approxInt}-\ref{fig:tabErrQuad}.
+Applicando quanto scritto all'esempio (\ref{eq:approxIntSinx}) sono derivate le Figure \ref{fig:approxInt}-\ref{fig:tabella_errore_quadratura}.
 
 \begin{figure}
     \centering
@@ -443,15 +444,15 @@ Applicando quanto scritto all'esempio (\ref{eq:approxIntSinx}) sono derivate le 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/tabErrQuad.png}
-    \caption{Confronto fra errore di quadratura approssimazione con formula di quadratura dei trapezi e di Simpson.}\label{fig:tabErrQuad}
+    \caption{Confronto fra errore di quadratura approssimazione con formula di quadratura dei trapezi e di Simpson.}\label{fig:tabella_errore_quadratura}
 \end{figure}
 
-In Figura \ref{fig:approxInt} il numero di condizionamento è 99.5, ovvero l'ampiezza dell'intervallo. Il problema è che nell'estremo inferiore, se $x\rightarrow 0$, allora $x^{-2}$ e $x^{-3}$ diventano molto grandi e $\cos{(x^{-2})}$, per $x\rightarrow 0$, oscilla molto. La parte sinistra del grafico è la parte in cui il grafico inizia ad oscillare molto. La questione importante è che la funzione è liscia poco dopo $10^0$ e oscilla poco prima di $10^0$. Se fosse utilizzata una mesh costante accadrebbe che, per ottenere la tolleranza desiderata, diventerebbero necessari punti molto vicini prima di $10^0$, i quali dovrebbero essere riportati anche nella parte liscia. Il problema posto è quello di definire un approccio adattivo per la definizione delle ascisse di interpolazione in modo adattivo, infatti sui punti laddove la funzione è più variabile saranno inseriti più punti ed invece meno dove la funzione è liscia. Per quanto appena scritto, sono introdotte le funzioni di Newton-Cotes adattive della Sezione \ref{ssec:formN-CAdatt}.
-In Figura \ref{fig:tabErrQuad} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}).
+In Figura \ref{fig:approxInt} il numero di condizionamento è 99.5, ovvero l'ampiezza dell'intervallo. Il problema è che nell'estremo inferiore, se $x\rightarrow 0$, allora $x^{-2}$ e $x^{-3}$ diventano molto grandi e $\cos{(x^{-2})}$, per $x\rightarrow 0$, oscilla molto. La parte sinistra del grafico è la parte in cui il grafico inizia ad oscillare molto. La questione importante è che la funzione è liscia poco dopo $10^0$ e oscilla poco prima di $10^0$. Se fosse utilizzata una mesh costante accadrebbe che, per ottenere la tolleranza desiderata, diventerebbero necessari punti molto vicini prima di $10^0$, i quali dovrebbero essere riportati anche nella parte liscia. Il problema posto è quello di definire un approccio adattivo per la definizione delle ascisse di interpolazione in modo adattivo, infatti sui punti laddove la funzione è più variabile saranno inseriti più punti ed invece meno dove la funzione è liscia. Per quanto appena scritto, sono introdotte le funzioni di Newton-Cotes adattive della Sezione \ref{ssec:formule_newton-cotes_adattive}.
+In Figura \ref{fig:tabella_errore_quadratura} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}).
 
-\subsection{Formule di Newton-Cotes adattive}\label{ssec:formN-CAdatt}
+\subsection{Formule di Newton-Cotes adattive}\label{ssec:formule_newton-cotes_adattive}
 \footnote{Slide 7-12 PDF 27, PG 111-114.}
-Il problema è trovare un metodo per definire le ascisse in base al comportamento della funzione. Dal punto di vista algoritmico è interessante ciò che sarà visto nell'implementazione dei casi più semplici, ovvero dei trapezi e di Simpson, con Matlab, tramite function ricorsive. In ogni caso è sfruttato il fatto he esiste un'espressione asintotica dell'errore quadratico.
+Il problema è trovare un metodo per definire le ascisse in base al comportamento della funzione. Dal punto di vista algoritmico è interessante ciò che sarà visto nell'implementazione dei casi più semplici, ovvero dei trapezi e di Simpson, con Matlab, tramite function ricorsive. In ogni caso è sfruttato il fatto che esiste un'espressione asintotica dell'errore quadratico.
 
 \subsubsection{Formula dei trapezi}
 In questo caso, con $n=1$, è ottenuto (da (\ref{eq:errore_quadratura}))

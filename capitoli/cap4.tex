@@ -23,7 +23,7 @@ per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_in
 
 \paragraph{Divagazione su $\Pi_n$:}{
 $\boldsymbol{\Pi_n}$ \textbf{è lo spazio vettoriale dei polinomi di grado al più} $\boldsymbol n$. Uno spazio vettoriale è un insieme per il quale una combinazione lineare dei suoi elementi produce un elemento dello spazio stesso.
-Infatti, $\forall q_1, q_2\in\Pi_n$ e $\forall \alpha,\beta\in\mathbb R$, è ottenuto che $\alpha \cdot q_1(x)+\beta\cdot q_2(x)\in\Pi_n$. $\alpha \cdot q_1(x)$ e $\beta\cdot q_2(x)$ sono moltiplicazioni che non aumentano il grado della somma, al massimo lo diminuiscono.
+Infatti, $\forall q_1, q_2\in\Pi_n$, è ottenuto che $\alpha \cdot q_1(x)+\beta\cdot q_2(x)\in\Pi_n,\, \forall \alpha,\beta\in\mathbb R$. $\alpha \cdot q_1(x)$ e $\beta\cdot q_2(x)$ sono moltiplicazioni che non aumentano il grado della somma, al massimo lo diminuiscono.
 
 Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriverlo come
 \begin{equation}\label{eq:polinomio_generico}
@@ -57,11 +57,11 @@ Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriv
 	La matrice di Vandermonde del vettore $v=(1, 2, 3, 4, 5)$ è la seguente:
 	\begin{equation*}
 		\begin{bmatrix}
-			1 &	16	& 81	& 256	& 625\\
-			1 &	8 &	27	& 64	& 125\\
-			1 &	4 &	9 &	16 &	25\\
-			1 &	2 &	3 &	4 &	5\\
-			1 &	1 &	1 &	1 &	1 \\
+			1    &  1 & 1  &   1  &   1 \\
+			1    & 2   &  4  &   8   & 16 \\
+			1     & 3   &  9 &   27 &   81\\
+			1    & 4   & 16  &  64  &  256 \\
+			1     & 5 &   25 &  125 &  625
 		\end{bmatrix}
 	\end{equation*}
 \end{example}
@@ -122,6 +122,9 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
 È necessario cercare un modo alternativo per il calcolo del polinomio interpolante $p(x)$, ovvero utilizzare una base diversa da quella delle potenze per il polinomio interpolante. Per questo sono definiti i polinomi della seguente Sezione, atti a calcolare il polinomio interpolante con una base diversa.
 
 \subsection{Forma di Lagrange e di Newton}
+
+\subsubsection{Forma di Lagrange}
+
 \begin{definition}[Polinomi di base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
     La \textbf{base di Lagrange} è definita dai seguenti \textbf{polinomi di base di Lagrange}:
     \begin{equation}\label{eq:polLagrange}
@@ -142,7 +145,7 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
 			\underset{\footnotemark}{0} & \text{se $\;k\neq i$.}
 		\end{cases}$
 		\footnotetext{$x=x_j$ in almeno una moltiplicazione, quindi è 0.}
-		\item[P4)] I polinomi $\{L_{0n}(x), \hdots, L_{nn}(x)\}$ sono tra loro \uline{linearmente indipendenti}\footnotemark.
+		\item[P4)] I polinomi $\{L_{0n}(x), \hdots, L_{nn}(x)\}$ sono tra loro \uline{linearmente indipendenti} \footnotemark.
 		Infatti, se
 		\begin{equation*}
 			\sum_{i=0}^n \alpha_i\, L_{in}(x)=0, \, \forall x \Longrightarrow \alpha_i=0,\quad i=0,\hdots,n.
@@ -192,12 +195,13 @@ Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è es
     %   Output:
     %   y   - vettore sui dati interpolati
     %
+    
     if length(xi) ~= length(unique(xi)), error('ascisse non distinte'), end
-    if length(xi) - length(fi) ~= 0
-        error('xi e fi hanno lunghezze diverse')
-    end
+    if length(xi) - length(fi) ~= 0, error('xi e fi hanno lunghezze diverse'), end
+    
     n = length(xi); %grado del polinomio n-1 (in Matlab i contatori sono da 1 ad n-1);
     if n < 1, error('numero di xi e fi insufficienti'), end 
+    
     y = zeros(size(x)); %y e' una matrice quadrata con dimensione indipendente da n;
     for i = 1 : n
         y = y + fi(i) * Lin(i, xi, x);
@@ -234,7 +238,7 @@ Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è es
     \end{lstlisting}
 \end{algorithm}
 
-\paragraph{N.B.:} Dati gli algoritmi \ref{alg:calcolo_base_polinomio_interpolante_forma_lagrange}-\ref{alg:calcolo_polinomio_interpolante_forma_lagrange}, è importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
+\paragraph{N.B.:} Dati gli Algoritmi \ref{alg:calcolo_polinomio_interpolante_forma_lagrange}-\ref{alg:calcolo_base_polinomio_interpolante_forma_lagrange}, è importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
 
 \begin{remark}
 	Date le $n+1$ coppie $(x_i,f_i),\; i=0,\hdots,n$, con $x_i\neq x_j$, se $i\neq j$ e $f_i\overset{\footnotemark}{\equiv} f(x_i)$,
@@ -248,9 +252,9 @@ Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è es
 	dove $x_i$ rappresenta la base delle potenze ed $L_{in}(x)$ la base di Lagrange.
 \end{remark}
 
-\footnotetext{Condizione ideale perché non è sempre vero che $f$ possa essere calcolata (nel nostro lo è possibile).}
+\footnotetext{Condizione ideale perché non è sempre vero che $f$ possa essere calcolata (nel nostro è possibile).}
 
-La semplicità formale della forma di Newton rappresentata in \ref{eq:polinomio_interpolante_forma_lagrange} non si concilia con requisiti computazionali per il calcolo, in modo incrementale, del polinomio. Più precisamente, il problema è capire come modificare la rappresentazione del polinomio $p\in\Pi_n$ rispetto alla base utilizzata, se aggiunta un'ulteriore ascissa di interpolazione $x_{n+1}\notin\{x_0,\hdots,x_n\}$, in modo da calcolare $f_{n+1}$ tramite $\widehat{p}_{n+1}\in\Pi_{n+1}$ a partire da $p$ sulle ascisse $x_0,\hdots,x_n, x_{n+1}$. Data
+La semplicità formale della forma di Lagrange rappresentata in (\ref{eq:polinomio_interpolante_forma_lagrange}) non si concilia con requisiti computazionali per il calcolo, in modo incrementale, del polinomio. Più precisamente, il problema è capire come modificare la rappresentazione del polinomio $p\in\Pi_n$ rispetto alla base utilizzata, se aggiunta un'ulteriore ascissa di interpolazione $x_{n+1}\notin\{x_0,\hdots,x_n\}$, in modo da calcolare $f_{n+1}$ tramite $\widehat{p}_{n+1}\in\Pi_{n+1}$ a partire da $p$ sulle ascisse $x_0,\hdots,x_n, x_{n+1}$. Data
 \begin{equation*}
 	\widehat{p}(x)\in\Pi_{n+1}:\widehat{p}(x_i)=f_i,\quad i=0,\hdots,n+1,
 \end{equation*}
@@ -265,6 +269,8 @@ con rispettivamente $\boldsymbol{\widehat{a}_i}$ ed $\boldsymbol{L_{in+1}(x)}$, 
 Le funzioni di base sono le stesse, ma i coefficienti sono diversi, sono soluzione di due sistemi lineari di dimensione diversa, con matrici di coefficienti diverse (le quali non si prestano bene alla costruzione incrementale del polinomio). 
 
 La definizione in modo incrementale di $\widehat{p}$, in modo tale che $\widehat p(x)$ sia ottenuta da $p(x)$, è possibile ridefinendo la base di  rappresentazione aggiungendo una funzione di base ed il relativo coefficiente, mentre tutti gli altri rimangono gli stessi di $p(x)$. Questo è possibile utilizzando, come base di rappresentazione, i \textbf{polinomi di base di Newton}.
+
+\subsubsection{Forma di Newton}
 
 \begin{definition}[Polinomi di base di Newton]
 	\begin{equation}\label{eq:polinomio_base_newton}
@@ -294,7 +300,7 @@ Se gli altri coefficienti delle funzioni di base rimangono gli stessi di $p(x)$ 
 \end{remark}
 
 Utilizzando il principio di induzione è possibile verificare le seguenti \textbf{proprietà di} $\omega_r$.
-\begin{property}
+\begin{property}[Base di Newton]
 	\begin{enumerate}
 	    \item $w_r(x)$ è un polinomio monico di grado $r,\; \forall r\geq 0$ (ovvero $\omega_r\in\Pi_r$);
 	    \item $\forall r\geq 0 \, :\, \{\underbrace{\omega_0(x), \hdots, \omega_r(x)}_{r+1}\}$ sono linaremente indipendenti \footnote{Conseguenza del punto precendete dato che i gradi sono distinti.};
@@ -308,14 +314,15 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 	\end{enumerate}
 \end{property}
 
-Tramite 
-\begin{equation}\label{eq:polNotaz}
+Tramite le condizioni di interpolazione (derivate dalle condizioni di interpolazione (\ref{eq:condizioni_interpolazione}))
+
+\begin{equation}\label{eq:condizioni_intepolazione_r}
     p_r(x)\in\Pi_r\, :\, p_r(x_i)=f_i,\quad i=0,\hdots, r.
 \end{equation}
 è possibile definire la famiglia dei polinomi $\{p_r\}_{r=0,\hdots,n}$ (dove $n$ è il grado da raggiungere), in modo incrementale, con la seguente modalità.
 
 \begin{theorem}[Polinomio interpolante in forma di Newton]\label{th:formaNewt}\footnote{Slide 5 PDF 16, TH 4.3 PG 80.}
-    La famiglia di polinomi interpolanti definita in (\ref{eq:polNotaz}) è ottenuta ricorsivamente come: 
+    La famiglia di polinomi interpolanti definita in (\ref{eq:condizioni_intepolazione_r}) è ottenuta ricorsivamente come: 
     \begin{equation}\label{eq:famiglia_polinomi_interpolanti}
     \begin{cases}
         p_0(x)\equiv f_0\in\Pi_0\\
@@ -327,7 +334,8 @@ Tramite
        \boldsymbol{f[x_0, \hdots, x_r] \overset{\text{def.}}{=} \sum_{i=0}^r\frac{f_i}{\prod_{j=0, j\neq i}^{r}(x_i-x_j)}}.
     \end{equation}
 \end{theorem}
-\begin{proof}\footnote{Dimostrazione riscorsiva del sistema (\ref{eq:famiglia_polinomi_interpolanti}) e di (\ref{eq:differenza_divisa}).}
+\begin{proof}
+	\footnote{Dimostrazione riscorsiva del sistema (\ref{eq:famiglia_polinomi_interpolanti}) e di (\ref{eq:differenza_divisa}).}
     Per induzione la tesi è vera, con $r=0$, poiché $p_0(x)\equiv f_0\equiv f[x_0]$. Supposto vero per $r-1$ sarà dimostrato per $r$.
     
     Per ipotesi è supposto che
@@ -387,20 +395,23 @@ Tramite
     \end{proof}
 \end{proof}
 
-\begin{remark}[Forma di Newton del polinomio interpolante]\label{rem:formaNewton}\footnote{Slide 8 PDF 16.}
-    Sia $p(x)\in\Pi_n$, polinomio interpolante $f(x)$ sulle ascisse $\{x_0,\hdots, x_n\}$, $p(x)$ coincide con $p_n(x)$ in (\ref{eq:polNotaz}).
+\begin{remark}[Forma di Newton del polinomio interpolante]\label{rem:polinomio_interpolante_forma_newton}\footnote{Slide 8 PDF 16.}
+    Sia $p(x)\in\Pi_n$, polinomio interpolante $f:[a,b]\rightarrow\mathbb{R}$ sulle ascisse $\{x_0,\hdots, x_n\}$, dove $p(x)$ coincide con $p_r(x)$ in (\ref{eq:condizioni_intepolazione_r}).
     Per induzione è ottenuta la \textbf{forma di Newton del polinomio interpolante}: 
     \begin{equation}\label{eq:polinomio_interpolante_newton}
         \boldsymbol{p(x)\equiv p_n(x) = \sum_{i=0}^{n} f[\underbrace{x_0,\hdots, x_i}_{i+1}]\,\omega_i(x)},
     \end{equation}
-    dove $\omega_i(x)$ è la funzione di base.
+    dove $\omega_i(x)$ è la funzione di base definita come
+    \begin{equation*}
+    	\omega_0(x)\equiv 0, \quad \omega_i=(x-x_i)\,\omega_{i-1}(x),\quad i=1,2,\hdots, n.
+    \end{equation*}
 \end{remark}
 
-\paragraph{\ul{N.B.}:} \textbf{La forma di Lagrange e la forma di Newton di $p(x)$ definiscono lo stesso polinomio interpolante}, il quale esiste ed è unico, se le ascisse di interpolazione sono tra loro distinte. Ciò significa che per $p(x)$ varia solo la sua rappresentazione. Questo ha il pregio di prestarsi alla costruzione incrementale del polinomio aggiornandosi in modo dinamico.
+\paragraph{\ul{N.B.}:} \textbf{La forma di Lagrange e la forma di Newton di $\boldsymbol{p(x)}$ definiscono lo stesso polinomio interpolante}, il quale esiste ed è unico, se le ascisse di interpolazione sono tra loro distinte. Ciò significa che per $p(x)$ varia solo la sua rappresentazione. Questo ha il pregio di prestarsi alla costruzione incrementale del polinomio aggiornandosi in modo dinamico.
 
 \paragraph{Esempio di caso d'uso polinomio interpolante:} se fosse richiesto di approssimare ciò che è sotto una certa curva questa viene calcolata con un numero prefissato di punti, poi se ne sono aggiungono uno ad uno fino a che non è più possibile effetturare una stima accurata.
 
-La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante_newton}) permette di ottenere funzioni di base in funzione delle precedenti. Pertanto, questo non permette di calcolare la differenza divisa e la rappresentazione $f[x_0,\hdots, x_r]$ non è algoritmicamente preferibile. Per arrivare al fine di ottenere un algoritmo efficiente, sono esaminate alcune proprietà delle differenze divise.
+La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante_newton}) permette la costruzione in modo incrementale del polinomio, aggiornando in modo dinamico le differenze divise $f[x_0,\hdots, x_r]$ (altrimenti non sarebbe possibile calcolarle in modo elegante). Per arrivare al fine di ottenere un algoritmo efficiente per il calcolo di $p(x)$, sono esaminate alcune proprietà delle differenze divise.
 
 \begin{property}[Differenze divise]
 	\footnote{Slide 9-11 PDF 16, TH 4.4 PG 82.}
@@ -409,10 +420,18 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 		\begin{equation*}
 			(\alpha\cdot f + \beta\cdot g)[x_0,\hdots, x_r]=\alpha\cdot f[x_0,\hdots, x_r]+\beta\cdot g[x_0,\hdots, x_r];
 		\end{equation*}
+		\begin{proof}[Dimostrazione] 
+			Segue da (\ref{eq:differenza_divisa}).
+		\end{proof}
+		
 		\item[P2)](Simmetria dell'operatore) Se $\{i_0,\hdots,i_r\}$ è una permutazione di $\{0,\hdots, r\}$, allora:
 		\begin{equation*}
 			f[x_0,\hdots,x_r]=f[x_{i_0},\hdots,x_{i_r}];
 		\end{equation*}
+		\begin{proof}
+			Segue da (\ref{eq:differenza_divisa}), equivale a permutare l'ordine degli addendi nella sommatoria.
+		\end{proof}
+		
 		\item[P3)] Se $f(x)=\sum_{i=0}^ka_ix^i$, allora 
 		\begin{equation*}
 					f[x_0,\hdots, x_r]=
@@ -423,6 +442,14 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 		\end{equation*}
 		\footnote{Sia $g(x)\in\Pi_n$, allora il polinomio $p(x)\in\Pi_n$ che interpola $g(x)$ sulle ascisse distinte $x_0,\hdots,x_n$ è $g(x)$ stesso ($p(x)=g(x)$), per l'unicità del polinomio interpolante.
 			Il polinomio $p(x)\in\Pi_r,$ con $r>n$, che interpola $g(x)$ sulle $r+1$ ascisse distinte $x_0, \hdots, x_r$, è sempre $g(x)$ per lo stesso motivo.}
+		\begin{proof}
+			Se consideriamo il polinomio $p(x)\in \Pi_r$ che interpola $f(x)$ sulle ascisse $x_0, \hdots, x_r$, osserviamo che, $\forall r \geq k : p(x)\equiv f(x)$.\\
+			Pertanto, $\forall r \geq k$, il coefficiente principale di $p(x)$ e $f(x)$ coincidono. Quindi, poiché il coefficiente principale di $p(x)$ è $f[x_0, \hdots, x_r]$, segue che se
+			\begin{itemize}
+				\item $r = k \Rightarrow f[x_0, \hdots, x_k] = a_k.$
+				\item $r > k \Rightarrow f(x) = \sum_{i=0}^{k} a_i x^i + \sum_{i = k+1}^r 0 \cdot x^i \Rightarrow f[x_0, \hdots, x_r] = 0.$
+			\end{itemize}
+		\end{proof}
 		
 		\item[P4)] Se $f\in C^{(\boldsymbol r)}[a,b],\, a=\underset{i=0,\hdots,\boldsymbol r}{\min}x_i,\, b=\underset{i=0,\hdots,\boldsymbol r}{\max}x_0$, allora
 		\begin{equation}\label{eq:P4DiffDiv}
@@ -435,100 +462,103 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 			f[\underbrace{x_0,\hdots,x_r}_{r+1}]=\frac{f[\overbrace{x_1,\hdots,x_r}^{r}]-f[\overbrace{x_0,\hdots,x_{r-1}}^{r}]}{x_r-x_0}.\footnotemark
 		\end{equation}
 		\footnotetext{Le due differenze divise al nominatore differiscono solo per l'ascissa $x_0$. Il concetto è che, se è applicata iterativamente questa proprietà, allora è possibile scrivere le differenze divise come combinazione di differenze divise, con $r-1$ argomenti, fino ad ottenere un solo argomento. Quando l'argomento è unico allora la differenza divisa coinciderà con il valore calcolato nell'argomento.}
+		\begin{proof}[Dimostrazione P5)] \footnote{Tramite la definizione di differenza divisa. Sono calcolate due differenze divise, è effettuata la somma ed è ottenuta l'espressione ricercata.}
+			\begin{equation}\label{eq:dimPropDiffDiv}
+				\begin{matrix}
+					\frac{1}{x_r-x_0}(f[x_1,\hdots, x_r]-f[x_0,\hdots,x_{r-1}]) = \frac{1}{x_r-x_0}\left(\sum_{k=1}^r\frac{f_k}{\prod_{j=1,j\neq k}^r(x_k-x_j)}-\sum_{k=0}^{r-1}\frac{f_k}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)}\right)\\
+					= \frac{1}{x_r-x_0}\,\left(\underbrace{\overbrace{\frac{f_r}{\prod_{j=1,j\neq r}^r(x_r-x_j)}}^{(a)}-\overbrace{\frac{f_0}{\prod_{j=0,j\neq 0\rightarrow j=1}^{r-1}(x_0-x_j)}}^{(b)}}_{\text{Elementi comuni alle due sommatorie}}+\underbrace{\sum_{k=1}^{r-1}f_k\,\left(\frac{1}{\prod_{j=1,j\neq k}^r(x_k-x_j)}-\frac{1}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)}\right)}_{\underset{\footnotemark}{(c)}}\right)\\
+					=(a)+(b)+(c),
+				\end{matrix}
+			\end{equation}
+			\footnotetext{Dato che gli indici da 1 ad $r-1$ sono comuni ad entrambe le produttorie, saranno raggruppati gli addendi con indici comuni e lasciati gli addendi non comuni. Addendi con indice uguale ad $r$ sono sommatorie, con indice uguale a 0 sono la somma $a+b$.}
+			dove $\frac{1}{x_r-x_0}$ è inglobata in $(a),(b)$ e $(c)$ come segue:
+			\begin{equation*} 
+				\begin{matrix}
+					(a) = \frac{1}{x_r-x_0}\frac{f_r}{\prod_{j=1,j\neq r}^r(x_r-x_j)}\overset{\footnotemark}{=}\frac{f_r}{\prod_{j=0,j\neq r}^r(x_r-x_j)};\\
+					(b) = \frac{1}{x_0-x_r}=\frac{f_0}{\prod_{j=0,j\neq 0}^{r-1}(x_0-x_j)}=\frac{f_0}{\prod_{j=0,j\neq 0}^r(x_0-x_j)};\\
+					(c) = \frac{1}{x_r-x_0}\sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=1,j\neq k}^{r-1}(x_k-x_j)}\underbrace{\left(\frac{1}{x_k-x_r}-\frac{1}{x_k-x_0}\right)}_{\footnotemark}=
+					\frac{1}{\cancel{x_r-x_0}}\sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=1,j\neq k}^{r-1}(x_k-x_j)}\left(\frac{\cancel{x_k}-\cancel{x_0}-\cancel{x_k}+\cancel{x_r}}{(x_k-x_r)(x_k-x_0)}\right)=\\
+					\sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)};
+				\end{matrix}
+			\end{equation*}
+			\addtocounter{footnote}{-1}
+			\footnotetext{Ultimo termine della sommatoria della differenza divisa delle ascisse $x_0,\hdots,x_r$.}
+			\stepcounter{footnote}
+			\footnotetext{Termini necessari per le caratteristiche degli indici.}
+			
+			Pertanto, unendo i precedenti risultati:
+			\begin{equation*}
+				\textbf{(\ref{eq:dimPropDiffDiv})}=\sum_{k=0}^r\frac{f_k}{\prod_{j=0,j\neq k}^r (x_k-x_j)}\overset{\footnotemark}{=} f[x_0,x_1,\hdots,x_r].
+			\end{equation*}
+			\footnotetext{Ovvero ciò che è necessario dimostrare.}
+		\end{proof}
 	\end{itemize}
 \end{property}
 
-(\ref{eq:P5_differenze_divise}) è  una proprietà algoritmica importante, è utilizzata per il calcolo efficiente della differenze divise.
-
-\begin{proof}[Dimostrazione P5)] \footnote{Tramite la definizione di differenza divisa. Sono calcolate due differenze divise, è effettuata la somma ed è ottenuta l'espressione ricercata.}
-    \begin{equation}\label{eq:dimPropDiffDiv}
-        \begin{matrix}
-            \frac{1}{x_r-x_0}(f[x_1,\hdots, x_r]-f[x_0,\hdots,x_{r-1}]) = \frac{1}{x_r-x_0}\left(\sum_{k=1}^r\frac{f_k}{\prod_{j=1,j\neq k}^r(x_k-x_j)}-\sum_{k=0}^{r-1}\frac{f_k}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)}\right)\\
-            = \frac{1}{x_r-x_0}\,\left(\underbrace{\overbrace{\frac{f_r}{\prod_{j=1,j\neq r}^r(x_r-x_j)}}^{(a)}-\overbrace{\frac{f_0}{\prod_{j=0,j\neq 0\rightarrow j=1}^{r-1}(x_0-x_j)}}^{(b)}}_{\text{Elementi comuni alle due sommatorie}}+\underbrace{\sum_{k=1}^{r-1}f_k\,\left(\frac{1}{\prod_{j=1,j\neq k}^r(x_k-x_j)}-\frac{1}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)}\right)}_{\underset{\footnotemark}{(c)}}\right)\\
-             =(a)+(b)+(c),
-        \end{matrix}
-    \end{equation}
-    \footnotetext{Dato che gli indici da 1 ad $r-1$ sono comuni ad entrambe le produttorie, saranno raggruppati gli addendi con indici comuni e lasciati gli addendi non comuni. Addendi con indice uguale ad $r$ sono sommatorie, con indice uguale a 0 sono la somma $a+b$.}
-    dove $\frac{1}{x_r-x_0}$ è inglobata in $(a),(b)$ e $(c)$ come segue:
-    \begin{equation*} 
-        \begin{matrix}
-        (a) = \frac{1}{x_r-x_0}\frac{f_r}{\prod_{j=1,j\neq r}^r(x_r-x_j)}\overset{\footnotemark}{=}\frac{f_r}{\prod_{j=0,j\neq r}^r(x_r-x_j)};\\
-        (b) = \frac{1}{x_0-x_r}=\frac{f_0}{\prod_{j=0,j\neq 0}^{r-1}(x_0-x_j)}=\frac{f_0}{\prod_{j=0,j\neq 0}^r(x_0-x_j)};\\
-        (c) = \frac{1}{x_r-x_0}\sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=1,j\neq k}^{r-1}(x_k-x_j)}\underbrace{\left(\frac{1}{x_k-x_r}-\frac{1}{x_k-x_0}\right)}_{\footnotemark}=
-        \frac{1}{\cancel{x_r-x_0}}\sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=1,j\neq k}^{r-1}(x_k-x_j)}\left(\frac{\cancel{x_k}-\cancel{x_0}-\cancel{x_k}+\cancel{x_r}}{(x_k-x_r)(x_k-x_0)}\right)=\\
-        \sum_{k=1}^{r-1}\frac{f_k}{\prod_{j=0,j\neq k}^{r-1}(x_k-x_j)};
-        \end{matrix}
-    \end{equation*}
-    \addtocounter{footnote}{-1}
-    \footnotetext{Ultimo termine della sommatoria della differenza divisa delle ascisse $x_0,\hdots,x_r$.}
-    \stepcounter{footnote}
-    \footnotetext{Termini necessari per le caratteristiche degli indici.}
-    
-    Pertanto, unendo i precedenti risultati:
-    \begin{equation*}
-        \textbf{(\ref{eq:dimPropDiffDiv})}=\sum_{k=0}^r\frac{f_k}{\prod_{j=0,j\neq k}^r (x_k-x_j)}\overset{\footnotemark}{=} f[x_0,x_1,\hdots,x_r].
-    \end{equation*}
-    \footnotetext{Ovvero ciò che è necessario dimostrare.}
-\end{proof}
-
-\paragraph{Esempio di utilizzo della proprietà (\ref{eq:P5_differenze_divise}):} Considerando il caso $\boldsymbol{n=3}$:
-\begin{equation*}
-    \boldsymbol{p(x)=f[x_0]\;\equalto{\omega_0(x)}{1}+f[x_0,x_1]\omega_1(x)+f[x_0,x_1,x_2]\omega_2(x)+f[x_0,x_1,x_2,x_3]\omega_3(x)},
-\end{equation*}
-allora è possibile generalizzarlo in la seguente tabella triangolare:
- 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|} 
-\hline
- & $\overset{\footnotemark}{0}$ & $\overset{\footnotemark}{1}$ & 2 & 3 \\
-\hline
-$x_0$ & $\boldsymbol{f_0 = f[x_0]}$ & & &  \\ 
-$x_1$ & $f_1 = f[x_1]$ & $\boldsymbol{f[x_0,x_1]}$ & &  \\ 
-$x_2$ & $f_2 = f[x_2]$ & $f[x_1,x_2]$ &$ \boldsymbol{f[x_0,x_1,x_2]}$ & \\
-$x_3$ & $f_3 = f[x_3]$ & $f[x_2, x_3]$ & $f[x_1,x_2,x_3]$ & $\boldsymbol{f[x_0,x_1,x_2,x_3]}$ \\
-\hline
-\end{tabular}
-\end{center}
-\addtocounter{footnote}{-1}
-\footnotetext{Differenza tra l'indice delle ascisse (utillizzata la proprietà incementale delle differenze divise).}
-
-\stepcounter{footnote}
-\footnotetext{Differenze divise su due ascisse.}
-
-Gli elementi sulla diagonale principale, ovvero quelli in grassetto, sono i coefficienti del polinomio interpolante nella forma di Newton (\ref{eq:polinomio_interpolante_newton}).
-
-La tabella è calcolata dal basso verso l'alto per evitare di memorizzare tutti i dati della tabella. Non è necessario memorizzarla tutta perché è possibile sovrascrivere gli elementi a sinistra con quelli a destra (quindi in fine saranno presenti le differenze divise in grassetto). Per questo è necessario calcolare prima la colonna 0 e poi la 1, 2 e 3 sovrascrivendone, via via, gli elementi. Quanto appena scritto non è valido se gli elementi sono calcolati dall'alto verso il basso.
-
-Utilizzando il metodo di calcolo più conveniente è possibile utilizzare due vettori: uno per le ascisse di interpolazione $(x_0,\hdots, x_3)$ ed uno per i dati del problema da sovrascrivere con i coefficienti dei polinomi.
-
-La tabella ha complessità quadratica, come la forma di Lagrange, e minore rispetto a risolvere il sistema lineare con la matrice di Vandermonde (la quale ha complessità $\frac{2}{3}n^3$).
-
-Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate) dal basso verso l'alto come segue:
-
-\begin{equation*}
-    \begin{matrix}
-        \underset{\footnotemark}{\boldsymbol 1}
-    \begin{cases}
-        f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_{\boldsymbol 3}-x_{\boldsymbol 2}}\\
-        f[x_1,x_2]=\frac{f[x_2]-f[x_1]}{x_{\boldsymbol 2}-x_{\boldsymbol 1}}\\
-        f[x_0,x_1]=\frac{f[x_1]-f[x_0]}{x_{\boldsymbol 1}-x_{\boldsymbol 0}}
-    \end{cases}\\
-    \boldsymbol{2}\begin{cases}
-        f[x_1,x_2,x_3]=\frac{f[x_{\boldsymbol 2},x_3]-f[x_1,x_{\boldsymbol 2}]}{x_{\boldsymbol 3}-x_{\boldsymbol 1}}\\
-        f[x_0,x_1,x_2]=\frac{f[x_{\boldsymbol 1},x_2]-f[x_0,x_{\boldsymbol 1}]}{x_{\boldsymbol 2}-x_{\boldsymbol 0}}
-    \end{cases}\\
-    \boldsymbol{3}\begin{cases}
-        f[x_0,x_1,x_2,x_3]=\frac{f[\boldsymbol{x_1,x_2},x_3]-f[x_0,\boldsymbol{x_1,x_2}]}{x_{\boldsymbol 3}-x_{\boldsymbol 0}}
-    \end{cases}
-    \end{matrix}
-\end{equation*}
-\footnotetext{Differiscono di un'ascissa non comune.}
-
-È possibile notare che al denominatore le ascisse di iterpolazione differiscono rispettivamente, dall'alto al basso, di un indice 1, 2 e 3 e che tali ascisse non sono comuni alle differenze divise al denominatore delle rispettive frazioni.
-
-\begin{remark}\footnote{Slide 6 PDF 17.}
-    Nel caso generale, la precedente tabella arriverà fino a colonna $n$ (l'indice partirà da 0) ed avrà struttura analoga.
+\begin{remark}[Importante]
+	Considerato che $f[x_i]=f(x_i),\, i=0, \hdots, n$, (\ref{eq:P5_differenze_divise}) è  una proprietà algoritmica importante, in quanto permette di calcolare in modo incrementale le differenze divise richiese per la forma di Newton \ref{eq:famiglia_polinomi_interpolanti} del polinomio interpolante.
 \end{remark}
+
+\begin{example}[Esempio di utilizzo della proprietà (\ref{eq:P5_differenze_divise})]
+	Considerando il caso $\boldsymbol{n=3}$:
+	\begin{equation*}
+		\boldsymbol{p(x)=f[x_0]\;\equalto{\omega_0(x)}{1}+f[x_0,x_1]\omega_1(x)+f[x_0,x_1,x_2]\omega_2(x)+f[x_0,x_1,x_2,x_3]\omega_3(x)},
+	\end{equation*}
+	allora è possibile generalizzarlo in la seguente tabella triangolare:
+	
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|} 
+			\hline
+			& $\overset{\footnotemark}{0}$ & $\overset{\footnotemark}{1}$ & 2 & 3 \\
+			\hline
+			$x_0$ & $\boldsymbol{f_0 = f[x_0]}$ & & &  \\ 
+			$x_1$ & $f_1 = f[x_1]$ & $\boldsymbol{f[x_0,x_1]}$ & &  \\ 
+			$x_2$ & $f_2 = f[x_2]$ & $f[x_1,x_2]$ &$ \boldsymbol{f[x_0,x_1,x_2]}$ & \\
+			$x_3$ & $f_3 = f[x_3]$ & $f[x_2, x_3]$ & $f[x_1,x_2,x_3]$ & $\boldsymbol{f[x_0,x_1,x_2,x_3]}$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\addtocounter{footnote}{-1}
+	\footnotetext{Differenza tra l'indice delle ascisse (utillizzata la proprietà incementale delle differenze divise).}
+	
+	\stepcounter{footnote}
+	\footnotetext{Differenze divise su due ascisse.}
+	
+	Gli elementi sulla diagonale principale, ovvero quelli in grassetto, sono i coefficienti del polinomio interpolante nella forma di Newton (\ref{eq:polinomio_interpolante_newton}).
+	
+	La tabella è calcolata dal basso verso l'alto per evitare di memorizzare tutti i dati della tabella. Non è necessario memorizzarla tutta perché è possibile sovrascrivere gli elementi a sinistra con quelli a destra (quindi in fine saranno presenti le differenze divise in grassetto). Per questo è necessario calcolare prima la colonna 0 e poi la 1, 2 e 3 sovrascrivendone, via via, gli elementi. Quanto appena scritto non è valido se gli elementi sono calcolati dall'alto verso il basso.
+	
+	Utilizzando il metodo di calcolo più conveniente è possibile utilizzare due vettori: uno per le ascisse di interpolazione $(x_0,\hdots, x_3)$ ed uno per i dati del problema da sovrascrivere con i coefficienti dei polinomi.
+	
+	La tabella ha complessità quadratica, come la forma di Lagrange, e minore rispetto a risolvere il sistema lineare con la matrice di Vandermonde (la quale ha complessità $\frac{2}{3}n^3$).
+	
+	Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate) dal basso verso l'alto come segue:
+	
+	\begin{equation*}
+		\begin{matrix}
+			\underset{\footnotemark}{\boldsymbol 1}
+			\begin{cases}
+				f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_{\boldsymbol 3}-x_{\boldsymbol 2}}\\\\
+				f[x_1,x_2]=\frac{f[x_2]-f[x_1]}{x_{\boldsymbol 2}-x_{\boldsymbol 1}}\\\\
+				f[x_0,x_1]=\frac{f[x_1]-f[x_0]}{x_{\boldsymbol 1}-x_{\boldsymbol 0}}
+			\end{cases}\\\\
+			\boldsymbol{2}\begin{cases}
+				f[x_1,x_2,x_3]=\frac{f[x_{\boldsymbol 2},x_3]-f[x_1,x_{\boldsymbol 2}]}{x_{\boldsymbol 3}-x_{\boldsymbol 1}}\\\\
+				f[x_0,x_1,x_2]=\frac{f[x_{\boldsymbol 1},x_2]-f[x_0,x_{\boldsymbol 1}]}{x_{\boldsymbol 2}-x_{\boldsymbol 0}}
+			\end{cases}\\\\
+			\boldsymbol{3}\begin{cases}
+				f[x_0,x_1,x_2,x_3]=\frac{f[\boldsymbol{x_1,x_2},x_3]-f[x_0,\boldsymbol{x_1,x_2}]}{x_{\boldsymbol 3}-x_{\boldsymbol 0}}
+			\end{cases}
+		\end{matrix}
+	\end{equation*}
+	\footnotetext{Differiscono di un'ascissa non comune.}
+	
+	È possibile notare che al denominatore le ascisse di iterpolazione differiscono rispettivamente, dall'alto al basso, di un indice 1, 2 e 3 e che tali ascisse non sono comuni alle differenze divise al denominatore delle rispettive frazioni.
+	
+	\paragraph{N.B.:}\footnote{Slide 6 PDF 17.} Nel caso generale, la precedente tabella arriverà fino a colonna $n$ (l'indice partirà da 0) ed avrà struttura analoga.
+\end{example} 
+
+\paragraph{Implementazione calcolo differenze divise:} Vedere Algoritmo \ref{alg:calcolo_differenze_divise}.
 
 \begin{algorithm}
 \caption{Calcolo delle differenze divise.}\label{alg:calcolo_differenze_divise}
@@ -552,6 +582,7 @@ Le colonne della precedente tabella, dalla 1 alla 3, sono determinate (calcolate
     \end{itemize}
 \end{remark}
 
+\subsubsubsection{Metodo di Horner}
 \noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton. Del polinomio sono noti i coefficienti ed è necessario calcolare la sommatoria. Sarà utilizzata la proprietà ricorsiva del polinomio di Newton. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_generico})  $\left(p(x)=\sum_{k=0}^{n}a_kx^k\right)$.
 
 Partendo da un caso semplice, ovvero con $n=3$:
@@ -559,10 +590,10 @@ Partendo da un caso semplice, ovvero con $n=3$:
     p(x)=a_0+a_1\,x+a_2\,x^2+a_3\,x^3\overset{\footnotemark}{=} a_0+ x(a_1+x(a_2+x\,a_3)).
 \end{equation*}\footnotetext{Raggruppamento.}
 
-Supposto di avere il vettore $a=[\underbrace{\overbrace{a_0\; a_1\; \hdots\; a_n}^{n+1\text{ elementi}}}_{\footnotemark}]$ \footnotetext{In Matlab è necessario rappresentarli come $a(1)\; a(2)\,\hdots\, a(n+1)$.} è possibile calcolare il polinomio tramite l'Algoritmo \ref{alg:polHorn}.
+Supposto di avere il vettore $a=[\underbrace{\overbrace{a_0\; a_1\; \hdots\; a_n}^{n+1\text{ elementi}}}_{\footnotemark}]$ \footnotetext{In Matlab è necessario rappresentarli come $a(1)\; a(2)\,\hdots\, a(n+1)$.} è possibile calcolare il polinomio tramite l'Algoritmo \ref{alg:metodo_horner}.
 
 \begin{algorithm}
-\caption{Algoritmo di Horner per il calcolo di un polinomio.}\label{alg:polHorn}
+\caption{Algoritmo di Horner per il calcolo di un polinomio.}\label{alg:metodo_horner}
     \begin{lstlisting}[style=Matlab-editor]
         p = a(n+1); % al termine dell'algoritmo conterra' il valore del polinomio
         for i = n : -1 : 1
@@ -571,11 +602,11 @@ Supposto di avere il vettore $a=[\underbrace{\overbrace{a_0\; a_1\; \hdots\; a_n
     \end{lstlisting}
 \end{algorithm}
 
-\begin{remark}[Costo dell'Algoritmo \ref{alg:polHorn}]
+\begin{remark}[Costo dell'Algoritmo \ref{alg:metodo_horner}]
     Il costo dell'algoritmo è $2n\, flops$ (\underline{per componente di $x$}).
 \end{remark}
 
-L'Algoritmo \ref{alg:polHorn} (di Horner) ha un costo minimale: sono svolte due operazioni algebriche elementari per calcolare il vettore $p(x)$, per iterazione. È, inoltre, importante osservare che questo algoritmo si presta ad essere vettorizzato in Matlab, attraverso la moltiplicazione vettoriale .*, dove $x$, in riga 3 dell'Algoritmo \ref{alg:polHorn}, può essere di qualsivolglia forma (vettore, elemento singolo, matrice). Utilizzare le capacità vettoriali di Matlab rende più efficiente il codice (quindi è necessario utilizzarlo nell'elaborato).
+L'Algoritmo \ref{alg:metodo_horner} (di Horner) ha un costo minimale: sono svolte due operazioni algebriche elementari per calcolare il vettore $p(x)$, per iterazione. È, inoltre, importante osservare che questo algoritmo si presta ad essere vettorizzato in Matlab, attraverso la moltiplicazione vettoriale .*, dove $x$, in riga 3 dell'Algoritmo \ref{alg:metodo_horner}, può essere di qualsivolglia forma (vettore, elemento singolo, matrice). Utilizzare le capacità vettoriali di Matlab rende più efficiente il codice (quindi è necessario utilizzarlo nell'elaborato).
 
 Inoltre, è possibile generalizzare la differenza divisa al caso della base di Newton attraverso l'algoritmo di Horner generalizzato (Algoritmo \ref{alg:polHornMod}).
 
@@ -681,14 +712,14 @@ Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (d
 \end{equation}
 
 Pertanto, sotto la precedente ipotesi di ascisse distinte, $\boldsymbol{\exists!\, p(x)}\in\Pi_{\boldsymbol{2n+1}}$ (condizione importante) tale che le condizioni del polinomio interpolante (\ref{eq:condizioni_interpolazione}) diventano le seguenti:
-\begin{equation}\label{eq:hermCondPolInterp}
+\begin{equation}\label{eq:condizioni_polinomio_interpolazione_hermite}
     \begin{rcases}
         \boldsymbol{p(x_i)=f(x_i)}\\
         \boxed{p\left(x_{i+\frac{1}{2}}\right)=f\left(x_{i+\frac{1}{2}}\right)}
     \end{rcases} i=0,\hdots,n.
 \end{equation}
 
-Se $\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i$, le ascisse che sono tra due interi, quelle con indice frazionario (ovvero $i+\frac{1}{2}$), sono fatte tendere all'ascissa a sinistra, quindi la condizione di interpolazione è duplicata. Per evitare la duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:hermCondPolInterp}), in modo equivalente, come
+Se $\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i$, le ascisse che sono tra due interi, quelle con indice frazionario (ovvero $i+\frac{1}{2}$), sono fatte tendere all'ascissa a sinistra, quindi la condizione di interpolazione è duplicata. Per evitare la duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:condizioni_polinomio_interpolazione_hermite}), in modo equivalente, come
 \begin{equation}\label{eq:hermCondPolInterpMod}
     \begin{rcases}
         \boldsymbol{p(x_i)=f(x_i})\\
@@ -705,7 +736,7 @@ dove, per $x_{i+\frac{1}{2}}\rightarrow x_i$
 \end{equation*}
 
 \begin{remark}
-    La seconda condizione di (\ref{eq:hermCondPolInterp}) è stata modificata nella seconda condizione di (\ref{eq:hermCondPolInterpMod}), sottraendo la prima condizione alla seconda di (\ref{eq:hermCondPolInterp}) e dividendo membro a membro per $x_{i+\frac{1}{2}}-x_i$.
+    La seconda condizione di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) è stata modificata nella seconda condizione di (\ref{eq:hermCondPolInterpMod}), sottraendo la prima condizione alla seconda di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) e dividendo membro a membro per $x_{i+\frac{1}{2}}-x_i$.
 \end{remark}
 
 Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4DiffDiv})):
