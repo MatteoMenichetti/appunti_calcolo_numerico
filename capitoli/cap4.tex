@@ -563,8 +563,17 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 \begin{algorithm}
 \caption{Calcolo delle differenze divise.}\label{alg:calcolo_differenze_divise}
     \begin{lstlisting}[style=Matlab-editor]
-        % x - ascisse di interpolazione
-        % f - valori della funzione nelle ascisse
+    	function f = differenze_divise(x, f)
+    	%
+    	% function f = differenze_divise(x, f)
+    	%
+    	%	Input:
+        %	- x, ascisse di interpolazione
+        % 	- f, valori della funzione nelle ascisse
+        %
+        %	Output:
+        %	- f, differenze divise
+        %
         % x ed f sono vettori di dimensione n+1 perche' Matlab utilizza indici che partono da 1
         n = length(x)-1; % grado del polinomio
         for j = 1 : n
@@ -605,36 +614,11 @@ Il calcolo del polinomio così fatto, ovvero della forma (\ref{eq:polinomio_gene
 % Inoltre, è possibile generalizzare la differenza divisa al caso della base di Newton attraverso l'algoritmo di Horner generalizzato (Algoritmo \ref{alg:polHornMod}).
 
 \begin{example}
-	Caso semplice del polinomio da calcolare in forma (\ref{eq:polinomio_generico_ridef}), ovvero con $n=3$:
+	Caso semplice del calcolo del polinomio in forma (\ref{eq:polinomio_generico_ridef}), ovvero con $n=3$:
 	\begin{equation*}
 		p(x)=a_0+a_1\,x+a_2\,x^2+a_3\,x^3\overset{\footnotemark}{=} a_0+ x(a_1+x(a_2+x\,a_3)).
 	\end{equation*}\footnotetext{Raggruppamento.}
-\end{example}
-
-Nel caso in cui è ricercata la soluzione del polinomio in forma di Newton (ovvero di \ref{eq:polinomio_interpolante_newton}, il quale è riportato)
-\begin{equation*}
-	p(x) = \sum_{i=0}^{n} f[\underbrace{x_0,\hdots, x_i}_{i+1}]\,\omega_i(x),
-\end{equation*}
-dove, per brevità,
-\begin{equation*}
-	a_i = f[x_0, \hdots, x_i],\quad i=0, \hdots, n.
-\end{equation*}
-Quindi (\ref{eq:polinomio_interpolante_newton}) diventa
-\begin{equation*}
-	p(x)= \sum_{i=0}^{n} a_i\,\omega_i(x),
-\end{equation*}
-dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_newton}).
-
-%riniziare da pagina 3 CN2025-03-06
-
-\noindent Pertanto, il $p(x)$ assume la seguente forma \osmnfj
-\begin{equation*}
-	p(x) & = & 
-\end{equation*} 
-
-
-\begin{equation*}
-		Nel caso in cui volessimo calcolare il polinomio tramite la forma di Newton, allora
+	Nel caso in cui volessimo calcolare il polinomio tramite la forma di Newton, allora
 	\begin{equation*}
 		\begin{matrix}
 			p(x) &\overset{\footnotemark}{=}& f[x_0] + f[x_0,x_1]\,\omega_1(x) + f[x_0,x_1,x_2]\,\omega_2(x) + f[x_0,x_1,x_2,x_3]\,\omega_3(x)\\
@@ -644,9 +628,37 @@ dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_ne
 	\end{equation*}
 	\addtocounter{footnote}{-1}
 	\footnotetext{È noto come calcolare le defferenze divise (ovvero i coefficienti).}
+	
 	\stepcounter{footnote}
 	\footnotetext{Scrittura di $\omega_i(x)$ (polinomio di Newton) in forma estesa in modo da appurare efficientemente il valore in un punto, o in più di uno. La forma estesa è la forma in cui i polinomi in base di Newton sono usati perché la loro espressione è nota.}
+\end{example}
+
+\paragraph{Modifica Algoritmo di Horner:} Nel caso in cui è ricercata la soluzione del polinomio interpolante in forma di Newton (ovvero di (\ref{eq:polinomio_interpolante_newton}), il quale è riportato)
+\begin{equation*}
+	p(x) = \sum_{i=0}^{n} f[\underbrace{x_0,\hdots, x_i}_{i+1}]\,\omega_i(x),
 \end{equation*}
+dove, per brevità,
+\begin{equation*}
+	a_i = f[x_0, \hdots, x_i],\quad i=0, \hdots, n,
+\end{equation*}
+il polinomio $p(x)$ (\ref{eq:polinomio_interpolante_newton}) diventa
+\begin{equation*}
+	p(x)= \sum_{i=0}^{n} a_i\,\omega_i(x),
+\end{equation*}
+dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_newton}).
+
+%riniziare da pagina 3 CN2025-03-06
+
+\noindent Pertanto, ragionando come nel caso della base delle potenze, il $p(x)$ assume la seguente forma
+\begin{equation*}
+	\begin{matrix}
+		p(x) &=& a_n \overbrace{\omega_{n}(x)}^{(x-x_n)\omega_{n-1}(x)} + a_{n-1} \omega_{n-1}(x) + a_{n-2} \omega_{n-2}(x) + \hdots + a_1 \omega_1(x) + a_0\\
+		&=& (a_n (x-x_{n-1}) + a_{n-1}) \omega_{n-1} + a_{n-2} \omega_{n-2} + \hdots + a_1 \omega_1(x) + a_0\\
+		&=& ((a_n (x - x_{n-1}) + a_{n-1})(x-x_{n-2}) + a_{n-2})\omega_{n-2} + \hdots + a_1 \omega_1(x) + a_0\\
+		&=& (\hdots ((a_n (x-x_{n-1}) + a_{n-1})(x - x_{n-2}) + a_{n-2})(x-x_{n-3}) + a_{n-3})(x-x_{n-4}) + \hdots + a_1 ) (x-x_0) + a_0,
+	\end{matrix}
+\end{equation*}
+ottenendo l'Algoritmo \ref{alg:metodo_horner_modificato}.
 
 \begin{algorithm}
 \caption{Algoritmo di Horner per il calcolo di un polinomio.}\label{alg:metodo_horner}
@@ -657,7 +669,7 @@ dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_ne
     	%
     	%	Input: 
     	%	- a, vettore conente gli n+1 coefficienti del polinomio
-    	%	- x, punto nel quale p(x)
+    	%	- x, ascisse di interpolazione
     	%
     	%	Output:
     	%	- p, valore del polinomio calcolato in x
@@ -674,24 +686,39 @@ dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_ne
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Algoritmo di Horner generalizzato (per il calcolo di un polinomio).}\label{alg:polinomio_horner_modificato}
+\caption{Algoritmo di Horner generalizzato (per il calcolo di un polinomio).}\label{alg:metodo_horner_modificato}
     \begin{lstlisting}[style=Matlab-editor]
-        % f(1), ..., f(n+1)   - calcolato dal codice precedente per le differenze divise
-        % x(1), ..., x(n+1)   - contiene le ascisse di interpolazione
-        p = f(n+1) 
-        for i = n : -1 : 1
+    	function p = horner_modificato(f, x)
+    	% 
+    	% function p = horner(a, x)
+    	%
+    	%	Input: 
+    	%	- f, vettore conente gli n+1 coefficienti del polinomio
+    	%	- x, punto nel quale p(x)
+    	%
+    	%	Output:
+    	%	- p, valore del polinomio calcolato in x
+    	%
+    	if nargin < 2, error('numero argomenti insufficiente'), end 
+    	
+    	n = length(f);
+    	
+    	f = differenze_divise(f,x);
+    	
+        p = f(n);
+        
+        for i = n - 1  : -1 : 1
             p = p .* (x - x(i)) + f(i)
+        end
+        
+        return
         end
     \end{lstlisting}
 \end{algorithm}
 
-\begin{remark}
-    L'operazione .* in riga 5 dell'Algoritmo \ref{alg:polinomio_horner_modificato} è vettorizzabile.
-\end{remark}
+\paragraph{N.B.:} L'operazione .* in riga 5 dell'Algoritmo \ref{alg:metodo_horner_modificato} è vettorizzabile.
 
-\begin{remark}[Costo dell'Algoritmo \ref{alg:polinomio_horner_modificato}]
-    Il costo dell'algoritmo è $3n$ flops per componente.
-\end{remark}
+\paragraph{Costo dell'Algoritmo \ref{alg:metodo_horner_modificato}} Il costo dell'algoritmo è $3n$ flops per componente.
 
 \paragraph{Intermezzo per la definizione della "Interpolazione di Hermite"}\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polinomio_interpolante_newton}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcP(x)} per calcolare $p(x)$.
 
@@ -706,7 +733,7 @@ dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_ne
     \end{algorithmic}
 \end{algorithm}
 
-L'Algoritmo \ref{alg:calcP(x)} utilizza il fatto che le funzioni di base possano essere ottenute in modo iterativo, moltiplicando un termine di grado uno (il polinomio monico). Pertanto, è meno efficiente dell'Algoritmo (di Horner generalizzato) \ref{alg:polinomio_horner_modificato} in quanto effettua $4n\, flops$ ed utilizza una variabile di appoggio ($\omega$, la quale rappresenta $\omega_0,\,\omega_1,\,\omega_{i+1}$).
+L'Algoritmo \ref{alg:calcP(x)} utilizza il fatto che le funzioni di base possano essere ottenute in modo iterativo, moltiplicando un termine di grado uno (il polinomio monico). Pertanto, è meno efficiente dell'Algoritmo (di Horner generalizzato) \ref{alg:metodo_horner_modificato} in quanto effettua $4n\, flops$ ed utilizza una variabile di appoggio ($\omega$, la quale rappresenta $\omega_0,\,\omega_1,\,\omega_{i+1}$).
 
 Tuttavia, l'Algoritmo \ref{alg:calcP(x)} si presta facilmente per derivare un algoritmo per il calcolo della derivata prima di $p(x)$, la quale sarà significativa per gli argomenti che saranno trattati, ovvero:
 \begin{equation*}
@@ -865,7 +892,7 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
     \end{lstlisting}
 \end{algorithm}
 
-Inoltre, è possibile calcolare $p_H(x)$ in Matlab tramite una versione modificata dell'algoritmo di Horner generalizzato (Algoritmo \ref{alg:polinomio_horner_modificato}), nella quale è utilizzato un vettore delle ascisse [\footnotemark] $x=[x_0\, x_0\, x_1\, x_1\, \hdots\, x_{n-1}\, x_{n-1}\,x_n]$, a patto di conoscere le differenze divise (ovvero i coefficienti del polinomio). 
+Inoltre, è possibile calcolare $p_H(x)$ in Matlab tramite una versione modificata dell'algoritmo di Horner generalizzato (Algoritmo \ref{alg:metodo_horner_modificato}), nella quale è utilizzato un vettore delle ascisse [\footnotemark] $x=[x_0\, x_0\, x_1\, x_1\, \hdots\, x_{n-1}\, x_{n-1}\,x_n]$, a patto di conoscere le differenze divise (ovvero i coefficienti del polinomio). 
 
 \footnotetext{Le ascisse sono duplicate e per questo, nel ciclo implementato per il calcolo del polinomio, sarà contato fino ad $2n+1$. Il $+1$ è dovuto al fatto che $x_n$ è ripetuta solo una volta.}
 
@@ -925,7 +952,7 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/ErrorePolinomioHermite.png}
     \caption{Esempio dell'errore $e$ del polinomio Hermite $p$ rispetto a $f$.}
-    \label{fig:errPolHer}
+    \label{fig:errore_polinomio_hermite}
 \end{figure}
  
 \begin{remark}
