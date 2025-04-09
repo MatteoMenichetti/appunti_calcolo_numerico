@@ -1,41 +1,43 @@
 \section{Approssimazioni di funzioni}
-\footnote{Slide 2 PDF 15, PG 77-104. L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati.}
-In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Per la funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
+\footnote{Slide 2 PDF 15, PG 77-104.}
+In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Di tale funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
 \begin{equation}\label{eq:ascisse_interpolazione}
 	a\leq x_0<x_1<\hdots<x_n\leq b,\quad x_i\neq x_j, \quad i\neq j, \quad \forall\, i,j=0,\hdots,n.
 \end{equation}
 
-\subsection{Polinomio Interpolante}
-In seguito sarà considerata la notazione
-\begin{equation*}
-    f_i=f(x_i),\; (x_i,f_i),\; i=0,\hdots,n,
-\end{equation*}
-per ricercare un polinomio interpolante $f(x)$ sulle ascisse (\ref{eq:ascisse_interpolazione}), in modo che, con $p(x_i)\in \Pi_n$, valgano le condizioni di interpolazione 
-\begin{equation}\label{eq:condizioni_interpolazione}
-    p(x_i)=f_i,\; i=0,\hdots,n.
-\end{equation}
+L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati. Sono utilizzati i polinomi per approssimare una funzione in quanto appartengono sono funzioni facilmente calcolabili.
 
 \begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
-\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
+	\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
 \end{figure}
 
-\hrule
-\vspace{-0.4cm}
-\paragraph{Divagazione su $\Pi_n$:}{
-$\boldsymbol{\Pi_n}$ \textbf{è lo spazio vettoriale dei polinomi di grado al più} $\boldsymbol n$. Uno spazio vettoriale è un insieme per il quale una combinazione lineare dei suoi elementi produce un elemento dello spazio stesso.
-Infatti, $\forall q_1, q_2\in\Pi_n$, è ottenuto che $\alpha \cdot q_1(x)+\beta\cdot q_2(x)\in\Pi_n,\, \forall \alpha,\beta\in\mathbb R$. $\alpha \cdot q_1(x)$ e $\beta\cdot q_2(x)$ sono moltiplicazioni che non aumentano il grado della somma, al massimo lo diminuiscono.
-\hrule
-\vspace{0.3cm}
-Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriverlo come
-\begin{equation}\label{eq:polinomio_generico}
-    p(x)=\sum_{k=0}^{n}a_kx^k.
-\end{equation}
+\subsection{Polinomio Interpolante}
+È ricercato il polinomio definito come segue.
 
-\paragraph{N.B.:} I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipendenti e questi costituiscono la base canonica di $\Pi_n$. Pertanto, $\dim(\Pi_n)=n+1$. Questo significa che, per individuare univocamente un polinomio di $\Pi_n$,  saranno necessarie $n+1$ condizioni linearmente indipendenti.}
+\begin{definition}[Polinomio Interpolante]
+	Il \textbf{polinomio interpolante} la funzione $f:[a,b]\rightarrow\mathbb{R}$ sulle ascisse assegnate (\ref{eq:ascisse_interpolazione}) è definito come
+	\begin{equation}\label{eq:polinomio_interpolante_generico}
+		p(x) = \sum_{k=0}^{n}a_kx^k \in\Pi_n,
+	\end{equation}
+	tale che, date le coppie note
+	\begin{equation*}
+		(x_i,f_i),\quad i=0,\hdots,n, \quad f_i\equiv f(x_i),
+	\end{equation*}
+	valgano le seguenti condizioni di interpolazione 
+	\begin{equation}\label{eq:condizioni_interpolazione}
+		p(x_i)=f_i,\; i=0,\hdots,n.
+	\end{equation}
+\end{definition}
 
- \begin{definition}[Matrice di Vandermonde]
+\paragraph{Divagazione su $\Pi_n$:}	$\boldsymbol{\Pi_n}$ \textbf{è lo spazio vettoriale dei polinomi di grado al più} $\boldsymbol n$. Uno spazio vettoriale è un insieme per il quale una combinazione lineare dei suoi elementi produce un elemento dello spazio stesso.
+
+\noindent Infatti, $\forall q_1, q_2\in\Pi_n$, è ottenuto che $\alpha \cdot q_1(x)+\beta\cdot q_2(x)\in\Pi_n,\, \forall \alpha,\beta\in\mathbb R$. $\alpha \cdot q_1(x)$ e $\beta\cdot q_2(x)$ sono moltiplicazioni che non aumentano il grado della somma, al massimo lo diminuiscono.
+
+\paragraph{N.B.:} I polinomi $x^0,\, x^1,\, x^2,\, \hdots,\, x^n\in\Pi_n$ sono linearmente indipendenti e questi costituiscono la base canonica di $\Pi_n$. Pertanto, $\dim(\Pi_n)=n+1$. Questo significa che, per individuare univocamente un polinomio di $\Pi_n$,  saranno necessarie $n+1$ condizioni linearmente indipendenti.
+
+ \begin{definition}[Trasposta Matrice di Vandermonde]
 	Una matrice di Vandermonde ha la caratteristica di essere definita con attraverso una progressione geormetrica, ovvero gli elementi di $V$ sono del tipo $v_{i,j}=v_i^{j-1}$ ed è della forma
 	 \begin{equation*}
 	 	V=\begin{bmatrix}
@@ -57,7 +59,7 @@ Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriv
 \footnotetext{Produttoria di tutte le coppie di elementi ascisse $x$ con indice $i>j$.}
 
 \begin{example}
-	La matrice di Vandermonde del vettore $v=(1, 2, 3, 4, 5)$ è la seguente:
+	La matrice di Vandermonde trasposta del vettore $v=(1, 2, 3, 4, 5)$ è la seguente:
 	\begin{equation*}
 		\begin{bmatrix}
 			1    &  1 & 1  &   1  &   1 \\
@@ -71,14 +73,18 @@ Se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$, allora è possibile scriv
 
 L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Teorema.
 \begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:esistenza_unicita_polinomio_interpolante}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
-    Date $n+1$ ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}), $\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n$ (ovvero esiste unico polinomio $p$ interpolante $f$ che soddisfa le condizioni (\ref{eq:condizioni_interpolazione})).
+    Date $n+1$ ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}),
+    \begin{equation*}
+    	\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n.
+    \end{equation*}
+    (ovvero esiste unico polinomio $p$ interpolante $f$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}))
 \end{theorem}
 \begin{proof}
-    Considerato il polinomio incognito (\ref{eq:polinomio_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})}, allora
-    \begin{equation}\label{eq:InterpEqLin}
-        p(x_i)\equiv\sum_{k=0}^{n}a_kx_i^k=f_i,\quad i=0,\hdots,n.
+    Considerato il polinomio interpolante incognito (\ref{eq:polinomio_interpolante_generico}) ed imposte le \underline{condizioni di interpolazione (\ref{eq:condizioni_interpolazione})} 
+    \begin{equation}\label{eq:condizioni_interpolazione_dimostrazione}
+        p(x_i)\equiv\sum_{k=0}^{n}a_kx_i^k=f_i,\quad i=0,\hdots,n,
     \end{equation}
-    Questo è un sistema di equazioni lineari $(n+1)$, nelle $n+1$ incognite $a_0,\hdots,a_n$. Il sistema può essere denotato in forma vettoriale come
+    è necessario determinare i coefficienti $\{a_k\}$. (\ref{eq:condizioni_interpolazione_dimostrazione}) è un sistema di equazioni lineari $(n+1)$, nelle $n+1$ incognite $a_0,\hdots,a_n$. Tale sistema può essere denotato in forma vettoriale come
     \begin{equation}\label{eq:sistema_lineare_vandermonde}
         V\underline{a}=\underline{b},
     \end{equation}
@@ -108,30 +114,24 @@ L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Te
     
     Inoltre, $V$ ha la seguente proprietà (Proprietà \ref{prop:determinante_matrice_vandermonde})
     \begin{equation*}
-    	\det(V)= \prod_{\underbrace{i>j}_{i\neq j}}(x_i-x_j)\neq 0.
+    	\det(V)= \prod_{i>j}(x_i-x_j).
     \end{equation*}
     
-    In virtù dell'ipotesi (\ref{eq:ascisse_interpolazione}), segue che le ascisse sono distinte e che $\det(V)\overset{\footnotemark}{\neq} 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
+    In virtù dell'ipotesi (\ref{eq:ascisse_interpolazione}), segue che le ascisse sono distinte e che $\det(V)\neq 0$, allora esiste unica la soluzione del sistema lineare (\ref{eq:sistema_lineare_vandermonde}) se e solo se $\exists! p(x)\in\Pi_n$ che soddisfa le condizioni di interpolazione (\ref{eq:condizioni_interpolazione}).
 \end{proof}
 
-Il problema discreto (\ref{eq:sistema_lineare_vandermonde}), per la determinazione di (\ref{eq:InterpEqLin}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
+Il problema discreto (\ref{eq:sistema_lineare_vandermonde}), per la determinazione di (\ref{eq:condizioni_interpolazione_dimostrazione}), deriva dall'aver scelto la base delle potenze, ovvero ${x^0,x^1,\hdots, x^n}$, come base di $\Pi_n$.
 
-\begin{definition}[Polinomio Interpolante]
-    Il polinomio (\ref{eq:InterpEqLin}) è noto come \textbf{polinomio interpolante} la funzione sulle ascisse assegnate.
-\end{definition}
-
-Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema_lineare_vandermonde}) è inefficiente per il costo computazionale elevato e per il numero di condizionamento di $V$, il quale cresce rapidamente al crescere di $n$.
-
-È necessario cercare un modo alternativo per il calcolo del polinomio interpolante $p(x)$, ovvero utilizzare una base diversa da quella delle potenze per il polinomio interpolante. Per questo sono definiti i polinomi della seguente Sezione, atti a calcolare il polinomio interpolante con una base diversa.
+Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema_lineare_vandermonde}) è inefficiente per il costo computazionale elevato e per il numero di condizionamento di $V$, il quale cresce rapidamente al crescere di $n$. Pertanto, è necessario cercare un modo alternativo per il calcolo del polinomio interpolante $p(x)$, ovvero utilizzare una base diversa da quella delle potenze per il polinomio interpolante. Per questo sono definiti i polinomi della seguente Sezione, atti a calcolare il polinomio interpolante con una base diversa.
 
 \subsection{Forma di Lagrange e di Newton}
 
 \subsubsection{Forma di Lagrange}
 
-\begin{definition}[Polinomi di base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
+\begin{definition}[Base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
     La \textbf{base di Lagrange} è definita dai seguenti \textbf{polinomi di base di Lagrange}:
     \begin{equation}\label{eq:polLagrange}
-        L_{in}=\prod_{j=0,\,j\neq i}^{n} \frac{x-x_j}{x_i-x_j},\quad i=0,1,\hdots,n, 
+        L_{in}(x)=\prod_{j=0,\,j\neq i}^{n} \frac{x-x_j}{x_i-x_j},\quad i=0,1,\hdots,n, 
     \end{equation}
     dove $i$ stabilisce quale polinomio è considerato ed $n$ determina il grado del polinomio $L_{in}$.
 \end{definition}
@@ -248,7 +248,7 @@ Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è es
 	\begin{equation*}
 	    \boldsymbol{\exists!p(x)\in\Pi_n:p(x_i)=f_i,\quad i=0,\hdots, n},
 	\end{equation*}
-	dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate. Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_generico}) e (\ref{eq:polinomio_interpolante_forma_lagrange}) sono algebricamente uguali, quindi segue che: 
+	dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate. Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_interpolante_generico}) e (\ref{eq:polinomio_interpolante_forma_lagrange}) sono algebricamente uguali, quindi segue che: 
 	\begin{equation}\label{eq:equivalenza_basi}
 		p(x)=\sum_{i=0}^n \boldsymbol{a_i}\, x^i \equiv \sum_{i=0}^n f_i\, \boldsymbol{L_{in}(x)},
 	\end{equation}
@@ -595,7 +595,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 \end{remark}
 
 \subsubsubsection{Metodo di Horner}
-\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton $p(x)$. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_generico}), ovvero di
+\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton $p(x)$. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_interpolante_generico}), ovvero di
 \begin{equation}\label{eq:polinomio_generico_ridef}
 	p(x)=\sum_{k=0}^{n}a_kx^k
 \end{equation}
