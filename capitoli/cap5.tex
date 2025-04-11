@@ -44,7 +44,7 @@ Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$
 \end{equation}
 
 \begin{definition}[Formula di Newton-Cotes]
-	Sia $p(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}), è considerata la sua forma di Lagrange (\ref{eq:polLagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
+	Sia $p(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}), è considerata la sua forma di Lagrange (\ref{eq:polinomi_lagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
 	\begin{equation*}
 		I(f)=\int_a^b f(x) dx\approx I(p) = \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
 	\end{equation*}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}

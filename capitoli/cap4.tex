@@ -22,9 +22,9 @@ L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esem
 		p(x) = \sum_{k=0}^{n}a_kx^k \in\Pi_n,
 	\end{equation}
 	tale che, date le coppie note
-	\begin{equation*}
+	\begin{equation}\label{eq:coppie_xi,fi}
 		(x_i,f_i),\quad i=0,\hdots,n, \quad f_i\equiv f(x_i),
-	\end{equation*}
+	\end{equation}
 	valgano le seguenti condizioni di interpolazione 
 	\begin{equation}\label{eq:condizioni_interpolazione}
 		p(x_i)=f_i,\; i=0,\hdots,n.
@@ -73,7 +73,7 @@ L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esem
 
 L'esistenza e l'unicità del polinomio interpolante è enunciata dal seguente Teorema.
 \begin{theorem}[Esistenza ed Unicità del polinomio interpolante]\label{th:esistenza_unicita_polinomio_interpolante}\footnote{Slide 2 PDF 15, TH 4.1 PG 78}
-    Date $n+1$ ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}),
+    Sia $f\colon [a,b]\rightarrow\mathbb{R}$, date $n+1$ ascisse distinte del tipo (\ref{eq:ascisse_interpolazione}) e le corrispondenti coppie (\ref{eq:coppie_xi,fi}), allora
     \begin{equation*}
     	\exists!\, p(x)\in\Pi_n: p(x_i)=f_i,\, i=0,\hdots,n.
     \end{equation*}
@@ -130,14 +130,14 @@ Il calcolo del polinomio interpolante tramite la risoluzione di (\ref{eq:sistema
 
 \begin{definition}[Base di Lagrange]\footnote{Slide 7 PDF 15, PG 79.}
     La \textbf{base di Lagrange} è definita dai seguenti \textbf{polinomi di base di Lagrange}:
-    \begin{equation}\label{eq:polLagrange}
+    \begin{equation}\label{eq:polinomi_lagrange}
         L_{in}(x)=\prod_{j=0,\,j\neq i}^{n} \frac{x-x_j}{x_i-x_j},\quad i=0,1,\hdots,n, 
     \end{equation}
     dove $i$ stabilisce quale polinomio è considerato ed $n$ determina il grado del polinomio $L_{in}$.
 \end{definition}
 
 \begin{property}
-	Date le ascisse definite come (\ref{eq:ascisse_interpolazione}), allora i polinomi di Lagrange (\ref{eq:polLagrange}) sono ben definiti ed hanno le seguenti proprietà:
+	Date le ascisse definite come (\ref{eq:ascisse_interpolazione}), allora ogni polinomio di Lagrange (\ref{eq:polinomi_lagrange}) è \gls{ben definito} ed ha le seguenti proprietà:
 	\begin{itemize}
 		\item[P1)] I polinomi sono ben distinti se $x_i-x_j\neq 0\,(\rightarrow x_i\neq x_j),\; i\neq j$ \footnote{Ipotesi di (\ref{eq:ascisse_interpolazione}).};
 		\item [P2)]\footnotemark $L_{in}(x)\in\Pi_n,\; \forall i=0,\hdots,n$;
@@ -236,19 +236,31 @@ Il Teorema  significa che (\ref{eq:polinomio_interpolante_forma_lagrange}) è es
     for j = 1 : n
         L = L.*(x-xi(j));
     end
-    L = L / prod(zi - xi);
+    L = L / prod(x - xi);
     return
     \end{lstlisting}
 \end{algorithm}
 
-\paragraph{N.B.:} Dati gli Algoritmi \ref{alg:calcolo_polinomio_interpolante_forma_lagrange}-\ref{alg:calcolo_base_polinomio_interpolante_forma_lagrange}, è importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
+\paragraph{Implementazione Polinomio interpolante in forma di Lagrange:} Vedere gli Algoritmi \ref{alg:calcolo_polinomio_interpolante_forma_lagrange}-\ref{alg:calcolo_base_polinomio_interpolante_forma_lagrange}. È importante utilizzare manipolazioni vettoriali al posto di cicli, in quanto le prime sono migliori per prestazioni (oltre ad essere più compatte).
+
+\begin{example}
+	Calcolare la forma di Lagrange del polinomio interpolante le seguenti coppie di dati $(x_i, f_i),\, i=0,1,2$: $(0,1),(2,-2), (3,4)$.\\
+	Il polinomio da determinare è di grado 2, avendo 3 coppie di dati ed è della forma
+	\begin{equation*}
+		p(x) = 1 \cdot L_{02}(x) - 2 \cdot L_{12}(x) + 4 \cdot L_{22}(x),
+	\end{equation*}
+	con i polinomi di base di Lagrange definiti come
+	\begin{equation*}
+		\begin{matrix}
+			L_{02}(x) &=& \frac{(x-2)(x-3)}{6},\\\\
+			L_{12}(x) &=& \frac{x(x-3)}{-2} &=& \frac{x(3-x)}{2},\\\\
+			L_{22}(x) &=& \frac{x(x-2)}{3}.
+		\end{matrix}
+	\end{equation*}
+\end{example}
 
 \begin{remark}
-	Date le $n+1$ coppie $(x_i,f_i),\; i=0,\hdots,n$, con $x_i\neq x_j$, se $i\neq j$ e $f_i\overset{\footnotemark}{\equiv} f(x_i)$,
-	\begin{equation*}
-	    \boldsymbol{\exists!p(x)\in\Pi_n:p(x_i)=f_i,\quad i=0,\hdots, n},
-	\end{equation*}
-	dove $p(x)$ è il polinomio interpolante di $f(x)$ sulle ascisse assegnate. Inoltre, è utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_interpolante_generico}) e (\ref{eq:polinomio_interpolante_forma_lagrange}) sono algebricamente uguali, quindi segue che: 
+	È utile ribadire che le rappresentazioni del polinomio interpolante (\ref{eq:polinomio_interpolante_generico}) e (\ref{eq:polinomio_interpolante_forma_lagrange}) sono algebricamente uguali, quindi segue che: 
 	\begin{equation}\label{eq:equivalenza_basi}
 		p(x)=\sum_{i=0}^n \boldsymbol{a_i}\, x^i \equiv \sum_{i=0}^n f_i\, \boldsymbol{L_{in}(x)},
 	\end{equation}
@@ -410,6 +422,27 @@ Tramite le condizioni di interpolazione (derivate dalle condizioni di interpolaz
     \end{equation*}
 \end{remark}
 
+\begin{example}
+	Calcolare la forma di Newton del polinomio interpolante le coppie di dati $(x_i, f_i),\, i=0,1,2$: $(0,1),(2,-2), (3,4)$.\\
+	Il polinomio interpolante è
+	\begin{equation*}
+		p(x) = f[0]\cdot 1 + f[0,2]\cdot x + f[0,2,3] x(x-2),
+	\end{equation*}
+	dove le differenze divise sono calcolate come
+	\begin{center}
+		\begin{tabular}{c|c|c|c} 
+			& 0 & 1 & 2\\
+			\hline
+			0 & $\boldsymbol{f[0]=1}$ & &   \\ 
+			2 & $f[2]=-2$ & $\boldsymbol{f[0,2]=\frac{-3}{2}}$ & \\ 
+			3 & $f[3]=4$ & $f[2,3]=6$ & $\boldsymbol{f[0,2,3]=-\frac{5}{2}}$
+		\end{tabular}
+	\end{center}
+	Pertanto,
+	\begin{equation*}
+		p(x) = 1 - \frac{3}{2} x + \frac{5}{2} x(x-2).
+	\end{equation*}
+\end{example}
 \paragraph{\ul{N.B.}:} \textbf{La forma di Lagrange e la forma di Newton di $\boldsymbol{p(x)}$ definiscono lo stesso polinomio interpolante}, il quale esiste ed è unico, se le ascisse di interpolazione sono tra loro distinte. Ciò significa che per $p(x)$ varia solo la sua rappresentazione. Questo ha il pregio di prestarsi alla costruzione incrementale del polinomio aggiornandosi in modo dinamico.
 
 \paragraph{Esempio di caso d'uso polinomio interpolante:} se fosse richiesto di approssimare ciò che è sotto una certa curva questa viene calcolata con un numero prefissato di punti, poi se ne sono aggiungono uno ad uno fino a che non è più possibile effetturare una stima accurata.
