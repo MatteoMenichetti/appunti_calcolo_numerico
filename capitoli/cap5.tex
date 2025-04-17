@@ -525,7 +525,7 @@ Inoltre, osservando $E_1^{(n)}$ e $E_2^{(n)}$ è possibile notare che $E_1^{(n)}
 \end{figure}
 
 \begin{algorithm}\caption{Implementazione algoritmo adattivo dei trapezi.}
-\label{alg:algAdattFormTrap}
+\label{alg:formula_trapezi_adattiva}
     \begin{lstlisting}[style=Matlab-editor]
     function I2 = adaptrap(f, a, b, tol, fa, fb)
     %
@@ -538,24 +538,30 @@ Inoltre, osservando $E_1^{(n)}$ e $E_2^{(n)}$ è possibile notare che $E_1^{(n)}
     %
     % Output:
     %   I2 - approssimazione ottenuta.
-    if nargin < 4 
-        error('numero argomenti insufficienti')
-    end
-    if tol <= 0 
-        error('tolleranza nulla o minore di 0')
-    end 
+    %
+    
+    if nargin < 4, error('numero argomenti insufficienti'), end
+    
+    if tol <= 0, error('tolleranza nulla o minore di 0'), end 
+    
     if nargin == 4
-        fa = feval(f, a); fb = feval(f, b);
+        fa = feval(f, a); fb = feval(f, b); % evitano valutazioni ridondanti per le chiamate ricorsive di adatrap 
     end
+    
     h = b - a;
+    
     x1 = (a + b)/2;
+    
     f1 = feval(f, x1); %valutazione funzionale nel punto medio
+    
     I1 = (h/2)*(fa+fb); 
     I2 = (I1 + h*f1)/2; 
+    
     e = abs(I2-I1)/3; %stima dell'errore
+    
     if e > tol
         I2 = adaptrap(f, a, x1, tol/2, fa, f1)...
-            + adaptrap(f, x1, b, tol/2, f1, fb); 
+         + adaptrap(f, x1, b, tol/2, f1, fb); 
     end
     return
     \end{lstlisting}

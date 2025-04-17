@@ -1,4 +1,4 @@
-% !TeX spellcheck = en_US
+% !TeX spellcheck = it_IT
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104.}
 In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Di tale funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
@@ -447,7 +447,7 @@ Utilizzando il principio di induzione è possibile verificare le seguenti \textb
 			\hline
 			0 & $\boldsymbol{f[0]=1}$ & &   \\ 
 			2 & $f[2]=-2$ & $\boldsymbol{f[0,2]=\frac{-3}{2}}$ & \\ 
-			3 & $f[3]=4$ & $f[2,3]=6$ & $\boldsymbol{f[0,2,3]=-\frac{5}{2}}$
+			3 & $f[3]=4$ & $f[2,3]=6$ & $\boldsymbol{f[0,2,3]=\frac{5}{2}}$
 		\end{tabular}
 	\end{center}
 	Pertanto,
@@ -646,7 +646,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 \subsubsubsection{Metodo di Horner}
 \noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton $p(x)$. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_interpolante_generico}), ovvero di
 \begin{equation}\label{eq:polinomio_generico_ridef}
-	p(x)=\sum_{k=0}^{n}a_kx^k
+	p(x)=\sum_{k=0}^{n}a_kx^k,
 \end{equation}
 in un punto assegnato $x$, dove sono noti i coefficienti ed è necessario calcolare la sommatoria. Sarà utilizzata la proprietà ricorsiva del polinomio di Newton.
 
@@ -710,7 +710,7 @@ dove $\omega_{i}$ soddisfa la relazione di ricorrenza (\ref{eq:polinomio_base_ne
 \end{equation*}
 
 \paragraph{Implementazione Algortimo di Horner Modificato:} Vedere l'Algoritmo \ref{alg:metodo_horner_modificato}.\\
-Nel caso in cui siano fornite gia' le differenze divise allorapossibile eliminare dall'Algoritmo \ref{alg:metodo_horner_modificato} la riga dove sono calcolate. Inoltre,possibile osservare che l'ascissa di interpolazione $n+1$-esima (vettore $x$ dell'Algoritmo) puo' non essere considerata perche' per calcolare la funzione di base di Newton l'ultima ascissa non utile. Per questo, verificare che $f$ e $x$ abbiano la stessa lunghezza significa condiderare $f-1$.
+Nel caso in cui siano fornite già le differenze divise allora è possibile eliminare dall'Algoritmo \ref{alg:metodo_horner_modificato} la riga dove sono calcolate. Inoltre,possibile osservare che l'ascissa di interpolazione $n+1$-esima (vettore $x$ dell'Algoritmo) può non essere considerata perché per calcolare la funzione di base di Newton l'ultima ascissa non utile. Per questo, verificare che $f$ e $x$ abbiano la stessa lunghezza significa considerare $f-1$.
 
 \paragraph{N.B.:} L'operazione .* in riga 5 dell'Algoritmo \ref{alg:metodo_horner_modificato} è vettorizzabile.
 
@@ -764,9 +764,9 @@ Nel caso in cui siano fornite gia' le differenze divise allorapossibile eliminar
     	
     	f = differenze_divise(f,x);
     	
-        p = f(n) * ones(size(xx));
+        p = f(n+1) * ones(size(xx));
         
-        for i = n - 1  : -1 : 1
+        for i = n  : -1 : 1
             p = p .* (xx - x(i)) + f(i)
         end
         
