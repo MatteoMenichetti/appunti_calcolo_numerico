@@ -841,7 +841,7 @@ Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (d
 
 \subsection{Interpolazione di Hermite}\footnote{Slide 4-11 PDF 18, PG 84-86.}
 [Problema:] Supposto di avere un polinomio interpolante una funzione su un numero pari ($2n+2$) di ascisse, quest'ultime sono numerate come segue:
-\begin{equation}
+\begin{equation}\label{eq:ascisse_interpolazione_hermite}
     a\leq\overbrace{x_0 < x_{\frac{1}{2}} < x_1 < x_{\frac{3}{2}} < \hdots < x_n < x_{n+\frac{1}{2}}}^{2n+2\text{ ascisse}}\leq b.
 \end{equation}
 
@@ -882,7 +882,13 @@ Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4_
     \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}=f\left[x_i,x_{i+\frac{1}{2}}\right]\rightarrow f[x_i,x_i]\equiv f'(x_i),\; i=0,\hdots,n.
 \end{equation}
 
-È possibile concludere che se $x_{i+\frac{1}{2}}\rightarrow x_i,\, \forall i=\underbrace{0,\hdots, n}_{\footnotemark}\Rightarrow\exists! p_{\boldsymbol H}(x)\in\Pi_{\boldsymbol{2n+1}}$ tale che: \footnotetext{Quindi le ascisse sono $n+1$.}
+Conoscendo i valori $\{f'(x_i)\}$, mediante la Proprieta' (\ref{eq:P4_differenze_divise}), e' possibile calcolare le differenze divise come in precedenza (con la tabella triangolare inferiore),considerando le ascisse nella prima colonna come
+\begin{equation*}
+	a \leq x_0 = x_0 < x_1 = x_2 < \hdots < x_n = x_n \leq b,
+\end{equation*}
+invece di (\ref{eq:ascisse_interpolazione_hermite}).
+
+È possibile concludere che se $x_{i+\frac{1}{2}}\rightarrow x_i,\, \forall i=\underbrace{0,\hdots, n}_{n+1}\Rightarrow\exists! p_{\boldsymbol H}(x)\in\Pi_{\boldsymbol{2n+1}}$ tale che
 \begin{equation}\label{eq:polinomio_interpolante_hermite}
     \footnotemark\begin{cases}
         p_{\boldsymbol H}(x_i)=f(x_i)\\
@@ -939,7 +945,7 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
     \begin{equation}\label{eq:polinomio_hermite_base_newton}
         p_H(x)=f[x_0]\cdot 1 + f[x_0,x_0]\cdot(x-x_0)+\hdots+f[x_0,x_0,\hdots,x_{\boldsymbol n},x_{\boldsymbol n}](x-x_0)^2\cdot\hdots\cdot(x-x_{\boldsymbol{n-1}})^2(x-x_{\boldsymbol n}).
     \end{equation}
-    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivalenza_approx_f'_hermite}). Nell'Algoritmo, il vettore in ingresso, \textbf{f} contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polinomio_hermite_base_newton}).
+    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivalenza_approx_f'_hermite}). Nell'Algoritmo, il vettore in ingresso, $\boldsymbol{f}$ contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polinomio_hermite_base_newton}).
 \end{remark}
 \begin{algorithm}
 \caption{Polinomio di Hermite: calcolo delle differenze divise}\label{alg:calcDiffDivPolHer}
