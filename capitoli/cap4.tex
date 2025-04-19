@@ -1,4 +1,4 @@
-% !TeX spellcheck = it_IT
+% !TeX spellcheck = <none>
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104.}
 In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Di tale funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
@@ -500,7 +500,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 		\end{proof}
 		
 		\item[P4)] Se $f\in C^{(\boldsymbol r)}[a,b],\, a=\underset{i=0,\hdots,\boldsymbol r}{\min}x_i,\, b=\underset{i=0,\hdots,\boldsymbol r}{\max}x_0$, allora
-		\begin{equation}\label{eq:P4DiffDiv}
+		\begin{equation}\label{eq:P4_differenze_divise}
 			f[x_0,\hdots, x_{\boldsymbol r}]=\frac{f^{(\boldsymbol r)}(\xi)}{\boldsymbol r!},\; \xi\in [a,b],
 		\end{equation}
 		
@@ -853,8 +853,12 @@ Pertanto, sotto la precedente ipotesi di ascisse distinte, $\boldsymbol{\exists!
     \end{rcases} i=0,\hdots,n.
 \end{equation}
 
-Se $\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i$, le ascisse che sono tra due interi, quelle con indice frazionario (ovvero $i+\frac{1}{2}$), sono fatte tendere all'ascissa a sinistra, quindi la condizione di interpolazione è duplicata. Per evitare la duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:condizioni_polinomio_interpolazione_hermite}), in modo equivalente, come
-\begin{equation}\label{eq:hermCondPolInterpMod}
+Inoltre, se
+\begin{equation*}
+	\forall i=0,\hdots,n: x_{i+\frac{1}{2}}\rightarrow x_i,
+\end{equation*}
+le condizioni di interpolazione sono duplicate perche' le ascisse che sono tra due interi, quelle con indice frazionario del tipo $i+\frac{1}{2}$, sono fatte tendere all'ascissa di sinistra. Per evitare tale duplicazione è possibile riscrivere le condizioni di interpolazione (\ref{eq:condizioni_polinomio_interpolazione_hermite}), in modo equivalente, come
+\begin{equation}\label{eq:condizioni_interpolazione_hermite_modificate}
     \begin{rcases}
         \boldsymbol{p(x_i)=f(x_i})\\
         \boxed{\frac{p\left(x_{i+\frac{1}{2}}\right)-p(x_i)}{x_{i+\frac{1}{2}}-x_i}=\frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}}
@@ -865,21 +869,21 @@ dove, per $x_{i+\frac{1}{2}}\rightarrow x_i$
     \begin{cases}
         \frac{p\left(x_{i+\frac{1}{2}}\right)-p(x_i)}{x_{i+\frac{1}{2}}-x_i}\rightarrow p'(x_i)\\
         & i=0,\hdots, n.\\
-        \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}\rightarrow f'(x_i)
+        \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}}-x_i\rightarrow f'(x_i)
     \end{cases}
 \end{equation*}
 
 \begin{remark}
-    La seconda condizione di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) è stata modificata nella seconda condizione di (\ref{eq:hermCondPolInterpMod}), sottraendo la prima condizione alla seconda di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) e dividendo membro a membro per $x_{i+\frac{1}{2}}-x_i$.
+    La seconda condizione di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) è stata modificata nella seconda condizione di (\ref{eq:condizioni_interpolazione_hermite_modificate}), sottraendo la prima condizione alla seconda di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) e dividendo membro a membro per $x_{i+\frac{1}{2}}-x_i$.
 \end{remark}
 
-Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4DiffDiv})):
-\begin{equation}\label{eq:equivApproxf'}
+Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4_differenze_divise})):
+\begin{equation}\label{eq:equivalenza_approx_f'_hermite}
     \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}=f\left[x_i,x_{i+\frac{1}{2}}\right]\rightarrow f[x_i,x_i]\equiv f'(x_i),\; i=0,\hdots,n.
 \end{equation}
 
 È possibile concludere che se $x_{i+\frac{1}{2}}\rightarrow x_i,\, \forall i=\underbrace{0,\hdots, n}_{\footnotemark}\Rightarrow\exists! p_{\boldsymbol H}(x)\in\Pi_{\boldsymbol{2n+1}}$ tale che: \footnotetext{Quindi le ascisse sono $n+1$.}
-\begin{equation}\label{eq:polInterHer}
+\begin{equation}\label{eq:polinomio_interpolante_hermite}
     \footnotemark\begin{cases}
         p_{\boldsymbol H}(x_i)=f(x_i)\\
         p_{\boldsymbol H}'(x_i)=f'(x_i)
@@ -890,7 +894,7 @@ Data $f(x)\in C^{(1)}$ è possibile ottenere ciò che segue (vedere (\ref{eq:P4D
     $p_{\boldsymbol H}(x)$ è il polinomio interpolante di Hermite.  
 \end{definition}
 
-Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisse_interpolazione}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polInterHer}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
+Pertanto, date le $n+1$ ascisse distinte (\ref{eq:ascisse_interpolazione}), $\exists!\, p_{\boldsymbol H}(x)\in\Pi_{2n+1}$, che soddisa le condizioni di interpolazione (\ref{eq:polinomio_interpolante_hermite}). Il polinomio $p_H(x)$ interpola la funzione $f(x)$ e la sua derivata, $f'(x)$, nelle ascisse di interpolazione.
 
 \begin{example}\footnote{Slide 5 PDF 18.}
     Considerate le ascisse $x_i=i\cdot\pi,\; i=0,1,2$ e considerando la funzione
@@ -935,7 +939,7 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
     \begin{equation}\label{eq:polinomio_hermite_base_newton}
         p_H(x)=f[x_0]\cdot 1 + f[x_0,x_0]\cdot(x-x_0)+\hdots+f[x_0,x_0,\hdots,x_{\boldsymbol n},x_{\boldsymbol n}](x-x_0)^2\cdot\hdots\cdot(x-x_{\boldsymbol{n-1}})^2(x-x_{\boldsymbol n}).
     \end{equation}
-    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivApproxf'}). Nell'Algoritmo, il vettore in ingresso, \textbf{f} contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polinomio_hermite_base_newton}).
+    È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:calcDiffDivPolHer}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivalenza_approx_f'_hermite}). Nell'Algoritmo, il vettore in ingresso, \textbf{f} contiene i valori $f(x_0), f'(x_0), f(x_1), f'(x_1),\hdots, f(x_n),f'(x_n)$ ed in uscita, essendo sovrascritto, le differenze divise in (\ref{eq:polinomio_hermite_base_newton}).
 \end{remark}
 \begin{algorithm}
 \caption{Polinomio di Hermite: calcolo delle differenze divise}\label{alg:calcDiffDivPolHer}
@@ -1110,7 +1114,7 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
 
 \begin{corollary}
     \footnote{Slide 5 PDF 19, Corollario 4.1 PG 87; Importante perché esiste un legame tra le differenze divise e le derivate della funzione $f$, se questa è sufficientemente regolare.}
-    Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4DiffDiv})):
+    Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4_differenze_divise})):
     \begin{equation}\label{eq:errore_interpolazione_P4}
         \begin{matrix}
             e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
@@ -1805,7 +1809,7 @@ Con una lente più formale è possibile definire quanto segue:
 \end{definition}
 \footnotetext{$s_m$ deve essere derivabile $m-1$ volte e le $m-1$ derivate devono essere continue. Se $s_m$ è un polinomio allora soddisferà la condizione perché un polinomio è $C^\infty$ (le derivate successive sono nulle).}
 
-1. e 2. sono condizioni diverse: 1. definisce cos'è una spline di grado $m$ e 2. afferma che la spline coincide con il grado assegnato in ciascun sottointervallo. Una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$). È necessario imporre sulla 2. la condizione (\ref{eq:condInterpSpline2}).
+1. e 2. sono condizioni diverse: 1. definisce cos'è una spline di grado $m$ e 2. afferma che la spline coincide con il grado assegnato in ciascun sottointervallo. Una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$). È necessario imporre sulla 2. la condizione (\ref{eq:condizioni_interpolazione_spline_modificate}).
 
 \begin{remark}\label{rem:n+m_condizioni_indipendenti}
     \footnote{Slide 12 PDF 22, Teorema 4.11 PG 95.} Denotando con $\boldsymbol{S_m(\Delta)}$ l'insieme delle spline di grado $m$ sulla partizione $\Delta$, contenente $n+1$ ascisse, questo è uno \textbf{spazio vettoriale} di dimensione $\boldsymbol{m+n}$.
@@ -1821,7 +1825,7 @@ Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei 
 
 \begin{definition}[Condizioni di interpolazione]\label{def:condizioni_aggiuntive_spline}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
     Una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ (nei nodi della partizione) se (valgono le seguenti condizioni di interpolazione): 
-    \begin{equation}\label{eq:condInterpSpline}
+    \begin{equation}\label{eq:condizione_interpolazione_spline}
         \boldsymbol{s_m(x_i)=f(x_i)\equiv f_i,\quad i=0,\hdots,n.}
     \end{equation}
 \end{definition}
@@ -1830,7 +1834,7 @@ La definizione aggiunge alle due condizione necessarie affinché $s_m(x)$ sia de
 
 \begin{remark}
     \footnote{Slide 13 PDF 22, PG 95.} Le sole condizioni di interpolazione ($n+1$) permettono di individuare univocamente le spline di grado 1, anche dette spline lineari. In questo caso una spline lineare è la spezzata che congiunge i punti di interpolazione $(x_i,f_i),$ per $i=0,\hdots, n$. La spline lineare interpolante è data da 
-    \begin{equation}\label{eq:splineLineare}
+    \begin{equation}\label{eq:spline_lineare}
         \boldsymbol{s_1|_{[x_{i-1}, x_i]}(x)=\frac{(x-x_{i-1})f_i+(x_i-x)f_{i-1}}{x_i-x_{i-1}},\quad i=1,\hdots,n.}
     \end{equation}
 \end{remark}
@@ -1847,7 +1851,7 @@ La definizione di spline di grado $m$ (Definizione \ref{def:spline}) prescinde d
 Quando il grado della spline aumenta allora esistono diverse spline di grado superiore, per le quali ciascuna sarà una spline di grado $m$ interpolante. Queste spline differendo per poco, dato che le condizioni mancanti saranno imposte e ciascuna scelta riguardo le condizioni imposte genera spline diverse.
 
 La condizione 1. della Definizione \ref{def:spline} implica che la spline $s_m$ debba essere una funzione di classe $C^{(m-1)}[a,b]$. Questo requisito richiede di imporre delle condizioni sui punti interni della partizione $x_1,\hdots,x_{n-1}$, ovvero i punti di contiguità tra i sottointervalli $[x_{i-1},x_i]$ e $[x_i,x_{i+1}],$ per $ i=1,\hdots,n-1$. Ovvero, le condizioni da imporre sono le seguenti:
-\begin{equation}\label{eq:condInterpSpline2}
+\begin{equation}\label{eq:condizioni_interpolazione_spline_modificate}
     \begin{matrix}
         s_m^{(\boldsymbol{j})}|_{[x_{i-1},\boldsymbol{x_i}]}(\boldsymbol{x_i})= s_m^{(\boldsymbol{j})}|_{[\boldsymbol{x_i},x_{i+1}]}(\boldsymbol{x_i}),\\
         j=0,\hdots,m-1,\; i=1,,\hdots,n-1.
@@ -1859,7 +1863,7 @@ La condizione 1. della Definizione \ref{def:spline} implica che la spline $s_m$ 
 
 Vale il seguente risultato.
 
-\begin{theorem}\label{th:gradoDervSpline}
+\begin{theorem}\label{th:grado_derivata_spline}
     \footnote{Slide 14 PDF 22, Teorema 4.10 PG 95} Se $s_m$ è una spline di grado $m\geq 2$ sulla partizione $\Delta$, allora $s'_m(x)$ è una spline di grado $m-1$ sulla stessa partizione.
 \end{theorem}
 \begin{proof}
@@ -1876,19 +1880,19 @@ Dato che $m\geq 2\,(>0)$, per il Teorema, quindi la funzione è continua (questo
 \subsection{Spline cubiche}
 \begin{remark}
     \footnote{Slide 15 PDF 22.}
-    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante sono necessarie due ulteriori condizioni, ognuna delle quali darà origine ad una spline cubica interpolante generalmente diversa, oltre alle condizioni definite in (\ref{eq:condInterpSpline}). Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
+    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante sono necessarie due ulteriori condizioni, ognuna delle quali darà origine ad una spline cubica interpolante generalmente diversa, oltre alle condizioni definite in (\ref{eq:condizione_interpolazione_spline}). Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
 \end{remark}
 
 I motivi per i quali è scelta la spline cubica sono le condizioni solitamente asimmetriche rispetto agli estremi dell'intervallo. La derivata prima di una spline quadratica è continua, ha un profilo smooth e per questo sono scelte per l'approssimazione di funzioni. Sono utilizzate le spline cubiciche e non quadratiche dato che l'unica condizione è la non simmetria.
 
-Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condInterpSpline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
+Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
 
 Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alla condizione definita nella Definizione \ref{def:condizioni_aggiuntive_spline}.
 \subsubsection{Spline cubica naturale}
 \footnote{Slide 4 PDF 23, PG 96.} 
 \begin{definition}[Condizioni spline cubica naturale]
 	Una spline cubica è detta naturale se impone le due condizioni aggiuntive
-	\begin{equation}\label{eq:condSplineCubNat}
+	\begin{equation}\label{eq:condizioni_spline_cubica_naturale}
     \boxed{s''_3(a)=0,\quad s''_3(b)=0.}
 \end{equation}
 
@@ -1897,7 +1901,7 @@ La spline cubica naturale è quella che minimizza la curvatura totale della curv
 
 \subsubsection{Spline cubica completa}\footnote{Nota precedente.}
 Questa spline è determinata dalle due seguenti condizioni:
-\begin{equation}\label{eq:condSplineCubComp}
+\begin{equation}\label{eq:condizioni_spline_cubica_completa}
     \boxed{s'_3(a)=f'(a),\quad s'_3(b)=f'(b)}
 \end{equation}
 
@@ -1922,13 +1926,13 @@ Dalle condizioni di interpolazioni e per la periodicità di $f(x)$, è noto quan
 
 Se $\boldsymbol{f(x)\in C^{(2)}[a,b]}$, ovvero $f$ è più che continua, \textbf{come funzione periodica}, allora:
 
-\begin{equation}\label{eq:condPeriod}
+\begin{equation}\label{eq:condizioni_spline_periodica}
     f'(a)=f'(b),\quad f''(a)=f''(b).
 \end{equation}
 
-Dato che è richiesto che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condPeriod}), sono imposte le seguenti condizioni aggiuntive:
+Dato che è richiesto che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condizioni_spline_periodica}), sono imposte le seguenti condizioni aggiuntive:
 
-\begin{equation}\label{eq:condSplineCubPer}
+\begin{equation}\label{eq:condizioni_spline_cubica_periodica}
     \boxed{s'_3(a)=s'_3(b),\quad s''_3(a)=s''_3(b).}
 \end{equation}
 
@@ -1999,7 +2003,7 @@ Simmetricamente, sugli ultimi due sottointervalli, sarà imposto:
 
 $\boldsymbol{x_1}$ e $\boldsymbol{x_{n-1}}$ precedenti non sono considerati nodi della partizione in quanto sono imposte le condizioni di interpolazione e le condizioni di default.
 
-Ciò che è stato appena definito nei riquadri è una conveniente espressione, in virtù del Teorema \ref{th:gradoDervSpline}, delle condizioni aggiuntive della spline cubica not-a-knot, ovvero:
+Ciò che è stato appena definito nei riquadri è una conveniente espressione, in virtù del Teorema \ref{th:grado_derivata_spline}, delle condizioni aggiuntive della spline cubica not-a-knot, ovvero:
 \begin{equation}\label{eq:condizione_spline_cubica_not_a_knot}
     s'''_3|_{[x_0,x_1]}(x_1)=s'''_3|_{[x_1,x_2]}(x_1),\quad s'''_3|_{[x_{n-2},x_{n-1}]}(x_{n-1})=s'''_3|_{[x_{n-1},x_n]}(x_{n-1}).
 \end{equation}
@@ -2053,7 +2057,7 @@ ovvero $h_2(m_1-m_0)=h_1(m_2-m_1),\, h_{n}(m_{n-1}-m_{n-2})=h_{n-1}(m_{n}-m_{n-1
 
 \textbf{(\ref{eq:condizione_spline_cubica_not_a_knot2}) sono le condizioni aggiuntive per le spline not-a-knot}.
 
-Riguardo le altre condizioni $\{m_i\}$, è possibile osservare che, se $s_3(x)$ è una spline cubica sulla partizione $\Delta$, allora $s'_3(x)$ è una spline di grado 2 sulla stessa partizione, e $s''_3(x)$ è una spline lineare su $\Delta$. Pertanto, essendo $s''(x)$ una spline lineare, da (\ref{eq:splineLineare}) e (\ref{eq:s''3(xi)}), è ottenuto che
+Riguardo le altre condizioni $\{m_i\}$, è possibile osservare che, se $s_3(x)$ è una spline cubica sulla partizione $\Delta$, allora $s'_3(x)$ è una spline di grado 2 sulla stessa partizione, e $s''_3(x)$ è una spline lineare su $\Delta$. Pertanto, essendo $s''(x)$ una spline lineare, da (\ref{eq:spline_lineare}) e (\ref{eq:s''3(xi)}), è ottenuto che
 \begin{equation*}
     s''_3(x)\underset{\footnotemark}{=}\frac{(x-x_{i-1})m_i+(x_i-x)m_{i-1}}{\equalto{h_i}{x_i-x_{i-1}}},\quad\boldsymbol{x\in[x_{i-1}, x_i]},\; i=1,\hdots,n.
 \end{equation*}\footnotetext{Le $m_i$ non sono note. Sono noti i valori della derivata seconda della spline che assume nelle asisse di interpolazione. Quindi la derivata seconda della spline è la spline lineare che interpola gli $m_i$.}
@@ -2073,7 +2077,8 @@ Integrando nuovamente è ottenuta un'ulteriore spline:
 \noindent\footnote{Fossero noti gli $m_i$ e fosse possibile determinare le costanti di integrazione $r_i$ e $q_i$, allora sarebbe possibile calcolare il polinomio di grado 3, il quale costituisce la restrizione della spline nell'intervallo d'interesse. Ciò che sarà richiesto nell'elaborato, quando sarà necessario calcolare la spline nei punti assegnati, sarà calcolare la spline nei punti interpolanti. Adesso saranno eliminate le costanti $q_i$ e $r_i$ imponendo condizione di interpolazione agli estremi di ciascun sottointervallo.}
 Imponendo le condizioni di interpolazione a ciascun intervallo, è ottenuto quanto segue:
 \begin{itemize}
-    \item $s_3(x_1)=\frac{h_i^2}{6}m_{i-1}+r_i=f(x_{i-1})$, dalla quale è ottenuta \begin{equation}\label{eq:ri}
+    \item $s_3(x_1)=\frac{h_i^2}{6}m_{i-1}+r_i=f(x_{i-1})$, dalla quale è ottenuta
+    \begin{equation}\label{eq:ri}
         \underset{\footnotemark}{\boldsymbol{r_i}}\boldsymbol{=f(x_{i-1})-\frac{h_i^2}{6}m_{i-1}},
     \end{equation}
     dove $f(x_{i-1})$ ed $h_i^2$ sono valori noti.
@@ -2119,7 +2124,7 @@ Raggruppando gli $m_i$ con gli stessi indici a primo membro è ottenuto quanto s
     h_im_{i-1}+2(h_i+h_{i+1})m_i+h_{i+1}m_{i+1}=6(f[x_i,x_{i+1}]-f[x_{i-1},x_i]),\quad i=1,\hdots,n-1.
 \end{equation*}
 Dividendo membro a membro per $h_i+h_{i+1}=x_{i+1}-x_{i-1},$ è ottenuto:
-\begin{equation}\label{eq:eqCalcMi}
+\begin{equation}\label{eq:calcolo_mi}
     \begin{matrix}
         \equaltoup{\boxed{\frac{h_i}{h_i+h_{i+1}}}}{\varphi_i}\,m_{i-1}+2m_i+\equaltoup{\boxed{\frac{h_{i+1}}{h_i+h_{i+1}}}}{\xi_i}\,m_{i+1}&=&6\,\frac{f[x_i,x_{i+1}]-f[x_{i-1},x_i]}{x_{i+1}-x_{i-1}}&\overset{\footnotemark}{=}&6\,f[x_{i-1},x_i,x_{i+1}],\\
         && && i=1,\hdots,n-1.
@@ -2130,7 +2135,7 @@ Dividendo membro a membro per $h_i+h_{i+1}=x_{i+1}-x_{i-1},$ è ottenuto:
     $\boldsymbol{\varphi_i,\, \xi_i>0,\, \varphi_i+\xi_i=1.}$
 \end{remark}
 
-Le equazioni (\ref{eq:eqCalcMi}) sono un sistema di $n-1$ equazioni nelle $n+1$ incognite $\{m_0,\hdots,m_n\}$.
+Le equazioni (\ref{eq:calcolo_mi}) sono un sistema di $n-1$ equazioni nelle $n+1$ incognite $\{m_0,\hdots,m_n\}$.
 
 \textbf{Nel caso} di \textbf{spline naturali}, tenendo di conto delle condizioni (\ref{eq:condizione_spline_naturale}), è \textbf{ottenuto il sistema tridiagonale} 
 \begin{equation*}
@@ -2157,7 +2162,7 @@ Le equazioni (\ref{eq:eqCalcMi}) sono un sistema di $n-1$ equazioni nelle $n+1$ 
 
 Dall'Osservazione \ref{re:varphi+xi=1} è possibile notare che la matrice dei coefficienti è diagonale dominante sia per righe che per colonne e quindi la sua fattorizzazione $LU$ è definita\textbf{. Calcolati i valori} $\boldsymbol{\{m_i\}}$ \textbf{incogniti, la spline naturale è calcolata sostituendoli, assieme a (\ref{eq:ri})-(\ref{eq:qi}), in (\ref{eq:s3Ign}).}
 
-Ragionamento analogo vale \textbf{per la spline cubica not-a-knot} ottenenuta imponendo le relative condizioni aggiuntive, per la quale \textbf{le condizioni (\ref{eq:condizione_spline_cubica_not_a_knot2}) e (\ref{eq:eqCalcMi}) danno origine al sistema lineare}
+Ragionamento analogo vale \textbf{per la spline cubica not-a-knot} ottenenuta imponendo le relative condizioni aggiuntive, per la quale \textbf{le condizioni (\ref{eq:condizione_spline_cubica_not_a_knot2}) e (\ref{eq:calcolo_mi}) danno origine al sistema lineare}
 \begin{equation}\label{eq:sistema_tridiagonale_spline}
     \begin{pmatrix}
         \xi_1 & -1 & \varphi_1 && \\
@@ -2396,18 +2401,18 @@ Questo dimostra che esiste ed è unico il polinomio di approssimazione ai minimi
 
 \begin{remark}
 	\footnote{OSS6 Slide 9 PDF 25.} Dato un sistema lineare quadrato
-	\begin{equation}\label{eq:sistQuad}
+	\begin{equation}\label{eq:sistema_quadrato}
 		V\underline{a}=\underline{y}
 	\end{equation}
-	e $D$ una matrice nonsingolare, allora (\ref{eq:sistQuad}) ha la stessa soluzione di
-	\begin{equation}\label{eq:sistQuadD}
+	e $D$ una matrice nonsingolare, allora (\ref{eq:sistema_quadrato}) ha la stessa soluzione di
+	\begin{equation}\label{eq:sistema_quadrato_2}
 		DV\underline{a}=D\underline{y}.
 	\end{equation}
 \end{remark}
 
-$\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice $D$ è $\overset{\footnotemark}{\text{rettangolare}}$ (perché (\ref{eq:sistQuad}) e (\ref{eq:sistQuadD}) non avrebbero più la solita soluzione). 
+$\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice $D$ è $\overset{\footnotemark}{\text{rettangolare}}$ (perché (\ref{eq:sistema_quadrato}) e (\ref{eq:sistema_quadrato_2}) non avrebbero più la solita soluzione). 
 
-(\ref{eq:sistQuadD}) è utilizzato, nella pratica, calcolando $D=diag(\underline{p})$, con $\underline{p}$ vettore contenente una \textbf{distribuzione di probabilità discreta} ($\iff \underline{p}\geq 0 \,\land\, \text{sum}(\underline{p})=1$), per dare un diverso peso, $p_i$, a ciascuna equazione.
+(\ref{eq:sistema_quadrato_2}) è utilizzato, nella pratica, calcolando $D=diag(\underline{p})$, con $\underline{p}$ vettore contenente una \textbf{distribuzione di probabilità discreta} ($\iff \underline{p}\geq 0 \,\land\, \text{sum}(\underline{p})=1$), per dare un diverso peso, $p_i$, a ciascuna equazione.
 
 \addtocounter{footnote}{-1}
 \footnotetext{È utilizzato "Questo" perché alcune volte, nella ricerca del polinomio che approssima i dati e che soddisfa nel senso dei minimi quadrati il sistema, alcuni dati sono più attendibili di altri. I dati sono pesati in base all'attendibilità, attraverso una distribuzione discreta sulle diagonali di $\underline{p}$, dove le righe corrispondenti a distribuzioni più grandi saranno più importanti di altre.}
