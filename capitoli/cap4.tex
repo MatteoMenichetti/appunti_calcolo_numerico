@@ -504,7 +504,7 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
 			f[x_0,\hdots, x_{\boldsymbol r}]=\frac{f^{(\boldsymbol r)}(\xi)}{\boldsymbol r!},\; \xi\in \left[\underset{i=0,\hdots,\boldsymbol r}{\min}x_i,\, \underset{i=0,\hdots,\boldsymbol r}{\max}x_i\right],
 		\end{equation}
 		
-		dove $[a,b]$ è il più piccolo intervallo che contiene le ascisse di interpolazione. Questa proprietà vale anche nel caso in cui 2 o più ascisse coincidano. In questo caso, la definizione di differenza divisa vale come limite.
+		dove $[a,b]$ è il più piccolo intervallo che contiene le ascisse di interpolazione, in quanto $a=\underset{i=0,\hdots,\boldsymbol r}{\min}x_i$ e $\underset{i=0,\hdots,\boldsymbol r}{\max}x_i$. Questa proprietà vale anche nel caso in cui 2 o più ascisse coincidano. In questo caso, la definizione di differenza divisa vale come limite.
 		
 		\item[P5)] \begin{equation}\label{eq:P5_differenze_divise}
 			f[\underbrace{x_0,\hdots,x_r}_{r+1}]=\frac{f[\overbrace{x_1,\hdots,x_r}^{r}]-f[\overbrace{x_0,\hdots,x_{r-1}}^{r}]}{x_r-x_0}.\footnotemark
@@ -869,7 +869,7 @@ dove, per $x_{i+\frac{1}{2}}\rightarrow x_i$
     \begin{cases}
         \frac{p\left(x_{i+\frac{1}{2}}\right)-p(x_i)}{x_{i+\frac{1}{2}}-x_i}\rightarrow p'(x_i)\\
         & i=0,\hdots, n.\\
-        \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}}-x_i\rightarrow f'(x_i)
+        \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}\rightarrow f'(x_i)
     \end{cases}
 \end{equation*}
 
@@ -877,7 +877,7 @@ dove, per $x_{i+\frac{1}{2}}\rightarrow x_i$
     La seconda condizione di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) è stata modificata nella seconda condizione di (\ref{eq:condizioni_interpolazione_hermite_modificate}), sottraendo la prima condizione alla seconda di (\ref{eq:condizioni_polinomio_interpolazione_hermite}) e dividendo membro a membro per $x_{i+\frac{1}{2}}-x_i$.
 \end{remark}
 
-Data $f(x)\in C^{(1)}$, da (\ref{eq:x_i/2->x_i}) segue che (vedere (\ref{eq:P4_differenze_divise})):
+Data $f(x)\in C^{(1)}$, se (\ref{eq:x_i/2->x_i}) segue che (vedere (\ref{eq:P4_differenze_divise})):
 \begin{equation}\label{eq:equivalenza_approx_f'_hermite}
     \frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}-x_i}=f\left[x_i,x_{i+\frac{1}{2}}\right]\rightarrow f[x_i,x_i]\equiv f'(x_i),\; i=0,\hdots,n.
 \end{equation}
@@ -888,7 +888,7 @@ Conoscendo i valori $\{f'(x_i)\}$, mediante la Proprietà (\ref{eq:P4_differenze
 \end{equation*}
 invece di (\ref{eq:ascisse_interpolazione_hermite}).
 
-È possibile concludere che se $x_{i+\frac{1}{2}}\rightarrow x_i,\, \forall i=\underbrace{0,\hdots, n}_{n+1}\Rightarrow\exists! p_{\boldsymbol H}(x)\in\Pi_{\boldsymbol{2n+1}}$ tale che
+È possibile concludere che se vale (\ref{eq:x_i/2->x_i}), allora $\exists! p_{\boldsymbol H}(x)\in\Pi_{\boldsymbol{2n+1}}$ tale che
 \begin{equation}\label{eq:polinomio_interpolante_hermite}
     \footnotemark\begin{cases}
         p_{\boldsymbol H}(x_i)=f(x_i)\\
@@ -1030,7 +1030,7 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
     
     Per un generico $\boldsymbol n$ non è possibile calcolare direttamente le differenze divise in colonna $\boldsymbol{1}$ \fbox{$f[x_i,x_i],\; i=0,\hdots,n,$} tuttavia è possibile quanto segue:
     \begin{equation*}
-        \boldsymbol{f[x_i,x_i]}=\lim_{x_{i+\frac{1}{2}}\to x_i}\frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}+x_i}=\boldsymbol{f'(x_i)}.
+        \boldsymbol{f[x_i,x_i]}\equiv\lim_{x_{i+\frac{1}{2}}\to x_i}\frac{f\left(x_{i+\frac{1}{2}}\right)-f(x_i)}{x_{i+\frac{1}{2}}+x_i}=\boldsymbol{f'(x_i)}.
     \end{equation*}
 \end{example}
 
@@ -1104,8 +1104,8 @@ per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore comm
 
 Pertanto, è noto che nelle ascisse di interpolazione l'errore si annulla. È necessario stabilire quanto $e(x)$ sia "distante" da 0, per $x\notin \{x_0,\hdots, x_n\}.$
 
-\begin{theorem}[Errore di interpolazione polinomiale]\label{th:errore_interpolazione_forma_newton}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
-	Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})), vale:
+\begin{theorem}[Errore di interpolazione polinomiale polinomio di Newton]\label{th:errore_interpolazione_forma_newton}\footnote{Slide 3 PDF 19, TH 4.3 PG 86.} 
+	Dato $p(x)$, polinomio interpolante $f(x)$ in forma di Newton, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})), vale:
     \begin{equation}\label{eq:errore_interpolazione_forma_newton}
         \boldsymbol{e(x)=f[x_0,x_1,\hdots,x_n,x]\,\omega_{n+1}(x),\quad w_{n+1}(x)=\prod_{j=0}^{n}(x-x_j)}.
     \end{equation}
@@ -1150,11 +1150,11 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
 
 \begin{corollary}
     \footnote{Slide 5 PDF 19, Corollario 4.1 PG 87; Importante perché esiste un legame tra le differenze divise e le derivate della funzione $f$, se questa è sufficientemente regolare.}
-    Dato $p(x)$, polinomio interpolante $f(x)$, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4_differenze_divise})):
+    Dato $p(x)$, polinomio interpolante $f(x)$ in forma di Newton, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4_differenze_divise})):
     \begin{equation}\label{eq:errore_interpolazione_P4}
         \begin{matrix}
             e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
-            &\xi_x\in(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})\boldsymbol{\equiv I(x)}.
+            &\xi_x\in[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]\boldsymbol{\equiv I(x)}.
         \end{matrix}
     \end{equation}
 \end{corollary}
