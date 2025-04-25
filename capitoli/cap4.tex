@@ -1165,8 +1165,9 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
     \begin{equation}\label{eq:errPolInterHer}
         e_H(x)= f(x)-p_H(x) \overset{\footnotemark}{=} f[\overbrace{x_0,x_0,\hdots,x_n,x_n,x}^{2n+3}]\,\omega^2_{n+1}(x)\equiv\frac{\boxed{f^{(2n+2)}(\widehat\xi_x)}}{(2n+2)!}\,\omega^2_{n+1}(x).
     \end{equation}
+    Inoltre, $e_H(x)$ è di grado $2n+2$.
 \end{remark}
-$e_H(x)$ è di grado $2n+2$.
+
 \footnotetext{Le funzioni di base del polinomio di Newton hanno ascisse raddoppiate.}
 
 \begin{remark}\footnote{Slide 5 PDF 19.}
@@ -1289,12 +1290,12 @@ In genere è possibile verificare che $e(x)\rightarrow\infty,\;\, n\rightarrow\i
 \paragraph{Dettagli impotanti per il progetto} Distinguere fra numeri pari e dispari di ascisse è importante. Se $n$ è pari allora  le ascisse sono dispari. Un esempio è graficare il polinomio (\ref{eq:funzione_runge}) per un valore pari di $n$, quindi con un numero dispari di ascisse (ovvero $n+1$), così da trovare i punti cerchiati in rosso delle Figure \ref{fig:funzione_runge_n=2}-\ref{fig:funzione_runge_n=22} con un metodo affidabile.  Avere un numero di ascisse dispari permette di trovare il massimo della funzione in modo più efficace rispetto ad avere un numero pari di ascisse (vedere Figura \ref{fig:funzione_runge_n=6}). Inoltre, nel caso del numero di ascisse pari, l'errore diventa importante (una parte di funzione viene tagliata fuori).
 
 \subsection{Condizionamento del problema}\label{ssec:condizionamento_problema_approsimazione_funzione}
-È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) $a\leq x_0<x_1<\hdots<x_n\leq b$, è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ come
-\begin{equation}\label{eq:polinomio_interpolante_f}
+È necessario studiare il problema del condizionamento dell'interpolazione polinomiale, ovvero: date le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) $a\leq x_0<x_1<\hdots<x_n\leq b$, è definito il polinomio $p(x)\in\Pi_n$ interpolante la funzione $f(x)\in\Pi_n$ tale che (valgano le condizioni di interpolazione (\ref{eq:condizioni_interpolazione})
+\begin{equation}\label{eq:condizioni_interpolazione_condizionamento}
 	\boldsymbol{p(x_i)=f(x_i)\equiv f_i},\quad\boldsymbol{i=0,\hdots,n}.
 \end{equation}
 
-Al fine di studiare il condizioanmento dell'interpolazione polinomialeconsiderata una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse di interpolazione assegnate, imponendo le condizioni di interpolazione (\ref{eq:polinomio_interpolante_f}), come
+Al fine di studiare il condizionamento dell'interpolazione polinomiale è considerata una funzione $\Tilde{f}(x)$, perturbazione di $f(x)$, e costruito $\tilde{p}(x)$, il polinomio interpolante $\Tilde{f}(x)$ sulle ascisse di interpolazione assegnate, imponendo le condizioni di interpolazione (\ref{eq:condizioni_interpolazione_condizionamento}), come
 \begin{equation}\label{eq:polinomio_interpolante_perturbazione_f}
 	\boldsymbol{\tilde{p}(x_i)=\tilde{f}(x_i)\equiv\tilde{f}_i,\quad i=0,\hdots,n},
 \end{equation}
@@ -1324,7 +1325,7 @@ Al fine di avere una misura degli errori è necessario introdurre la norma infin
     \forall g\in C^{(0)}[a,b]\,:\, ||g||\overset{\footnotemark}{=}\underset{a\leq x\leq b}{\max}|g(x)|.
 \end{equation}\footnotetext{Applicazione del Teorema di Weistrass: esiste un massimo per $g$ perché questa è limitata tra $a$ e $b$.}
 
-Dati (\ref{eq:polinomio_interpolante_f}) e (\ref{eq:polinomio_interpolante_perturbazione_f}), per $x\in [a,b]$, è ottenuto che
+Dati (\ref{eq:condizioni_interpolazione_condizionamento}) e (\ref{eq:polinomio_interpolante_perturbazione_f}), per $x\in [a,b]$, è ottenuto che
 \begin{equation*}
     \begin{matrix}
         \left|p(x)-\Tilde{p}(x)\right|&\overset{\footnotemark}{=}&
@@ -1372,22 +1373,24 @@ allora
 
 Data l'importanza della costante di Lebesgue è utile sturdiarne alcune importanti proprietà.
 
-\noindent$\boldsymbol{\Lambda_n}$ \textbf{è indipendente dal particolare intervallo $[a,b]$ considerato.} Questa proprietà è importante perché se i risultati sono contenuti in un uno specifico intervallo di riferimento, allora le ascisse di interpolazione dell'intervallo speficico sono estendibili ad uno generico intervallo che le contiene.
+\begin{property}
+	$\boldsymbol{\Lambda_n}$ \textbf{è indipendente dal particolare intervallo $\boldsymbol{[a,b]}$ considerato.}
+\end{property}
 
-Date $a\leq\underbrace{x_0<\hdots<x_n}_{\footnotemark}\leq b$, allora
+La precedente proprietà è importante perché se i risultati sono contenuti in uno specifico intervallo di riferimento, allora le ascisse di interpolazione dell'intervallo speficico sono estendibili ad uno generico intervallo che le contiene. Ovvero è possibile trasformare linearente le ascisse di interpolazione sull'intervallo $[0,1]$ come segue.
+
+Date $a\leq x_0<\hdots<x_n \leq b$, allora
 \begin{equation}\label{eq:xi}
     \xi=\frac{x-a}{b-a}, 
 \end{equation}
-dove $\xi$ è una trasformazione lineare, per $x=a\Rightarrow\xi = 0$ e per $x=b\Rightarrow\xi = 1$. Pertanto, se $x\in [a,b] \Rightarrow\xi\in [0,1]$; viceversa, se $\xi\in [0,1]\Rightarrow \boldsymbol{x=a+(b-a)\,\xi},\, x\in [a,b]$.
+dove $\xi$ è una trasformazione lineare che trasforma $x=a$ in $\xi = 0$ e  $x=b$ in $\xi = 1$. Pertanto, se $x\in [a,b]$, allora $\xi\in [0,1]$; viceversa, se $\xi\in [0,1]$, allora $\boldsymbol{x=a+(b-a)\,\xi}\in [a,b]$.
 
-\footnotetext{Saranno trasformate linearmente sull'intervallo $[0,1]$.}
-
-Alle ascisse di interpolazione $x_i\in [a,b]$ corrispondono
-\begin{equation}\label{eq:xii}
+Ad ogni ascissa di interpolazione $x_i\in [a,b]$ corrisponde
+\begin{equation}\label{eq:xi_i}
     \xi_i=\frac{x_i-a}{b-a}\in [0,1],\quad \forall i=0,\hdots,n.
 \end{equation}
 
-È possibile provare che i polinomi di base di Lagrange, definiti sulle ascisse $\{x_i\}$, coincidano con quelli costruiti sulle ascisse $\{\xi_i\}$, attraverso le prossime uguaglianze:
+Inoltre, è possibile provare che i polinomi di base di Lagrange, definiti sulle ascisse $\{x_i\}$, coincidano con quelli costruiti sulle ascisse $\{\xi_i\}$, attraverso le prossime uguaglianze:
 
 \begin{equation*}
     \begin{matrix}
@@ -1402,19 +1405,21 @@ Alle ascisse di interpolazione $x_i\in [a,b]$ corrispondono
 \footnotetext{Sarà trasformato in $x=a+(b-a)\,\xi$, ovvero $\xi=\frac{x-a}{b-a}$.}
 
 \stepcounter{footnote}
-\footnotetext{Per $(\ref{eq:xi})\overset{\text{e}}{+}(\ref{eq:xii})$.}
+\footnotetext{Per $(\ref{eq:xi})\overset{\text{e}}{+}(\ref{eq:xi_i})$.}
 
 \stepcounter{footnote}
 \footnotetext{Evidenziato $(b-a)$ e semplificato.}
 
 L'intervallo di riferimento non è importante, in quanto è possibile definire le seguenti proprietà, le quali valgono considerando solo il numero delle ascisse, ovvero:
 
-\begin{itemize}
-    \item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
-    \item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n\geq O(\log n)$;
-    \item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
-    \item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
-\end{itemize}
+\begin{property}
+	\begin{itemize}
+		\item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
+		\item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n\geq O(\log n)$;
+		\item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
+		\item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
+	\end{itemize}
+\end{property}
 
 \subsubsection{Connessioni tra condizionamento ed errore dell'interpolazione polinomiale}
 \footnotemark Allo scopo di studiare le connessioni tra condizionamento ed errore dell'interpolazione polinomiale sarà assunto di aver fissato un intervallo di riferimento $[a,b]$, la corrispondente norma $||\cdot||$ ed una funzione $f(x)\in C^{(0)}[a,b]$. Lo studio che sarà trattato varrà per ogni intervallo, in quanto la proprietà P3) del precedente elenco è invariante rispetto all'intervallo considerato.
@@ -1436,7 +1441,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
     È possibile trattare (\ref{eq:errore_migliore_approssimazione}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
 \end{remark}
 
-La Definizione \ref{def:errore_polinomio_migliore_approssimazione} denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
+La Definizione \ref{def:errore_polinomio_migliore_approssimazione} di errore e polinomio di migliore approssimazione denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
 Fra tutti i polinomi di grado $n$ che approssimano la norma, $||f-p||$ è non minore di $||f-p^*||$ (dove $p^*\in\Pi_n$). Esiste un polinomio della migliore approssimazione che approssima $f$ meglio degli altri.
 
 \begin{figure}
