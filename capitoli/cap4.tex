@@ -1085,11 +1085,23 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
 \end{remark}
 
 \subsection{Errore nell'interpolazione polinomiale}\label{ssec:errore_interpolazione_polinomiale}\footnote{Slide 2-23 PDF 19, PG 86-87.}
-È necessario studiare il comportamento della funzione errore $e$ definita come
-\begin{equation}\label{eq:defErrInter}
-    \boldsymbol{e(x)=f(x)-p(x)},\quad x\in [a,b],
-\end{equation}
-per la quale è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore commesso nell'approssimazione di $f(x)$ tramite il polinomio interpolante $p(x)$.
+È necessario studiare il comportamento della funzione errore $e$ definita come segue.
+
+\begin{definition}[Errore interpolazione polinomiale]
+	Data $f:[a,b]\rightarrow\mathbb{R}$ e $p(x)\in\Pi_n$ polinomio interpolante $f$, l'errore di interpolazione è definito come
+	\begin{equation}\label{eq:errore_interpolazione}
+	    \boldsymbol{e(x)=f(x)-p(x)},\quad x\in [a,b],
+	\end{equation}
+\end{definition}
+
+\paragraph{N.B.:} è possibile osservare che $f(x)=p(x)+e(x)$, con $e(x)$ errore commesso nell'approssimazione di $f(x)$ tramite il polinomio interpolante $p(x)$.
+
+\begin{definition}[Errore massimo di interpolazione]
+	Data $f:[a,b]\rightarrow\mathbb{R}$ e $p(x)\in\Pi_n$ polinomio interpolante $f$, l'errore massimo di interpolazione è definito come
+	\begin{equation}\label{eq:errore_massimo_interpolazione}
+		\boldsymbol{||e(x)||=||f(x)-p(x)||},\quad x\in [a,b],
+	\end{equation}
+\end{definition}
 
 \begin{figure}
     \centering
@@ -1325,14 +1337,14 @@ Al fine di avere una misura degli errori è necessario introdurre la norma infin
     \forall g\in C^{(0)}[a,b]\,:\, ||g||\overset{\footnotemark}{=}\underset{a\leq x\leq b}{\max}|g(x)|.
 \end{equation}\footnotetext{Applicazione del Teorema di Weistrass: esiste un massimo per $g$ perché questa è limitata tra $a$ e $b$.}
 
-Dati (\ref{eq:condizioni_interpolazione_condizionamento}) e (\ref{eq:polinomio_interpolante_perturbazione_f}), per $x\in [a,b]$, è ottenuto che
+Dati (\ref{eq:condizioni_interpolazione_condizionamento}) e (\ref{eq:polinomio_interpolante_perturbazione_f}), per $x\in [a,b]$ (ascisse di interpolazione), è ottenuto che
 \begin{equation*}
     \begin{matrix}
         \left|p(x)-\Tilde{p}(x)\right|&\overset{\footnotemark}{=}&
         \left|\sum_{i=0}^nf_i\,L_{in}(x)-\sum_{i=0}^n\Tilde{f}_i\, L_{in}(x)\right|&\overset{\footnotemark}{=}&\left|\sum_{i=0}^n(f_i-\Tilde{f}_i)\,L_{in}(x)\right|\\
         &\overset{\footnotemark}{\leq}&
         \sum_{i=0}^n|f_i-\Tilde{f}_i|\,|L_{in}(x)|&\leq&\underbrace{\left(\sum_{i=0}^n|L_{in}(x)|\right)}_{\lambda_n(x)}\underbrace{\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f}_i|}_{\footnotemark}\\
-        &\leq&\boldsymbol{\boldsymbol{\lambda_n(x)}}\cdot\,||f-\Tilde{f}||,
+        && &=&\boldsymbol{\boldsymbol{\lambda_n(x)}\cdot\,||f-\Tilde{f}||},
     \end{matrix}
 \end{equation*}
 
@@ -1373,7 +1385,7 @@ allora
 
 Data l'importanza della costante di Lebesgue è utile sturdiarne alcune importanti proprietà.
 
-\begin{property}
+\begin{property}[di $\Lambda_n$]
 	$\boldsymbol{\Lambda_n}$ \textbf{è indipendente dal particolare intervallo $\boldsymbol{[a,b]}$ considerato.}
 \end{property}
 
@@ -1412,12 +1424,12 @@ Inoltre, è possibile provare che i polinomi di base di Lagrange, definiti sulle
 
 L'intervallo di riferimento non è importante, in quanto è possibile definire le seguenti proprietà, le quali valgono considerando solo il numero delle ascisse, ovvero:
 
-\begin{property}
+\begin{property}[di $\Lambda_n$]
 	\begin{itemize}
 		\item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
 		\item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n\geq O(\log n)$;
 		\item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
-		\item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
+		\item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente come $\Lambda_n\approx 2^n$ con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
 	\end{itemize}
 \end{property}
 
@@ -1430,16 +1442,16 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
     \begin{equation}\label{eq:errore_migliore_approssimazione}
         ||f-p^*||=\underset{p\in\Pi_n}{\min}||f-p||,
     \end{equation}
-    dove
+    detto l'\textbf{errore di migliore approssimazione}, dove
     \begin{equation*}
     	\boldsymbol{p^*(x) = \arg\underset{p\in\Pi_n}{\min}||f-p||}
     \end{equation*}
-    è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$, di grado $\boldsymbol n$ (tramite le ascisse di interpolazione in $\boldsymbol{[a,b]}$)} e $\boldsymbol{||f-p^*||}$ è detto l'\textbf{errore di migliore approssimazione}.
+    è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$ di grado $\boldsymbol n$ (tramite le ascisse di interpolazione in $\boldsymbol{[a,b]}$)}.
 \end{definition}
 
-\begin{remark}
-    È possibile trattare (\ref{eq:errore_migliore_approssimazione}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
-\end{remark}
+\paragraph{$\underset{p\in \Pi_n}{\arg\min}f(x)$} In generale $\underset{x\in X}{\arg\min}f(x)\{x\,|\,\forall y : f(y)\geq f(x)\}$, è l'insieme dei valori di $x$ per i quali $f(x)$ raggiunge il suo più alto valore $M$.
+
+\paragraph{N.B.:} È possibile trattare (\ref{eq:errore_migliore_approssimazione}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
 
 La Definizione \ref{def:errore_polinomio_migliore_approssimazione} di errore e polinomio di migliore approssimazione denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
 Fra tutti i polinomi di grado $n$ che approssimano la norma, $||f-p||$ è non minore di $||f-p^*||$ (dove $p^*\in\Pi_n$). Esiste un polinomio della migliore approssimazione che approssima $f$ meglio degli altri.
@@ -1450,10 +1462,10 @@ Fra tutti i polinomi di grado $n$ che approssimano la norma, $||f-p||$ è non mi
     \caption{Esempio grafico della approssimazione $p$ e dell'errore (\ref{eq:errore_migliore_approssimazione}) conseguente.}\label{fig:esempioGrafMiglApprox}
 \end{figure}
 
-Dato $p(x)$, polinomio interpolante $f(x)$ di grado $n$, è trattato come l'errore di interpolazione sia legato all'errore di migliore approssimazione (\ref{eq:errore_migliore_approssimazione}). A questo scopo è definito $\boldsymbol{||e||=||f-p||}$, ovvero l'\textbf{errore massimo di interpolazione}.
+Dato $p(x)$, polinomio interpolante $f(x)$ di grado $n$, è trattato come l'errore di interpolazione sia legato all'errore di migliore approssimazione (\ref{eq:errore_migliore_approssimazione}). A riguardo vale quanto segue.
 
 \begin{theorem}\label{th:approssimazione_errore_migliore_approssimazione}\footnote{Slide 8 PDF 20, Teorema 4.7 PG 90}
-    Sia $p^*(x)$ il polinomio di migliore approssimazione di grado $n$ di $f(x)$, allora, per l'errore di interpolazione (\ref{eq:defErrInter}), vale:
+    Sia $p^*(x)$ il polinomio di migliore approssimazione di grado $n$ di $f(x)$, allora, per l'errore di interpolazione (\ref{eq:errore_interpolazione}), vale:
     \begin{equation}\label{eq:approssimazione_errore_migliore_approssimazione}
         ||e||\leq (1+\boldsymbol{\Lambda_n})\overbrace{||f-p^*||}^{\footnotemark},
     \end{equation}
@@ -1495,15 +1507,6 @@ Considerando $p^*\in\Pi_n$:
     Se $f\in C^{(0)}[a,b]\Rightarrow\omega (f;h)\rightarrow 0$, per $h\rightarrow 0$.
 \end{theorem}
 
-\begin{definition}[Polinomio di migliore approssimazione]
-    Data $f\in C^{(0)}[a,b]$ allora è definito polinomio di migliore approssimazione di grado $n$ di $f$ su $[a,b]$:
-    \begin{equation}
-        p^* \overset{\footnotemark}{=} \underset{p\in\Pi_n}{\arg\min}||f-p||.
-    \end{equation}
-\end{definition}
-
-\footnotetext{$\underset{x\in X}{\arg\min}f(x)=\{x\,|\,\forall y : f(y)\geq f(x)\}$. In altre parole, è l'insieme dei valori di $x$ per i quali $f(x)$ raggiunge il suo più alto valore $M$.}
-
 Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in $[a,b]$, valgono i due seguenti risultati.
 
 \begin{theorem}[Jackson]\label{th:Jackson}\footnote{Slide 10 PDF 20, Teorema 4.8 PG 91}
@@ -1531,7 +1534,7 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
 È possibile affermare che esiste una relazione fra l'errore nell'approssimazione polinomiale ed il condizionamento del problema (dato il Teorema di Jackson).
 
 \begin{corollary}\footnote{Slide 10 PDF 20, PG 91. Dalle (\ref{eq:approssimazione_errore_migliore_approssimazione})-(\ref{eq:approssimazione_jackson}) vale quanto segue.}
-    $\forall n\geq 0$, data una funzione $f(x)$ generica, $p(x)$ il polinomio interpolante di grado $n$ su $n+1$ ascisse assegnate e $\Lambda_n$ la corrispondente costante di Lebesgue, vale che:
+    Sia $f\in C^{(0)}[a,b]$, allora $\exists\alpha > 0$, indipendente da $n$, tale che se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$ sulle ascisse di interpolazione distinte (\ref{eq:ascisse_interpolazione}), allora:
     \begin{equation}\label{eq:maggiorazione_errore_migliore_approssimazione}
         \boxed{||e||=||f-p||\leq\underset{\footnotemark}{\alpha}\underbrace{(1+\Lambda_n)\,\omega\left(f;\frac{b-a}{n}\right)}_{\footnotemark}}.
     \end{equation}
@@ -1553,9 +1556,14 @@ Quest'utlima espressione sarà utile per introdurre nuovi metodi di interpolazio
 Le Sezioni \ref{ssec:errore_interpolazione_polinomiale} e \ref{ssec:condizionamento_problema_approsimazione_funzione} sono riassumibili nei seguenti punti:
 \begin{itemize}
     \item la costante di Lebesgue $\Lambda_n$ è indipendente dal particolare intervallo considerato; cresce esponenzialmente con $n$ se sono utilizzate ascisse equidistanti, altrimenti ha una crescita moderta (quella ottimale è di tipo logaritmico) rispetto ad $n$; \footnote{$n$ è il grado del polinomio interpolante.}
-    \item Dato l'errore di interpolazione (\ref{eq:errore_interpolazione_P4}), definito come 
-    
-    Segue la maggiorazione 
+    \item Dato l'errore di interpolazione (\ref{eq:errore_interpolazione_P4}), ovvero 
+    \begin{equation*}
+    	\begin{matrix}
+    		e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
+    		&\xi_x\in[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]\boldsymbol{\equiv I(x)},
+    	\end{matrix}
+    \end{equation*}
+    segue la maggiorazione 
     \begin{equation*}
     	||e||\leq \frac{\overbrace{||f^{(n+1)}||}^{\footnotemark}}{(n+1)!}||\omega_{n+1}||,
     \end{equation*}
@@ -1568,18 +1576,17 @@ Le Sezioni \ref{ssec:errore_interpolazione_polinomiale} e \ref{ssec:condizioname
 
 Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di questa Sezione è quello di scegliere le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) in modo da minimizzare $||\omega_{n+1}||$. Per fare questo è necessario rendere la costante di Lebesgue $\Lambda_n$ abbia crescita ottimale con $n$ (ovvero $O(\log n)$).
 
-E' necessario scegliere le ascisse di interpolazione $x_0,\hdots,x_n$ in modo tale da risolvere il \textbf{problema del minmax}, ovvero il seguente: \footnotemark
+È necessario scegliere le ascisse di interpolazione $x_0,\hdots,x_n$ in modo tale da risolvere il \textbf{problema del minmax}, ovvero il seguente: \footnotemark
 \begin{equation}\label{eq:minmax}
     \underset{a=-1\leq x_0<\hdots<x_n\leq 1=b}{\min}||w_{n+1}||=\boldsymbol{\underset{a=-1\leq x_0<\hdots<x_n\leq 1=b}{\min}\quad\underset{-1\leq x\leq 1}{\max}|}\overbrace{\boldsymbol{w_{n+1}(x)}}^{\footnotemark}\boldsymbol|,
 \end{equation}
-con $w_{n+1}(x)=\prod_{j=0}^n(x-x_j)$ (calcolata come in (\ref{eq:polinomio_base_newton2})).
 \addtocounter{footnote}{-1}
 \footnotetext{Slide 5 PDF 21, PG 91.}
 
 \stepcounter{footnote}
 \footnotetext{Polinomio monico che ha come radici le ascisse, rispetto alle quali è svolta la minimizzazione.}
 
-A questo scopo, dato che $\Lambda_n$ non dipende da un intervallo particolare $[a,b]$,fissato come $[-1,1]$ ed introdotta la seguente famiglia di polinomi:
+\noindent con $w_{n+1}(x)=\prod_{j=0}^n(x-x_j)$ (calcolata come in (\ref{eq:polinomio_base_newton2})). A questo scopo, dato che $\Lambda_n$ non dipende da un intervallo particolare $[a,b]$, è fissato quest'ultimo come $[-1,1]$ ed introdotta la seguente famiglia di polinomi:
 
 \begin{definition}[Polinomi di Chebyshev di I specie]\label{def:polinomi_chebyshev_I_specie}
     Assunto $x\in [-1,1]$, la \textbf{famiglia di polinomi di Chebyshev di I specie} è definita come segue:

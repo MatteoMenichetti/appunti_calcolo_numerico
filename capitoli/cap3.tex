@@ -9,11 +9,11 @@ Nel caso in cui $\boldsymbol{m>n}$ allora sono presenti più equazioni che incog
 
 \begin{definition}[Matrice nonsingolare]\label{def:matrice_nonsingolare}
     La matrice $A\in\mathbb R^{n\times n}$, quadrata, è \gls{nonsingolare} se \gls{rank(A)}$=n$ (\textbf{quindi} $\boldsymbol{\det(A)\neq 0}$) ed il sistema (\ref{eq:sistema_equazioni_lineari}) ha soluzione unica del tipo
-    \begin{equation}\label{eq:solSistQuad}
+    \begin{equation}\label{eq:soluzione_sistema_quadrato}
         \uline x = A^{-1} \uline b.
     \end{equation}
 \end{definition}
-La soluzione (\ref{eq:solSistQuad}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
+La soluzione (\ref{eq:soluzione_sistema_quadrato}) è una risoluzione del problema che non definisce, in genere, un algoritmo efficiente di risoluzione dal punto di vista computazionale.
 
 \begin{definition}[Matrice singolare]\label{def:matrice_singolare}
 	La matrice $A\in\mathbb R^{n\times n}$, quadrata, è \gls{singolare} se $\rank(A)\neq n$ (\textbf{quindi} $\boldsymbol{\det(A) = 0}$).
@@ -2073,7 +2073,7 @@ in cui:
     \item $\Delta\uline x$ ha lo stesso ruolo per il vettore soluzione $\uline x.$
 \end{itemize}
 
-Al posto di (\ref{eq:sistema_equazioni_lineari}) è considerato il problema (\ref{eq:sistema_lineare_perturbato}). Per studiare (\ref{eq:sistema_lineare_perturbato}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:solSistQuad}). Inoltre, per studiare (\ref{eq:sistema_lineare_perturbato}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:norme_indotte_matrice}} (le quali possono essere argomento di esame).
+Al posto di (\ref{eq:sistema_equazioni_lineari}) è considerato il problema (\ref{eq:sistema_lineare_perturbato}). Per studiare (\ref{eq:sistema_lineare_perturbato}) sarà trattato il calcolo del numero di condizionamento del problema, ovvero sarà studiato come le perturbazioni sui dati iniziali, $\Delta A$ e $\Delta b$, determinano la perturbazione $\Delta x$ sulla soluzione (\ref{eq:soluzione_sistema_quadrato}). Inoltre, per studiare (\ref{eq:sistema_lineare_perturbato}) è necessario introdurre le \textbf{norme su vettori} ed \textbf{indotte su matrici} e quindi studiare le \textbf{Sezioni \ref{sssec:normVett} e \ref{sssec:norme_indotte_matrice}} (le quali possono essere argomento di esame).
 
 In seguito sarà considerata una generica norma su vettore, e la corrispondente indotta su matrice, che indicheremo con $||\cdot||.$ Per semplificare la trattazione è supposto che $\boldsymbol{\Delta A=\varepsilon\cdot F}$, con $\varepsilon\in\mathbb R,\,\varepsilon\approx 0$ e $F\in\mathbb R^{n\times n}.$ Similmente è posto $\boldsymbol{\Delta b = \varepsilon\cdot\uline f},$ con $\varepsilon$ lo stesso parametro ed $\boldsymbol{\uline f\in\mathbb R^n}.$
 
