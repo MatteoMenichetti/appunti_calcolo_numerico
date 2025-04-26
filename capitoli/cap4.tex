@@ -1171,6 +1171,25 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
     \end{equation}
 \end{corollary}
 
+\begin{example}
+	Date le coppie $(0,3), (2,4), (3,5)$, allora il polinomio interpolante le coppie in forma di Newton è
+	\begin{equation*}
+		\begin{matrix}
+			p(x) & = & f[0]\omega_0(x) + f[0,2] \omega_1(x) + f[0,2,3] \omega_3(x)\\
+					& = & 3 \cdot 1 + \frac{1}{2} \cdot x + \frac{1}{6} \cdot x(x-2).
+		\end{matrix}
+	\end{equation*}
+	Sapendo che la derivata terza della funzione interpolanda ha norma minore uguale a 5, la seguente è una stima dell'errore nel punto $x=4$:\\
+	Sia
+	\begin{equation*}
+		e(x) = f[0, 2, 3, x] x (x - 2) (x - 3) = \frac{f^{(3)}(\xi_x)}{3!} x (x - 2) (x - 3).
+	\end{equation*}
+	Poiché $||f^{(3)}|| \leq 5$, è ottenuto che in $x=4$:
+	\begin{equation*}
+		|e(4)| \leq \frac{5}{6} \cdot 4 \cdot 3 \cdot 2 \cdot 1 = \frac{5}{3} \cdot 4 = \frac{20}{3}.
+	\end{equation*}
+\end{example}
+
 \begin{remark}[Errore polinomio di Hermite]\label{rem:errore_polinomio_hermite}
     \footnote{Da sapere. Slide 5 PDF 19, Oss. 4.4 PG 87.}
     Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}(I(x))\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
@@ -1343,7 +1362,7 @@ Dati (\ref{eq:condizioni_interpolazione_condizionamento}) e (\ref{eq:polinomio_i
         \left|p(x)-\Tilde{p}(x)\right|&\overset{\footnotemark}{=}&
         \left|\sum_{i=0}^nf_i\,L_{in}(x)-\sum_{i=0}^n\Tilde{f}_i\, L_{in}(x)\right|&\overset{\footnotemark}{=}&\left|\sum_{i=0}^n(f_i-\Tilde{f}_i)\,L_{in}(x)\right|\\
         &\overset{\footnotemark}{\leq}&
-        \sum_{i=0}^n|f_i-\Tilde{f}_i|\,|L_{in}(x)|&\leq&\underbrace{\left(\sum_{i=0}^n|L_{in}(x)|\right)}_{\lambda_n(x)}\underbrace{\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f}_i|}_{\footnotemark}\\
+        \sum_{i=0}^n|f_i-\Tilde{f}_i|\,|L_{in}(x)|&\leq&\left(\sum_{i=0}^n|L_{in}(x)|\right)\underbrace{\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f}_i|}_{\footnotemark}\\
         && &=&\boldsymbol{\boldsymbol{\lambda_n(x)}\cdot\,||f-\Tilde{f}||},
     \end{matrix}
 \end{equation*}
@@ -1361,7 +1380,7 @@ Dati (\ref{eq:condizioni_interpolazione_condizionamento}) e (\ref{eq:polinomio_i
 \footnotetext{Massimo dei valori assoluti della differenza $f_i-\Tilde{f},\; i=0,\hdots,n$ (ovvero la norma $||f - \Tilde{f}||$), anche se $x_1,\hdots,x_n\in [a,b]$. La differenza  $f_i-\Tilde{f}$ è minore della norma $||f_i-\Tilde{f}||$ che segue nella diseguaglianza. \\
 Inoltre è possibile affermare quanto segue:$\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f}_i|=\underset{i=0,\hdots,n}{\max}|f(x_i)-\Tilde{f}(x_i)|\leq\underset{a\leq x\leq b}{\max}|f(x)-\Tilde{f}(x)|=||f-\Tilde{f}||$.}
 
-\noindent dove $\boldsymbol{\lambda_n(x)}$ è la \textbf{funzione di Lebesgue}. Tale funzione è positiva per definizione e dipende solo dalla scelta delle ascisse di interpolazione. Pertanto, dalla precedente disuguaglianza è ottenuto che
+\noindent dove $\boldsymbol{\lambda_n(x)}= \sum_{i=0}^n|L_{in}(x)|$ è la \textbf{funzione di Lebesgue}. Tale funzione è positiva per definizione e dipende solo dalla scelta delle ascisse di interpolazione. Pertanto, dalla precedente disuguaglianza è ottenuto che
 \begin{equation*}
     \forall x\in [a,b]:\; |p(x)-\Tilde{p}(x)|\leq\lambda_n(x)||p-\Tilde{p}||
 \end{equation*}
@@ -1427,7 +1446,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
 \begin{property}[di $\Lambda_n$]
 	\begin{itemize}
 		\item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
-		\item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n\geq O(\log n)$;
+		\item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n = O(\log n)$;
 		\item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
 		\item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente come $\Lambda_n\approx 2^n$ con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
 	\end{itemize}
@@ -1623,19 +1642,26 @@ Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di ques
 				\widehat T_k(x) =\boldsymbol{2^{1-k}}\, T_k(x),\quad k\geq 1,
 			\end{cases}
 		\end{equation}
-		e' una \textbf{famiglia di polinomi monici} (perché $2^{1-k}$ è il reciproco del precedente coefficiente $2^{k-1}$);
+		è una \textbf{famiglia di polinomi monici} (perché $2^{1-k}$ è il reciproco del precedente coefficiente $2^{k-1}$);
 		\footnotetext{Dati i polinomi di grado $k$ con 8 coefficienti principali, è possibile derivare da questa una famiglia di polinomi monici.}
 		\item[P4)] 
 		\begin{equation}\label{eq:polinomio_monicizzato}
-			\forall\, k\geq 1: \widehat T_k(x)=\prod_{j=0}^{k-1}\left(x-x_j^{(k)}\right),
+			\widehat T_k(x)=\prod_{j=0}^{k-1}\left(x-x_j^{(k)}\right), \forall\, k\geq 1,
 		\end{equation}
 		con $T_k\left(\boldsymbol{x_j^{(k)}}\right)=0,\; j=0,\hdots,k-1,\;\text{dove } \boldsymbol{x_j^{(k)}}$ sono le \textbf{radici} di $\boldsymbol{T_k(x)}$. \footnote{Se le radici $x_j^{(k)}$ fossero tutte distinte e nell'intervallo $[-1,1]$, allora per il polinomio $\widehat T_k(x)$ è possibile scegliere un'ascissa di interpolazione.}
-		 \item[P5)] Se $\boldsymbol{x=\cos\theta}$ allora $T_k(x)=T_k(\cos\theta)=\cos{(k\theta)},\quad\forall k\geq 0$. \footnote{Polinomio di Chebyschev, se $x$ è parametrizzata in modo idoneo.}
+		 \item[P5)] Se 
+		 \begin{equation*}
+		 	\boldsymbol{x=\cos\theta},\quad \theta\in [0,\pi],
+		 \end{equation*}
+		 allora, per parametrizzare i punti dell'intervallo $[-1,1]$ rispetto a $\theta$, considerando che $\cos(k \theta + \theta) + \cos(k \theta - \theta) = 2\cos (k\theta) \cos \theta$, è ottenuto
+		 \begin{equation*}
+		 	T_k(x)=T_k(\cos\theta)=\cos{(k\theta)},\quad\forall k\geq 0.
+		 \end{equation*} \footnote{Polinomio di Chebyschev, se $x$ è parametrizzata in modo idoneo.}
 		\begin{proof}
-			È svolta per induzione su $k$. La tesivera per $k=0$ e $k=1$.\\
+			È svolta per induzione su $k$. La tesi è vera per $k=0$ e $k=1$.\\
 			Vogliamo dimostrare che
 			\begin{equation*}
-				T_{k+1}(x) = T_{k+1}(\cos(\theta)) = \cos(k+1)\theta.
+				T_{k+1}(x) = T_{k+1}(\cos(\theta)) = \cos((k+1)\theta).
 			\end{equation*}
 			\begin{equation*}
 				\begin{matrix}
@@ -1652,17 +1678,17 @@ Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di ques
 				\end{matrix}
 			\end{equation*}
 		\end{proof}
-		\item[P6)]\footnotemark $||T_k||= \underset{0\leq \theta\leq \pi}{\max}|T_k(\cos\theta)|\underset{\theta\in [0,\pi]}{\max}|\cos{k\theta}|
+		\item[P6)]\footnotemark $||T_k||= \underset{0\leq \theta\leq \pi}{\max}|T_k(\cos\theta)| = \underset{\theta\in [0,\pi]}{\max}|\cos{k\theta}|
 		\underset{\footnotemark}{=} 1,\;\forall k\geq 1$;
 		\addtocounter{footnote}{-1}
 		\footnotetext{Deriva dalla precedente proprietà.}
 		\stepcounter{footnote}
 		\footnotetext{In $[0,\pi]$ il massimo vale 1.}
 		\item[P7)]$||\widehat T_k||=2^{1-k}||T_k||=2^{1-k},\;\forall k\geq 1$, con $\widehat T_k$ detto polinomio monicizzato;
-		\item[P8)] Gli zeri di $T_k(x)$ sono ottenuti imponendo che $x=\cos\theta,\;\theta\in [0,\pi]$, ovvero sono della forma
-		\begin{equation*}
-			x_i = \cos{\left(\frac{(2i+1)\pi}{2k}\right)},\quad i=0,\hdots,k-1,
-		\end{equation*}
+		\item[P8)] Gli zeri di $T_k(x)$, tra loro tutti distinti, sono ottenuti imponendo che $x=\cos\theta,\;\theta\in [0,\pi]$ e sono della forma
+		\begin{equation}\label{eq:zero_polinomio_chebyshev_1specie}
+			x^{(k)}_i = \cos{\left(\frac{(2i+1)\pi}{2k}\right)},\quad i=0,\hdots,k-1,
+		\end{equation}
 		\begin{proof}
 				\begin{equation*}
 				\begin{matrix}
@@ -1672,15 +1698,15 @@ Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di ques
 					&\Rightarrow& x_i^{(k)} = \cos{\left(\frac{2i+1}{2k}\pi\right)},\, i=0,\hdots,k-1.
 				\end{matrix}
 			\end{equation*}\footnotetext{$\cos{(k\theta)}$ si annulla per $k\theta$ come segue.}
-			con le ascisse risultanti reali, distintinte tra loro e appartenenti a $(-1,1)$.
+			con le ascisse risultanti reali, distinte tra loro tali che $x\in(-1,1)$.
 		\end{proof} 
 	\end{itemize}
 \end{property}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.35\textwidth]{immagini/cosThetaChebyshev.png}
-    \caption{Grafico osservazione \ref{re:ver1&2}.}\label{fig:cosThetaChebyshev}
+    \includegraphics[width=0.35\textwidth]{immagini/ascisse_chebyshev.pdf}
+    \caption{Ascisse Chebyshev.}\label{fig:ascisse_chebyshev}
 \end{figure}
 
 \begin{remark}\label{re:ver1&2}\footnote{Slide 7 PDF 21.}
@@ -1690,18 +1716,19 @@ Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di ques
 	\end{equation*} 
 	dove $x_j^{(n+1)},\; j=0,\hdots,n$, sono le radici di $T_{n+1}(x)$ e date le seguenti condizioni sulle radici:
 	\begin{enumerate}
-		\item $x_i^{(n+1)}\neq x_j^{(n+1)},\quad i\neq j,\; i,j=0,\hdots,n;$ \footnote{Definisce le ascisse distinte.}
-		\item $x_j^{(n+1)}\in [-1,1],\quad \forall j=0,\hdots,n;$ \footnote{Definisce le ascisse in un intervallo.}
+		\item $x_i^{(n+1)}\neq x_j^{(n+1)},\quad i\neq j,\; i,j=0,\hdots,n$, (ascisse distinte)
+		\item $x_j^{(n+1)}\in [-1,1],\quad \forall j=0,\hdots,n,$ (ascisse in un intervallo)
 	\end{enumerate}
-	allora è possibile sceglierle come ascisse di interpolazione, per cui:
+	allora, da (\ref{eq:zero_polinomio_chebyshev_1specie}), scegliendo come ascisse di interpolazione (\ref{eq:ascisse_chebyshev}), è ottenuto
 	\begin{equation*}
-		\boldsymbol{\omega_{n+1}=\prod_{j=0}^{n}\left(x-x_j^{(n+1)}\right)\equiv\widehat T_{n+1}}.
+		\boldsymbol{\omega_{n+1}=\prod_{j=0}^{n}\left(x-x_j^{(n+1)}\right)\equiv\widehat T_{n+1}},
 	\end{equation*}
-	Per verificare che 1. e 2. siano soddisfatte, sarà ottenuta un'espressione esplicita delle ascisse stesse. Poiché $x\in [-1,1]$, è posto $x=\cos(\theta),\, \theta\in [0,\pi],$ allora $\theta=\arccos{x}$ (vedere Figura \ref{fig:cosThetaChebyshev}).
+	ovvero la soluzione del problema (\ref{eq:minmax}).\\
+	Per verificare che 1. e 2. siano soddisfatte, sarà ottenuta un'espressione esplicita delle ascisse stesse. Poiché $x\in [-1,1]$, è posto $x=\cos(\theta),\, \theta\in [0,\pi],$ allora $\theta=\arccos{x}$ (vedere Figura \ref{fig:ascisse_chebyshev}).
 \end{remark}
 
 \begin{definition}[Ascisse di Chebyshev]\footnote{Slide 10 PDF 21, TH 4.9 PG 92.}
-    Dato il polinomio interpolante $f$ di grado $n$, le ascisse di Chebyshev sono definite sull'intervallo $[-1, 1]$ come
+    Dato il polinomio interpolante $f$ di grado $n$, le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) di Chebyshev sono definite sull'intervallo $[-1, 1]$ come
     \begin{equation}\label{eq:ascisse_chebyshev}
         x_{n-i}=\cos{\left(\frac{(2i+1)\pi}{2(n+1)}\right)},\quad i=0,\hdots,n,
     \end{equation}
@@ -1747,15 +1774,15 @@ Dalla Figura \ref{fig:graficoAscisseChebyshev} è possibile notare che sopra il 
 \end{remark}
 \footnotetext{Punto medio dell'intervallo.}
 
-Utilizzando le ascisse di Chebyshev nell'intervallo $[-5,5]$ sono ottenute le Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22}. Nelle figure è possibile notare che, da $n=10$ (vedere Figura \ref{fig:funzione_runge_ascisse_cheby_n=10}), la precisione di approssimazione è buona. Nella precedente approssimazione di $f(x)=\frac{1}{1+x^2}$ tramite la funzione di Runge, è possibile notare come, con 10 e più ascisse, erano presenti oscillazioni enormi agli estremi (vedere Figura \ref{fig:funzione_runge_n=10} e \ref{fig:funzione_runge_n=22}). Inoltre, è possibile notare come le ascisse addensate agli estremi dell'intervallo sono più vicine l'una alla altra di quanto lo siano quelle centrali.
+\begin{example}
+	Utilizzando le ascisse di Chebyshev nell'intervallo $[-5,5]$ sono ottenute le Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22}. Nelle figure è possibile notare che, da $n=10$ (vedere Figura \ref{fig:funzione_runge_ascisse_cheby_n=10}), la precisione di approssimazione è buona. Nella precedente approssimazione di $f(x)=\frac{1}{1+x^2}$ tramite la funzione di Runge, è possibile notare come, con 10 e più ascisse, erano presenti oscillazioni enormi agli estremi (vedere Figura \ref{fig:funzione_runge_n=10} e \ref{fig:funzione_runge_n=22}). Inoltre, è possibile notare come le ascisse addensate agli estremi dell'intervallo sono più vicine l'una alla altra di quanto lo siano quelle centrali.
+\end{example}
 
-È possibile trovare un'implementazione dell'algoritmo che calcola le ascisse di Chebyshev, per costruire il polinomio interpolante di grado $n$, su un generico intervallo $[a, b]$, nell'Algoritmo \ref{alg:cheby}.
+\paragraph{Implementazione Ascisse Chebyshev:} Un'implementazione dell'algoritmo che calcola le ascisse di Chebyshev, per costruire il polinomio interpolante di grado $n$, su un generico intervallo $[a, b]$, è l'Algoritmo \ref{alg:cheby}.
 
 \begin{remark}
     È necessario ricordare che al crescere del grado $n$ del polinomio interpolante, la scelta delle ascisse di interpolazione non deve fare crescere troppo la costante di Lebesgue $\Lambda_n$.
 \end{remark}
-
-\paragraph{Algormitmo calcolo ascisse di Chebyshev:} Un'implementazione dell'algoritmo che calcola le ascisse di Chebyshev, per costruire il polinomio interpolante di grado $n$, su un generico intervallo $[a, b]$, è l'Algoritmo \ref{alg:cheby}.
 
 \begin{figure}
     \centering
