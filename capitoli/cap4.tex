@@ -1448,7 +1448,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
 		\item [P1)] ridefinendo la norma sull'intervallo $[0,1]$, la costante di Lebesgue rimane invariata. Questo è dovuto dal fatto che, se i polinomi coincidono, allora anche la costante di Lebesgue, ottenuta come somma dei due polinomi, non dipende dall'intervallo $[a,b]$. L'unica differenza è nella definizione di norma perché definita per $x\in[a,b]$;
 		\item [P2)] qualunque sia la scelta delle ascisse (distinte tra loro), è noto che $\Lambda_n = O(\log n)$;
 		\item[P3)] dalla precedente proprietà deriva che $\Lambda_n\rightarrow\infty,\; n\rightarrow\infty$, quindi il problema diviene malcondizionato al crescere di $n$;
-		\item[P4)] la scelta di ascisse equidistanti da una costante di Lebesgue genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente come $\Lambda_n\approx 2^n$ con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
+		\item[P4)] la scelta di ascisse equidistanti genera una successione $\{\Lambda_n\}$, la quale diverge esponenzialmente come $\Lambda_n\approx 2^n$ con $n\rightarrow\infty$. Pertanto, la scelta di ascisse equidistanti non è, in generale, appropriata.
 	\end{itemize}
 \end{property}
 
@@ -1457,7 +1457,7 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
 \footnotetext{Cose da non dimostare (tranne il teorema di Jackson), ma da conoscere perché utili per le future trattazioni di diversi tipi di interpolazione, le quali si giustificano per i risultati diversi di questa analisi.}
 
 \begin{definition}[Errore e polinomio di migliore approssimazione]\label{def:errore_polinomio_migliore_approssimazione}\footnote{Slide 7 PDF 20, Definizione 4.2 + Teorema 4.6 PG 90.}
-    $\forall n\geq 0,\;\exists\, p^*\in\Pi_n$ (polinomio di grado $n$) tale che:
+    Data $f\in C^{(0)}[a,b],\,\forall n\geq 0,\;\exists\, p^*\in\Pi_n$ tale che:
     \begin{equation}\label{eq:errore_migliore_approssimazione}
         ||f-p^*||=\underset{p\in\Pi_n}{\min}||f-p||,
     \end{equation}
@@ -1468,12 +1468,11 @@ L'intervallo di riferimento non è importante, in quanto è possibile definire l
     è detto \textbf{polinomio di migliore approssimazione di $\boldsymbol{f(x)}$ di grado $\boldsymbol n$ (tramite le ascisse di interpolazione in $\boldsymbol{[a,b]}$)}.
 \end{definition}
 
-\paragraph{$\underset{p\in \Pi_n}{\arg\min}f(x)$} In generale $\underset{x\in X}{\arg\min}f(x)\{x\,|\,\forall y : f(y)\geq f(x)\}$, è l'insieme dei valori di $x$ per i quali $f(x)$ raggiunge il suo più alto valore $M$.
+\paragraph{Cosa significa $\underset{p\in \Pi_n}{\arg\min}p(x)$?} $\underset{x\in X}{\arg\min}f(x)\{x\,|\,\forall y : f(y)\geq f(x)\}$ è l'insieme dei valori di $x$ per i quali $f(x)$ raggiunge il suo più alto valore $M$.
 
 \paragraph{N.B.:} È possibile trattare (\ref{eq:errore_migliore_approssimazione}) come massimo errore commesso, approssimando $f$ con il polinomio di migliore approssimazione di $f$. L'errore d'interpolazione polinomiale con il polinomio dello stesso grado è legato all'errore di miglior approssimazione.
 
-La Definizione \ref{def:errore_polinomio_migliore_approssimazione} di errore e polinomio di migliore approssimazione denota l'esistenza di una funzione con un minimo sull'intervallo $[a,b]$ e fissa il grado $n$, ovvero il grado dell'insieme di polinomi ($\Pi_n$) con i quali $f$ sarà approssimata.
-Fra tutti i polinomi di grado $n$ che approssimano la norma, $||f-p||$ è non minore di $||f-p^*||$ (dove $p^*\in\Pi_n$). Esiste un polinomio della migliore approssimazione che approssima $f$ meglio degli altri.
+\paragraph{Nota sulla Definizione \ref{def:errore_polinomio_migliore_approssimazione}:} La Definizione di errore e polinomio di migliore approssimazione denota che per la funzione $f$, continua sull'intervallo $[a,b]$, esiste un polinomio $p^*$ che approssima meglio degli altri polinomi in $\Pi_n$ $f$. Inoltre, fra tutti i polinomi di grado $n$ che approssimano $f$, $||f-p||$ è non minore di $||f-p^*||$
 
 \begin{figure}
     \centering
@@ -1511,7 +1510,7 @@ Considerando $p^*\in\Pi_n$:
 
 \begin{definition}[Modulo di continuità di una funzione]
     Data $f\in C^{(0)}[a,b]$ è definito il modulo di continuità di $f$, per $h>0$ (variazione), come:
-    \begin{equation}\label{eq:modCont}
+    \begin{equation}\label{eq:modulo_continuità}
         \boldsymbol{\omega(f;h)}=\left\{\underset{x,y\in [a,b]}{\sup}|f(x)-f(y)|:\; |x-y|\leq h\right\}.
     \end{equation}
 \end{definition}
@@ -1522,7 +1521,7 @@ Considerando $p^*\in\Pi_n$:
     \caption{Esempio modulo di continuità. $\omega (f;1)$ è la massima distanza sul grafico di $f$ tra i punti.}\label{fig:modContEs}
 \end{figure}
 
-\begin{theorem}\label{th:modContInf}\footnote{Slide 10 PDF 20, primo punto PG 91}
+\begin{theorem}\label{th:modulo_continuità}\footnote{Slide 10 PDF 20, primo punto PG 91}
     Se $f\in C^{(0)}[a,b]\Rightarrow\omega (f;h)\rightarrow 0$, per $h\rightarrow 0$.
 \end{theorem}
 
@@ -1531,15 +1530,16 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
 \begin{theorem}[Jackson]\label{th:Jackson}\footnote{Slide 10 PDF 20, Teorema 4.8 PG 91}
     Se $f\in C^{(0)}[a,b]$ e $p^*$ è il suo polinomio di migliore approssimazione di grado $n$, allora $\exists\, \alpha$, indipendente da $n$, tale che:
     \begin{equation}\label{eq:approssimazione_jackson}
-        ||f-p^*||\leq \alpha\cdot\omega\left(f;\frac{\overset{\footnotemark}{b-a}}{\underset{\footnotemark}{n}}\right).
+        ||f-p^*||\leq \alpha\cdot\omega\left(f;\frac{b-a}{n}\right).
     \end{equation}
 \end{theorem}
 
-\addtocounter{footnote}{-1}
-\footnotetext{Ampiezza dell'intervallo sul quale approssimiamo $f$.}
-
-\stepcounter{footnote}
-\footnotetext{Grado del polinomio di migliore approssimazione. Più questo cresce più $\omega\rightarrow 0$, quindi $||f-p||>0$.}
+\paragraph{Note sul Teorema di Jackson:}
+\begin{enumerate}
+	\item Il Teorema fornisce una maggiorazione all'errore di migliore approssimazione,
+	\item $b-a$ è l'ampiezza dell'intervallo sul quale approssimiamo $f$,
+	\item $n$ è il grado del polinomio di migliore approssimazione, più questo cresce più $\omega\rightarrow 0$, quindi $||f-p||>0$.
+\end{enumerate}
 
 \begin{corollary}
     Se $f\in C^{(0)}[a,b]$, allora
@@ -1549,23 +1549,22 @@ Dato $p(x)\in\Pi_n$, ovvero un polinomio interpolante $f(x)$ su $n+1$ ascisse in
     essendo $\{p^*_n\}$ la successione dei problemi di migliore approssimazione di $f$ di grado $n$.
 \end{corollary}
 
-
-È possibile affermare che esiste una relazione fra l'errore nell'approssimazione polinomiale ed il condizionamento del problema (dato il Teorema di Jackson).
+È possibile affermare che esiste una relazione fra l'errore nell'approssimazione polinomiale ed il condizionamento del problema, ovvero dalle (\ref{eq:modulo_continuità})-(\ref{eq:approssimazione_jackson}) è ottenuto il seguente Corollario.
 
 \begin{corollary}\footnote{Slide 10 PDF 20, PG 91. Dalle (\ref{eq:approssimazione_errore_migliore_approssimazione})-(\ref{eq:approssimazione_jackson}) vale quanto segue.}
     Sia $f\in C^{(0)}[a,b]$, allora $\exists\alpha > 0$, indipendente da $n$, tale che se $p(x)\in\Pi_n$ è il polinomio interpolante $f(x)$ sulle ascisse di interpolazione distinte (\ref{eq:ascisse_interpolazione}), allora:
-    \begin{equation}\label{eq:maggiorazione_errore_migliore_approssimazione}
-        \boxed{||e||=||f-p||\leq\underset{\footnotemark}{\alpha}\underbrace{(1+\Lambda_n)\,\omega\left(f;\frac{b-a}{n}\right)}_{\footnotemark}}.
+    \begin{equation}\label{eq:approssimazione_errore}
+        \boxed{||e||=||f-p||\leq \alpha (1+\Lambda_n)\,\omega\left(f;\frac{b-a}{n}\right).}
     \end{equation}
 \end{corollary}
 
-\addtocounter{footnote}{-1}
-\footnotetext{Non dipende da $n$, ovvero il grado del polinomio approssimante.}
-
-\stepcounter{footnote}
-\footnotetext{Definita nella dimostrazione del Teorema \ref{th:approssimazione_errore_migliore_approssimazione}.}
-
-Quest'utlima espressione sarà utile per introdurre nuovi metodi di interpolazione. Inoltre, è necessario che la costante $\Lambda_n$ non cresca più rapidamente della quantità per la quale è moltiplicata, ma tenda a 0, al crescere del numero di ascisse di interpolazione.
+\paragraph{Note sul precedente Corollario:}
+\begin{enumerate}
+	\item $\alpha$ non dipende da $n$,
+	\item $(1 + \Lambda_n)$ è definita nella dimostrazione del Teorema \ref{th:approssimazione_errore_migliore_approssimazione},
+	\item Questa maggiorazione sarà utile per introdurre nuovi metodi di interpolazione introdotti nelle prossime Sezioni,
+	\item È necessario che la costante $\Lambda_n$ non cresca più rapidamente della quantità per la quale è moltiplicata, ma tenda a 0, al crescere del numero di ascisse di interpolazione.
+\end{enumerate}
 
 \begin{remark}\footnote{Slide 10 PDF 20.}
     Al crescere del numero delle ascisse di interpolazione $(n+1)$ è necessario fare in modo che $\Lambda_n$ cresca in modo ottimale, affinché $||e||$ diminuisca.
@@ -1574,7 +1573,7 @@ Quest'utlima espressione sarà utile per introdurre nuovi metodi di interpolazio
 \subsection{Ascisse di Chebyshev}\label{ssec:ascisse_chebyshev}\footnote{PDF 21, PG 91-93.}
 Le Sezioni \ref{ssec:errore_interpolazione_polinomiale} e \ref{ssec:condizionamento_problema_approsimazione_funzione} sono riassumibili nei seguenti punti:
 \begin{itemize}
-    \item la costante di Lebesgue $\Lambda_n$ è indipendente dal particolare intervallo considerato; cresce esponenzialmente con $n$ se sono utilizzate ascisse equidistanti, altrimenti ha una crescita moderta (quella ottimale è di tipo logaritmico) rispetto ad $n$; \footnote{$n$ è il grado del polinomio interpolante.}
+    \item la costante di Lebesgue $\Lambda_n$ è indipendente dal particolare intervallo considerato; cresce esponenzialmente con $n$ se sono utilizzate ascisse equidistanti, altrimenti ha una crescita moderta (quella ottimale è di tipo logaritmico) rispetto ad $n$ (grado del polinomio interpolante);
     \item Dato l'errore di interpolazione (\ref{eq:errore_interpolazione_P4}), ovvero 
     \begin{equation*}
     	\begin{matrix}
@@ -1583,17 +1582,17 @@ Le Sezioni \ref{ssec:errore_interpolazione_polinomiale} e \ref{ssec:condizioname
     	\end{matrix}
     \end{equation*}
     segue la maggiorazione 
-    \begin{equation*}
-    	||e||\leq \frac{\overbrace{||f^{(n+1)}||}^{\footnotemark}}{(n+1)!}||\omega_{n+1}||,
-    \end{equation*}
-    la quale ha il membro $||\omega_{n+1}||$ che dipende dalla scelta delle ascisse di interpolazione
+    \begin{equation}\label{eq:approssimazione_errore_1}
+    	||e||\leq \frac{||f^{(n+1)}||}{(n+1)!}||\omega_{n+1}||,
+    \end{equation}
+    la quale ha come unico che dipende dalla scelta delle ascisse di interpolazione $||\omega_{n+1}||$, definito come
     \begin{equation*}
     	\omega_{n+1}(x)=\prod_{j=0}^n(x-x_j) = \{\phi\in\Pi_n: \phi \text{ \gls{polinomio monico}}\}.
     \end{equation*}
-    Pertanto, è necessario capire come questa sia collegata con (\ref{eq:maggiorazione_errore_migliore_approssimazione}). 
+    Pertanto, è necessario capire come (\ref{eq:approssimazione_errore_1}) sia collegata con (\ref{eq:approssimazione_errore}). 
 \end{itemize}
 
-Come conseguenza del Teorema \ref{th:Jackson} (di Jackson), l'obbiettivo di questa Sezione è quello di scegliere le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) in modo da minimizzare $||\omega_{n+1}||$. Per fare questo è necessario rendere la costante di Lebesgue $\Lambda_n$ abbia crescita ottimale con $n$ (ovvero $O(\log n)$).
+L'obbiettivo di questa Sezione è quello di scegliere le ascisse di interpolazione (\ref{eq:ascisse_interpolazione}) in modo da minimizzare $||\omega_{n+1}||$. Per fare questo è necessario che la costante di Lebesgue $\Lambda_n$ abbia crescita ottimale al crescere di $n$ (ovvero $O(\log n)$).
 
 È necessario scegliere le ascisse di interpolazione $x_0,\hdots,x_n$ in modo tale da risolvere il \textbf{problema del minmax}, ovvero il seguente: \footnotemark
 \begin{equation}\label{eq:minmax}
@@ -1784,31 +1783,7 @@ Dalla Figura \ref{fig:graficoAscisseChebyshev} è possibile notare che sopra il 
     È necessario ricordare che al crescere del grado $n$ del polinomio interpolante, la scelta delle ascisse di interpolazione non deve fare crescere troppo la costante di Lebesgue $\Lambda_n$.
 \end{remark}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=2.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=2}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=10.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=10}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=18.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=18}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=22.jpg}
-    \caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=22}
-\end{figure}
-
-\begin{algorithm}\caption{Calcolo delle ascisse di Chebyshev per costruire il polinomio interpolante di grado $n$ su un generico intervallo $[a, b]$.}
+\begin{algorithm}\caption{Calcolo delle ascisse di Chebyshev su un generico intervallo $[a, b]$.}
 	\label{alg:cheby}
 	\begin{lstlisting}[style=Matlab-editor]
 		function x = ceby(a,b, n)
@@ -1822,44 +1797,83 @@ Dalla Figura \ref{fig:graficoAscisseChebyshev} è possibile notare che sopra il 
 		
 		x = cos((2 * (n + 1) : -2 : 1) * pi / ( 2 * n + 2));
 		
-		% alternativa: x = cos((2 * (n: -1 : 0) + 1) * pi / ( 2 * n + 2));
+		% Alternativa:
+		% x = (b + a) / 2 + (b - a) / 2 * cos((2 * (n:-1:0) + 1)*pi/(2*(n+1)));
 		
-		x = (a+b) + x * ((b-a) / 2);
+		x = (a+b) / 2 + x * (b-a) / 2;
 		
 		return 
 		end
 	\end{lstlisting}
 \end{algorithm}
 
-\subsection{Interpolazione mediante funzioni spline} \footnote{Slide 10-15 PDF 22, Slide 2-3 PDF 23, PG 94 - 100.}
-Dalle Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22} è possibile ottenere che l'approssimazione migliora all'aumentare del numero di ascisse. Inoltre, è necessario notare che 40 è il numero limite di ascisse per il quale l'approssimazione non migliora, anche se queste sono aumentate. Questo è dovuto al fatto che il numero di condizionamento, pur non essendo particolarmente grande, è influenzato dagli errori di round-off.
+\subsection{Interpolazione mediante funzioni spline}
 
-In analisi matematica i problemi sono concepiti in aritmetica infinita (ovvero esatta),  ma gli algoritmi sono in aritmetica finita (il problema rappresentato è perturbato, in quanto non è quello reale). Al crescere della grado del polinomio interpolante, le ascisse di Chebyshev evidenziano i limiti dell'utilizzo dell'aritmetica finita, dove il problema è quello di valutare un polinomio di grado elevato in aritmetica finita.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=2.jpg}
+	\caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=10.jpg}
+	\caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=10}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=18.jpg}
+	\caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=18}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/funzione_runge_ascisse_cheby_n=22.jpg}
+	\caption{Esempio di crescita di $\Lambda_n$ al crescere di $n$.}\label{fig:funzione_runge_ascisse_cheby_n=22}
+\end{figure}
+
+ \footnote{Slide 10-15 PDF 22, Slide 2-3 PDF 23, PG 94 - 100.} Dalle Figure \ref{fig:funzione_runge_ascisse_cheby_n=2}-\ref{fig:funzione_runge_ascisse_cheby_n=22} è possibile ottenere che l'approssimazione migliora all'aumentare del numero di ascisse. Inoltre, è necessario notare che 40 è il numero limite di ascisse per il quale l'approssimazione non migliora, anche se queste sono aumentate. Questo è dovuto al fatto che il numero di condizionamento, pur non essendo particolarmente grande, è influenzato dagli errori di round-off.
+
+In analisi matematica i problemi sono concepiti in aritmetica infinita (ovvero esatta),  ma gli algoritmi sono in aritmetica finita (il problema rappresentato è perturbato, in quanto non è quello reale). Pertanto, al crescere della grado del polinomio interpolante, le ascisse di Chebyshev evidenziano i limiti dell'utilizzo dell'aritmetica finita, dove il problema è quello di valutare un polinomio di grado elevato in aritmetica finita.
 
 La necessità, quindi, è quella di definire un algoritmo poco sensibile a perturbazioni. Se il numero di ascisse è fatto tendere all'infinito allora l'errore tenderà a 0, ma se è considerato l'errore di round-off accade che gli errori, dovuti all'approssimazione, sono più piccoli degli errori di round-off e sotto questo livello non è possibile scendere. Lo scopo è quello di fornire una soluzione a questo problema tramite ciò che sarà introdotto.
 
-Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:maggiorazione_errore_migliore_approssimazione}). Il problema con la maggiorazione (\ref{eq:maggiorazione_errore_migliore_approssimazione}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
+Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:approssimazione_errore}). Il problema con la maggiorazione (\ref{eq:approssimazione_errore}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ (definito come (\ref{eq:modulo_continuità}) è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
 
-In alternativa all'approccio classico è possibile definire quanto segue.
+Per definire un'alternativa all'approccio classico è possibile definire quanto segue.
 
 \begin{definition}[Partizione di insieme]
     Dato $[a,b]$ dominio di $f$, una partizione $\Delta$ sull'intervallo $[a,b]$ è definita come
     \begin{equation}\label{eq:definizione_partizione}
             \Delta = \{\boldsymbol{a}=x_0<x_1<\hdots<x_n=\boldsymbol{b}\},
     \end{equation}
-    la quale contiene $n+1$ punti (ovvero ascisse).
-\end{definition}
-
-\begin{definition}[Condizione di uniformità della partizione]
-    La condizione di uniformità della partizione $\Delta$ (definita come (\ref{eq:definizione_partizione})) è definita come
-    \begin{equation}\label{eq:condUnifPart}
-        \boldsymbol h\overset{\footnotemark}{\boldsymbol =}\underset{\boldsymbol{i=1,\hdots,n}}{\boldsymbol\max}\boldsymbol{(x_i-x_{i-1}).}
+    la quale contiene $n+1$ punti (ovvero ascisse) e tale che, definito
+    \begin{equation}
+    	\boldsymbol h\overset{\footnotemark}{\boldsymbol =}\underset{\boldsymbol{i=1,\hdots,n}}{\boldsymbol\max}\boldsymbol{(x_i-x_{i-1}),}
     \end{equation}
+    vale
+    \begin{equation}\label{eq:condizione_uniformita_partizione}
+    	h\rightarrow 0, \quad n\rightarrow +\infty,
+    \end{equation}
+    la quale è detta condizione di uniformità.
 \end{definition}
-\footnotetext{Massima ampiezza tra i sottointervalli e la partizione. Ciò che è assunto è: aumentanto il numero dei punti $h\rightarrow 0$, quindi non rimangano zone dell'intervallo $[a,b]$ che, se il numero delle ascisse tende all'infinito, sono senza punti. Se sono aggiunti punti questi sono aggiunti per tutti. Una partizione uniforme garantisce queste proprietà, ovvero (\ref{eq:condUnifPart}).}
 
-È assunto che $h\rightarrow 0,\, n\rightarrow\infty$. Inoltre, è assunto che su ciascun sottointervallo $[x_{i-1}, x_i],\, i=1,\hdots, n$, di $\Delta$ è utilizzato un polinomio di \textbf{grado $\boldsymbol m$ fissato}, interpolante $f(x)$ agli estremi del sottointervallo. Quindi, la nuova funzione interpolante è polinomiale a tratti (ovvero, in ogni sottointervallo è presente un polinomio).
-Così facendo, (\ref{eq:maggiorazione_errore_migliore_approssimazione}) diviene
+\footnotetext{Massima ampiezza tra i sottointervalli e la partizione. Ciò che è assunto è: aumentanto il numero dei punti $h\rightarrow 0$, quindi non rimangano zone dell'intervallo $[a,b]$ che, se il numero delle ascisse tende all'infinito, sono senza punti. Se sono aggiunti punti questi sono aggiunti per tutti. Una partizione uniforme garantisce queste proprietà, ovvero (\ref{eq:condizione_uniformita_partizione}).}
+
+\begin{property}\label{prop:sottointervalli_partizione}
+	Su ciascun sottointervallo
+	\begin{equation*}
+		[x_{i-1}, x_i]\subset \Delta,\quad i=1,\hdots, n,
+	\end{equation*}
+	della partizione $\Delta$ è utilizzato un polinomio di \textbf{grado $\boldsymbol m$ fissato}, interpolante $f(x)$ negli estremi del sottointervallo. Quindi, la nuova funzione interpolante è polinomiale a tratti (ovvero, in ogni sottointervallo è presente un polinomio).
+\end{property}
+
+\footnote{La strategia è dividere il problema in tanti sottoproblemi, ciascuno di essi utilizza un polinomio interpolante di grado fissato $m$ solo agli estremi dell'intervallo.} Dato quanto appena scritto, il problema del condizionamento diviene meno importante perché $m$ è fissato mentre, se $f\in C^{(0)}$ (vedi (\ref{eq:modulo_continuità})), 
+\begin{equation*}
+	\omega(f; h)\rightarrow 0,\quad\quad n\rightarrow \infty.
+\end{equation*}
+Così facendo, (\ref{eq:approssimazione_errore}) diviene
 \begin{equation*}
     \underset{\footnotemark}{||e||}\leq\underbrace{\alpha (1+\Lambda_m)}_{\text{non varia}}\underbrace{\omega\left(f;\frac{h}{m}\right)}_{\text{tende a 0}},
 \end{equation*}
@@ -1870,8 +1884,6 @@ dove:
     \item $h\rightarrow 0$, se $\boldsymbol{n}\rightarrow\infty$,
 \end{itemize}
 con $m$ ed $n$ svincolati.
-
-\footnote{La strategia è dividere il problema in tanti sottoproblemi, ciascuno di essi utilizza un polinomio interpolante di grado fissato $m$ solo agli estremi dell'intervallo.} Date le due precedenti definizioni, il problema del condizionamento diviene meno importante perché $m$ è fissato mentre, se $f\in C^{(0)}$ (vedi (\ref{eq:modCont})), vale il Teorema \ref{th:modContInf}.
 
 Con una lente più formale è possibile definire quanto segue:
 \begin{definition}[Spline di $m$ su $\Delta$]\label{def:spline}
@@ -1899,7 +1911,7 @@ Con una lente più formale è possibile definire quanto segue:
 Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sotto-intervallo, coincide con se stesso.
 
 \begin{definition}[Condizioni di interpolazione]\label{def:condizioni_aggiuntive_spline}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
-    Una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ (nei nodi della partizione) se (valgono le seguenti condizioni di interpolazione): 
+    Data $\Delta$ partizione e la Proprietà \ref{prop:sottointervalli_partizione}, una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ nei nodi della partizione se (valgono le seguenti condizioni di interpolazione): 
     \begin{equation}\label{eq:condizione_interpolazione_spline}
         \boldsymbol{s_m(x_i)=f(x_i)\equiv f_i,\quad i=0,\hdots,n.}
     \end{equation}
@@ -1952,7 +1964,7 @@ Vale il seguente risultato.
 \end{proof}
 Dato che $m\geq 2\,(>0)$, per il Teorema, quindi la funzione è continua (questo vale anche per le funzioni lineari). ($C^{-1}$ significa che la funzione è costante.)
 
-\subsection{Spline cubiche}
+\subsubsection{Spline cubiche}
 \begin{remark}
     \footnote{Slide 15 PDF 22.}
     Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante sono necessarie due ulteriori condizioni, ognuna delle quali darà origine ad una spline cubica interpolante generalmente diversa, oltre alle condizioni definite in (\ref{eq:condizione_interpolazione_spline}). Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
@@ -2104,7 +2116,7 @@ Quanto osservato significa che le spline cubiche consentono di approssimare effi
 
 Approssimare la funzione significa approssimare uniformemente anche la derivata prima e seconda. Questo risultato è esatto per tutte le spline cubiche tranne per la naturale, dove, se forzata, la derivata seconda negli estremi è 0. Questo non è sempre vero in quanto è possibile introdurre errori sistematici. È possibile affermare che l'errore diminuisce rapidamente quando è ottenuto dagli estremi dell'intervallo.
 
-\subsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcolo_spline_cubiche}\footnote{Slide 2-13 PDF 24, PG 97-101.}
+\subsubsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcolo_spline_cubiche}\footnote{Slide 2-13 PDF 24, PG 97-101.}
 Per trattare questa Sezione è utile la Sezione \ref{ssec:risoluzione_sistema_tridiagonale}.
 
 Il problema da affrontare è quello del calcolo della spline cubica $s_3(x)$ interpolante $f(x)$ sulla partizione, definita come in (\ref{eq:definizione_partizione}), $\Delta=\{a=x_0<x_1<\hdots<x_n=b\}$.
