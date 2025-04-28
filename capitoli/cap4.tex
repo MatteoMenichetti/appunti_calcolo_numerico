@@ -1932,10 +1932,7 @@ Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei 
 La definizione aggiunge alle due condizione necessarie affinché $s_m(x)$ sia definita spline, le condizioni necessarie affinché $s_m(x)$ interpoli $f(x)$.
 
 \begin{remark}
-    \footnote{Slide 13 PDF 22, PG 95.} Le sole condizioni di interpolazione ($n+1$) permettono di individuare univocamente le spline di grado 1, anche dette spline lineari. In questo caso una spline lineare è la spezzata che congiunge i punti di interpolazione $(x_i,f_i),$ per $i=0,\hdots, n$. La spline lineare interpolante è data da 
-    \begin{equation}\label{eq:spline_lineare}
-        \boldsymbol{s_1|_{[x_{i-1}, x_i]}(x)=\frac{(x-x_{i-1})f_i+(x_i-x)f_{i-1}}{x_i-x_{i-1}},\quad i=1,\hdots,n.}
-    \end{equation}
+    \footnote{Slide 13 PDF 22, PG 95.} Le sole condizioni di interpolazione ($n+1$) permettono di individuare univocamente le spline di grado 1, anche dette spline lineari. In questo caso una spline lineare è la spezzata che congiunge i punti di interpolazione $(x_i,f_i),$ per $i=0,\hdots, n$.
 \end{remark}
 
 \begin{figure}
@@ -1944,7 +1941,14 @@ La definizione aggiunge alle due condizione necessarie affinché $s_m(x)$ sia de
     \caption{Esempio di spline con $n=4$.}\label{fig:s_mN=4}
 \end{figure}
 
-Quindi $s_1(x)$ è il segmento che congiunge i punti in coordinate $(x_{i-1},f_{i-1})$ e $(x_i,f_i)$. Questo sarà utile quando saranno calcolate spline diverse dalle lineari.
+\begin{definition}[Spline lineare]
+	La spline lineare interpolante è data da 
+	\begin{equation}\label{eq:spline_lineare}
+		\boldsymbol{s_1|_{[x_{i-1}, x_i]}(x)=\frac{(x-x_{i-1})f_i+(x_i-x)f_{i-1}}{x_i-x_{i-1}},\quad i=1,\hdots,n.}
+	\end{equation}
+\end{definition}
+
+Quindi $s_1(x)$ è la spezzata che congiunge i punti in coordinate $(x_{i-1},f_{i-1})$ e $(x_i,f_i)$ per $i=0,\hdots, n$. Questo sarà utile quando saranno calcolate spline diverse dalle lineari.
 
 La definizione di spline di grado $m$ (Definizione \ref{def:spline}) prescinde dal fatto che la spline sia interpolante la funzione. All'interno dello spazio vettoriale l'obbiettivo è quello di individuare una spline interpolante, possibilmente unica.
 Quando il grado della spline aumenta allora esistono diverse spline di grado superiore, per le quali ciascuna sarà una spline di grado $m$ interpolante. Queste spline differendo per poco, dato che le condizioni mancanti saranno imposte e ciascuna scelta riguardo le condizioni imposte genera spline diverse.
