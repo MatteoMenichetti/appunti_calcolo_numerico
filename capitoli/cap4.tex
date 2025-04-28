@@ -1,4 +1,4 @@
-% !TeX spellcheck = it_IT
+% !TeX spellcheck = <none>
 \section{Approssimazioni di funzioni}
 \footnote{Slide 2 PDF 15, PG 77-104.}
 In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightarrow\mathbb R$, in quanto questa potrebbe essere troppo complessa o non nota. Di tale funzione sono conosciute le $n+1$ ascisse (tra loro \underline{distinte}):
@@ -1162,7 +1162,7 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
 
 \begin{corollary}
     \footnote{Slide 5 PDF 19, Corollario 4.1 PG 87; Importante perché esiste un legame tra le differenze divise e le derivate della funzione $f$, se questa è sufficientemente regolare.}
-    Dato $p(x)$, polinomio interpolante $f(x)$ in forma di Newton, definito come (\ref{eq:polinomio_interpolante_newton}), sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}(\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\})$ sul più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}), allora (vedere (\ref{eq:P4_differenze_divise})):
+    Dato $p(x)$, polinomio interpolante $f(x)$ in forma di Newton (definito come (\ref{eq:polinomio_interpolante_newton})) sulle ascisse distinte (definite come in (\ref{eq:ascisse_interpolazione})) e supposto che $f\in C^{(n+1)}[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$, allora (vedere (\ref{eq:P4_differenze_divise})):
     \begin{equation}\label{eq:errore_interpolazione_P4}
         \begin{matrix}
             e(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\,\omega_{n+1}(x),&\\
@@ -1171,12 +1171,14 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
     \end{equation}
 \end{corollary}
 
+\paragraph{N.B:} $[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$ e' più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}).
+
 \begin{example}
 	Date le coppie $(0,3), (2,4), (3,5)$, allora il polinomio interpolante le coppie in forma di Newton è
 	\begin{equation*}
 		\begin{matrix}
-			p(x) & = & f[0]\omega_0(x) + f[0,2] \omega_1(x) + f[0,2,3] \omega_3(x)\\
-					& = & 3 \cdot 1 + \frac{1}{2} \cdot x + \frac{1}{6} \cdot x(x-2).
+			p(x) & = & f[0]\omega_0(x) &+& f[0,2] \omega_1(x) &+& f[0,2,3] \omega_3(x)\\
+					& = & 3 \cdot 1 &+& \frac{1}{2} \cdot x &+& \frac{1}{6} \cdot x(x-2).
 		\end{matrix}
 	\end{equation*}
 	Sapendo che la derivata terza della funzione interpolanda ha norma minore uguale a 5, la seguente è una stima dell'errore nel punto $x=4$:\\
@@ -1190,19 +1192,29 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
 	\end{equation*}
 \end{example}
 
-\begin{remark}[Errore polinomio di Hermite]\label{rem:errore_polinomio_hermite}
+\begin{theorem}[Errore polinomio di Hermite]\label{th:errore_interpolazione_polinomio_hermite}
     \footnote{Da sapere. Slide 5 PDF 19, Oss. 4.4 PG 87.}
-    Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\left(\in C^{(2n+2)}(I(x))\right)$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
+    Per il polinomio di Hermite (\ref{eq:polinomio_hermite_base_newton}) interpolante la funzione $f(x)\in C^{(2n+2)}[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$, sulle ascisse $x_0,\hdots,x_n$, l'errore corrispondente al polinomio è definito come
     \begin{equation}\label{eq:errPolInterHer}
-        e_H(x)= f(x)-p_H(x) \overset{\footnotemark}{=} f[\overbrace{x_0,x_0,\hdots,x_n,x_n,x}^{2n+3}]\,\omega^2_{n+1}(x)\equiv\frac{\boxed{f^{(2n+2)}(\widehat\xi_x)}}{(2n+2)!}\,\omega^2_{n+1}(x).
+        e_H(x)= f(x)-p_H(x) \overset{\footnotemark}{=} f[\overbrace{x_0,x_0,\hdots,x_n,x_n,x}^{2n+3}]\,\omega^2_{n+1}(x).
     \end{equation}
     Inoltre, $e_H(x)$ è di grado $2n+2$.
-\end{remark}
+\end{theorem}
 
 \footnotetext{Le funzioni di base del polinomio di Newton hanno ascisse raddoppiate.}
 
+\begin{remark}
+	Sia $f\in C^{(2n+2)}[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$ e $p\in \Pi_{2n+1}$ polinomio interpolante $f$ sulle ascisse di interpolazione, allora
+	\begin{equation}\label{eq:errore_interpolazione_hermite_approssimazione}
+		\begin{matrix}
+			e_H(x)\equiv\frac{\boxed{f^{(2n+2)}(\widehat\xi_x)}}{(2n+2)!}\,\omega^2_{n+1}(x),&\\
+			&\widehat\xi_x\in[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}].
+		\end{matrix}
+	\end{equation}
+\end{remark}
+
 \begin{remark}\footnote{Slide 5 PDF 19.}
-    Da quanto esposto nell'Osservazione \ref{rem:errore_polinomio_hermite} è ottenuta una controprova del fatto che:
+    Da quanto esposto nel Teorema \ref{th:errore_interpolazione_forma_newton} e nel Teorema \ref{th:errore_interpolazione_polinomio_hermite} e è ottenuta una controprova del fatto che:
     \begin{enumerate}
         \item $p(x)\equiv f(x),\; \text{se } f(x)\in\Pi_n\; \left(f^{(n+1)}\equiv 0\right)$;
         \item $p_H(x)\equiv f(x),\; \text{se } f(x)\in\Pi_{2n+1}\; \left(f^{(2n+2)}\equiv 0\right)$.
@@ -1231,7 +1243,7 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
 
 Il polinomio interpolante coincide con la funzione $f$, come per il riquadro principale di $e(x)$ nell'Osservazione \ref{rem:consErrInterP4}, se $f$ è un polinomio di grado al più $n$ con la sua derivata $(n+1)$-esima che si annulla identicamente. Quindi, se la funzione $f$ è un polinomio di grado al più $n$ l'errore è identicamente nullo, il che significa che il polinomio interpolante coincide con la funzione di Hermite (ovvero l'uguaglianza (\ref{eq:errPolInterHer})).
 
-Data l'interpolazione di Hermite su $n+1$ ascisse (il polinomio interpolante di Hermite è di grado $2n+1$), se la funzione interpolante è un polinomio di grado al più $2n+1$, ancora una volta, il polinomio di Hermite coinciderà con la funzione interpolante. Ciò viene confermato dalla parte riquadrata in (\ref{eq:errPolInterHer}), in quanto la derivata $(2n+1)$-esima di un polinomio di grado $2n+1$ è identicamente nulla.
+Data l'interpolazione di Hermite su $n+1$ ascisse (il polinomio interpolante di Hermite è di grado $2n+1$), se la funzione interpolante è un polinomio di grado al più $2n+1$, ancora una volta, il polinomio di Hermite coinciderà con la funzione interpolante. Ciò viene confermato dalla parte riquadrata in (\ref{eq:errore_interpolazione_hermite_approssimazione}), in quanto la derivata $(2n+1)$-esima di un polinomio di grado $2n+1$ è identicamente nulla.
 
 Con funzioni "buone" è possibile aspettarsi che $p(x)$ approssimi sempre meglio $f(x)$, per $n\rightarrow\infty$.
 
@@ -1839,9 +1851,9 @@ In analisi matematica i problemi sono concepiti in aritmetica infinita (ovvero e
 
 La necessità, quindi, è quella di definire un algoritmo poco sensibile a perturbazioni. Se il numero di ascisse è fatto tendere all'infinito allora l'errore tenderà a 0, ma se è considerato l'errore di round-off accade che gli errori, dovuti all'approssimazione, sono più piccoli degli errori di round-off e sotto questo livello non è possibile scendere. Lo scopo è quello di fornire una soluzione a questo problema tramite ciò che sarà introdotto.
 
-Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:approssimazione_errore}). Il problema con la maggiorazione (\ref{eq:approssimazione_errore}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ (definito come (\ref{eq:modulo_continuità}) è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
+Il punto di partenza per la definizione dell'algoritmo prima citato è il Teorema di Jackson (Teorema \ref{th:Jackson}), il quale lega l'errore di approssimazione al condizionamento del problema tramite la maggiorazione (\ref{eq:approssimazione_errore}). Il problema con la maggiorazione (\ref{eq:approssimazione_errore}) è il seguente: aumentando il grado $n$ del polinomio, il modulo di continuità $\omega$ (definito come (\ref{eq:modulo_continuità})) è reso sempre più piccolo e non è assicurato che non possa essere migliore (così facendo è possibile che venga modificata la decrescenza del modulo di continuità). Tuttavia, se $n$ è piccolo e l'intervallo $[a,b]$ è fissato, $\omega$ non potrà tendere a 0.
 
-Per definire un'alternativa all'approccio classico è possibile definire quanto segue.
+Un'alternativa all'approccio classico è possibile definendo quanto segue.
 
 \begin{definition}[Partizione di insieme]
     Dato $[a,b]$ dominio di $f$, una partizione $\Delta$ sull'intervallo $[a,b]$ è definita come
@@ -1869,7 +1881,7 @@ Per definire un'alternativa all'approccio classico è possibile definire quanto 
 	della partizione $\Delta$ è utilizzato un polinomio di \textbf{grado $\boldsymbol m$ fissato}, interpolante $f(x)$ negli estremi del sottointervallo. Quindi, la nuova funzione interpolante è polinomiale a tratti (ovvero, in ogni sottointervallo è presente un polinomio).
 \end{property}
 
-\footnote{La strategia è dividere il problema in tanti sottoproblemi, ciascuno di essi utilizza un polinomio interpolante di grado fissato $m$ solo agli estremi dell'intervallo.} Dato quanto appena scritto, il problema del condizionamento diviene meno importante perché $m$ è fissato mentre, se $f\in C^{(0)}$ (vedi (\ref{eq:modulo_continuità})), 
+\footnote{La strategia è dividere il problema in tanti sottoproblemi, ciascuno di essi utilizza un polinomio interpolante di grado fissato $m$ solo agli estremi dell'intervallo.} Dato quanto appena scritto, il problema del condizionamento diviene meno importante perché $m$ è fissato mentre, se $f\in C^{(0)}[a,b]$ (vedi (\ref{eq:modulo_continuità})), 
 \begin{equation*}
 	\omega(f; h)\rightarrow 0,\quad\quad n\rightarrow \infty.
 \end{equation*}
@@ -1898,11 +1910,11 @@ Con una lente più formale è possibile definire quanto segue:
 
 1. e 2. sono condizioni diverse: 1. definisce cos'è una spline di grado $m$ e 2. afferma che la spline coincide con il grado assegnato in ciascun sottointervallo. Una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$). È necessario imporre sulla 2. la condizione (\ref{eq:condizioni_interpolazione_spline_modificate}).
 
-\begin{remark}\label{rem:n+m_condizioni_indipendenti}
+\begin{theorem}\label{th:n+m_condizioni_indipendenti}
     \footnote{Slide 12 PDF 22, Teorema 4.11 PG 95.} Denotando con $\boldsymbol{S_m(\Delta)}$ l'insieme delle spline di grado $m$ sulla partizione $\Delta$, contenente $n+1$ ascisse, questo è uno \textbf{spazio vettoriale} di dimensione $\boldsymbol{m+n}$.
-\end{remark}
+\end{theorem}
 
-\paragraph{Risultato importante dell'Osservazione \ref{rem:n+m_condizioni_indipendenti} è il seguente:} è possibile individuare in modo univoco una spline di grado $m$ sulla partizione $\Delta$, con $m+n$ condizioni distinte, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare un oggetto.
+\paragraph{Risultato importante del Teorema \ref{th:n+m_condizioni_indipendenti}:} \textbf{per individuare in modo univoco una spline di grado $\boldsymbol m$ sulla partizione $\boldsymbol{\Delta}$ sono necessarie $\boldsymbol{m+n}$ condizioni distinte}, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare un oggetto.
 
 \begin{remark}
     \footnote{Slide 12 PDF 22.} $\Pi_m\subset S_m(\Delta).$
