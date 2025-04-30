@@ -1929,7 +1929,7 @@ Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei 
 
 \begin{definition}[Spline interpolante]\label{def:spline_interpolante}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
     Data $\Delta$ partizione e la Proprietà \ref{prop:sottointervalli_partizione}, una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ nei nodi della partizione se (valgono le seguenti condizioni di interpolazione): 
-    \begin{equation}\label{eq:condizione_interpolazione_spline}
+    \begin{equation}\label{eq:condizioni_interpolazione_spline}
         \boldsymbol{s_m(x_i)=f(x_i)\equiv f_i,\quad i=0,\hdots,n.}
     \end{equation}
 \end{definition}
@@ -1986,17 +1986,17 @@ Dato che $m\geq 2\,(>0)$, per il Teorema, quindi la funzione è continua (questo
 \subsubsection{Spline cubiche}
 \begin{remark}
     \footnote{Slide 15 PDF 22.}
-    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante, sono necessarie due ulteriori condizioni oltre alle condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}), dove la scelta delle condizioni aggiuntive darà origine ad una spline cubica interpolante generalmente diversa. Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
+    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante, sono necessarie due ulteriori condizioni oltre alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}), dove la scelta delle condizioni aggiuntive darà origine ad una spline cubica interpolante generalmente diversa. Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
 \end{remark}
 
 I motivi per i quali è scelta la spline cubica sono le condizioni solitamente simmetriche rispetto agli estremi dell'intervallo. La derivata prima di una spline cubica è continua, ha un profilo smooth e per questo sono scelte per l'approssimazione di funzioni. Sono utilizzate le spline cubiciche e non quadratiche dato che l'unica condizione è la simmetria.
 
-Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
+Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
 
-Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alle condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}).
+Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}).
 \subsubsubsection{Spline cubica naturale}
-\begin{definition}[Condizioni spline cubica naturale]
-	\footnote{Slide 4 PDF 23, PG 96.} Una spline cubica $s_3(x)$ è detta naturale se impone le due condizioni aggiuntive
+\begin{definition}[Spline cubica naturale]
+	\footnote{Slide 4 PDF 23, PG 96.} Una spline cubica $s_3(x)$ è detta naturale se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono
 	\begin{equation}\label{eq:condizioni_spline_cubica_naturale}
     \boxed{s''_3(a)=0,\quad s''_3(b)=0.}
 \end{equation}
@@ -2031,7 +2031,7 @@ La spline cubica naturale è quella che minimizza la curvatura totale della curv
 
 \subsubsubsection{Spline cubica completa}
 \begin{definition}[Spline cubica completa]\footnote{Slide 4 PDF 23, PG 96.}
-	La spline cubica $s_3(x)$ è detta completa se
+	La spline cubica $s_3(x)$ è detta completa se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono
 	\begin{equation}\label{eq:condizioni_spline_cubica_completa}
 	    \boxed{s'_3(a)=f'(a),\quad s'_3(b)=f'(b)}
 	\end{equation}
@@ -2064,7 +2064,7 @@ Inoltre, se $\boldsymbol{f(x)\in C^{(2)}[a,b]}$, \textbf{come funzione periodica
 Dato che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condizioni_spline_periodica}), sono imposte le seguenti condizioni aggiuntive.
 
 \begin{definition}[Spline cubica periodica]
-	La spline cubica $s_3(x)$ e' periodica se
+	La spline cubica $s_3(x)$ e' periodica se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono
 	\begin{equation}\label{eq:condizioni_spline_cubica_periodica}
 	    \boxed{s'_3(a)=s'_3(b),\quad s''_3(a)=s''_3(b).}
 	\end{equation}
@@ -2088,7 +2088,7 @@ Dato che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (D
 La spline not-a-knot fa in modo che il nodo 1 ($x_1$) non sia il nodo che definisce una spline in senso classico. Questo è dovuto al fatto che è presente un unico polinomio nel primo e secondo sottoinsieme, in genere sono distinti. La stessa cosa avviene anche negli ultimi due sottointervalli.
 
 \begin{definition}[Spline cubica not-a-knot]
-	La spline cubica $s_3(x)$ interpolante su $\Delta$ e' detta not-a-knot se le due condizioni aggiuntive sono 
+	La spline cubica $s_3(x)$ interpolante su $\Delta$ e' detta not-a-knot se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono 
 	\begin{equation}\label{eq:condizione_spline_cubica_not_a_knot}
 		s'''_3|_{[x_0,x_1]}(x_1)=s'''_3|_{[x_1,x_2]}(x_1),\quad 	s'''_3|_{[x_{n-2},x_{n-1}]}(x_{n-1})=s'''_3|_{[x_{n-1},x_n]}(x_{n-1}).
 	\end{equation}
@@ -2159,6 +2159,149 @@ $\boldsymbol{x_1}$ e $\boldsymbol{x_{n-1}}$ precedenti non sono considerati nodi
 Quanto osservato significa che le spline cubiche consentono di approssimare efficientemente funzioni regolari, senza preoccuparsi troppo della scelta della partizione (ad esempio quella uniforme è sufficiente).
 
 Approssimare la funzione significa approssimare uniformemente anche la derivata prima e seconda. Questo risultato è esatto per tutte le spline cubiche tranne per la naturale, dove, se forzata, la derivata seconda negli estremi è 0. Questo non è sempre vero in quanto è possibile introdurre errori sistematici. È possibile affermare che l'errore diminuisce rapidamente quando è ottenuto dagli estremi dell'intervallo.
+
+\subsubsection{Risoluzione di un sistema tridiagonale}\label{ssec:risoluzione_sistema_tridiagonale}
+\footnote{Slide 8-10 PDF 23} È necessario, ai fini della Sezione \ref{ssec:calcolo_spline_cubiche}, risolvere il sistema lineare
+\begin{equation*}
+	A\underline{x}=\underline{q}\in\mathbb{R}^n,
+\end{equation*}
+dove
+\begin{equation*}
+	A=
+	\begin{bmatrix}
+		a_1 & c_1 & & & &\\
+		b_1 & a_2 & c_2 & & &\\
+		& b_2 & a_3 & c_3 & &\\
+		& & b_3 &\ddots & \ddots &\\
+		& & & \ddots & \ddots & c_{n-1}\\
+		& & & &  b_n & a_n
+	\end{bmatrix}
+	\in\mathbb{R}^{n\times n}
+\end{equation*}
+è una matrice triangolare. È supposto che questa sia fattorizzabile $LU$.
+
+\begin{remark}\footnote{Slide 9 PDF 23.}
+	È possibile \textbf{memorizzare $\boldsymbol A$ con 3 vettori (complessità lineare dei dati)}.
+\end{remark}
+
+\paragraph{Complessità:} Risolvere per fattori $LU$ ha complessità lineare. Invece di avere $\frac{2}{3}n^3$ flops per la fattorizzazione ed $n^2$ operazioni per i fattori triangolari. In questo caso la complessità è $n$ per la fattorizzazione ed $n$ per la risoluzione.
+
+\paragraph{Errori da non fare:} con complessità lineare è possibile risolvere problemi di qualsivoglia grandezza, con $n^2$ fino ad un certo punto e con ordine superiore al secondo no. Per risolvere il sistema tridiagonale alcune persone utilizzano una matrice piena, assegnano i tre vettori alle tre diagonali e le forniscono in input alla function di risoluzione, tramite fattorizzazione $LU$. In questo caso l'esercizio è valutato 0. $\qed$
+
+È necessario verificare $A$ che sia fattorizzabile $LU$, ovvero $\underset{\footnotemark}{A}=LU$, dove
+\footnotetext{$A$ è diagonale dominante quindi fattorizzabile $LU$.}
+\begin{equation*}
+	\begin{matrix}
+		\underset{\footnotemark}{L}=
+		\begin{bmatrix}
+			1 & & & &\\
+			l_2 & 1 & & &\\
+			& l_3 & 1 & &\\
+			& & \ddots & \ddots & &\\
+			& & & l_n & 1
+		\end{bmatrix}
+		,\; U\overset{\footnotemark}{=}
+		\begin{bmatrix}
+			d_1 & c_1 &\\
+			& d_2 & c_2\\
+			& & \ddots & \ddots\\
+			& & & \ddots & c_{n-1}\\
+			& & & & d_n
+		\end{bmatrix},\\
+		L\cdot U=
+		\begin{bmatrix}
+			d_1 & c_1 & & & &\\
+			l_2d_1 & (d_2+l_2 c_1) & c_2 & & &\\
+			& l_3d_2 & (d_3+l_3c_2) & c_3 & &\\
+			& & \ddots &\ddots & \ddots &\\
+			& & & \ddots & \ddots & c_{n-1}\\
+			& & & &  l_nd_{n-1} & (d_n+l_nc_{n-1})
+		\end{bmatrix}
+	\end{matrix}
+\end{equation*}
+\addtocounter{footnote}{-1}
+\footnotetext{Matrice biadiagonale memorizzabile con un vettore.}
+
+\stepcounter{footnote}
+\footnotetext{La diiagonale dei $d_i$ cambia rispetto ad A mentr la diagonale dei $c_i$ è uguale ad A.}
+
+\noindent uguagliando gli elementi omologhi, ottenendo:\\
+$d_1=a_1\\
+\begin{rcases}
+	l_i=b_i/d_{i-1},\\
+	d_i=a_i-l_i\cdot c_{i-1},\; i=2,\hdots, n.
+\end{rcases}$
+al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_i\rightarrow a_i$.
+
+\noindent Il sistema bidiagonale per $L$ può essere risolto tramite l'utilizzo dell'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_L}, con $\underline{x}\leftarrow\underline{q}$.
+
+\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $L$}
+	\label{alg:calcolo_sistema_bidiagonale_L}
+	\begin{lstlisting}[style=Matlab-editor]
+		for i = 2 : n
+		x(i) = x(i) - l(i) x(i-1) % (2n flops)
+		end
+	\end{lstlisting}
+\end{algorithm}
+
+\noindent Il sistema bidiagonale per $U$ può essere risolto con l'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_U}.
+\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $U$}
+	\label{alg:calcolo_sistema_bidiagonale_U}
+	\begin{lstlisting}[style=Matlab-editor]
+		x_n = x_n / d_n
+		for i = n - 1 : -1 : 1
+		x(i)= (x(i) - c(i) x(i + 1)) / d(i) %(3n flops)
+		end
+	\end{lstlisting}
+\end{algorithm}
+
+\noindent Quindi al posto di $\frac{2}{3}n^3$ flops c'è $3n$ ed al posto di $n^2\; 2n$. Totale $8n$ flops, mentre se è simmestrica $7$ flops.
+
+\paragraph{Algoritmo risoluzione sistema tridiagonale fattorizzabile $\boldsymbol{LU}$:} se è richiesto di risolvere un sistema tridiagonale fattorizzabile $LU$ allora è necessario utilizzare l'Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU}, non assegnando i 3 vettori ad una matrice e richiamando la function per la risoluzione della fattorizzabile $LU$.
+
+\begin{algorithm}\caption{Algoritmo risoluzione sistema tridiagonale per $LU$}
+	\label{alg:calcolo_sistema_tridiagonale_LU}
+	\begin{lstlisting}[style=Matlab-editor]
+		function x = trilu(a, b, c, f)
+		%	x = trilu(a, b, c, f)
+		%	Risolve un sistema lineare triangolare.
+		%
+		%	Input:
+		%		a - vettore con gli elementi diagonali
+		%		b - vettore con gli elementi sottodiagonali
+		%		c - vettore con gli elementi sopradiagonali
+		%		f - vettore dei termini noti
+		%
+		%	Output:
+		%		x - vettore soluzione
+		
+		if nargin < 4, error('dati insufficienti'), end
+		
+		n = lenght(a);
+		
+		if length(f) ~= n || length(b) ~= n-1 || length(c) ~= n-1
+		error('dati errati')
+		end
+		
+		if a(1) == 0, error('fattorizzaz. non definita'), end
+		
+		x = f;
+		
+		for i = 1 : n-1
+		b(i) = b(i)/a(i);
+		a(i+1) = a(i+1) - b(i) * c(i);
+		if a(i+1) == 0, error('fattorizzaz. non definita'), end
+		x(i+1) = x(i+1) - b(i) * x(i);
+		end
+		
+		x(n) = x(n) / a(n);
+		
+		for i = n-1 : -1 : 1
+		x(i) = (x(i) - c(i) * x(i+1))/a(i);
+		end
+		return
+	\end{lstlisting}
+\end{algorithm}
 
 \subsubsection{Calcolo (pratico) di una spline cubica}\label{ssec:calcolo_spline_cubiche}\footnote{Slide 2-13 PDF 24, PG 97-101.}
 Per trattare questa Sezione è utile la Sezione \ref{ssec:risoluzione_sistema_tridiagonale}.
@@ -2636,146 +2779,3 @@ $\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice
 	\end{equation}
 	E' possibile osservare che la matrice dei coefficienti$7\times 2$ ed ha rango massimo, poiche' sono presenti almeno 3 ascisse distinte. Pertanto, la soluzione nel senso dei minimi quadrati di (\ref{eq:esempio_minimi_quadrati}) esiste edunica. Pertanto il problema\gls{ben posto}.
 \end{example}
-
-\subsection{Risoluzione di un sistema tridiagonale}\label{ssec:risoluzione_sistema_tridiagonale}
-\footnote{Slide 8-10 PDF 23} È necessario, ai fini della Sezione \ref{ssec:calcolo_spline_cubiche}, risolvere il sistema lineare
-\begin{equation*}
-    A\underline{x}=\underline{q}\in\mathbb{R}^n,
-\end{equation*}
-dove
-\begin{equation*}
-    A=
-    \begin{bmatrix}
-        a_1 & c_1 & & & &\\
-        b_1 & a_2 & c_2 & & &\\
-            & b_2 & a_3 & c_3 & &\\
-            & & b_3 &\ddots & \ddots &\\
-            & & & \ddots & \ddots & c_{n-1}\\
-            & & & &  b_n & a_n
-    \end{bmatrix}
-    \in\mathbb{R}^{n\times n}
-\end{equation*}
-è una matrice triangolare. È supposto che questa sia fattorizzabile $LU$.
-
-\begin{remark}\footnote{Slide 9 PDF 23.}
-    È possibile \textbf{memorizzare $\boldsymbol A$ con 3 vettori (complessità lineare dei dati)}.
-\end{remark}
-
-\noindent Risolvere per fattori $LU$ ha complessità lineare. Invece di avere $\frac{2}{3}n^3$ flops per la fattorizzazione ed $n^2$ operazioni per i fattori triangolari. In questo caso la complessità è $n$ per la fattorizzazione ed $n$ per la risoluzione.
-
-\paragraph{Errori da non fare:} con complessità lineare è possibile risolvere problemi di qualsivoglia grandezza, con $n^2$ fino ad un certo punto e con ordine superiore al secondo no. Per risolvere il sistema tridiagonale alcune persone utilizzano una matrice piena, assegnano i tre vettori alle tre diagonali e le forniscono in input alla function di risoluzione, tramite fattorizzazione $LU$. In questo caso l'esercizio è valutato 0.
-
-\noindent È necessario verificare $A$ che sia fattorizzabile $LU$, ovvero $\underset{\footnotemark}{A}=LU$, dove
-\footnotetext{$A$ è diagonale dominante quindi fattorizzabile $LU$.}
-\begin{equation*}
-    \begin{matrix}
-        \underset{\footnotemark}{L}=
-    \begin{bmatrix}
-        1 & & & &\\
-        l_2 & 1 & & &\\
-        & l_3 & 1 & &\\
-        & & \ddots & \ddots & &\\
-        & & & l_n & 1
-    \end{bmatrix}
-    ,\; U\overset{\footnotemark}{=}
-    \begin{bmatrix}
-        d_1 & c_1 &\\
-            & d_2 & c_2\\
-            & & \ddots & \ddots\\
-            & & & \ddots & c_{n-1}\\
-            & & & & d_n
-    \end{bmatrix},\\
-    L\cdot U=
-    \begin{bmatrix}
-        d_1 & c_1 & & & &\\
-        l_2d_1 & (d_2+l_2 c_1) & c_2 & & &\\
-            & l_3d_2 & (d_3+l_3c_2) & c_3 & &\\
-            & & \ddots &\ddots & \ddots &\\
-            & & & \ddots & \ddots & c_{n-1}\\
-            & & & &  l_nd_{n-1} & (d_n+l_nc_{n-1})
-    \end{bmatrix}
-    \end{matrix}
-\end{equation*}
-\addtocounter{footnote}{-1}
-\footnotetext{Matrice biadiagonale memorizzabile con un vettore.}
-
-\stepcounter{footnote}
-\footnotetext{La diiagonale dei $d_i$ cambia rispetto ad A mentr la diagonale dei $c_i$ è uguale ad A.}
-
-\noindent uguagliando gli elementi omologhi, ottenendo:\\
-$d_1=a_1\\
-\begin{rcases}
-l_i=b_i/d_{i-1},\\
-d_i=a_i-l_i\cdot c_{i-1},\; i=2,\hdots, n.
-\end{rcases}$
-al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_i\rightarrow a_i$.
-
-\noindent Il sistema bidiagonale per $L$ può essere risolto tramite l'utilizzo dell'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_L}, con $\underline{x}\leftarrow\underline{q}$.
-
-\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $L$}
-\label{alg:calcolo_sistema_bidiagonale_L}
-    \begin{lstlisting}[style=Matlab-editor]
-    for i = 2 : n
-        x_i = x_i - e_i x_(i - 1) % (2n flops)
-    end
-    \end{lstlisting}
-\end{algorithm}
-
-\noindent Il sistema bidiagonale per $U$ può essere risolto con l'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_U}.
-\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $U$}
-\label{alg:calcolo_sistema_bidiagonale_U}
-    \begin{lstlisting}[style=Matlab-editor]
-    x_n = x_n / d_n
-    for i = n - 1 : -1 : 1
-            x_i = (x_i - c_i x_(i + 1)) / d_i %(3n flops)
-    end
-    \end{lstlisting}
-\end{algorithm}
-
-\noindent Quindi al posto di $\frac{2}{3}n^3$ flops c'è $3n$ ed al posto di $n^2\; 2n$. Totale $8n$ flops, mentre se è simmestrica $7$ flops.
-
-\paragraph{Algoritmo risoluzione sistema tridiagonale fattorizzabile $\boldsymbol{LU}$:} se è richiesto di risolvere un sistema tridiagonale fattorizzabile $LU$ allora è necessario utilizzare l'Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU}, non assegnando i 3 vettori ad una matrice e richiamando la function per la risoluzione della fattorizzabile $LU$.
-
-\begin{algorithm}\caption{Algoritmo risoluzione sistema tridiagonale per $LU$}
-	\label{alg:calcolo_sistema_tridiagonale_LU}
-	\begin{lstlisting}[style=Matlab-editor]
-		function x = trilu(a, b, c, f)
-		%	x = trilu(a, b, c, f)
-		%	Risolve un sistema lineare triangolare.
-		%
-		%	Input:
-		%		a - vettore con gli elementi diagonali
-		%		b - vettore con gli elementi sottodiagonali
-		%		c - vettore con gli elementi sopradiagonali
-		%		f - vettore dei termini noti
-		%
-		%	Output:
-		%		x - vettore soluzione
-		
-		if nargin < 4, error('dati insufficienti'), end
-		
-		n = lenght(a);
-		
-		if length(f) ~= n || length(b) ~= n-1 || length(c) ~= n-1
-			error('dati errati')
-		end
-		
-		if a(1) == 0, error('fattorizzaz. non definita'), end
-		
-		x = f;
-		
-		for i = 1 : n-1
-			b(i) = b(i)/a(i);
-			a(i+1) = a(i+1) - b(i) * c(i);
-			if a(i+1) == 0, error('fattorizzaz. non definita'), end
-			x(i+1) = x(i+1) - b(i) * x(i);
-		end
-		
-		x(n) = x(n) / a(n);
-		
-		for i = n-1 : -1 : 1
-			x(i) = (x(i) - c(i) * x(i+1))/a(i);
-		end
-		return
-	\end{lstlisting}
-\end{algorithm}
