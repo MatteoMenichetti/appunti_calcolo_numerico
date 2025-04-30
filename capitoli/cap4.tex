@@ -637,14 +637,14 @@ La definizione in forma di Newton di $p(x)$ come (\ref{eq:polinomio_interpolante
     \end{lstlisting}
 \end{algorithm}
 
-\paragraph{\textbf{Costo computazionale} dell'\textbf{Algoritmo (\ref{alg:calcolo_differenze_divise}})}:
+\paragraph{\textbf{Costo computazionale} dell'\textbf{Algoritmo \ref{alg:calcolo_differenze_divise}}}:
     \begin{itemize}
         \item Flops: $\sum_{j=1}^{n}3(n-j+1)\overset{\footnotemark}{=} 3\sum_{j=1}^{n}j=3\cdot\frac{n(n+1)}{2}\boldsymbol{\approx \frac{3}{2}n^2\; flops}$; \footnotetext{Somma naturale.}
         \item Occupazione Memoria: \textbf{2 vettori} $\boldsymbol{(x, f)}$ ($x$ memorizza le ascisse interpolanti ed $f$ le differenze divise);
     \end{itemize}
 
 \subsubsubsection{Metodo di Horner}
-\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton $p(x)$. Al fine del calcolo efficiente del polinomio di Newton è valutato un problema più semplice rispetto alla base delle potenze, il calcolo del polinomio (\ref{eq:polinomio_interpolante_generico}), ovvero di
+\noindent\textbf{Problema:} È necessario considerare il calcolo efficiente del polinomio di Newton $p(x)$. Al fine del calcolo efficiente del polinomio di Newton è valutato prima un problema più semplice, ovvero il calcolo del polinomio in base alle potenze (\ref{eq:polinomio_interpolante_generico}), ovvero il calcolo di
 \begin{equation}\label{eq:polinomio_generico_ridef}
 	p(x)=\sum_{k=0}^{n}a_kx^k,
 \end{equation}
@@ -1171,7 +1171,7 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
     \end{equation}
 \end{corollary}
 
-\paragraph{N.B:} $[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$ e' più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}).
+\paragraph{N.B:} $[\min\{\underset{i}{\min}\,x_i,\,x\},\, \max\{\underset{i}{\max}\,x_i,\, x\}]$ è più piccolo intervallo contenente le ascisse in argomento alla differenza divisa in (\ref{eq:errore_interpolazione_forma_newton}).
 
 \begin{example}
 	Date le coppie $(0,3), (2,4), (3,5)$, allora il polinomio interpolante le coppie in forma di Newton è
@@ -1900,21 +1900,26 @@ con $m$ ed $n$ svincolati.
 Con una lente più formale è possibile definire quanto segue:
 \begin{definition}[Spline di $m$ su $\Delta$]\label{def:spline}
     \footnote{Definizione 1 Slide 11 PDF 22, Definizione 4.3 PG 94.}
-    $s_m(x)$ è una funzione definita come spline di grado $m$ sulla partizione $\Delta$, la quale è definita come (\ref{eq:definizione_partizione}), se:
+    La funzione $s_m(x)$ è detta spline di grado $m$ sulla partizione $\Delta$ (definita come (\ref{eq:definizione_partizione})), se:
     \begin{enumerate}
         \item $s_m(x)\in C^{(m-1)}[a,b]$; \footnotemark
-        \item $s_m|_{[x_{i-1},x_i]}(x)\in\Pi_m,\,\forall i=1,\hdots,n.$
+        \item $s_m|_{[x_{i-1},x_i]}(x)\in\Pi_m,\quad \forall i=1,\hdots,n.$
     \end{enumerate}
 \end{definition}
 \footnotetext{$s_m$ deve essere derivabile $m-1$ volte e le $m-1$ derivate devono essere continue. Se $s_m$ è un polinomio allora soddisferà la condizione perché un polinomio è $C^\infty$ (le derivate successive sono nulle).}
 
-1. e 2. sono condizioni diverse: 1. definisce cos'è una spline di grado $m$ e 2. afferma che la spline coincide con il grado assegnato in ciascun sottointervallo. Una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$). È necessario imporre sulla 2. la condizione (\ref{eq:condizioni_interpolazione_spline_modificate}).
+\paragraph{Nota:} 1. e 2. sono condizioni diverse: 
+\begin{enumerate}
+	\item definisce cos'è una spline di grado $m$,
+	\item afferma che la spline coincide con il grado assegnato in ciascun sottointervallo; $s_m|_{[x_{i-1},x_i]}(x)$ è utilizzata per definire le condizioni aggiuntive per l'unicita' della spline.
+\end{enumerate}
+Inoltre, una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$).
 
 \begin{theorem}\label{th:n+m_condizioni_indipendenti}
     \footnote{Slide 12 PDF 22, Teorema 4.11 PG 95.} Denotando con $\boldsymbol{S_m(\Delta)}$ l'insieme delle spline di grado $m$ sulla partizione $\Delta$, contenente $n+1$ ascisse, questo è uno \textbf{spazio vettoriale} di dimensione $\boldsymbol{m+n}$.
 \end{theorem}
 
-\paragraph{Risultato importante del Teorema \ref{th:n+m_condizioni_indipendenti}:} \textbf{per individuare in modo univoco una spline di grado $\boldsymbol m$ sulla partizione $\boldsymbol{\Delta}$ sono necessarie $\boldsymbol{m+n}$ condizioni distinte}, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare un oggetto.
+\paragraph{Risultato importante del Teorema \ref{th:n+m_condizioni_indipendenti}:} \textbf{per individuare in modo univoco una spline di grado $\boldsymbol m$ sulla partizione $\boldsymbol{\Delta}$ sono necessarie $\boldsymbol{m+n}$ condizioni distinte}, quindi indipendenti. Inoltre, la dimensione di uno spazio vettoriale è utilizzata per determinare quante condizioni sono necessarie per individuare univocamente una spline.
 
 \begin{remark}
     \footnote{Slide 12 PDF 22.} $\Pi_m\subset S_m(\Delta).$
@@ -1922,7 +1927,7 @@ Con una lente più formale è possibile definire quanto segue:
 
 Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sotto-intervallo, coincide con se stesso.
 
-\begin{definition}[Condizioni di interpolazione]\label{def:condizioni_aggiuntive_spline}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
+\begin{definition}[Spline interpolante]\label{def:spline_interpolante}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
     Data $\Delta$ partizione e la Proprietà \ref{prop:sottointervalli_partizione}, una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ nei nodi della partizione se (valgono le seguenti condizioni di interpolazione): 
     \begin{equation}\label{eq:condizione_interpolazione_spline}
         \boldsymbol{s_m(x_i)=f(x_i)\equiv f_i,\quad i=0,\hdots,n.}
@@ -1948,12 +1953,10 @@ La definizione aggiunge alle due condizione necessarie affinché $s_m(x)$ sia de
 	\end{equation}
 \end{definition}
 
-Quindi $s_1(x)$ è la spezzata che congiunge i punti in coordinate $(x_{i-1},f_{i-1})$ e $(x_i,f_i)$ per $i=0,\hdots, n$. Questo sarà utile quando saranno calcolate spline diverse dalle lineari.
+La Definizione \ref{def:spline} di spline di grado $m$ prescinde dal fatto che la spline sia interpolante la funzione. Dato uno spazio vettoriale l'obbiettivo è quello di individuare una spline interpolante, possibilmente unica.
+Quando il grado della spline aumenta allora esistono diverse spline di grado superiore, per le quali ciascuna sarà una spline di grado $m$ interpolante. Queste spline differescono di poco, dato che le prime $m$ condizioni sono imposte e solo le condizioni mancanti saranno imposte (ciascuna scelta riguardo le condizioni imposte genera spline diverse).
 
-La definizione di spline di grado $m$ (Definizione \ref{def:spline}) prescinde dal fatto che la spline sia interpolante la funzione. All'interno dello spazio vettoriale l'obbiettivo è quello di individuare una spline interpolante, possibilmente unica.
-Quando il grado della spline aumenta allora esistono diverse spline di grado superiore, per le quali ciascuna sarà una spline di grado $m$ interpolante. Queste spline differendo per poco, dato che le condizioni mancanti saranno imposte e ciascuna scelta riguardo le condizioni imposte genera spline diverse.
-
-La condizione 1. della Definizione \ref{def:spline} implica che la spline $s_m$ debba essere una funzione di classe $C^{(m-1)}[a,b]$. Questo requisito richiede di imporre delle condizioni sui punti interni della partizione $x_1,\hdots,x_{n-1}$, ovvero i punti di contiguità tra i sottointervalli $[x_{i-1},x_i]$ e $[x_i,x_{i+1}],$ per $ i=1,\hdots,n-1$. Ovvero, le condizioni da imporre sono le seguenti:
+\paragraph{Nota:} La condizione 1. della Definizione \ref{def:spline} implica che la spline $s_m \in C^{(m-1)}[a,b]$. Questo requisito richiede di imporre delle condizioni sui punti interni della partizione $x_1,\hdots,x_{n-1}$, ovvero i punti di contiguità tra i sottointervalli $[x_{i-1},x_i]$ e $[x_i,x_{i+1}],$ per $ i=1,\hdots,n-1$. Pertanto, le condizioni da imporre sono le seguenti:
 \begin{equation}\label{eq:condizioni_interpolazione_spline_modificate}
     \begin{matrix}
         s_m^{(\boldsymbol{j})}|_{[x_{i-1},\boldsymbol{x_i}]}(\boldsymbol{x_i})= s_m^{(\boldsymbol{j})}|_{[\boldsymbol{x_i},x_{i+1}]}(\boldsymbol{x_i}),\\
@@ -1983,97 +1986,134 @@ Dato che $m\geq 2\,(>0)$, per il Teorema, quindi la funzione è continua (questo
 \subsubsection{Spline cubiche}
 \begin{remark}
     \footnote{Slide 15 PDF 22.}
-    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante sono necessarie due ulteriori condizioni, ognuna delle quali darà origine ad una spline cubica interpolante generalmente diversa, oltre alle condizioni definite in (\ref{eq:condizione_interpolazione_spline}). Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
+    Nella pratica computazionale assumono particolare importanza le \textbf{spline cubiche ($\boldsymbol{m=3}$)}. Se è ricercata la spline cubica interpolante, sono necessarie due ulteriori condizioni oltre alle condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}), dove la scelta delle condizioni aggiuntive darà origine ad una spline cubica interpolante generalmente diversa. Una funzione di grado 3 sarà interpolata da un polinomio di grado 3 e può accadere che più spline coincidano.
 \end{remark}
 
-I motivi per i quali è scelta la spline cubica sono le condizioni solitamente asimmetriche rispetto agli estremi dell'intervallo. La derivata prima di una spline quadratica è continua, ha un profilo smooth e per questo sono scelte per l'approssimazione di funzioni. Sono utilizzate le spline cubiciche e non quadratiche dato che l'unica condizione è la non simmetria.
+I motivi per i quali è scelta la spline cubica sono le condizioni solitamente simmetriche rispetto agli estremi dell'intervallo. La derivata prima di una spline cubica è continua, ha un profilo smooth e per questo sono scelte per l'approssimazione di funzioni. Sono utilizzate le spline cubiciche e non quadratiche dato che l'unica condizione è la simmetria.
 
 Per individuare univocamente una spline cubica definita sulla partizione $\Delta$, occorrono $n+3$ ($m=3$) condizioni indipendenti tra loro. Se è ricercata una spline interpolante una data funzione $f(x)$, le condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}) forniscono $n+1$ condizioni. Pertanto, rimangono da fissare \textbf{2 condizioni addizionali} per determinare univocamente una spline cubica, dove ciascuna coppia di condizioni addizionali darà origine ad una spline interpolante, le quali sono \textbf{generalmente diverse tra loro.} Le condizioni di interpolazione sono importanti ed esiste un certo numero di modi per imporle, ciascuno di questi modi genererà una spline interpolante, generalmente le spline generate sono diverse.
 
-Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alla condizione definita nella Definizione \ref{def:condizioni_aggiuntive_spline}.
-\subsubsection{Spline cubica naturale}
-\footnote{Slide 4 PDF 23, PG 96.} 
+Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive e neccessarie da imporre per determinare una spline cubica interpolante, le quali sono aggiunte alle condizioni di interpolazione (\ref{eq:condizione_interpolazione_spline}).
+\subsubsubsection{Spline cubica naturale}
 \begin{definition}[Condizioni spline cubica naturale]
-	Una spline cubica è detta naturale se impone le due condizioni aggiuntive
+	\footnote{Slide 4 PDF 23, PG 96.} Una spline cubica $s_3(x)$ è detta naturale se impone le due condizioni aggiuntive
 	\begin{equation}\label{eq:condizioni_spline_cubica_naturale}
     \boxed{s''_3(a)=0,\quad s''_3(b)=0.}
 \end{equation}
-
 \end{definition}
+
 La spline cubica naturale è quella che minimizza la curvatura totale della curva (non sarà trattato). Questa spline è scelta perché porta all'algoritmo di misurazione più efficiente tra tutti (non sarà trattato).
 
-\subsubsection{Spline cubica completa}\footnote{Nota precedente.}
-Questa spline è determinata dalle due seguenti condizioni:
-\begin{equation}\label{eq:condizioni_spline_cubica_completa}
-    \boxed{s'_3(a)=f'(a),\quad s'_3(b)=f'(b)}
-\end{equation}
+\begin{example}
+	Calcolare i coefficienti $a,b,c,d$ in modo tale che
+	\begin{equation*}
+		s_3|_{[0,1]}(x) = x^3,\quad s_3|_{[1,2]}(x) = a x^3 + b x^2 + c x + d.
+	\end{equation*}
+	Sia un spline naturale cubica naturale
+	\begin{equation*}
+		s^{(i)}_3|_{[0,1]}(1) = s_3^{(i)}|_{[1,2]}(1),\quad i=0,1,2,
+	\end{equation*}
+	e
+	\begin{equation*}
+		s_3''|_{[1,2]}(2) = 0.
+	\end{equation*}
+	Pertanto:
+	\begin{equation*}
+		\begin{matrix}
+			1 &=& a + b + c + d &\Rightarrow& \boldsymbol{d=} 1 - a - b - c \boldsymbol{= 2},\\
+			3 &=& 3a + 2b + c &\Rightarrow& \boldsymbol{c=} 3-3a-2b \boldsymbol{=-6},\\
+			6 &=& 6a + 2b\\
+			&&&\Rightarrow& 6a = -6 \Rightarrow \boldsymbol{a=-1}, \boldsymbol{b=6}.\\
+			0 &=& 12a + 2b
+		\end{matrix}
+	\end{equation*}
+\end{example}
+
+\subsubsubsection{Spline cubica completa}
+\begin{definition}[Spline cubica completa]\footnote{Slide 4 PDF 23, PG 96.}
+	La spline cubica $s_3(x)$ è detta completa se
+	\begin{equation}\label{eq:condizioni_spline_cubica_completa}
+	    \boxed{s'_3(a)=f'(a),\quad s'_3(b)=f'(b)}
+	\end{equation}
+\end{definition}
 
 Negli estremi della partizione $\Delta$ è imposta una condizione di interpolazione di Hermite.
 Dal punto di vista computazionale è implementata con variazioni della spline cubica naturale.
 
-\subsubsection{Spline cubica interpolante periodica} \footnote{Nota precedente. Questa non è applicata ad una funzione interpolanda ma a funzioni periodiche.}
-Questo tipo di spline è utilizzata supponendo che la funzione $f(x)$ sia una funzione periodica sull'intervallo $[a,b]$. Infatti vale la segeunte osservazione:
+\subsubsubsection{Spline cubica interpolante periodica} \footnote{Slide 4 PDF 23, PG 96.}
+Questo tipo di spline è utilizzata supponendo che la funzione interpolanda $f(x)$ sia una funzione periodica sull'intervallo $[a,b]$. Infatti vale la segeunte osservazione:
 
 \begin{remark}
-    Quanto scritto significa che $b-a$, che è l'ampiezza dell'intervallo, deve essere un multiplo intero del periodo $T$ della funzione [\footnote{È possibile un'efficienza maggiore esprimendo $b$ come $b=T\cdot a$.}].
+    L'ampiezza dell'intervallo $b-a$ deve essere un multiplo intero del periodo $T$ della funzione (efficienza maggiore esprimendo $b$ come $b=T\cdot a$).
 \end{remark}
 
 \begin{example}
-    Se $f(x)=\sin(x)\Rightarrow b$ deve essere un multiplo di $2\pi$, altrimenti la funzione non è periodica (ad esempio con $[0,\pi]$).
+    Se $f(x)=\sin(x)$ allora $b$ deve essere un multiplo di $2\pi$, altrimenti la funzione non è periodica (ad esempio con $[0,\pi]$).
 \end{example}
 
 Dalle condizioni di interpolazioni e per la periodicità di $f(x)$, è noto quanto segue:
 \begin{equation*}
-    s_3(a)=f(a)=f(b)=s_3(b).
+    s_3(a)=f(a)=f(b)=s_3(b),
 \end{equation*}
 
-Se $\boldsymbol{f(x)\in C^{(2)}[a,b]}$, ovvero $f$ è più che continua, \textbf{come funzione periodica}, allora:
-
+Inoltre, se $\boldsymbol{f(x)\in C^{(2)}[a,b]}$, \textbf{come funzione periodica}, allora:
 \begin{equation}\label{eq:condizioni_spline_periodica}
     f'(a)=f'(b),\quad f''(a)=f''(b).
 \end{equation}
 
-Dato che è richiesto che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condizioni_spline_periodica}), sono imposte le seguenti condizioni aggiuntive:
+Dato che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condizioni_spline_periodica}), sono imposte le seguenti condizioni aggiuntive.
 
-\begin{equation}\label{eq:condizioni_spline_cubica_periodica}
-    \boxed{s'_3(a)=s'_3(b),\quad s''_3(a)=s''_3(b).}
-\end{equation}
+\begin{definition}[Spline cubica periodica]
+	La spline cubica $s_3(x)$ e' periodica se
+	\begin{equation}\label{eq:condizioni_spline_cubica_periodica}
+	    \boxed{s'_3(a)=s'_3(b),\quad s''_3(a)=s''_3(b).}
+	\end{equation}
+\end{definition}
 
 \begin{remark}
-    Questo tipo di spline è applicato esclusivamente al caso di funzioni periodiche sull'intervallo $[a,b]$.
+    \textbf{Le spline cubiche periodiche sono applicate \ul{esclusivamente} al caso di funzioni periodiche} sull'intervallo $[a,b]$.
 \end{remark}
 
 \paragraph{Intermezzo:}È possibile costruire spline cubiche interpolanti una funzione periodica  del tipo natuale, periodica e completa ottenendo risultati generalmente diversi fra loro.
 
-\subsubsection{Spline cubica interpolante not-a-knot}
+\subsubsubsection{Spline cubica interpolante not-a-knot}
 \begin{remark}\footnote{Slide 5 PDF 23, PG 97}
     Questa spline è implementata nella \textit{function \textbf{spline}} di Matlab.
 \end{remark}
 
-\textbf{Questa spline non necessita di ulteriori informazioni oltre a quelle di interpolazione}, le condizioni aggiuntive sono  imposte in modo implicito. 
+\paragraph{N.B.:} \textbf{Questa spline non necessita di ulteriori informazioni oltre alle condizioni di interpolazione}, dove le condizioni aggiuntive sono imposte in modo implicito. 
 
-È noto che nei primi due sottointervalli siano presenti due polinomi di grado 3 (e così anche negli ultimi due). Ciò che è richiesto è che i due polinomi ed i primi due sottoinsiemi, tramite l'unione ($[x_0,x_1]\cup[x_1,x_2]=[x_0,x_1]$), coincidano. In questo modo è imposta una condizione in meno in modo esplicito. 
+È noto che nei primi due sottointervalli della partizione $\Delta$ siano presenti due polinomi di grado 3 (e così anche negli ultimi due). Ciò che è richiesto è che i due polinomi ed i primi due sottoinsiemi, tramite l'unione ($[x_0,x_1]\cup[x_1,x_2]=[x_0,x_1]$), coincidano. In questo modo è imposta una condizione in meno in modo esplicito. 
 
 La spline not-a-knot fa in modo che il nodo 1 ($x_1$) non sia il nodo che definisce una spline in senso classico. Questo è dovuto al fatto che è presente un unico polinomio nel primo e secondo sottoinsieme, in genere sono distinti. La stessa cosa avviene anche negli ultimi due sottointervalli.
+
+\begin{definition}[Spline cubica not-a-knot]
+	La spline cubica $s_3(x)$ interpolante su $\Delta$ e' detta not-a-knot se le due condizioni aggiuntive sono 
+	\begin{equation}\label{eq:condizione_spline_cubica_not_a_knot}
+		s'''_3|_{[x_0,x_1]}(x_1)=s'''_3|_{[x_1,x_2]}(x_1),\quad 	s'''_3|_{[x_{n-2},x_{n-1}]}(x_{n-1})=s'''_3|_{[x_{n-1},x_n]}(x_{n-1}).
+	\end{equation}
+\end{definition}
+
+\paragraph{Nota:} La rappresentazione delle condizioni (\ref{eq:condizione_spline_cubica_not_a_knot}) tramite le derivate seconde è utile al fine di definire l'unicità della spline interpolante. Dal punto di vista computazionale è importante che le condizioni siano imposte sulla derivata seconda.
 
 Le condizioni aggiuntive sono imposte in modo implicito come segue:
 \begin{enumerate}
     \item lo \textbf{stesso polinomio cubico definisce} la spline $\boldsymbol{s_3}$ \textbf{sui primi 2 sottointervalli} $\boldsymbol{[x_0,x_1]}$ e $\boldsymbol{[x_1,x_2]}$;
-    \item \footnotemark \textbf{simmetricamente}, \textbf{lo stesso polinomio cubico} definisce la spline $s_3$ sugli ultimi due sottointervalli $[x_{n-2},x_{n-1}]$ e $[x_{n-1},x_n]$.
+    \item \textbf{simmetricamente} \footnotemark , \textbf{lo stesso polinomio cubico} definisce la spline $s_3$ sugli ultimi due sottointervalli $[x_{n-2},x_{n-1}]$ e $[x_{n-1},x_n]$.
     \footnotetext{La condizione di simmetria è importante perché, data la funzione $f(x)$, è definita $g(x)$ come $f$ rovesciando la direzione di $x$. $g(a)=f(b)$ se $f(x)$ e $g(x)$ hanno lo stesso verso. Le due funzioni hanno lo stesso grafico ed è importante che abbiano la stessa approssimazione. Sotto le stesse condizioni è ottenuto lo stesso risultato.}
 \end{enumerate}
 
-Imporre questa condizione per la 1. significa quanto segue (similmente per 2.):
+Imporre la condizione 1. significa quanto segue (similmente per 2.):
 \begin{equation*}
     p_1(x)=s_3|_{[x_0,x_1]}(x),\quad p_2(x)=s_3|_{[x_1,x_2]}(x),
 \end{equation*}
-dove è ricercato $p_1(x)=p_2(x)\in\overset{\footnotemark}{\Pi_3}$. In $x_1$, tramite le condizioni di interpolazione, è ottenuto $p_1(x_1)=p_2(x_1)$. Il raccordo deve valere anche per le derivate prima e seconda, ovvero:
+dove è ricercato $p_1(x)=p_2(x)\in\Pi_3$ \footnotemark. In $x_1$, tramite le condizioni di interpolazione, è ottenuto $p_1(x_1)=p_2(x_1)$. Il raccordo deve valere anche per le derivate prima e seconda, ovvero:
 \begin{equation*}
     p'_1(x_1)=p'_2(x_1)\quad\land\quad p''_1(x_1)=p''_2(x_1).
 \end{equation*}
 \footnotetext{Un polinomio di grado 3 ha 4 coefficienti, 4 gradi libertà e $\Pi_3$ è uno spazio vettoriale di dimensione 4.}
 
-Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=}\overset{\footnotemark}{p'''_2(x_1)}$ allora $p_1(x)=s_3(x)=p_2(x),\, x\in [x_0,x_2]$. Quindi, definita la spline $s_3(x)$ e le sue derivate come 
+Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=}\overset{\footnotemark}{p'''_2(x_1)}$ allora $p_1(x)=s_3(x)=p_2(x),\, x\in [x_0,x_2]$. Quindi, in virtu' del Teorema \ref{th:grado_derivata_spline}, definita la spline $s_3(x)\in\Pi_3$ e le sue derivate come 
 \begin{equation*}
     \begin{matrix}
         s_3|_{[x_0,x_2]}(x)\in\Pi_3,\\
@@ -2082,10 +2122,10 @@ Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=
         \underset{\footnotemark}{s'''_3|_{[x_0,x_2]}(x)}\in\Pi_0,
     \end{matrix}
 \end{equation*}
-è possibile imporre condizione sui primi due sottintervalli della partizione $\Delta$, la quale è
-\begin{equation*}
-    \boxed{\frac{s''_3(\boldsymbol{x_1})-s''_3(x_0)}{x_1-x_0}=\frac{s''_3(x_2)-s''_3(\boldsymbol{x_1})}{x_2-x_1}.}
-\end{equation*}
+è possibile imporre la condizione sui primi ed ultimi due sottintervalli della partizione $\Delta$ per ottenere un'espressione conveniente di (\ref{eq:condizione_spline_cubica_not_a_knot}) come segue
+\begin{equation}\label{eq:condizioni_spline_not_a_knot_convenienti}
+    \frac{s''_3(\boldsymbol{x_1})-s''_3(x_0)}{x_1-x_0}=\frac{s''_3(x_2)-s''_3(\boldsymbol{x_1})}{x_2-x_1}, \quad \frac{s''_3(x_n)-s''_3(\boldsymbol{x_{n-1}})}{x_n-x_{n-1}}=\frac{s''_3(\boldsymbol{x_{n-1}})-s''_3(x_{n-2})}{x_2-x_1}.
+\end{equation}
 
 \addtocounter{footnote}{-3}
 \footnotetext{Restrizione sul primo sottointervallo.}
@@ -2099,19 +2139,7 @@ Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=
 \stepcounter{footnote}
 \footnotetext{Questo polinomio di grado 0 è una costante, il coeffciente lineare della retta derivata seconda, ed è la stessa a sinistra ed a destra di $x_1$. Questo significa che il rapporto incrementale della derivata seconda su $x_0,\, x_1$ e $x_2$  deve essere lo stesso.}
 
-Simmetricamente, sugli ultimi due sottointervalli, sarà imposto:
-\begin{equation*}
-    \boxed{\frac{s''_3(x_n)-s''_3(\boldsymbol{x_{n-1}})}{x_n-x_{n-1}}=\frac{s''_3(\boldsymbol{x_{n-1}})-s''_3(x_{n-2})}{x_2-x_1}.}
-\end{equation*}
-
 $\boldsymbol{x_1}$ e $\boldsymbol{x_{n-1}}$ precedenti non sono considerati nodi della partizione in quanto sono imposte le condizioni di interpolazione e le condizioni di default.
-
-Ciò che è stato appena definito nei riquadri è una conveniente espressione, in virtù del Teorema \ref{th:grado_derivata_spline}, delle condizioni aggiuntive della spline cubica not-a-knot, ovvero:
-\begin{equation}\label{eq:condizione_spline_cubica_not_a_knot}
-    s'''_3|_{[x_0,x_1]}(x_1)=s'''_3|_{[x_1,x_2]}(x_1),\quad s'''_3|_{[x_{n-2},x_{n-1}]}(x_{n-1})=s'''_3|_{[x_{n-1},x_n]}(x_{n-1}).
-\end{equation}
-
-La rappresentazione delle condizioni (\ref{eq:condizione_spline_cubica_not_a_knot}) tramite le derivate seconde è utile al fine di definire l'unicità della spline interpolante. Dal punto di vista computazionale è importante che le condizioni siano imposte sulla derivata seconda.
 
 \begin{remark}
     \footnote{Slide 2 PDF 24, Osservazione 4.5 PG 97.} L'ampiezza dell'intervallo $i$-esimo della partizione $\Delta$, definita come (\ref{eq:definizione_partizione}), è definita come
