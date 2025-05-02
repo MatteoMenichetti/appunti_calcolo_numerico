@@ -4,7 +4,9 @@
 \begin{equation}\label{eq:problema_quadratura}
     I(f)=\int_{a}^{b}f(x) dx,\quad -\infty<\overset{\footnotemark}{\boldsymbol{a<b}}<\infty ,
 \end{equation}
-dove $f:[a,b]\rightarrow\mathbb R$, almeno continua. In questa trattazione di approssimazione di integrali definiti è considerato solo il caso in cui $f$ è continua, per evitare singolarità integrabili nell'intervallo $[a,b]$ e non sarà considerato il caso di integrali definiti su insiemi illimitati. I metodi di approssimazione trattati saranno definiti mediante l'integrale di un'approssimazione polinomiale a tratti di $f(x)$, in quanto l'integrale di un polinomio può essere calcolato facilmente ed in modo esatto.
+dove $f:[a,b]\rightarrow\mathbb R$, almeno continua.
+
+In questa trattazione di approssimazione di integrali definiti è considerato solo il caso in cui $f\in C^(0)[a,b]$, per evitare singolarità integrabili nell'intervallo $[a,b]$ e non sarà considerato il caso di integrali definiti su insiemi illimitati. I metodi di approssimazione trattati saranno definiti mediante l'integrale di un'approssimazione polinomiale a tratti di $f(x)$, in quanto l'integrale di un polinomio può essere calcolato facilmente ed in modo esatto.
 \footnotetext{Se $a>b$ allora è applicato Riemann, $a$ e $b$ sono invertiti di segno. Se non è conosciuta la derivata prima di $f$, l'integrale è calcolato in forma chiusa. Spesso è necessario fornire un metodo numerico in questo intervallo. Questi metodi si chiamano "Forma di quadratura" (i quali consentono di determinare l'integrale esatto di una approssimazione della funzione $f$, per la quale è possibile l'integrazione). Prima è necessario studiare il condizionamento del problema dell'integrazione.}
 
 Prima di trattare i metodi di approssimazione è studiato il condizionamento del problema, in cui la perturbazione è sulla funzione integranda $f(x)$. Studiare il condizionamento significa stabilire se al posto di $f$ è presente una sua perturbazione, ovvero quando il risultato è perturbato.
@@ -29,7 +31,7 @@ Prima di trattare i metodi di approssimazione è studiato il condizionamento del
     	\item \begin{equation}\label{eq:numero_condizionamento_integrale}
     		\boldsymbol{\kappa=(b-a)},
     	\end{equation} 
-    	numero condizionamento del problema (\ref{eq:problema_quadratura}),
+    	è il numero condizionamento del problema (\ref{eq:problema_quadratura}),
     	\item $\boldsymbol{||f-\Tilde{f}||}=\underset{a\leq x\leq b}{\max} |f(x)-\Tilde{f}(x)|$ misura l'errore sui dati in ingresso.
     \end{enumerate}
 \end{definition}
@@ -45,42 +47,42 @@ Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$
 
 \begin{definition}[Formula di Newton-Cotes]
 	Sia $p(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}), è considerata la sua forma di Lagrange (\ref{eq:polinomi_lagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
-	\begin{equation*}
-		I(f)=\int_a^b f(x) dx\approx I(p) = \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
-	\end{equation*}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
+	\begin{equation}\label{eq:formula_newton_cotes}
+		I(f)\approx I(p_n) = \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
+	\end{equation}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
 \end{definition}
 
-Una formulazione più conveniente della precedente, poste le seguenti condizioni, per $x=a+th$ e $t\in [0,n]$:
+\noindent  Poste le seguenti condizioni, per $x=a+th$ e $t\in [0,n]$
 \begin{enumerate}
-    \item $\underbrace{x_i=a+ih}_{\footnotemark}\Rightarrow x_i\rightarrow i,\quad i=0,\hdots ,n$,
+    \item $x_i=a+ih\Rightarrow x_i\rightarrow i,\quad i=0,\hdots ,n$,
     \item $dx=\boldsymbol{h}dt\quad (h=\frac{b-a}{n}$, per (\ref{eq:condizione_ascisse_equidistanti_N-C})),
-\end{enumerate}\footnotetext{Trasformazione lineare di $x=a+th$.}
-è la seguente:
+\end{enumerate}
+ed utilizzando la seguente espressione
 \begin{equation*}
     \begin{matrix}
-        \int_a^b L_{in}(x)dx&=&h\int_0^nL_{in}(a+th)dt&\overset{x=a+th}{=}& h\int_0^n\prod_{j=0,j\neq i}^{n}\frac{\overbrace{(a+th)}^x-\overbrace{(a+jh)}^{x_j}}{\underbrace{(a+ih)}_{x_i}-\underbrace{(a+jh)}_{x_j}}dt\\
-        &\overset{\footnotemark}{=}&h\underbrace{\int_0^n\prod_{j=0,j\neq i}^n\frac{t-j}{i-j}dt}_{c_{in}} &\equiv& \frac{b-a}{n}\, c_{in} &=& h\,c_{in}.
+        \int_a^b L_{in}(x)dx&\overset{x=a+th}{=}&h\int_0^nL_{in}(a+th)dt&=& h\int_0^n\prod_{j=0,j\neq i}^{n}\frac{\overbrace{(a+th)}^x-\overbrace{(a+jh)}^{x_j}}{\underbrace{(a+ih)}_{x_i}-\underbrace{(a+jh)}_{x_j}}dt\\
+        &\overset{\footnotemark}{=}&h\underbrace{\int_0^n\prod_{j=0,j\neq i}^n\frac{t-j}{i-j}dt}_{c_{in}} &\equiv& \frac{b-a}{n}\, c_{in} &=& h\,c_{in}
     \end{matrix}
 \end{equation*}
-
+è ottenuta una formulazione più conveniente di (\ref{eq:formula_newton_cotes}), la seguente.
 \footnotetext{Semplificando $a$ e raggruppando $h$.}
 
-\begin{definition}[Formula di Newton-Cotes (conveniente)]
+\begin{definition}[Formula di quadratura di Newton-Cotes (conveniente)]
 	La \textbf{formula di Newton-Cotes di grado} $\boldsymbol n$ è esprimibile come:
-	\begin{equation}\label{eq:formN-C}
-	    \boldsymbol{I_n(f)\approx h\sum_{i=0}^n f_ic_{in}},\quad \boldsymbol{c_{in}=\int_0^n\prod_{j=0, j\neq i}^n \frac{t-j}{i-j}dt.}
+	\begin{equation}\label{eq:formula_newton_cotes_conveniente}
+	    \boldsymbol{I_n(f)\approx h\sum_{i=0}^n f_ic_{in}},\quad \boldsymbol{c_{in}=\int_0^n\prod_{j=0, j\neq i}^n \frac{t-j}{i-j}dt},\quad i=0, \hdots, n.
 	\end{equation}
 \end{definition}
 
-\begin{property}
+\begin{property}[Proprietà di $c_{in}$]
 	Alcune proprietà dei coefficienti $\{c_{in}\}_{i\in\{0, \hdots,n\}}$ sono le seguenti:
 	\begin{enumerate}
 	    \item \footnotemark Dalla simmetria delle ascisse $\{x_i\}$ nell'intervallo $[a,b]$ segue che:
-	    \begin{equation}\label{eq:simmCoeffN-C}
+	    \begin{equation}\label{eq:coefficienti_simmetrici_formula_newton_cotes}
 	        \boldsymbol{c_{in}=c_{i,n-i},\quad i=0,\hdots,n.}
 	    \end{equation}
 	    \footnotetext{Slide 13 PDF 25, PG 107. Questa proprietà deriva dal fatto che le ascisse di interpolazione sono simmetriche. Affinché la 1. valga è sufficiente che le ascisse siano simmetriche (non è richiesto che siano equidistanti).}
-	    \item \footnotemark \begin{equation}\label{eq:coeffN-CEq1}
+	    \item \footnotemark \begin{equation}\label{eq:coefficienti_formula_newton_cotes_uguale_1}
 	        \boldsymbol{\frac{1}{n}\sum_{i=0}^{n}c_{in}=1}.
 	    \end{equation}
 	    \footnotetext{Slide 13 PDF 25, Teorema 5.1 PG 106.}
@@ -102,32 +104,30 @@ Una formulazione più conveniente della precedente, poste le seguenti condizioni
 	\end{enumerate}
 \end{property}
 
-Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int_0^n\prod_{j=0,j\neq i}^n\frac{t-j}{i-j}dt.$
-
-\textbf{Utilizzando (\ref{eq:formN-C})-(\ref{eq:coeffN-CEq1}):}
+\textbf{Utilizzando (\ref{eq:formula_newton_cotes_conveniente})-(\ref{eq:coefficienti_formula_newton_cotes_uguale_1}) sono ottenute le due seguenti formule di quadratura:}
 \begin{enumerate}
-    \item $\boldsymbol{\underline{n=1}}:\; c_{01},\, c_{11}$ sono i coefficienti (da calcolare, anche se non realmente) e dalle precedenti proprietà 1. e 2. segue che $c_{01}=c_{11}=\frac{1}{2}.$ Pertanto, quando il gardo è 1, \textbf{è definita la formula dei trapezi}.
+    \item $\boldsymbol{\underline{n=1}}$: dalle Proprietà (\ref{eq:coefficienti_simmetrici_formula_newton_cotes}) e  (\ref{eq:coefficienti_formula_newton_cotes_uguale_1})segue che $c_{01}=c_{11}=\frac{1}{2}$. Pertanto, quando il grado è 1, \textbf{è definita la formula dei trapezi}.
    \begin{definition}[Formula dei trapezi]
    	 \begin{equation}\label{eq:formula_trapezi}
        \boldsymbol{I_1(f)=\frac{b-a}{2}(f(a)+f(b))}.
     \end{equation}
    \end{definition}
-    Tale formula ha un importante significato geometrico, visibile in Figura \ref{fig:grafFormTrapezi}, ovvero quello di approssimare, nel caso di funzioni non negative, l'area sottesa dal grafico di $f(x)$ con quella del trapezio avente come vertici i punti $(a,0),(a,f(a)),(b,f(b)),(b,0)$.
+    Tale formula ha un importante significato geometrico (visibile in Figura \ref{fig:grafico_formula_trapezi}), ovvero quello di approssimare, nel caso di funzioni non negative, l'area sottesa dal grafico di $f(x)$ con quella del trapezio avente come vertici i punti $(a,0),(a,f(a)),(b,f(b)),(b,0)$.
     \item $\boldsymbol{\underline{n=2}}$: In questo caso sono presenti 3 coefficienti, ovvero $c_{02},\, c_{12}, \,c_{22},$ t.c.:
     \begin{enumerate}
         \item[P1:] $c_{02}+c_{12}+c_{22}=2$;
         \item[P2:] $c_{02}=c_{22}$ (per la sommatoria).
     \end{enumerate}
-    Quindi è necessario calcolare un solo elemento, $c_{22}$, e non tre. È possibile calcolarlo come segue:
+    Quindi è necessario calcolare solo $c_{22}$, e non tre. Tale elemento è calcolabile come segue:
     \begin{equation*}
         \begin{matrix}
             \boldsymbol{c_{22}}&=&\int_0^2\frac{t}{2}\frac{t-1}{1}dt&=&\frac{1}{2}\int_0^2(t^2-t)dt&=&\\
             &&\frac{1}{2}\left[\frac{t^3}{3}-\frac{t^2}{2}\right]_0^2&=&\frac{1}{2}\left(\frac{8}{3}-2\right)&=&\boldsymbol{\frac{1}{3}}.
         \end{matrix}
     \end{equation*}
-    Quindi $c_{02}=c_{22}=\frac{1}{3}\Rightarrow c_{12}=2-\frac{2}{3}=\frac{4}{3}$.
-    La conseguenza di quanto scritto è la \textbf{formula di Simpson}, dato $x_0=a, x_2=b$ e $x_1=\frac{a+b}{2}$:
-	\begin{definition}[Formula di Simpson]
+    Dato che $c_{02}=c_{22}=\frac{1}{3}$ allora $c_{12}=2-\frac{2}{3}=\frac{4}{3}$.
+    Pertanto, date $x_0=a, x_1=\frac{a+b}{2}$ e $x_2=b$ è ottenuta la seguente formula di quadratura:
+	\begin{definition}[Formula di quadratura di Simpson]
 		    \begin{equation}\label{eq:formula_simpson}
 	        \boldsymbol{I_2(f)=\frac{b-a}{6}\left(f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right)}.
 	    \end{equation}
@@ -137,12 +137,12 @@ Riassumendo: $I(f)\approx I(p_n)\equiv I_n(f)=\frac{b-a}{n}\sum_{i=0}^n f_i \int
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/grafFormTrapezi.png}
-    \caption{Esempio del metodo dei trapezi ($f(a)$, $b-a$ ed $f(b)$ sono lunghezze).}\label{fig:grafFormTrapezi}
+    \caption{Esempio del metodo dei trapezi ($f(a)$, $b-a$ ed $f(b)$ sono lunghezze).}\label{fig:grafico_formula_trapezi}
 \end{figure}
 
 \subsubsection{Condizionamento di una formula di Newton-Cotes}
 \footnote{Slide 5-6 PDF 26, PG 108.}
-Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formN-C}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formula_trapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
+Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formula_newton_cotes_conveniente}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formula_trapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
 
 \begin{definition}[Condizionamento formula di Newton-Cotes]
 	Sia $\tilde{f}(x)$, perturbazione della funzione $f(x)$, allora
@@ -174,8 +174,6 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (
 \stepcounter{footnote}
 \footnotetext{Diseguaglianza triangolare.}
 
-\noindent dove $\boldsymbol{\kappa_n}$ è il \textbf{numero di condizionamento del problema} e $\boldsymbol{||f-\Tilde{f}||}$ misura l'\textbf{errore in ingresso}.
-
 \begin{remark}\label{rem:numero_condizionamento}
     Data la Proprietà (\ref{eq:coefficiente_formula_N-C_GT0}), allora
     \begin{equation}\label{eq:numero_condizionamento_N-C_positivo}
@@ -186,7 +184,7 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (
 \footnotetext{Eliminato il modulo perché $c_{in}\geq 0$.}
 
 \stepcounter{footnote}
-\footnotetext{Per (\ref{eq:coeffN-CEq1}) ci sono le eliminazioni.}
+\footnotetext{Per (\ref{eq:coefficienti_formula_newton_cotes_uguale_1}) ci sono le eliminazioni.}
 
 \paragraph{N.B.:} Se è valida l'Osservazione \ref{rem:numero_condizionamento}, ovvero i coefficienti della formula di Newton-Cotes sono non negativi, allora il numero di condizionamento della formula di Newton Cotes (\ref{eq:numero_condizionamento_N-C}) coincide con quello del problema continuo $I(f)$ (\ref{eq:numero_condizionamento_integrale}).
 
@@ -206,7 +204,7 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/knN-C.png}
-    \caption{numero di condizionamento (\ref{eq:numero_condizionamento_N-C_positivo}) delle formule di Newton-Cotes nel caso $b-a=1$.}\label{fig:knN-C}
+    \caption{Numero di condizionamento (\ref{eq:numero_condizionamento_N-C_positivo}) delle formule di Newton-Cotes nel caso $b-a=1$.}\label{fig:knN-C}
 \end{figure}
 
 \subsection{Errore (di quadratura) e formule composite}

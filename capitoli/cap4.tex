@@ -2494,52 +2494,50 @@ che risulta essere ancora tridiagonale e, avendo tutti i minori principali non n
 \subsection{Approssimazione polinomiale nel senso dei minimi quadrati}\label{ssec:approssimazione_polinomiale_minimi_quadrati}
 \subsubsection{Introduzione}
 \footnote{Slide 6-9 PDF 25, PG 101-104.}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/4.10(1).jpg}
+	\caption{Esempio di 10 dati esatti.}
+	\label{fig:4.10(1)}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/4.10(2).png}
+	\caption{Esempio di 1000 dati affetti da errore.}\label{fig:4.10(2)}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/4.10(3).png}
+	\caption{Esempio di spline con $n=4$.}\label{fig:4.10(3)}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{immagini/4.10(4).png}
+	\caption{Esempio di spline con 10000 dati.}\label{fig:4.10(4)}
+\end{figure}
+
 L'argomento trattato in questa Sezione è un diverso tipo di approssimazione. Spesso sono presenti troppi dati da approssimare affetti da errore, tipicamente senza bias, con una distribuzione gaussiana. Il concetto è che se il dato è affetto da errore interpolare non ha significato. È necessario trovare un'altra approssimazione (a titolo di esempio sono presenti le Figure \ref{fig:4.10(1)}-\ref{fig:4.10(4)}).
 
 Inoltre, è bene sottolineare che \textbf{è stato utilizzato} il termine "\textbf{Approssimazione}" \textbf{e non} "\textbf{Interpolazione}".
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/4.10(1).jpg}
-    \caption{Esempio di 10 dati esatti.}
-    \label{fig:4.10(1)}
-\end{figure}
-
 Per la Figura \ref{fig:4.10(1)} è possibile affermare che la retta che passa per i 10 punti necessiterebbe solo di due punti per definirla e che i dati sono \gls{collineari}. Se fossero interpolanti con una spline o con un polinomio interpolante sarebbe ottenuta una retta.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/4.10(2).png}
-    \caption{Esempio di 1000 dati affetti da errore.}\label{fig:4.10(2)}
-\end{figure}
-
 Supposto di avere 1000 dati affetti da errore non sistematico, è ottenuta Figura \ref{fig:4.10(2)}. I dati, i puntini nella figura, sono ottenuti partendo dalla retta ed aggiungendo un termine d'errore, non lo stesso della retta, da un distribuzione gaussiana. Se fosse necessario interpolare allora il grafico oscillerebbe tra gli estremi dei puntini blu (più o meno periodicamente), non fornendo informazioni utili. La retta rossa, rappresentante la retta in Figura \ref{fig:4.10(2)}, approssima bene i dati.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/4.10(3).png}
-    \caption{Esempio di spline con $n=4$.}\label{fig:4.10(3)}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/4.10(4).png}
-    \caption{Esempio di spline con 10000 dati.}\label{fig:4.10(4)}
-\end{figure}
 
 Per la Figura \ref{fig:4.10(4)} non ha senso calcolare il polinomio interpolante perché un polinomio di grado 10000 è impossibile da calcolare ed un polinomio si fatto non ha dati utili. Inoltre, la retta rossa della figura rappresenta la parabola di Figura \ref{fig:4.10(3)}, la quale approssima in modo soddifacente i dati.
 
 Dalle Figure \ref{fig:4.10(1)}-\ref{fig:4.10(4)} è possibile affermare che è un caso che un punto utile sia trovato (perché sono troppi), infatti in genere non è trovato. 
 
 \subsubsection{Trattazione}
-Supposto di avere un fenomeno da rilevare, dipendente da un variabile indipendente $x$, che soddisfa una legge di tipo polinomiale (non inventata):
+È supposto di avere un fenomeno da rilevare, dipendente da un variabile indipendente $x$, che soddisfa una legge di tipo polinomiale (non inventata):
 \begin{equation*}
     y=p(x),\quad p(x)\in\Pi_{\boldsymbol{m}},
 \end{equation*}
-dove, in genere, il grado $\boldsymbol m$ è noto a priori.
-
-Tuttavia, $y$ è un polinomio del tipo
-
+dove, in genere, il grado $\boldsymbol m$ è noto a priori. Tale polinomio è del seguente tipo.
 
 \begin{definition}[Polinomio di approssimazione ai minimi quadrati di grado $m$]
 	Il polinomio
@@ -2548,80 +2546,64 @@ Tuttavia, $y$ è un polinomio del tipo
 	\end{equation}
 	è detto polinomio di approssimazione ai minimi quadrati di grado $m$, per il quale non sono noti i coefficienti del polinomio ma sono note le seguenti misurazioni del fenomeno
 	\begin{equation}\label{eq:misurazioni_fenomeno_minimo_quadrato}
-		\boldsymbol{(x_i,y_i),\quad i=0,\hdots,n,\quad n\geq m,\quad n}\overset{\footnotemark}{\boldsymbol{>>}}\boldsymbol{m+1}.
-	\end{equation}\footnotetext{$n$ è tipicamente molto maggiore di $m+1$, quindi il numero di misurazioni deve essere almeno pari al numero di coefficienti. Se $n=m+1$, ovvero $n$ è pari al numero di coefficienti, allora è calcolata l'interpolazione.}
+		\boldsymbol{(x_i,y_i),\quad i=0,\hdots,n,\quad n\geq m,\quad n}\boldsymbol{>>}\boldsymbol{m}.
+	\end{equation}
 \end{definition}
 
+\paragraph{Nota:} $n$ è tipicamente molto maggiore di $m+1$, quindi il numero di misurazioni deve essere almeno pari al numero di coefficienti. Inoltre, se $n=m+1$, ovvero $n$ è pari al numero di coefficienti, allora è calcolata l'interpolazione come trattato precedentemente.
+
 \begin{remark}[Condizione di esistenza ed unicità del polinomio ai minimi quadrati]\label{rem:ascisse_distinte_polinomio}
-     È assunto che almeno $m+1$ delle ascisse $\{x_i\}$ siano distinte tra loro (dato $m$ il grado del polinomio da determinare)\footnote{Le $\{x_i\}$ possono essere utilizzate per effettuare più misurazioni in un punto in cui è necessario. È necessario che la condizione ($m+1$ ascisse distinte) sia soddisfatta per ammettere che la formulazione abbia soluzione unica.}.
+     È assunto che almeno $m+1$ delle ascisse $\{x_i\}$ siano distinte tra loro (dato $m$ il grado del polinomio da determinare, è necessario che la condizione ($m+1$ ascisse distinte) sia soddisfatta per ammettere che la formulazione abbia soluzione unica.)\footnote{Le $\{x_i\}$ possono essere utilizzate per effettuare più misurazioni in un punto in cui è necessario.}.
 \end{remark}
 
-L'obbiettivo dell'approssimazione polinomiale nel senso dei minimi quadrati è stimare il polinomio del tipo (\ref{eq:polinomio_minimi_quadrati}), ovvero determinare i coefficienti 
-\begin{equation*}
-a = (a_0,\hdots, a_m)^T,
-\end{equation*}
-imponendo che l'errore
-\begin{equation*}
-	||r||_2^2=\sum_{i=0}^n|y_i-z_i|^2,
-\end{equation*}
-sia minimizzato. Il problema può essere rappresentato in forma vettoriale mediante i seguenti vettori
+\paragraph{Cosa si intende per \textit{migliore approssimazione} dei dati?} L'obbiettivo dell'approssimazione polinomiale nel senso dei minimi quadrati è stimare il polinomio del tipo (\ref{eq:polinomio_minimi_quadrati}). In forma vettoriale tale problema è risolto come segue: dati
 \begin{equation}
-    \underline{y}=
-    \begin{bmatrix}
-        y_1\\
-        \vdots\\
-        y_n
-    \end{bmatrix},\;
-    \underline{z}=
-    \begin{bmatrix}
-        p(x_1)\\
-        \vdots\\
-        p(x_n)
-    \end{bmatrix}
-    \equiv
-    \begin{bmatrix}
-        \sum_{k=0}^m a_kx_1^k\\
-        \vdots\\
-        \sum_{k=0}^m a_kx_n^k
-    \end{bmatrix},
+	\underline{y}=
+	\begin{bmatrix}
+		f_0\\
+		\vdots\\
+		f_n
+	\end{bmatrix}\in\mathbb{R}^{n+1},\; 
+	V=\begin{bmatrix}
+		x_0^0 & x_0^1 & \hdots & x_0^m\\
+		x_1^0 & x_1^1 & \hdots & x_1^m\\
+		\vdots & \vdots &\ddots & \vdots\\
+		x_n^0 & x_n^1 & \hdots & x_n^m
+	\end{bmatrix}\in\mathbb R^{(n+1)\times (m+1)},
 \end{equation}
-contenenti rispettivamente i valori attesi ed i valori misurati in corrispondenza delle ascisse $x_0,\hdots,x_n$. È possibile osservare che il problema da risolvere è un sistema sovradimensionato ($n\geq m$).
-
-Tuttavia, è possibile esprimere $\underline{z}$ come
+contenti i valori misurati sulle ascisse $x_0, \hdots, x_n$ e la trasposta della matrice di Vandermonde, sono ricercati i coefficienti
 \begin{equation*}
-    \underline{z}\underset{\footnotemark}{=}
-    \begin{bmatrix}
-        x_0^0&\hdots &x_0^m\\
-        &\vdots&\\
-        x_n^0& \hdots &x_n^m
-    \end{bmatrix}
-    \begin{bmatrix}
-        a_0\\
-        \vdots\\
-        a_m
-    \end{bmatrix}
-    \equiv V\underline{a},
-\end{equation*}\footnotetext{La moltiplicazione riga di $V$ per a da la forma base di Lagrange.}con $V\in \mathbb R^{n\times m+1}$ matrice del tipo di Vandermonde. Quindi, ricercando il vettore $\uline r$ di minima norma euclidea tale che $V\underline{a}=\underline{y}+\underline{r}$, il problema dell'approssimazione polinomiale si traduce nella ricerca della soluzione del sistema lineare sovradimensionato
+	\underline{a}=
+	\begin{bmatrix}
+		a_0\\
+		\vdots\\
+		a_n
+	\end{bmatrix}\in\mathbb{R}^{n+1},
+\end{equation*}
+tali che sia risolto il sistema lineare
 \begin{equation}\label{eq:Va=y}
-    V\underline{a}=\underline{y},
+	V\underline{a}=\underline{y},
 \end{equation}
-nel senso dei minimi quadrati.
+nel senso nei minimi quadrati, ovvero imponendo che sia minimizzato l'errore
+\begin{equation*}
+	||V\uline a - \uline y||_2^2 = ||\underline r||_2^2=\sum_{i=0}^n|y_i-z_i|^2.
+\end{equation*}
+
+\paragraph{Nota:} Il problema di determinare il polinomio (\ref{eq:polinomio_minimi_quadrati})  equivale a risolvere il sistema sovradeterminato \ref{eq:Va=y} nel senso dei minimi quadrati.
 
 \begin{remark}
     \footnote{OSS 1 Slide 8 PDF 25.}
-    $\overset{\footnotemark}{V\in\mathbb R^{n\times m+1}}$, con $n>m+1$. Questo significa che sono presenti più equazioni ($n$) che incognite ($m+1$).
-\end{remark}\footnotetext{Sul libro, pagina 103, ha notazione diversa perché $n$ è indicizzato da 0, quindi è $n+1$.}
+    $V\in\mathbb R^{n+1\times m+1}$, con $n>m$. Questo significa che il sistema lineare (\ref{eq:Va=y}) è sovradimensionato, poiché sono presenti più equazioni ($n+1$) che incognite ($m+1$).
+\end{remark}
 
 \begin{remark}
-	Il sistema (\ref{eq:Va=y}) può essere risolto tramite la dattoriazzazione $QR$ di $V$ sotto la condizione che $V$ abbia rango massimo, ovvero $m+1$, affinché esista la suluzione e che quasta sia unica. Per l'Osservazione \ref{rem:ascisse_distinte_polinomio} $V$ ha rango massimo.
+	Il sistema (\ref{eq:Va=y}) può essere risolto tramite la dattoriazzazione $QR$ di $V$ sotto la condizione che $V$ abbia rango massimo, ovvero $m+1$, affinché esista la soluzione e che quasta sia unica.
 \end{remark}
 
 \begin{remark}
     \footnote{OSS 2 Slide 8 PDF 25, Teorema 4.12 PG 103.}
-    La matrice $V$ ha rango massimo ($m+1$) sotto le ipotesi dell'Osservazione \ref{rem:ascisse_distinte_polinomio}.
+    La matrice $V$ ha rango massimo ($m+1$) sotto le ipotesi dell'Osservazione \ref{rem:ascisse_distinte_polinomio}. Peranto, la sottomatrice $m+1\times m+1$ ottenuta dalle corrispettive righe è una matrice di Vandermonde quadrata e nonsingolare (perché ottenuta da ascisse distinte).
 \end{remark}
-
-Data $V$, del tipo di Vandermonde e le $m+1$ righe corrispondenti alle $m+1$ ascisse distinte, è ottenuta una matrice quadrata, la quale è una matrice di Vandermonde definita da ascisse distinte (quindi è nonsingolare). Se esiste una sottomatrice di dimensione $m+1$, ma singolare, questa ha rango massimo.
 
 \paragraph{Fuori dalla lezione:} il vettore $\uline a$ in (\ref{eq:Va=y}) esiste ed è unico. Di conseguenza esiste ed è unico il polinomio di approssimazione ai minimi quadrati (\ref{eq:polinomio_minimi_quadrati}). Riguardo al costo computazionale per ottenere il polinomo di approssimazione ai minimi quadrati, è possibile affermare che valgono le stesse considerazioni riguardo alla fattorizzazione $QR$ fatte nelle Sezioni \ref{ssec:sistemi_lineari_sovradimensionati} e \ref{sssec:complHH}.
 
@@ -2630,7 +2612,7 @@ Data $V$, del tipo di Vandermonde e le $m+1$ righe corrispondenti alle $m+1$ asc
     \begin{equation*}
     	V=QR,
     \end{equation*}
-    con $Q\in\mathbb R^{n\times n}$ ortogonale e $R=\begin{pmatrix}\widehat R\\ \uline 0\end{pmatrix}\in\mathbb R^{n\times m+1}$, dove $\widehat R\in\mathbb R^{(m+1)\times (m+1)}$, triangolare superiore e nonsingolare (e $\uline 0 \in \mathbb{R}^{(n-(m+1))\times (n-(m+1))}$).
+    con $Q\in\mathbb R^{n+1\times n+1}$ ortogonale e $R=\begin{pmatrix}\widehat R\\ \uline 0\end{pmatrix}\in\mathbb R^{n+1\times m+1}$, dove $\widehat R\in\mathbb R^{(m+1)\times (m+1)}$, triangolare superiore e nonsingolare (e $\uline 0 \in \mathbb{R}^{((n+1)-(m+1))\times ((n+1)-(m+1))}$).
 \end{remark}
 
 Dalla precedente Osservazione è ottenuto che
@@ -2658,7 +2640,7 @@ Questo dimostra che esiste ed è unico il polinomio di approssimazione ai minimi
 
 \begin{remark}
     \footnote{OSS 4 Slide 8 PDF 25}
-    Se $\boldsymbol{n=m+1}$ è ottenuto il polinomio di grado $m$ che interpola $(x_i,y_i),\, i=0,\hdots,m$. Inoltre, se $n=m+1,\, V$ è quadrata ed ha rango massimo, quindi il sistema $V\uline a$ è risolvibile.
+    Se $\boldsymbol{n=m}$ è ottenuto il polinomio di apporssimazione ai minimi quadrati coincide con il polinomio interpolante di grado $m$ sulle ascisse $x_0,\, \hdots, x_n$ (ovvero interpola $(x_i,y_i),\; i=0,\hdots, m$). In questo caso, il vettore $\underline g_2$ è vuoto ed il polinomio interpola tutti i valori assegnati. Pertanto, $V$ è quadrata ed ha rango massimo, quindi il sistema $V\uline a$ è risolvibile.
 \end{remark}
 
 \begin{remark}
@@ -2672,7 +2654,7 @@ Questo dimostra che esiste ed è unico il polinomio di approssimazione ai minimi
 	\end{equation}
 \end{remark}
 
-$\overset{\footnotemark}{\text{Questo}}$ \textbf{non è più vero} se la matrice $D$ è $\overset{\footnotemark}{\text{rettangolare}}$ (perché (\ref{eq:sistema_quadrato}) e (\ref{eq:sistema_quadrato_2}) non avrebbero più la solita soluzione). 
+$\text{Questo}_{\footnotemark}$ \textbf{non è più vero} se la matrice $D$ è $\text{rettangolare}_{\footnotemark}$ (perché (\ref{eq:sistema_quadrato}) e (\ref{eq:sistema_quadrato_2}) non avrebbero più la solita soluzione). 
 
 (\ref{eq:sistema_quadrato_2}) è utilizzato, nella pratica, calcolando $D=diag(\underline{p})$, con $\underline{p}$ vettore contenente una \textbf{distribuzione di probabilità discreta} ($\iff \underline{p}\geq 0 \,\land\, \text{sum}(\underline{p})=1$), per dare un diverso peso, $p_i$, a ciascuna equazione.
 
