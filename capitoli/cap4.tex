@@ -1902,8 +1902,14 @@ Con una lente più formale è possibile definire quanto segue:
     \footnote{Definizione 1 Slide 11 PDF 22, Definizione 4.3 PG 94.}
     La funzione $s_m(x)$ è detta spline di grado $m$ sulla partizione $\Delta$ (definita come (\ref{eq:definizione_partizione})), se:
     \begin{enumerate}
-        \item $s_m(x)\in C^{(m-1)}[a,b]$; \footnotemark
-        \item $s_m|_{[x_{i-1},x_i]}(x)\in\Pi_m,\quad \forall i=1,\hdots,n.$
+        \item
+        \begin{equation}\label{eq:requisito1_spline}
+        	s_m(x)\in C^{(m-1)}[a,b]; \footnotemark
+        \end{equation}
+        \item
+        \begin{equation}\label{eq:requisito2_spline}
+        	s_m|_{[x_{i-1},x_i]}(x)\in\Pi_m,\quad \forall i=1,\hdots,n.
+        \end{equation}
     \end{enumerate}
 \end{definition}
 \footnotetext{$s_m$ deve essere derivabile $m-1$ volte e le $m-1$ derivate devono essere continue. Se $s_m$ è un polinomio allora soddisferà la condizione perché un polinomio è $C^\infty$ (le derivate successive sono nulle).}
@@ -1913,7 +1919,9 @@ Con una lente più formale è possibile definire quanto segue:
 	\item definisce cos'è una spline di grado $m$,
 	\item afferma che la spline coincide con il grado assegnato in ciascun sottointervallo; $s_m|_{[x_{i-1},x_i]}(x)$ è utilizzata per definire le condizioni aggiuntive per l'unicita' della spline.
 \end{enumerate}
-Inoltre, una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$).
+Inoltre, una spline interpolante soddisfa le condizioni di interpolazione solite (ovvero $n+1$) (vedere Definizione \ref{def:spline_interpolante}).
+
+\paragraph{Nota:} La Definizione \ref{def:spline} di Spline prescinde dal fatto che la spline sia interpolante una funzione. All'interno dello spazio vettoriale l'obbiettivo è quello di individuare una spline interpolante, possibilmente unica. Come esempio è possibile prendere la spline in Figura \ref{fig:s_mN=4}, la quale è unica solo quando è lineare perché l'espressione non permette altro. Il requisito (\ref{eq:requisito1_spline}) della Definizione \ref{def:spline} è esplicitato come (\ref{eq:condizioni_continuita_spline}).
 
 \begin{theorem}\label{th:n+m_condizioni_indipendenti}
     \footnote{Slide 12 PDF 22, Teorema 4.11 PG 95.} Denotando con $\boldsymbol{S_m(\Delta)}$ l'insieme delle spline di grado $m$ sulla partizione $\Delta$, contenente $n+1$ ascisse, questo è uno \textbf{spazio vettoriale} di dimensione $\boldsymbol{m+n}$.
@@ -1925,7 +1933,7 @@ Inoltre, una spline interpolante soddisfa le condizioni di interpolazione solite
     \footnote{Slide 12 PDF 22.} $\Pi_m\subset S_m(\Delta).$
 \end{remark}
 
-Dalla precedente osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sotto-intervallo, coincide con se stesso.
+\paragraph{Nota:} Dalla precedente Osservazione è possibile dedurre che lo spazio vettoriale dei polinomi di grado al più $m$ è contenuto nell'insime delle spline di grado $m$. Inoltre, è necessario ricordare che il polinomio di grado $m$ è una funzione $C^\infty$ e, rispetto a ciascun sotto-intervallo, coincide con se stesso.
 
 \begin{definition}[Spline interpolante]\label{def:spline_interpolante}\footnote{Definizione 2 Slide 12 PDF 22, Definizione 4.4 PG 95. Ciò che è tra parentesi è un aggiunta maggiore chiarezza. Date le condizioni 1. e 2. della Definizione \ref{def:spline} è possibile dare la seguente definizione.}
     Data $\Delta$ partizione e la Proprietà \ref{prop:sottointervalli_partizione}, una spline $s_m(x)$ sulla partizione $\Delta$ interpola una funzione $f(x)$ nei nodi della partizione se (valgono le seguenti condizioni di interpolazione): 
@@ -1953,21 +1961,17 @@ La definizione aggiunge alle due condizione necessarie affinché $s_m(x)$ sia de
 	\end{equation}
 \end{definition}
 
-La Definizione \ref{def:spline} di spline di grado $m$ prescinde dal fatto che la spline sia interpolante la funzione. Dato uno spazio vettoriale l'obbiettivo è quello di individuare una spline interpolante, possibilmente unica.
-Quando il grado della spline aumenta allora esistono diverse spline di grado superiore, per le quali ciascuna sarà una spline di grado $m$ interpolante. Queste spline differescono di poco, dato che le prime $m$ condizioni sono imposte e solo le condizioni mancanti saranno imposte (ciascuna scelta riguardo le condizioni imposte genera spline diverse).
-
-\paragraph{Nota:} La condizione 1. della Definizione \ref{def:spline} implica che la spline $s_m \in C^{(m-1)}[a,b]$. Questo requisito richiede di imporre delle condizioni sui punti interni della partizione $x_1,\hdots,x_{n-1}$, ovvero i punti di contiguità tra i sottointervalli $[x_{i-1},x_i]$ e $[x_i,x_{i+1}],$ per $ i=1,\hdots,n-1$. Pertanto, le condizioni da imporre sono le seguenti:
-\begin{equation}\label{eq:condizioni_interpolazione_spline_modificate}
+\paragraph{IMPORTANTE:} È possibile esplicitare \textbf{il requisito (\ref{eq:requisito1_spline}) della Definizione \ref{def:spline} di Spline}, ovvero $s_m \in C^{(m-1)}[a,b]$. Il requisito \textbf{richiede di imporre delle condizioni sui punti interni della partizione} $\boldsymbol{x_1,\hdots,x_{n-1}}$, ovvero i punti di contiguità tra i sottointervalli $[x_{i-1},x_i]$ e $[x_i,x_{i+1}],$ per $ i=1,\hdots,n-1$. Ovvero, le condizioni da imporre sono le seguenti:
+\begin{equation}\label{eq:condizioni_continuita_spline}
     \begin{matrix}
         s_m^{(\boldsymbol{j})}|_{[x_{i-1},\boldsymbol{x_i}]}(\boldsymbol{x_i})= s_m^{(\boldsymbol{j})}|_{[\boldsymbol{x_i},x_{i+1}]}(\boldsymbol{x_i}),\\
         j=0,\hdots,m-1,\; i=1,,\hdots,n-1.
     \end{matrix}
 \end{equation}
 
-\noindent\footnotemark In altri termini, i due polinomi devono raccordarsi fino alla derivata $m-1$ nel punto $x_i$. Quando $j=0$ è richiesta solo la continuità, se è ricercata una spline interpolante in quei punti "viene gratis". Entrambi i polinomi devono assumere il valore della funzione che sta essendo interpolata. Il problema sono le derivate successive.
-\footnotetext{Significa che sono presenti due sottointervalli contigui: a sinistra del primo sottointervallo la spline coincide con un polinomio, nel secondo sottointervallo con un altro polinomio di grado $n$. La $j$ rappresenta la derivata $j$-esima di $s_m$ e $x_i$ il punto continguo degli insiemi.}
+\noindent In altri termini, i due polinomi devono raccordarsi fino alla derivata $m-1$ nel punto $x_i$. Inoltre, quando $j=0$, è richiesta solo la continuità, se è ricercata una spline interpolante in quei punti "viene gratis". Entrambi i polinomi devono assumere il valore della funzione che sta essendo interpolata. Il problema sono le derivate successive.\\
 
-Vale il seguente risultato.
+\noindent Vale il seguente risultato.
 
 \begin{theorem}\label{th:grado_derivata_spline}
     \footnote{Slide 14 PDF 22, Teorema 4.10 PG 95} Se $s_m$ è una spline di grado $m\geq 2$ sulla partizione $\Delta$, allora $s'_m(x)$ è una spline di grado $m-1$ sulla stessa partizione.
@@ -2005,26 +2009,28 @@ Sono esaminante \textbf{4 possibili implementazioni} delle condizioni aggiuntive
 La spline cubica naturale è quella che minimizza la curvatura totale della curva (non sarà trattato). Questa spline è scelta perché porta all'algoritmo di misurazione più efficiente tra tutti (non sarà trattato).
 
 \begin{example}
-	Calcolare i coefficienti $a,b,c,d$ in modo tale che
+	\textbf{Calcolare i coefficienti $\boldsymbol{a,b,c,d}$ in modo tale che}
 	\begin{equation*}
-		s_3|_{[0,1]}(x) = x^3,\quad s_3|_{[1,2]}(x) = a x^3 + b x^2 + c x + d.
+		\boldsymbol{s_3|_{[0,1]}(x) = x^3,\quad s_3|_{[1,2]}(x) = a x^3 + b x^2 + c x + d,}
 	\end{equation*}
-	Sia un spline naturale cubica naturale
+	\textbf{sia un spline naturale cubica naturale.}\\
+	\footnote{Per la \ref{eq:condizioni_continuita_spline} è necessario quanto segue.} È necessario imporre che
 	\begin{equation*}
-		s^{(i)}_3|_{[0,1]}(1) = s_3^{(i)}|_{[1,2]}(1),\quad i=0,1,2,
+		s^{(i)}_3|_{[0,1]}(1) = 1 = s_3^{(i)}|_{[1,2]}(1),\quad i=0,1,2,
 	\end{equation*}
 	e
 	\begin{equation*}
 		s_3''|_{[1,2]}(2) = 0.
 	\end{equation*}
+	[Non è imposto che $s_3''|_{[0,1]}(0) = 0$, in quanto la derivata seconda di $x^3$ è nulla in 0.]\\
 	Pertanto:
 	\begin{equation*}
 		\begin{matrix}
-			1 &=& a + b + c + d &\Rightarrow& \boldsymbol{d=} 1 - a - b - c \boldsymbol{= 2},\\
-			3 &=& 3a + 2b + c &\Rightarrow& \boldsymbol{c=} 3-3a-2b \boldsymbol{=-6},\\
-			6 &=& 6a + 2b\\
-			&&&\Rightarrow& 6a = -6 \Rightarrow \boldsymbol{a=-1}, \boldsymbol{b=6}.\\
-			0 &=& 12a + 2b
+			i = 0 && 1 &=& a + b + c + d &\Rightarrow& \boldsymbol{d=} 1 - a - b - c \boldsymbol{= 2},\\
+			i = 1  && 3 &=& 3a + 2b + c &\Rightarrow& \boldsymbol{c=} 3-3a-2b \boldsymbol{=-6},\\
+			i = 2 && 6 &=& 6a + 2b\\
+			&&&&&\Rightarrow& 6a = -6 \Rightarrow \boldsymbol{a=-1}, \boldsymbol{b=6}.\\
+			s_3''|_{[1,2]}(2) = 0 && 0 &=& 12a + 2b
 		\end{matrix}
 	\end{equation*}
 \end{example}
@@ -2064,7 +2070,7 @@ Inoltre, se $\boldsymbol{f(x)\in C^{(2)}[a,b]}$, \textbf{come funzione periodica
 Dato che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (Definizione \ref{def:spline}), è imposto che lo sia anche come funzione periodica. Analogamente a (\ref{eq:condizioni_spline_periodica}), sono imposte le seguenti condizioni aggiuntive.
 
 \begin{definition}[Spline cubica periodica]
-	La spline cubica $s_3(x)$ e' periodica se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono
+	La spline cubica $s_3(x)$ è periodica se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono
 	\begin{equation}\label{eq:condizioni_spline_cubica_periodica}
 	    \boxed{s'_3(a)=s'_3(b),\quad s''_3(a)=s''_3(b).}
 	\end{equation}
@@ -2083,12 +2089,12 @@ Dato che la spline cubica $s_3\in C^{(2)}[a,b]$, per la definizione di spline (D
 
 \paragraph{N.B.:} \textbf{Questa spline non necessita di ulteriori informazioni oltre alle condizioni di interpolazione}, dove le condizioni aggiuntive sono imposte in modo implicito. 
 
-È noto che nei primi due sottointervalli della partizione $\Delta$ siano presenti due polinomi di grado 3 (e così anche negli ultimi due). Ciò che è richiesto è che i due polinomi ed i primi due sottoinsiemi, tramite l'unione ($[x_0,x_1]\cup[x_1,x_2]=[x_0,x_1]$), coincidano. In questo modo è imposta una condizione in meno in modo esplicito. 
+È noto che nei primi due sottointervalli della partizione $\Delta$ siano presenti due polinomi di grado 3 (e così anche negli ultimi due). Ciò che è richiesto è che i due polinomi ed i primi due sottoinsiemi, tramite l'unione, coincidano (ovvero $[x_0,x_1]\cup[x_1,x_2]=[x_0,x_1]$). In questo modo è imposta una condizione in meno in modo esplicito. 
 
 La spline not-a-knot fa in modo che il nodo 1 ($x_1$) non sia il nodo che definisce una spline in senso classico. Questo è dovuto al fatto che è presente un unico polinomio nel primo e secondo sottoinsieme, in genere sono distinti. La stessa cosa avviene anche negli ultimi due sottointervalli.
 
 \begin{definition}[Spline cubica not-a-knot]
-	La spline cubica $s_3(x)$ interpolante su $\Delta$ e' detta not-a-knot se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono 
+	La spline cubica $s_3(x)$ interpolante su $\Delta$ è detta not-a-knot se le due condizioni aggiuntive alle condizioni di interpolazione (\ref{eq:condizioni_interpolazione_spline}) sono 
 	\begin{equation}\label{eq:condizione_spline_cubica_not_a_knot}
 		s'''_3|_{[x_0,x_1]}(x_1)=s'''_3|_{[x_1,x_2]}(x_1),\quad 	s'''_3|_{[x_{n-2},x_{n-1}]}(x_{n-1})=s'''_3|_{[x_{n-1},x_n]}(x_{n-1}).
 	\end{equation}
@@ -2113,7 +2119,7 @@ dove è ricercato $p_1(x)=p_2(x)\in\Pi_3$ \footnotemark. In $x_1$, tramite le co
 \end{equation*}
 \footnotetext{Un polinomio di grado 3 ha 4 coefficienti, 4 gradi libertà e $\Pi_3$ è uno spazio vettoriale di dimensione 4.}
 
-Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=}\overset{\footnotemark}{p'''_2(x_1)}$ allora $p_1(x)=s_3(x)=p_2(x),\, x\in [x_0,x_2]$. Quindi, in virtu' del Teorema \ref{th:grado_derivata_spline}, definita la spline $s_3(x)\in\Pi_3$ e le sue derivate come 
+Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=}\overset{\footnotemark}{p'''_2(x_1)}$ allora $p_1(x)=s_3(x)=p_2(x),\, x\in [x_0,x_2]$. Quindi, in virtù del Teorema \ref{th:grado_derivata_spline}, definita la spline $s_3(x)\in\Pi_3$ e le sue derivate come 
 \begin{equation*}
     \begin{matrix}
         s_3|_{[x_0,x_2]}(x)\in\Pi_3,\\
@@ -2124,7 +2130,7 @@ Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=
 \end{equation*}
 è possibile imporre la condizione sui primi ed ultimi due sottintervalli della partizione $\Delta$ per ottenere un'espressione conveniente di (\ref{eq:condizione_spline_cubica_not_a_knot}) come segue
 \begin{equation}\label{eq:condizioni_spline_not_a_knot_convenienti}
-    \frac{s''_3(\boldsymbol{x_1})-s''_3(x_0)}{x_1-x_0}=\frac{s''_3(x_2)-s''_3(\boldsymbol{x_1})}{x_2-x_1}, \quad \frac{s''_3(x_n)-s''_3(\boldsymbol{x_{n-1}})}{x_n-x_{n-1}}=\frac{s''_3(\boldsymbol{x_{n-1}})-s''_3(x_{n-2})}{x_2-x_1}.
+    \frac{s''_3(\boldsymbol{x_1})-s''_3(x_0)}{x_1-x_0}=\frac{s''_3(x_2)-s''_3(\boldsymbol{x_1})}{x_2-x_1}, \quad \frac{s''_3(x_n)-s''_3(\boldsymbol{x_{n-1}})}{x_n-x_{n-1}}=\frac{s''_3(\boldsymbol{x_{n-1}})-s''_3(x_{n-2})}{x_2-x_1},
 \end{equation}
 
 \addtocounter{footnote}{-3}
@@ -2139,7 +2145,7 @@ Se è imposto che $\overset{\footnotemark}{p'''_1(x_1)}\overset{\footnotemark}{=
 \stepcounter{footnote}
 \footnotetext{Questo polinomio di grado 0 è una costante, il coeffciente lineare della retta derivata seconda, ed è la stessa a sinistra ed a destra di $x_1$. Questo significa che il rapporto incrementale della derivata seconda su $x_0,\, x_1$ e $x_2$  deve essere lo stesso.}
 
-$\boldsymbol{x_1}$ e $\boldsymbol{x_{n-1}}$ precedenti non sono considerati nodi della partizione in quanto sono imposte le condizioni di interpolazione e le condizioni di default.
+\noindent dove $\boldsymbol{x_1}$ e $\boldsymbol{x_{n-1}}$ non sono considerati nodi della partizione in quanto sono imposte le condizioni di interpolazione e le condizioni di default.
 
 \begin{remark}
     \footnote{Slide 2 PDF 24, Osservazione 4.5 PG 97.} L'ampiezza dell'intervallo $i$-esimo della partizione $\Delta$, definita come (\ref{eq:definizione_partizione}), è definita come
@@ -2162,9 +2168,9 @@ Approssimare la funzione significa approssimare uniformemente anche la derivata 
 
 \subsubsection{Risoluzione di un sistema tridiagonale}\label{ssec:risoluzione_sistema_tridiagonale}
 \footnote{Slide 8-10 PDF 23} È necessario, ai fini della Sezione \ref{ssec:calcolo_spline_cubiche}, risolvere il sistema lineare
-\begin{equation*}
+\begin{equation}\label{eq:tridia}
 	A\underline{x}=\underline{q}\in\mathbb{R}^n,
-\end{equation*}
+\end{equation}
 dove
 \begin{equation*}
 	A=
@@ -2184,7 +2190,7 @@ dove
 	È possibile \textbf{memorizzare $\boldsymbol A$ con 3 vettori (complessità lineare dei dati)}.
 \end{remark}
 
-\paragraph{Complessità:} Risolvere per fattori $LU$ ha complessità lineare. Invece di avere $\frac{2}{3}n^3$ flops per la fattorizzazione ed $n^2$ operazioni per i fattori triangolari. In questo caso la complessità è $n$ per la fattorizzazione ed $n$ per la risoluzione.
+\paragraph{Complessità:} Risolvere con la fattorizzazione $LU$ il sistema ha complessità lineare, ovvero la complessità è $n$ per la fattorizzazione ed $n$ per la risoluzione, invece di avere $\frac{2}{3}n^3$ flops per la fattorizzazione ed $n^2$ operazioni per i fattori triangolari. 
 
 \paragraph{Errori da non fare:} con complessità lineare è possibile risolvere problemi di qualsivoglia grandezza, con $n^2$ fino ad un certo punto e con ordine superiore al secondo no. Per risolvere il sistema tridiagonale alcune persone utilizzano una matrice piena, assegnano i tre vettori alle tre diagonali e le forniscono in input alla function di risoluzione, tramite fattorizzazione $LU$. In questo caso l'esercizio è valutato 0. $\qed$
 
@@ -2216,7 +2222,7 @@ dove
 			& & \ddots &\ddots & \ddots &\\
 			& & & \ddots & \ddots & c_{n-1}\\
 			& & & &  l_nd_{n-1} & (d_n+l_nc_{n-1})
-		\end{bmatrix}
+		\end{bmatrix}.
 	\end{matrix}
 \end{equation*}
 \addtocounter{footnote}{-1}
@@ -2225,7 +2231,7 @@ dove
 \stepcounter{footnote}
 \footnotetext{La diiagonale dei $d_i$ cambia rispetto ad A mentr la diagonale dei $c_i$ è uguale ad A.}
 
-\noindent uguagliando gli elementi omologhi, ottenendo:\\
+\noindent Uguagliando gli elementi omologhi è ottenuto\
 $d_1=a_1\\
 \begin{rcases}
 	l_i=b_i/d_{i-1},\\
@@ -2233,38 +2239,16 @@ $d_1=a_1\\
 \end{rcases}$
 al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_i\rightarrow a_i$.
 
-\noindent Il sistema bidiagonale per $L$ può essere risolto tramite l'utilizzo dell'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_L}, con $\underline{x}\leftarrow\underline{q}$.
+\paragraph{Implementazione:} L'Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU} implementa la soluzione al sistema lineare tridiagonale (\ref{eq:tridia}).
 
-\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $L$}
-	\label{alg:calcolo_sistema_bidiagonale_L}
-	\begin{lstlisting}[style=Matlab-editor]
-		for i = 2 : n
-		x(i) = x(i) - l(i) x(i-1) % (2n flops)
-		end
-	\end{lstlisting}
-\end{algorithm}
-
-\noindent Il sistema bidiagonale per $U$ può essere risolto con l'Algoritmo \ref{alg:calcolo_sistema_bidiagonale_U}.
-\begin{algorithm}\caption{Algoritmo risoluzione sistema bidiagonale per $U$}
-	\label{alg:calcolo_sistema_bidiagonale_U}
-	\begin{lstlisting}[style=Matlab-editor]
-		x_n = x_n / d_n
-		for i = n - 1 : -1 : 1
-		x(i)= (x(i) - c(i) x(i + 1)) / d(i) %(3n flops)
-		end
-	\end{lstlisting}
-\end{algorithm}
-
-\noindent Quindi al posto di $\frac{2}{3}n^3$ flops c'è $3n$ ed al posto di $n^2\; 2n$. Totale $8n$ flops, mentre se è simmestrica $7$ flops.
-
-\paragraph{Algoritmo risoluzione sistema tridiagonale fattorizzabile $\boldsymbol{LU}$:} se è richiesto di risolvere un sistema tridiagonale fattorizzabile $LU$ allora è necessario utilizzare l'Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU}, non assegnando i 3 vettori ad una matrice e richiamando la function per la risoluzione della fattorizzabile $LU$.
+\paragraph{Costo computazionale Algoritmo \ref{alg:calcolo_sistema_tridiagonale_LU}}: Al posto di $\frac{2}{3}n^3$ flops c'è $3n$ ed al posto di $n^2\; 2n$. \textbf{Totale $\boldsymbol{8n}$ flops}, mentre se $A$ è simmetrica $7$ flops.
 
 \begin{algorithm}\caption{Algoritmo risoluzione sistema tridiagonale per $LU$}
 	\label{alg:calcolo_sistema_tridiagonale_LU}
 	\begin{lstlisting}[style=Matlab-editor]
 		function x = trilu(a, b, c, f)
 		%	x = trilu(a, b, c, f)
-		%	Risolve un sistema lineare triangolare.
+		%	Risolve un sistema lineare triangolare del tipo Ax = f.
 		%
 		%	Input:
 		%		a - vettore con gli elementi diagonali
@@ -2283,21 +2267,25 @@ al costo di $3n$ flops dove è possibile sovrascrivere $l_i\rightarrow b_i,\; d_
 		error('dati errati')
 		end
 		
-		if a(1) == 0, error('fattorizzaz. non definita'), end
+		if a(1) == 0, error('fattorizzazione non definita'), end
+		
+		for i = 1 : n-1 % calcolo fattorizzazione
+			b(i) = b(i)/a(i);
+			a(i+1) = a(i+1) - b(i) * c(i);
+			if a(i+1) == 0, error('fattorizzazione non definita'), end
+			f(i+1) = f(i+1) - b(i) * f(i);
+		end
 		
 		x = f;
 		
-		for i = 1 : n-1
-		b(i) = b(i)/a(i);
-		a(i+1) = a(i+1) - b(i) * c(i);
-		if a(i+1) == 0, error('fattorizzaz. non definita'), end
-		x(i+1) = x(i+1) - b(i) * x(i);
+		for i = 2 : n % risoluzione L
+			x(i) = x(i) - b(i-1) * x(i-1);
 		end
 		
 		x(n) = x(n) / a(n);
 		
-		for i = n-1 : -1 : 1
-		x(i) = (x(i) - c(i) * x(i+1))/a(i);
+		for i = n-1 : -1 : 1 % risoluzione U
+			x(i) = (x(i) - c(i) * x(i+1))/a(i);
 		end
 		return
 	\end{lstlisting}
@@ -2517,7 +2505,7 @@ Inoltre, è bene sottolineare che \textbf{è stato utilizzato} il termine "\text
     \label{fig:4.10(1)}
 \end{figure}
 
-Per la Figura \ref{fig:4.10(1)} è possibile affermare che la retta che passa per i 10 punti necessiterebbe solo di due punti per definirla e che i dati sono collineari. Se fossero interpolanti con una spline o con un polinomio interpolante sarebbe ottenuta una retta.
+Per la Figura \ref{fig:4.10(1)} è possibile affermare che la retta che passa per i 10 punti necessiterebbe solo di due punti per definirla e che i dati sono \gls{collineari}. Se fossero interpolanti con una spline o con un polinomio interpolante sarebbe ottenuta una retta.
 
 \begin{figure}
     \centering

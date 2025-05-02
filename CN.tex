@@ -29,6 +29,7 @@
 \usepackage{hyperref}
 \usepackage{glossaries}
 \usepackage{titlesec}
+\usepackage{blindtext}
 
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
@@ -207,7 +208,13 @@
 		\begin{equation*}
 			p(x) = a_n x^n + \hdots + a_0 x^0,
 		\end{equation*}
-		si dice monico se $a_n=1$}}
+		si dice monico se $a_n=1$}
+}
+
+\newglossaryentry{collineari}{
+	name=collineari,
+	description={Vedere \url{https://en.wikipedia.org/wiki/Collinearity}}
+}
 
 \begin{document}
 
@@ -245,6 +252,6 @@
 
 \include{esoneri/esonero2}
 
-%\include{rispostaDomande}
+\include{rispostaDomande}
 
 \end{document}
