@@ -308,10 +308,9 @@ Quanto appena descritto è l'osservazione seguente.
     \end{equation*}
 \end{remark}
 
-Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare che $\left(\frac{b-a}{n}\right)^{n+\mu +1}\rightarrow 0,$ per $ n\rightarrow\infty$, a causa del condizionamento del problema. Per risolvere questo problema è necessario decrementare il rapporto $\frac{b-a}{n}$ senza fare crescere $n$, utilizzando un approccio simile a quello delle spline nel caso di interpolazione, ovvero: l'intervallo $[a,b]$ è suddiviso in più sottointervalli di uguale ampiezza ed è utilizzata, su ciascun intervallo, la formula di Newton-Cotes di grado $k$ fissato. Così facendo sono ottenute le formule di Newton-Cotes composite.
-\footnote{L'idea è la seguente: date le ascisse è applicato su ciascun sottointervallo una formula di grado $k$ fissato. Con il numero di questi sottointervalli che tende all'infinito allora, la formula di grado $k$ viene applicata su intervalli sempre più piccoli. Ciò significa che il termine $\frac{b-a}{n}$ si trasformerà in $\left(\frac{b-a}{k}\right)^n$, dove $k$ è il grado della formula ed $n$ il numero di punti.}
-
 \subsubsection{Formula dei trapezi composita}
+Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare che $\left(\frac{b-a}{n}\right)^{n+\mu +1}\rightarrow 0,$ per $ n\rightarrow\infty$, a causa del condizionamento del problema. Per risolvere questo problema è necessario decrementare il rapporto $\frac{b-a}{n}$ senza fare crescere $n$ ed è utilizzato un approccio simile a quello delle spline nel caso di interpolazione, ovvero: l'intervallo $[a,b]$ è suddiviso in più sottointervalli di uguale ampiezza ed è utilizzata, su ciascun intervallo, la formula di Newton-Cotes di grado $k$ fissato. Così facendo sono ottenute le formule di Newton-Cotes composite.
+Con altre parole l'idea è la seguente: date le ascisse è applicato su ciascun sottointervallo una formula di grado $k$ fissato. Con il numero di questi sottointervalli che tende all'infinito allora, la formula di grado $k$ viene applicata su intervalli sempre più piccoli. Ciò significa che il termine $\frac{b-a}{n}$ si trasformerà in $\left(\frac{b-a}{k}\right)^n$, dove $k$ è il grado della formula ed $n$ il numero di punti.
 \begin{definition}[\textbf{Formula dei trapezi composita}]\footnote{Slide 11 PDF 26.}
     Siano $\{x_i\}$ ascisse equidistanziate in $[a,b]$ definite come in (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}), è ottenuta la \textbf{formula dei trapezi composita}:
     \begin{equation}\label{eq:formTrapComp}
