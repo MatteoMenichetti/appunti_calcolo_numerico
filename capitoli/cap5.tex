@@ -270,7 +270,7 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 	Sia $f\in C^{(n+\mu)}[a,b]$, l'errore di quadratura 
 	\begin{equation}\label{eq:errore_quadratura}
 	    \begin{matrix}
-	        \boldsymbol{E_n(f)}&\boldsymbol{\equiv}& I(f)-\overset{\footnotemark}{I_n(f)}&=&\int_a^b f(x)dx-\int_a^bp_n(x)dx\\
+	        \boldsymbol{E_n(f)}&\boldsymbol{\equiv}& I(f)-I_n(f)&=&\int_a^b f(x)dx-\int_a^bp_n(x)dx\\
 	        &=&\int_a^b\underbrace{(f(x)-p_n(x))}_{\footnotemark}dx&=&\int_a^bf[x_0,\hdots,x_n,x]\omega_{n+1}(x)dx\\
 	        &&\int_a^bf[x_0,\hdots,x_n,x]\prod_{i=0}^n(x-x_i)dx&\overset{\footnotemark}{=}&\boldsymbol{\nu_n \frac{f^{(n+\mu)}(\xi)}{(n+\nu)!}\left(\frac{b-a}{n}\right)^{n+\mu+1}},\quad\xi\in [a,b],
 	    \end{matrix}
@@ -285,10 +285,7 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 		\end{cases}$
 	\end{itemize}
 \end{definition}
-\addtocounter{footnote}{-2}
-\footnotetext{È l'integrale del polinomio interpolante la $f$.}
-
-\stepcounter{footnote}
+\addtocounter{footnote}{-1}
 \footnotetext{Errore di interpolazione.}
 
 \stepcounter{footnote}
