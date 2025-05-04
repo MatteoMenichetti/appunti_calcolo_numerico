@@ -5,11 +5,13 @@
     I(f)=\int_{a}^{b}f(x) dx,\quad -\infty<\overset{\footnotemark}{\boldsymbol{a<b}}<\infty ,
 \end{equation}
 dove $f:[a,b]\rightarrow\mathbb R$, almeno continua.
+\footnotetext{Se $a>b$ allora $a$ e $b$ sono invertiti di segno ed è applicato Riemann. }
 
-In questa trattazione di approssimazione di integrali definiti è considerato solo il caso in cui $f\in C^(0)[a,b]$, per evitare singolarità integrabili nell'intervallo $[a,b]$ e non sarà considerato il caso di integrali definiti su insiemi illimitati. I metodi di approssimazione trattati saranno definiti mediante l'integrale di un'approssimazione polinomiale a tratti di $f(x)$, in quanto l'integrale di un polinomio può essere calcolato facilmente ed in modo esatto.
-\footnotetext{Se $a>b$ allora è applicato Riemann, $a$ e $b$ sono invertiti di segno. Se non è conosciuta la derivata prima di $f$, l'integrale è calcolato in forma chiusa. Spesso è necessario fornire un metodo numerico in questo intervallo. Questi metodi si chiamano "Forma di quadratura" (i quali consentono di determinare l'integrale esatto di una approssimazione della funzione $f$, per la quale è possibile l'integrazione). Prima è necessario studiare il condizionamento del problema dell'integrazione.}
+In questa trattazione di approssimazione di integrali definiti è considerato solo il caso in cui $f\in C^{(0)}[a,b]$, per evitare singolarità integrabili nell'intervallo $[a,b]$ e non sarà considerato il caso di integrali definiti su insiemi illimitati. I metodi di approssimazione trattati saranno definiti mediante l'integrale di un'approssimazione polinomiale a tratti di $f(x)$, in quanto l'integrale di un polinomio può essere calcolato facilmente ed in modo esatto.
 
-Prima di trattare i metodi di approssimazione è studiato il condizionamento del problema, in cui la perturbazione è sulla funzione integranda $f(x)$. Studiare il condizionamento significa stabilire se al posto di $f$ è presente una sua perturbazione, ovvero quando il risultato è perturbato.
+Se non è conosciuta la derivata prima di $f$, l'integrale è calcolato in forma chiusa. Spesso è necessario fornire un metodo numerico in questo intervallo. Questi metodi si chiamano "Forma di quadratura" (i quali consentono di determinare l'integrale esatto di una approssimazione della funzione $f$, per la quale è possibile l'integrazione).
+
+Prima di trattare i metodi di approssimazione è studiato il condizionamento del problema dell'integrazione, in cui la perturbazione è sulla funzione integranda $f(x)$. Studiare il condizionamento significa stabilire se al posto di $f$ è presente una sua perturbazione, ovvero quando il risultato è perturbato.
 
 \begin{definition}[Numero di condizionamento]
     Supposta $\Tilde{f}(x)\in C^{(0)}[a,b]$, ovvero una perturbazione di $f(x)$, allora (vedi (\ref{eq:norma_infinito_g})):
@@ -37,8 +39,8 @@ Prima di trattare i metodi di approssimazione è studiato il condizionamento del
 \end{definition}
 
 \subsection{Formule di Newton-Cotes}\label{ssec:formule_N-C}\footnote{Slide 10 PDF 25-26, PG 106-108.}
-Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante $p(x)$ la funzione $f(x)$ su $n+1$ ascisse equidistanti definite come
-\begin{equation}\label{eq:condizione_ascisse_equidistanti_N-C}
+Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$, dette \textbf{formule di Newton-Cotes}, sono ottenute calcolando l'integrale esatto del polinomio interpolante $p_n(x)$ la funzione $f(x)$ su $n+1$ ascisse equidistanti definite come
+\begin{equation}\label{eq:condizione_ascisse_equidistanti_newton_cotes}
     \begin{matrix}
         &x_i=a+ih,&\quad i=0,\hdots,n,\\
         &p_n(x_i)=f_i \equiv f(x_i),&\quad h=\frac{b-a}{n}.
@@ -46,16 +48,16 @@ Le formule più semplici per l'approssimazione di $I(f)$ nell'intervallo $[a,b]$
 \end{equation}
 
 \begin{definition}[Formula di Newton-Cotes]
-	Sia $p(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}), è considerata la sua forma di Lagrange (\ref{eq:polinomi_lagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
+	Sia $p_n(x)$ il polinomio interpolante $f(x)$ sulle ascisse definite come (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}), è considerata la sua forma di Lagrange (\ref{eq:polinomi_lagrange})-(\ref{eq:formaKronecker}) per l'approssimazione di $I(f)$. La formula di Newton-Cotes di grado $n$ è definita come
 	\begin{equation}\label{eq:formula_newton_cotes}
-		I(f)\approx I(p_n) = \int_a^b p(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
-	\end{equation}\footnotetext{Questa è una formulazione ingombrante, cambiando intervallo è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
+		I(f)\approx I(p_n) = \int_a^b p_n(x)dx=\underbrace{\sum_{i=0}^n f_i\int_a^b L_{in}(x)dx}_{\footnotemark}\equiv I_n(f),
+	\end{equation}\footnotetext{Questa è una formulazione ingombrante, cambiando l'intervallo di definizione è necessario ricalcolare gli $f_i$ (ovvero gli $f(x_i)$). Tramite la sommatoria è ottenuta una combinazione lineare dei valori della funzione $f$ pesata dagli integrali (i quali sono integrali del polinomio di Lagrange).}
 \end{definition}
 
 \noindent  Poste le seguenti condizioni, per $x=a+th$ e $t\in [0,n]$
 \begin{enumerate}
     \item $x_i=a+ih\Rightarrow x_i\rightarrow i,\quad i=0,\hdots ,n$,
-    \item $dx=\boldsymbol{h}dt\quad (h=\frac{b-a}{n}$, per (\ref{eq:condizione_ascisse_equidistanti_N-C})),
+    \item $dx=\boldsymbol{h}dt\quad (h=\frac{b-a}{n}$, per (\ref{eq:condizione_ascisse_equidistanti_newton_cotes})),
 \end{enumerate}
 ed utilizzando la seguente espressione
 \begin{equation*}
@@ -83,8 +85,12 @@ ed utilizzando la seguente espressione
 	    \end{equation}
 	    \footnotetext{Slide 13 PDF 25, PG 107. Questa proprietà deriva dal fatto che le ascisse di interpolazione sono simmetriche. Affinché la 1. valga è sufficiente che le ascisse siano simmetriche (non è richiesto che siano equidistanti).}
 	    \item \footnotemark \begin{equation}\label{eq:coefficienti_formula_newton_cotes_uguale_1}
-	        \boldsymbol{\frac{1}{n}\sum_{i=0}^{n}c_{in}=1}.
+	        \boldsymbol{\frac{1}{n}\sum_{i=0}^{n}c_{in}=1},
 	    \end{equation}
+	    ovvero
+	    \begin{equation*}
+	    	\sum_{i=0}^{n}c_{in} = n.
+	    \end{equation*}
 	    \footnotetext{Slide 13 PDF 25, Teorema 5.1 PG 106.}
 	    \begin{proof}[Dimostrazione 2.]
 	        Se considerato $\boldsymbol{a=0},\, \boldsymbol{b=1}$ e $\boldsymbol{f(x)\equiv1}$ segue che, poiché $p(x)\equiv f(x)\equiv 1:$
@@ -104,12 +110,57 @@ ed utilizzando la seguente espressione
 	\end{enumerate}
 \end{property}
 
+\paragraph{Implementazione coefficienti $\boldsymbol{c_{in}}$:} Vedere l'Algoritmo \ref{alg:coefficienti_newton_cotes}.
+
+\begin{algorithm}
+	\caption{Implementazione coefficienti Newton-Cotes.}\label{alg:coefficienti_newton_cotes}
+	\begin{lstlisting}[style=Matlab-editor]
+		function cin = NCoeff(n)
+		%   
+		%   cin = NCoeff(n)
+		%
+		%   Calcola i coefficienti della formula di Newton-Cotes di grado n.
+		%
+		
+		if nargin < 1, error('argomento insufficiente'), end
+		
+		if n < 0, error('grado non valido'), end
+		
+		cin = zeros(n+1, 1);
+		
+		for i = 0 : ceil(n/2)
+			cin(i+1) = coeffi(i, n);
+			cin (n+1-i) = cin(i+1);
+		end
+		return
+		
+		function ci = coeffi(i, n)
+		%
+		%calcolo i-esimo coefficiente della formula
+		%
+		
+		nn = [0:i-1 i+1:n];
+		
+		scal = prod(i - nn);
+		
+		a = poly(nn);
+		
+		nn = (n+1) : -1 : 1;
+		
+		a = [a./nn 0];
+		
+		ci = polyva(a, n)/scal;
+		
+		return
+	\end{lstlisting}
+\end{algorithm}
+
 \textbf{Utilizzando (\ref{eq:formula_newton_cotes_conveniente})-(\ref{eq:coefficienti_formula_newton_cotes_uguale_1}) sono ottenute le due seguenti formule di quadratura:}
 \begin{enumerate}
-    \item $\boldsymbol{\underline{n=1}}$: dalle Proprietà (\ref{eq:coefficienti_simmetrici_formula_newton_cotes}) e  (\ref{eq:coefficienti_formula_newton_cotes_uguale_1})segue che $c_{01}=c_{11}=\frac{1}{2}$. Pertanto, quando il grado è 1, \textbf{è definita la formula dei trapezi}.
+    \item $\boldsymbol{\underline{n=1}}$: dalle Proprietà (\ref{eq:coefficienti_simmetrici_formula_newton_cotes})-(\ref{eq:coefficienti_formula_newton_cotes_uguale_1}) segue che $c_{01}=c_{11}=\frac{1}{2}$. Pertanto, quando il grado è 1, \textbf{è definita la formula dei trapezi}.
    \begin{definition}[Formula dei trapezi]
    	 \begin{equation}\label{eq:formula_trapezi}
-       \boldsymbol{I_1(f)=\frac{b-a}{2}(f(a)+f(b))}.
+       \boldsymbol{I_1(f)=(b-a)\left(\frac{f(a)+f(b)}{2}\right)}.
     \end{equation}
    \end{definition}
     Tale formula ha un importante significato geometrico (visibile in Figura \ref{fig:grafico_formula_trapezi}), ovvero quello di approssimare, nel caso di funzioni non negative, l'area sottesa dal grafico di $f(x)$ con quella del trapezio avente come vertici i punti $(a,0),(a,f(a)),(b,f(b)),(b,0)$.
@@ -142,21 +193,21 @@ ed utilizzando la seguente espressione
 
 \subsubsection{Condizionamento di una formula di Newton-Cotes}
 \footnote{Slide 5-6 PDF 26, PG 108.}
-Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (\ref{eq:formula_newton_cotes_conveniente}), è possibile studiare come $\Tilde{f}(x)$ influisca su (\ref{eq:formula_trapezi}), studiandone il condizionamento. In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
+Data una perturbazione $\Tilde{f}(x)$ di $f(x)$ è possibile studiare come $\Tilde{f}(x)$ influisca sulla differenza fra $I_n(f)$ e $I_n(\Tilde{f})$, quindi è studiato il condizionamento del calcolo della formula di Newton-Cotes (\ref{eq:formula_newton_cotes_conveniente}). In analogia con quanto visto per il condizionamento di (\ref{eq:problema_quadratura}), è ottenuta la seguente definizione.
 
 \begin{definition}[Condizionamento formula di Newton-Cotes]
 	Sia $\tilde{f}(x)$, perturbazione della funzione $f(x)$, allora
 	\begin{equation*}
 	    \begin{matrix}
-		        |I_n(f)-I_n(\Tilde{f})|&\overset{\footnotemark}{=}&h\left|\sum_{i=0}^n c_{in}f_i-\sum_{i=0}^n c_{in}\Tilde{f_i}\right|&=&\\
-		        h\left|\sum_{i=0}^n c_{in}\left(f_i-\Tilde{f_i}\right)\right|&\overset{\footnotemark}{\leq}&h\sum_{i=0}^n \left|c_{in}\left(f_i-\Tilde{f_i}\right)\right|&=&\\
-		        h\sum_{i=0}^n |c_{in}|\cdot\left|f_i-\Tilde{f_i}\right|&\leq&\left(h\sum_{i=0}^n|c_{in}|\right)\underset{i=0,\hdots,n}{\max}\left|f_i-\Tilde{f_i}\right|&\leq&\\
-		        &&\left(h\sum_{i=0}^n|c_{in}|\right)\cdot \left|\left|f-\Tilde{f}\right|\right|
+		        |I_n(f)-I_n(\Tilde{f})|&\overset{\footnotemark}{=}&h|\sum_{i=0}^n c_{in}f_i-\sum_{i=0}^n c_{in}\Tilde{f_i}|&=&\\
+		        h|\sum_{i=0}^n c_{in}(f_i-\Tilde{f_i})|&\overset{\footnotemark}{\leq}&h\sum_{i=0}^n |c_{in}(f_i-\Tilde{f_i})|&=&\\
+		        h\sum_{i=0}^n |c_{in}|\cdot|f_i-\Tilde{f_i}|&\leq&(h\sum_{i=0}^n|c_{in}|)\underset{i=0,\hdots,n}{\max}|f_i-\Tilde{f_i}|&\leq&\\
+		        &&(h\sum_{i=0}^n|c_{in}|)\cdot ||f-\Tilde{f}||,
 	    \end{matrix}
 	\end{equation*}
 	dove
 	\begin{itemize}
-		\item \begin{equation}\label{eq:numero_condizionamento_N-C}
+		\item \begin{equation}\label{eq:numero_condizionamento_newton_cotes}
 			\boldsymbol{\kappa_n = h\sum_{i=0}^n|c_{in}|}
 		\end{equation}
 		è il \textbf{numero di condizionamento della formula di Newton-Cotes},
@@ -165,18 +216,23 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (
 		\end{equation*}
 		misura l'\textbf{errore in ingresso},
 		\item $h=\frac{b-a}{n}$,
-		\item $f_i = f(x_i),\, \tilde{f}_i = \tilde{f}(x_i)$, dove $x_i = a + i\cdot h,\, i = 0,\hdots, n$.
+		\item
+		\begin{equation*}
+			\begin{matrix}
+				f_i = f(x_i), & \tilde{f}_i = \tilde{f}(x_i),\\ x_i = a + i\cdot h, &i = 0,\hdots, n.
+			\end{matrix}
+		\end{equation*}
 	\end{itemize}
 \end{definition}
 \addtocounter{footnote}{-1}
-\footnotetext{Supposto di aver traspormato il problema in modo tale che $b>a$.}
+\footnotetext{Supposto di aver trasformato il problema in modo tale che $b>a$.}
 
 \stepcounter{footnote}
 \footnotetext{Diseguaglianza triangolare.}
 
-\begin{remark}\label{rem:numero_condizionamento}
-    Data la Proprietà (\ref{eq:coefficiente_formula_N-C_GT0}), allora
-    \begin{equation}\label{eq:numero_condizionamento_N-C_positivo}
+\begin{remark}\label{rem:uguaglianza_numero_condizionamento_newton_cotes}
+    Data le Proprietà (\ref{eq:coefficienti_formula_newton_cotes_uguale_1})-(\ref{eq:coefficiente_formula_N-C_GT0}), allora
+    \begin{equation}\label{eq:numero_condizionamento_N-C_uguaglianza}
      \boldsymbol{\kappa_n}=\frac{b-a}{n}\sum_{i=0}^n|c_{in}|\overset{\footnotemark}{=}\frac{b-a}{\cancel{n}}\cancel{\sum_{i=0}^nc_{in}}\overset{\footnotemark}{=}b-a\boldsymbol{\equiv\kappa}.
     \end{equation}
 \end{remark}
@@ -186,7 +242,7 @@ Data una perturbazione $\Tilde{f}(x)$ di $f(x)$, con $c_{in}$ definita come in (
 \stepcounter{footnote}
 \footnotetext{Per (\ref{eq:coefficienti_formula_newton_cotes_uguale_1}) ci sono le eliminazioni.}
 
-\paragraph{N.B.:} Se è valida l'Osservazione \ref{rem:numero_condizionamento}, ovvero i coefficienti della formula di Newton-Cotes sono non negativi, allora il numero di condizionamento della formula di Newton Cotes (\ref{eq:numero_condizionamento_N-C}) coincide con quello del problema continuo $I(f)$ (\ref{eq:numero_condizionamento_integrale}).
+\paragraph{N.B.:} Se è valida l'Osservazione \ref{rem:uguaglianza_numero_condizionamento_newton_cotes}, ovvero i coefficienti della formula di Newton-Cotes sono non negativi, allora il numero di condizionamento della formula di Newton Cotes (\ref{eq:numero_condizionamento_newton_cotes}) coincide con quello del problema continuo $I(f)$ (\ref{eq:numero_condizionamento_integrale}).
 
 Questo non significa che è ben condizionato: se l'integrale è ben condizionato allora lo è anche la funzione, se l'integrale è mal condizionato lo è anche la funzione. Ciò può essere riformulato affermando che \textbf{il mal condizionamento coincide con quello del problema continuo} (l'integrale $I(f)$).
 
@@ -204,7 +260,7 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/knN-C.png}
-    \caption{Numero di condizionamento (\ref{eq:numero_condizionamento_N-C_positivo}) delle formule di Newton-Cotes nel caso $b-a=1$.}\label{fig:knN-C}
+    \caption{Numero di condizionamento (\ref{eq:numero_condizionamento_newton_cotes}) delle formule di Newton-Cotes per $n=0,\hdots, 20$.}\label{fig:knN-C}
 \end{figure}
 
 \subsection{Errore (di quadratura) e formule composite}
@@ -224,8 +280,8 @@ Questo non significa che è ben condizionato: se l'integrale è ben condizionato
 		\item $\boldsymbol{\nu_n}$ è una costante che dipende solo da $n$ (ed è limitata uniformemente);
 		\item $\boldsymbol{\mu}=
 		\begin{cases}
-			\boldsymbol 1, &\text{se $n$ è dispari;}\\
-			\boldsymbol 2, &\text{se $n$ è pari.}
+			\boldsymbol 1, &\text{\textbf{se} $\boldsymbol n$ è \textbf{dispari};}\\
+			\boldsymbol 2, &\text{\textbf{se} $\boldsymbol n$ è \textbf{pari}.}
 		\end{cases}$
 	\end{itemize}
 \end{definition}
@@ -260,7 +316,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 
 \subsubsection{Formula dei trapezi composita}
 \begin{definition}[\textbf{Formula dei trapezi composita}]\footnote{Slide 11 PDF 26.}
-    Siano $\{x_i\}$ ascisse equidistanziate in $[a,b]$ definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}), è ottenuta la \textbf{formula dei trapezi composita}:
+    Siano $\{x_i\}$ ascisse equidistanziate in $[a,b]$ definite come in (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}), è ottenuta la \textbf{formula dei trapezi composita}:
     \begin{equation}\label{eq:formTrapComp}
         \begin{matrix}
             \boldsymbol{I(f)}&=&\int_a^b f(x) dx &\overset{\footnotemark}{=}&\sum_{i=1}^n\overbrace{\int_{x_{i-1}}^{x_i} f(x)dx}^{\footnotemark}\\
@@ -277,8 +333,15 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 \footnotetext{Ogni integrale è una parte dell'area del sottografo.}
 
 \begin{remark}
-    \footnote{Slide 12 PDF 26.} Se $f(x)$ è periodica allora $f_n=f_0\Rightarrow I_1^{(n)}(f)=h\underset{\footnotemark}{\sum_{i=0}^{n-1}f_i}.$ 
-\end{remark}\footnotetext{La complesità del calcolo della sommatoria è $\log (n)$ perché sommando 2 a 2 i risultati sommati 2 a 2 è possibile arrivare ad un'approssimazione in $\log (n)$ passi. Se la funzione è periodica allora è possibile approssimarla con $\sin$ e $\cos$, per le quali l'approssimazione diviene esatta, per polinomi parametrici di grado sempre più elevato, man mano che cresce $n$. Ciò significa che è possibile ottenere delle approssimazioni molto accurate di un segnale periodico (con $\sin$ e $\cos$).}
+    \footnote{Slide 12 PDF 26.} Se $f(x)$ è periodica allora $f_n=f_0$ e
+    \begin{equation}\label{eq:formula_trapezi_composita_periodica}
+    	I_1^{(n)}(f)=h \sum_{i=0}^{n-1}f_i.
+    \end{equation}
+\end{remark}
+
+\paragraph{Nota sulla computabilità di (\ref{eq:formula_trapezi_composita_periodica}):} La complesità del calcolo della sommatoria è $\log (n)$ perché sommando 2 a 2 i risultati sommati 2 a 2 è possibile arrivare ad un'approssimazione in $\log (n)$ passi. Se la funzione è periodica allora è possibile approssimarla con $\sin$ e $\cos$, per le quali l'approssimazione diviene esatta, per polinomi parametrici di grado sempre più elevato, man mano che cresce $n$. Ciò significa che è possibile ottenere delle approssimazioni molto accurate di un segnale periodico (con $\sin$ e $\cos$).
+
+\paragraph{Implementazione formula trapezi:} Vedere l'Algoritmo \ref{alg:trapec}.
 
 \begin{definition}[\textbf{Errore di quadratura formula dei trapezi composita}]
     L'\textbf{errore commesso} dalla \textbf{formula dei trapezi} è il seguente:
@@ -303,12 +366,6 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 
 \stepcounter{footnote}
 \footnotetext{Come in seguito, vale il teorema della sommazione discreta, ovvero: data la derivata seconda continua $f^{(2)}$ (successiva all'uguale nella sommatoria) e sommando $n$ valori che appartengono ad $n$ sottointervalli contigui allora $f^{(2)}$ sarà uguale ad $n$ volte il valore della derivata seconda in un parametro dell'intervallo. Inoltre, $\nu_1=-\frac{1}{12}$, cosa non specificata a lezione. La scelta di $\nu_1$ viene fatta risolvendo un sistema di equazioni che impone che l'errore di quadratura sia nullo per funzioni polinomiali di grado $0$ e $1$. In questo caso, è possibile arrivare alla conclusione che $\nu_1=-\frac{1}{12}$ è la scelta giusta per garantire la convergenza di ordine $O\left((b-a)^3\right)$.}
-
-\begin{remark}
-    La formula dei trapezi composita può essere implementata come nell'Algoritmo \ref{alg:trapec}.
-\end{remark}
-
-\paragraph{Implementazione:} Vedere l'Algoritmo \ref{alg:trapec}.
 
 \begin{algorithm}
 	\caption{Implementazione formula dei trapezi composta.}\label{alg:trapec}
@@ -336,7 +393,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 		
 		f = feval(fun, x); %alternativa (eliminando precedente calcolo di x): f = feval(fun, (0:n)*h);
 		
-		If = h * (sum(f) - (f(1) + f(n+1))/2);
+		If = h * (f(1) + 2 * sum(f) + f(n+1))/2);
 		
 		return
 		end
@@ -345,7 +402,7 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 
 \subsubsection{Formula di Simpson composita}
 \begin{definition}[\textbf{Formula di Simpson composita}]
-    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condizione_ascisse_equidistanti_N-C}) e dato $\boldsymbol n$ \textbf{pari}, la \textbf{formula di Simpson composita} è
+    Siano $\{x_i\}$ ascisse equidistanziate definite come in (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}) e dato $\boldsymbol n$ \textbf{pari}, la \textbf{formula di Simpson composita} è
     \begin{equation}\label{eq:formSimpComp}
         \begin{matrix}
             \boldsymbol{I(f)}&=&\int_a^bf(x)dx\\
@@ -365,6 +422,46 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
 
 \stepcounter{footnote}
 \footnotetext{Quando le sommatorie dovranno essere implementate in Matlab sarà necessario sfruttare le capacità di calcolo vettoriale di Matlab. Non sono necessari cicli ma è possibile calcolare una valutazione vettoriale della $f$ su tutte le ascisse per poi pesare le componenti in modo opportuno. Sarà visto un esempio nelle esercitazioni.}
+
+\paragraph{Implementazione Formula di Simpson composita:} Vedere l'Algoritmo \ref{alg:simpson_composita}.
+
+\begin{algorithm}
+	\caption{Implementazione formula di quadratura di Simpson composta.}\label{alg:simpson_composita}
+	\begin{lstlisting}[style=Matlab-editor]
+		function I2 = simpson_composita(fun, a, b, n)
+		%   
+		%   I2 = simpson_composita(fun, a, b, n)
+		%
+		%   Approssimazione di un integrale definito mediante la formula composita di Simpson.
+		%
+		%  Input:
+		%   fun - identificatore function funzione intreganda (deve accettare input vettoriali);
+		%   a,b - estremi dell'intervallo di integrazione;
+		%   n   - numero sottointervallli (default=1).
+		%  Output:
+		%   I2 - stima ottenuta.
+		%
+		if nargin < 3, error('numero argomenti insufficiente')
+		elseif nargin == 3, n = 1;
+		elseif n <= 0 || n/2~= fix(n/2), error('numero di sottointervalli non valido')
+		end
+		
+		x = linspace(a, b, n+1);
+		
+		h = (b-a)/n;
+		
+		f = feval(fun, x); %alternativa (eliminando precedente calcolo di x): f = feval(fun, a:h:b);
+		
+		fodd = sum(f(2 : 2 : end));
+		
+		feven = sum(f(1 : 2 : end));
+		
+		I2 = h * (4 * fodd + 2 * feven - f(1) - f(end));
+		
+		return
+		end
+	\end{lstlisting}
+\end{algorithm}
 
 \begin{definition}[\textbf{Errore di quadratura formula di Simpson}]
     L'\textbf{errore commesso} dalla \textbf{formula di Simpson} è il seguente:
@@ -446,7 +543,7 @@ Applicando quanto scritto all'esempio (\ref{eq:approxIntSinx}) sono derivate le 
 \end{figure}
 
 In Figura \ref{fig:approxInt} il numero di condizionamento è 99.5, ovvero l'ampiezza dell'intervallo. Il problema è che nell'estremo inferiore, se $x\rightarrow 0$, allora $x^{-2}$ e $x^{-3}$ diventano molto grandi e $\cos{(x^{-2})}$, per $x\rightarrow 0$, oscilla molto. La parte sinistra del grafico è la parte in cui il grafico inizia ad oscillare molto. La questione importante è che la funzione è liscia poco dopo $10^0$ e oscilla poco prima di $10^0$. Se fosse utilizzata una mesh costante accadrebbe che, per ottenere la tolleranza desiderata, diventerebbero necessari punti molto vicini prima di $10^0$, i quali dovrebbero essere riportati anche nella parte liscia. Il problema posto è quello di definire un approccio adattivo per la definizione delle ascisse di interpolazione in modo adattivo, infatti sui punti laddove la funzione è più variabile saranno inseriti più punti ed invece meno dove la funzione è liscia. Per quanto appena scritto, sono introdotte le funzioni di Newton-Cotes adattive della Sezione \ref{ssec:formule_newton-cotes_adattive}.
-In Figura \ref{fig:tabella_errore_quadratura} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condizione_ascisse_equidistanti_N-C}).
+In Figura \ref{fig:tabella_errore_quadratura} è possibile notare che tanto più cresce $n$ più l'errore diminuisce e quindi aumenta la precisione. È necessario trattare il fatto che, nell'implementazione di queste formule, le ascisse sono tutte equidistanti. Le ascisse equidistanti sono definite come (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}).
 
 \subsection{Formule di Newton-Cotes adattive}\label{ssec:formule_newton-cotes_adattive}
 \footnote{Slide 7-12 PDF 27, PG 111-114.}
@@ -497,13 +594,60 @@ Con $\widehat\xi\approx\xi$ (\ref{eq:stimaErrFormQuadSimpN=2}) diviene
     I(f)-I_2(f)\approx\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4\cdot 16.
 \end{equation}
 
+\paragraph{Implementazione formula di quadratura di Simpson adattiva:} Vedere l'Algoritmo \ref{alg:formula_simpson_adattiva}.
+
+\begin{algorithm}\caption{Implementazione algoritmo adattivo di Simpson.}
+	\label{alg:formula_simpson_adattiva}
+	\begin{lstlisting}[style=Matlab-editor]
+		function I2 = adapsimp(f, a, b, tol, fa, fb, f1)
+		%
+		% Utilizzo:tab I2 = adapsimp(f, a, b, tol) [questa e' un'interfaccia utente, viene invocata la prima volta. fa e fb sono utilizzati per implementare la funzione ricorsivamente, quindi dalla seconda invocazione della function] [In questo e' necessario prevere 3 valutazioni funzionali, non come nelle implementazioni della formula dei trapezi, la quale richiede due valutazioni in input]
+		%
+		% Input:
+		%   f - function handler funzione integranda;
+		%   a,b - estremi intervallo di integrazione;
+		%   tol - accuratezza richiesta.
+		%
+		% Output:
+		%   I2 - approssimazione ottenuta.
+		%
+		
+		if nargin < 4, error('numero argomenti insufficienti'), end
+		
+		if tol <= 0, error('tolleranza nulla o minore di 0'), end 
+		
+		if nargin == 4
+		fa = feval(f, a); fb = feval(f, b); f1 = feval(f, (a+b)/2);
+		end
+		
+		h = (b - a)/2;
+		
+		x1 = (a + b)/2;
+		
+		x11 = (a + x1)/2; f11 = feval(f, x11);
+		
+		x12 = (x1 + b)/2; f12 = feval(f, x12);
+		
+		I1 = h * (fa + 4 * f1 + fb); 
+		I2 = (fa + 4 * f11 + 2 * f1 + 4 * f12 + fb) * (h/2);
+		
+		e = abs(I2-I1)/15; %stima dell'errore
+		
+		if e > tol
+		I2 = adapsim(f, a, x1, tol/2, fa, f1, f11)...
+		+ adapsim(f, x1, b, tol/2, f1, fb, f12); 
+		end
+		return
+	\end{lstlisting}
+\end{algorithm}
+
 Sottraendo (\ref{eq:trasfXiToXi}) da (\ref{eq:stimaErrFormQuadSimpCompN=4}) è ottenuto
 \begin{equation*}
     I_2^{(4)}(f)-I_2(f)\approx\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4(16-1)\equiv E_2^{(4)}(f)\cdot 15.
 \end{equation*}
 Da questo risultato è ottenuto che l'errore di quadratura $E_2^{(4)}(f)$ può essere stimato come
 \begin{equation}
-    \boldsymbol{E_2^{(4)}(f)\approx\underbrace{\frac{I_2^{(4)}(f)-I_2(f)}{15}}_{\text{Numero}}}.
+    \boldsymbol{E_2^{(4)}(f)\approx\underbrace{\frac{I_2^{(4)}(f)-I_2(f)}{15}}_{\text{scalare}}}.
 \end{equation}
 
 \footnote{È importante notare, sarà fatto nell'esercitazione, che quando sono replicate le procedure, in modo ricorsivo, come vengono riciclate le valutazioni già calcolate, passandole come parametro, al fine di costruire l'albero ricorsivo.}
