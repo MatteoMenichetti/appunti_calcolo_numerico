@@ -316,18 +316,14 @@ Dato $E_n(f)$ in forma (\ref{eq:errore_quadratura}) non è possibile affermare c
     Siano $\{x_i\}$ ascisse equidistanziate in $[a,b]$ definite come in (\ref{eq:condizione_ascisse_equidistanti_newton_cotes}), è ottenuta la \textbf{formula dei trapezi composita}:
     \begin{equation}\label{eq:formTrapComp}
         \begin{matrix}
-            \boldsymbol{I(f)}&=&\int_a^b f(x) dx &\overset{\footnotemark}{=}&\sum_{i=1}^n\overbrace{\int_{x_{i-1}}^{x_i} f(x)dx}^{\footnotemark}\\
+            \boldsymbol{I(f)}&=&\int_a^b f(x) dx &\overset{\footnotemark}{=}&\sum_{i=1}^n\int_{x_{i-1}}^{x_i} f(x)dx\\
             &\approx& h\sum_{i=2}^n\frac{f(x_{i-1})+f(x_i)}{2} &=& h\left(\frac{f_0}{2}+\frac{f_1}{2}+\frac{f_1}{2}+\hdots +\frac{f_{n-1}}{2}+\frac{f_{n-1}}{2}+\frac{f_n}{2}\right)\\
             &\boldsymbol =&\boldsymbol{h\left(\frac{f_0}{2}+\sum_{i=1}^{n-1}f_i+\frac{f_n}{2}\right)} &\boldsymbol\equiv& \boldsymbol{I_1^{(n)}(f)} &\equiv& I_{1n}(f)
         \end{matrix}
     \end{equation}
 \end{definition}
 
-\addtocounter{footnote}{-1}
-\footnotetext{L'intervallo è diviso in sottointervalli e quindi l'area totale è la somma delle aree parziali, le quali sono approssimate con le funzioni trapezi.}
-
-\stepcounter{footnote}
-\footnotetext{Ogni integrale è una parte dell'area del sottografo.}
+\footnotetext{L'intervallo $[a, b]$ è diviso in sottointervalli e quindi l'integrale sull'intervallo, rappresentante l'area totale, è la somma delle aree parziali del sottografo, le quali sono approssimate con le funzioni trapezi.}
 
 \begin{remark}
     \footnote{Slide 12 PDF 26.} Se $f(x)$ è periodica allora $f_n=f_0$ e
