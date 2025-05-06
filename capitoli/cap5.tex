@@ -560,11 +560,11 @@ In questo caso, con $n=1$, è ottenuto (da (\ref{eq:errore_quadratura}))
 \begin{equation}\label{eq:errore_formula_trapezi_adattiva_n=1}
     E_1 = I(f)-I_1(f)=\nu_1 f^{(2)}(\xi)(b-a)^3\quad \xi\in[a,b],
 \end{equation}
-ed è ottenuto che, da (\ref{eq:errore_formula_trapezi_composita}), applicando la formula composita su due sottointervalli ($n=2$), ciò che segue:
+e, da (\ref{eq:errore_formula_trapezi_composita}), applicando la formula composita su due sottointervalli ($n=2$), ciò che segue:
 \begin{equation}\label{eq:errore_formula_trapezi_adattiva_n=2}
     E_1^{(2)} = I(f)-I_1^{(2)}(f)=\nu_1 f^{(2)}(\widehat\xi)(b-a)\left(\frac{b-a}{2}\right)^2,\quad\widehat\xi\in [a,b],
 \end{equation}
-dove $\nu_1=-\frac{1}{12}$
+dove $\nu_1=-\frac{1}{12}$ (e $I(f)$ e $I_2^(1)(f)$ sono, rispettivamente, (\ref{eq:formula_trapezi}) e (\ref{eq:formula_trapezi_composita}) con $n=2$).
 
 Suppondendo che $\xi\approx\widehat{\xi}$ (in (\ref{eq:errore_formula_trapezi_adattiva_n=2}) e (\ref{eq:errore_formula_trapezi_adattiva_n=1})), sottraendo (\ref{eq:errore_formula_trapezi_adattiva_n=2}) da (\ref{eq:errore_formula_trapezi_adattiva_n=1}) è ottenuto che
 \begin{equation*}
