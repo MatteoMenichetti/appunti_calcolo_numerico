@@ -481,7 +481,7 @@ Questa procedura si generalizza per tutte le formule di Newton-Cotes di grado $k
 
 \begin{definition}[Errore di quadratura formula di Newton-Cotes di grado $k$]
 	\begin{equation}\label{eq:EkComposite}
- E_k^{(n)}(f)=\nu_k\frac{f^{(k+\mu)}(\xi)}{(k+\nu)!}\left(\frac{b-a}{k}\right)\left(\frac{b-a}{n}\right)^{k+\mu}, \quad \xi\in[a,b].
+ E_k^{(n)}(f)=\nu_k\frac{f^{(k+\mu)}(\xi)}{(k+\mu)!}\left(\frac{b-a}{k}\right)\left(\frac{b-a}{n}\right)^{k+\mu}, \quad \xi\in[a,b].
 \end{equation}
 \end{definition}
 
@@ -564,7 +564,7 @@ e, da (\ref{eq:errore_formula_trapezi_composita}), applicando la formula composi
 \begin{equation}\label{eq:errore_formula_trapezi_adattiva_n=2}
     E_1^{(2)} = I(f)-I_1^{(2)}(f)=\nu_1 f^{(2)}(\widehat\xi)(b-a)\left(\frac{b-a}{2}\right)^2,\quad\widehat\xi\in [a,b],
 \end{equation}
-dove $\nu_1=-\frac{1}{12}$ (e $I(f)$ e $I_2^(1)(f)$ sono, rispettivamente, (\ref{eq:formula_trapezi}) e (\ref{eq:formula_trapezi_composita}) con $n=2$).
+dove $\nu_1=-\frac{1}{12}$, $I(f)$ e $I_1^{(2)}(f)$ sono, rispettivamente, (\ref{eq:formula_trapezi}) e (\ref{eq:formula_trapezi_composita}) con $n=2$.
 
 Suppondendo che $\xi\approx\widehat{\xi}$ (in (\ref{eq:errore_formula_trapezi_adattiva_n=2}) e (\ref{eq:errore_formula_trapezi_adattiva_n=1})), sottraendo (\ref{eq:errore_formula_trapezi_adattiva_n=2}) da (\ref{eq:errore_formula_trapezi_adattiva_n=1}) è ottenuto che
 \begin{equation*}
@@ -577,7 +577,7 @@ allora
 
 \footnotetext{Dovuto a $\left(\frac{b-a}{2}\right)^2$ in (\ref{eq:errore_formula_trapezi_adattiva_n=2}) ed a $(b-a)^3$ in (\ref{eq:errore_formula_trapezi_adattiva_n=1}).}
 
-\paragraph{Passo che genera la procedura attiva:} Considerata la formula dei trapezi composita (\ref{eq:formula_trapezi_composita}) con $n=2$ (ovvero (\ref{eq:formula_trapezi})), è supposto di dover calcolare $I(f)$ con una accuratezza $\boldsymbol{tol}$ (parametro prefissato, ovvero scelto dall'utente). Se $|E_1^{(2)}\leq tol|$ è terminata la procedura, altrimenti è riapplicata la stessa procedura sui due sottointervalli $\left[a,\frac{a+b}{2}\right],\, \left[\frac{a+b}{2},b\right]$, con tolleranza $\boldsymbol{tol/2}$.\\
+\paragraph{Passo che genera la procedura adattiva:} è supposto di dover calcolare $I(f)$ con una accuratezza $\boldsymbol{tol}$ (parametro prefissato, ovvero scelto dall'utente) utilizzano la formula dei trapezi composita (\ref{eq:formula_trapezi_composita}) con $n=2$ e (\ref{eq:formula_trapezi}). Se $|E_1^{(2)}|\leq tol$ è terminata la procedura, altrimenti è riapplicata la stessa procedura sui due sottointervalli $\left[a,\frac{a+b}{2}\right],\, \left[\frac{a+b}{2},b\right]$, con tolleranza $\boldsymbol{tol/2}$.\\
 In questo modo è definito, in modo adattivo, l'insieme dei punti su quali sono applicate le formule base e la sua composita raddoppiata.
 
 \paragraph{Funzionamento passo di raffinamento esplicito:} se è soddisfatta l'accuratezza richiesta la procedura si ferma, altrimenti il problema è diviso in 2 sottoproblemi, ai quali è applicato separatamente la stessa procedura con tolleranza dimezzata. Il dimezzamento è applicato affinché la somma degli errori sia sempre piccola. Se questa procedura è applicata ricorsivamente laddove l'errore è maggiore allora questo sarà affinato maggiormente, mentre qualora l'errore soddisfa il requisito di accuratezza la procedura si ferma. Questa procedura definisce adattivamente le ascisse, sulle quali sono definite le formule di quadratura.
@@ -638,14 +638,36 @@ Se è applicata la formula di Simpson composita con $n=4$ su $[a,b]$, è ottenut
 \begin{equation}\label{eq:stimaErrFormQuadSimpCompN=4}
     I(f)-I_2^{(4)}(f)=\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4,\quad \widehat\xi\in[a,b],
 \end{equation}
-dove in (\ref{eq:stimaErrFormQuadSimpN=2}) e (\ref{eq:stimaErrFormQuadSimpCompN=4}) $\nu_2=-\frac{1}{90}$.
+dove in (\ref{eq:stimaErrFormQuadSimpN=2}) e (\ref{eq:stimaErrFormQuadSimpCompN=4}) $\nu_2=-\frac{1}{90}$, $I(f)$ e $I(_2^{(2)})$ sono rispettivamente (\ref{eq:formula_simpson}) e (\ref{eq:formula_simpson_composita}) con $n=4$.
 
 Con $\widehat\xi\approx\xi$ (\ref{eq:stimaErrFormQuadSimpN=2}) diviene
 \begin{equation}\label{eq:trasfXiToXi}
     I(f)-I_2(f)\approx\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4\cdot 16.
 \end{equation}
 
+Sottraendo (\ref{eq:trasfXiToXi}) da (\ref{eq:stimaErrFormQuadSimpCompN=4}) è ottenuto
+\begin{equation*}
+    I_2^{(4)}(f)-I_2(f)\approx\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4(16-1)\equiv E_2^{(4)}(f)\cdot 15.
+\end{equation*}
+Da questo risultato è ottenuto che l'errore di quadratura $E_2^{(4)}(f)$ può essere stimato come
+\begin{equation}
+    \boldsymbol{E_2^{(4)}(f)\approx\underbrace{\frac{I_2^{(4)}(f)-I_2(f)}{15}}_{\text{scalare}}}.
+\end{equation}
+
+\paragraph{Passo che genera la procedura adattiva:}
+
+\footnote{È importante notare, sarà fatto nell'esercitazione, che quando sono replicate le procedure, in modo ricorsivo, come vengono riciclate le valutazioni già calcolate, passandole come parametro, al fine di costruire l'albero ricorsivo.}
+Pertanto, è richiesta un'accuratezza $\boldsymbol{tol}$ per il calcolo di $I(f)$: se $\left|E_2^{(4)}(f)\right|\leq tol$ la procedura si arresta, altrimenti riapplicando stessa procedura sui due sottointervalli $\left[a,\frac{a+b}{2}\right]$ e $\left[\frac{a+b}{2},b\right]$, con tolleranza $\boldsymbol{tol/2}$.
+
+Ciò che è importante è notare che il procedimento è adattivo ed automatico. La formula dei trapezi è quella meno accurata. La formula di Simpson ha un ordine di accuratezza che è il quadrato di quello dei trapezi.
+Inoltre, osservando $E_1^{(n)}$ e $E_2^{(n)}$ è possibile notare che $E_1^{(n)}$ è quasi il quadrato di $E_2^{(n)}$. Questo deriva dal fatto che $\mu=2$, per la formula di Simpson e $\mu=1$ per la formula dei trapezi.
+
 \paragraph{Implementazione formula di quadratura di Simpson adattiva:} Vedere l'Algoritmo \ref{alg:formula_simpson_adattiva}.
+
+\begin{remark}
+	\footnote{Slide 10 PDF 27.} help \textbf{integral}.
+\end{remark}
+
 
 \begin{algorithm}\caption{Implementazione algoritmo adattivo di Simpson.}
 	\label{alg:formula_simpson_adattiva}
@@ -691,25 +713,6 @@ Con $\widehat\xi\approx\xi$ (\ref{eq:stimaErrFormQuadSimpN=2}) diviene
 		return
 	\end{lstlisting}
 \end{algorithm}
-
-Sottraendo (\ref{eq:trasfXiToXi}) da (\ref{eq:stimaErrFormQuadSimpCompN=4}) è ottenuto
-\begin{equation*}
-    I_2^{(4)}(f)-I_2(f)\approx\nu_2 f^{(4)}(\widehat\xi)\frac{b-a}{2}\left(\frac{b-a}{4}\right)^4(16-1)\equiv E_2^{(4)}(f)\cdot 15.
-\end{equation*}
-Da questo risultato è ottenuto che l'errore di quadratura $E_2^{(4)}(f)$ può essere stimato come
-\begin{equation}
-    \boldsymbol{E_2^{(4)}(f)\approx\underbrace{\frac{I_2^{(4)}(f)-I_2(f)}{15}}_{\text{scalare}}}.
-\end{equation}
-
-\footnote{È importante notare, sarà fatto nell'esercitazione, che quando sono replicate le procedure, in modo ricorsivo, come vengono riciclate le valutazioni già calcolate, passandole come parametro, al fine di costruire l'albero ricorsivo.}
-Pertanto, è richiesta un'accuratezza $\boldsymbol{tol}$ per il calcolo di $I(f)$: se $\left|E_2^{(4)}(f)\right|\leq tol$ la procedura si arresta, altrimenti riapplicando stessa procedura sui due sottointervalli $\left[a,\frac{a+b}{2}\right]$ e $\left[\frac{a+b}{2},b\right]$, con tolleranza $\boldsymbol{tol/2}$.
-
-Ciò che è importante è notare che il procedimento è adattivo ed automatico. La formula dei trapezi è quella meno accurata. La formula di Simpson ha un ordine di accuratezza che è il quadrato di quello dei trapezi.
-Inoltre, osservando $E_1^{(n)}$ e $E_2^{(n)}$ è possibile notare che $E_1^{(n)}$ è quasi il quadrato di $E_2^{(n)}$. Questo deriva dal fatto che $\mu=2$, per la formula di Simpson e $\mu=1$ per la formula dei trapezi.
-
-\begin{remark}
-    \footnote{Slide 10 PDF 27.} help \textbf{integral}.
-\end{remark}
 
 \begin{figure}
     \centering
