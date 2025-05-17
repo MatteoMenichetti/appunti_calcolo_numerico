@@ -257,7 +257,7 @@ Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
     
     L = ones(size(x));
     
-    zi=xi(i);
+    xii=xi(i);
     
     xi(i)=[];
     
@@ -267,7 +267,7 @@ Un'importante conseguenza dei punti P3) e P4) è il prossimo Teorema.
         L = L.*(x-xi(j));
     end
     
-    L = L / prod(x - xi);
+    L = L / prod(xii - xi);
     
     return
     \end{lstlisting}
@@ -775,69 +775,69 @@ Nel caso in cui siano fornite già le differenze divise allora è possibile elim
     \end{lstlisting}
 \end{algorithm}
 
-\paragraph{Intermezzo per la definizione della "Interpolazione di Hermite"}\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polinomio_interpolante_newton}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcP(x)} per calcolare $p(x)$.
+%\paragraph{Intermezzo utile per la definizione della "Interpolazione di Hermite"}\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polinomio_interpolante_newton}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcP(x)} per calcolare $p(x)$.
+%
+%\begin{algorithm}\caption{Pseudo-codice calcolo $p(x)$.}\label{alg:calcP(x)}
+%    \begin{algorithmic}
+%        \State $w_0\equiv 1$
+%        \State $p = 0$
+%        \For{i = 0 : n}
+%            \State $p = p + \omega_i * a_i$
+%            \State $\omega_{i+1} = \omega_i *(x - x_i)$
+%        \EndFor
+%    \end{algorithmic}
+%\end{algorithm}
+%
+%L'Algoritmo \ref{alg:calcP(x)} utilizza il fatto che le funzioni di base possano essere ottenute in modo iterativo, moltiplicando un termine di grado uno (il \gls{polinomio monico}). Pertanto, è meno efficiente dell'Algoritmo (di Horner generalizzato) \ref{alg:metodo_horner_modificato} in quanto effettua $4n\, flops$ ed utilizza una variabile di appoggio ($\omega$, la quale rappresenta $\omega_0,\,\omega_1,\,\omega_{i+1}$).
+%
+%Tuttavia, l'Algoritmo \ref{alg:calcP(x)} si presta facilmente per derivare un algoritmo per il calcolo della derivata prima di $p(x)$, la quale sarà significativa per gli argomenti che saranno trattati, ovvero:
+%\begin{equation*}
+%    \boldsymbol{p'(x)}=\sum_{i=0}^n\underset{\text{coeff.}}{a_i}\,\boldsymbol{\omega'_i(x)}=\sum_{\underset{\footnotemark}{i=1}}^na_i\,\boldsymbol{\omega'_i(x)}.
+%\end{equation*}
+%\footnotetext{Trasformazione in $i=1$ perché $\omega_0\equiv 1$ (vedere (\ref{eq:polinomio_base_newton})).}
+%
+%L'obbiettivo è derivare un algoritmo per il calcolo delle derivate $\omega'(x)$ e $p'(x)$. Per questo vedere la Sezione \ref{sssec:calcolo_derivata_prima}. %Ciò significa che le righe precedenti si riducono a derivare un algoritmo, relativamente efficiente, per il calcolo delle derivate prime dei polinomi di base di Newton.
 
-\begin{algorithm}\caption{Pseudo-codice calcolo $p(x)$.}\label{alg:calcP(x)}
-    \begin{algorithmic}
-        \State $w_0\equiv 1$
-        \State $p = 0$
-        \For{i = 0 : n}
-            \State $p = p + \omega_i * a_i$
-            \State $\omega_{i+1} = \omega_i *(x - x_i)$
-        \EndFor
-    \end{algorithmic}
-\end{algorithm}
-
-L'Algoritmo \ref{alg:calcP(x)} utilizza il fatto che le funzioni di base possano essere ottenute in modo iterativo, moltiplicando un termine di grado uno (il \gls{polinomio monico}). Pertanto, è meno efficiente dell'Algoritmo (di Horner generalizzato) \ref{alg:metodo_horner_modificato} in quanto effettua $4n\, flops$ ed utilizza una variabile di appoggio ($\omega$, la quale rappresenta $\omega_0,\,\omega_1,\,\omega_{i+1}$).
-
-Tuttavia, l'Algoritmo \ref{alg:calcP(x)} si presta facilmente per derivare un algoritmo per il calcolo della derivata prima di $p(x)$, la quale sarà significativa per gli argomenti che saranno trattati, ovvero:
-\begin{equation*}
-    \boldsymbol{p'(x)}=\sum_{i=0}^n\underset{\text{coeff.}}{a_i}\,\boldsymbol{\omega'_i(x)}=\sum_{\underset{\footnotemark}{i=1}}^na_i\,\boldsymbol{\omega'_i(x)}.
-\end{equation*}
-\footnotetext{Trasformazione in $i=1$ perché $\omega_0\equiv 1$ (vedere (\ref{eq:polinomio_base_newton})).}
-
-L'obbiettivo è derivare un algoritmo per il calcolo delle derivate $\omega'(x)$ e $p'(x)$. Ciò significa che le righe precedenti si riducono a derivare un algoritmo, relativamente efficiente, per il calcolo delle derivate prime dei polinomi di base di Newton.
-
-Inoltrepossibile osservare che il calcolo di $\omega_i(x)$ come
-\begin{equation*}
-    \omega_i(x)=\prod_{k=0}^{i-1}(x-x_k)
-\end{equation*}
-quindi
-\begin{equation*}
-	\omega'_i(x)=\sum_{k=0}^{i-1}\prod_{j=0,j\neq k}^{i-1}(x-x_j)
-\end{equation*}
-è dispendioso e poco efficiente, se calcolato in questo modo.
-
-\begin{example}
-    $\omega_2(x)=(x-x_0)(x-x_1) \rightarrow \omega'_2(x)=(x-x_0)+(x-x_1)$.
-\end{example}
-
-\begin{remark}
-    È possibile ottenere i polinomi, in modo ricorsivo, dall'Algoritmo \ref{alg:calcP'(x)} (ultima riga del for), ovvero:
-    \begin{equation*}
-        \begin{cases}
-            \omega_0(x)\equiv 1,\, \omega'_0(x)\equiv 0,\\
-            i\geq 1\,:\, \omega'_i(x)=\frac{\partial f}{\partial x}[\omega_{i-1}(x)(x-x_{i-1})] = \omega'_{i-1}(x)(x-x_{i-1})+\omega_{i-1}(x).
-        \end{cases}
-    \end{equation*}
-\end{remark}
-
-Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (dove $\omega_i$ rimane una variabile). L'algoritmo utilizza una variabile per la derivata, $\omega'_i$, ed una per il polinomio di base, $p'_i$. Pertanto, dato un polinomio, espresso con base di Newton, è noto come calcolarlo e con esso la sua derivata prima.
-
-\begin{algorithm}\caption{Algoritmo calcolo $p'(x)$.}\label{alg:calcP'(x)}
-    \begin{algorithmic}
-        \State $w_0=1,\, \omega'_0=0,\, p'=0$
-        \For{$i=1:n$}
-            \State $\omega'_i=\omega'_{i-1}+\omega'_{i-1}\cdot (x-x_{i-1})$
-            \State $\omega_i=\omega_{i-1}\cdot(x-x_{i-1})$
-            \State $p'=p'+a_i\cdot\omega'_i$
-        \EndFor
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{example}
-	Vedere Esercitazione Capitolo 4 e 5.
-\end{example}
+%Inoltrepossibile osservare che il calcolo di $\omega_i(x)$ come
+%\begin{equation*}
+%    \omega_i(x)=\prod_{k=0}^{i-1}(x-x_k)
+%\end{equation*}
+%quindi
+%\begin{equation*}
+%	\omega'_i(x)=\sum_{k=0}^{i-1}\prod_{j=0,j\neq k}^{i-1}(x-x_j)
+%\end{equation*}
+%è dispendioso e poco efficiente, se calcolato in questo modo.
+%
+%\begin{example}
+%    $\omega_2(x)=(x-x_0)(x-x_1) \rightarrow \omega'_2(x)=(x-x_0)+(x-x_1)$.
+%\end{example}
+%
+%\begin{remark}
+%    È possibile ottenere i polinomi, in modo ricorsivo, dall'Algoritmo \ref{alg:calcP'(x)} (ultima riga del for), ovvero:
+%    \begin{equation*}
+%        \begin{cases}
+%            \omega_0(x)\equiv 1,\, \omega'_0(x)\equiv 0,\\
+%            i\geq 1\,:\, \omega'_i(x)=\frac{\partial f}{\partial x}[\omega_{i-1}(x)(x-x_{i-1})] = \omega'_{i-1}(x)(x-x_{i-1})+\omega_{i-1}(x).
+%        \end{cases}
+%    \end{equation*}
+%\end{remark}
+%
+%Questa osservazione porta alla definizione dell'Algoritmo \ref{alg:calcP'(x)} (dove $\omega_i$ rimane una variabile). L'algoritmo utilizza una variabile per la derivata, $\omega'_i$, ed una per il polinomio di base, $p'_i$. Pertanto, dato un polinomio, espresso con base di Newton, è noto come calcolarlo e con esso la sua derivata prima.
+%
+%\begin{algorithm}\caption{Algoritmo calcolo $p'(x)$.}\label{alg:calcP'(x)}
+%    \begin{algorithmic}
+%        \State $w_0=1,\, \omega'_0=0,\, p'=0$
+%        \For{$i=1:n$}
+%            \State $\omega'_i=\omega'_{i-1}+\omega'_{i-1}\cdot (x-x_{i-1})$
+%            \State $\omega_i=\omega_{i-1}\cdot(x-x_{i-1})$
+%            \State $p'=p'+a_i\cdot\omega'_i$
+%        \EndFor
+%    \end{algorithmic}
+%\end{algorithm}
+%
+%\begin{example}
+%	Vedere Esercitazione Capitolo 4 e 5.
+%\end{example}
 
 \subsection{Interpolazione di Hermite}\footnote{Slide 4-11 PDF 18, PG 84-86.}
 [Problema:] Supposto di avere un polinomio interpolante una funzione su un numero pari ($2n+2$) di ascisse, quest'ultime sono numerate come segue:
@@ -955,47 +955,6 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
     \end{equation}
 \end{remark}
 
-\paragraph{Calcolo differenze divise polinomio di Hermite:}{È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:differenze_divise_polinomio_hermite}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivalenza_approx_f'_hermite}).
-
-\noindent Inoltre, è possibile calcolare $p_H(x)$ tramite una versione modificata dell'algoritmo di Horner generalizzato (Algoritmo \ref{alg:metodo_horner_modificato}), nella quale è utilizzato un vettore delle ascisse $x=[x_0\, x_0\, x_1\, x_1\, \hdots\, x_{n-1}\, x_{n-1}\,x_n]$, a patto di conoscere le differenze divise (ovvero i coefficienti del polinomio). Dato che le ascisse sono duplicate, nel ciclo implementato per il calcolo del polinomio, sarà contato fino ad $2n+1$. Il $+1$ è dovuto al fatto che $x_n$ è ripetuta solo una volta.}
-
-\begin{algorithm}
-\caption{Polinomio di Hermite: calcolo delle differenze divise}\label{alg:differenze_divise_polinomio_hermite}
-    \begin{lstlisting}[style=Matlab-editor]
-    	function f = differenze_divise_hermite(f, x)
-    	%
-    	% function f = differenze_divise_hermite(f, x)
-    	%
-    	%	INPUT:
-    	%	- f, vettore delle immagini della funzione attraverso le ascisse di
-    	%	interpolazione (f(x0), f'(x0), ..., f(xn) f'(xn))
-    	%	- x, vettore contente le ascisse di interpolazione
-    	%
-    	%	OUTPUT:
-    	%	- f, vettore contente le differenze divise
-    	%
-    	
-    	if nargin < 2, error('numero di argomenti insufficienti'), end
-    	
-    	n = length(x);
-    	
-    	if length(f) ~= n, error('dati inconsistenti'), end
-    	
-    	for i = (2 * n + 1) : -2 : 3
-    		f(i) = (f(i) - f(i-2)) / (x(i) - x(i-1));
-    	end
-    	
-    	for j = 2 : 2 * n + 1
-    		for i = (2 * n + 2) : -1 : j+1
-    			f(i) = (f(i) - f(i-1)) / (x(i) - x(i-j));
-    		end
-    	end
-    	
-    	return
-    	end
-    \end{lstlisting}
-\end{algorithm} 
-
 \begin{example}
     Considerando il caso in cui $\boldsymbol{n=1}$, il polinomio ha grado 3 (seguendo la "formula" del calcolo del grado $(2n+1)$), e tornando al caso in cui sono presenti le ascisse $x_{i+\frac{1}{2}}$ (quindi al caso in cui le ascisse sono duplicate):
     \begin{center}
@@ -1078,11 +1037,122 @@ Il risultato dell'osservazione è ottenuto immaginando di avere il doppio delle 
 	Inoltre, dato che $f[0,0,\pi]$ e $f[0, \pi, \pi]$ sono uguali, in questo caso il polinomio $p$ avrà grado 2 (anche se potrebbe essere grado 3).]
 \end{example}
 
+\begin{remark}
+	Nella tabella precedente, utilizzata per il calcolo delle differenze divise, il vettore delle ascisse uilizzato è del tipo $x=[x_0\, x_0\, x_1\, x_1 \hdots x_{\boldsymbol n}\, x_{\boldsymbol n}].$
+\end{remark}
+
+\subsubsection{Calcolo differenze divise polinomio di Hermite}
+È possibile calcolare i coefficienti del polinomio, ovvero le differenze divise, con l'Algoritmo \ref{alg:differenze_divise_polinomio_hermite}, una variante dell'Algoritmo \ref{alg:calcolo_differenze_divise}, tenendo di conto di (\ref{eq:equivalenza_approx_f'_hermite}).
+	
+\noindent Inoltre, è possibile calcolare $p_H(x)$ tramite una versione modificata dell'algoritmo di Horner generalizzato (Algoritmo \ref{alg:metodo_horner_modificato}), nella quale è utilizzato un vettore delle ascisse $x=[x_0\, x_0\, x_1\, x_1\, \hdots\, x_{n-1}\, x_{n-1}\,x_n]$, a patto di conoscere le differenze divise (ovvero i coefficienti del polinomio). Dato che le ascisse sono duplicate, nel ciclo implementato per il calcolo del polinomio, sarà contato fino ad $2n+1$. Il $+1$ è dovuto al fatto che $x_n$ è ripetuta solo una volta.
+
+\begin{algorithm}
+	\caption{Polinomio di Hermite: calcolo delle differenze divise}\label{alg:differenze_divise_polinomio_hermite}
+	\begin{lstlisting}[style=Matlab-editor]
+		function f = differenze_divise_hermite(f, x)
+		%
+		% function f = differenze_divise_hermite(f, x)
+		%
+		%	INPUT:
+		%	- f, vettore delle immagini della funzione attraverso le ascisse di
+		%	interpolazione (f(x0), f'(x0), ..., f(xn) f'(xn))
+		%	- x, vettore contente le ascisse di interpolazione
+		%
+		%	OUTPUT:
+		%	- f, vettore contente le differenze divise
+		%
+		
+		if nargin < 2, error('numero di argomenti insufficienti'), end
+		
+		n = length(x);
+		
+		if length(f) ~= n, error('dati inconsistenti'), end
+		
+		for i = (2 * n + 1) : -2 : 3
+		f(i) = (f(i) - f(i-2)) / (x(i) - x(i-1));
+		end
+		
+		for j = 2 : 2 * n + 1
+		for i = (2 * n + 2) : -1 : j+1
+		f(i) = (f(i) - f(i-1)) / (x(i) - x(i-j));
+		end
+		end
+		
+		return
+		end
+	\end{lstlisting}
+\end{algorithm} 
+
 È possibile modificare leggermente l'algoritmo classico per il calcolo delle differenze divise (ovvero l'Algoritmo \ref{alg:calcolo_differenze_divise}), in modo che, dove sono presenti ascisse ripetute, sia utilizzato il corrispondente valore della derivata della funzione $f(x)$, come appena esposto. In questo modo sono presenti tutti gli elementi per implementare efficientemente il calcolo del polinomio interpolante di Hermite nella sua forma di Newton.
 
+\subsubsection{Calcolo della derivata prima}\label{sssec:calcolo_derivata_prima}
+%%%%
+\footnote{Slides 1-3 PDF 18.} Dato il polinomio interpolante in forma di Newton (\ref{eq:polinomio_interpolante_newton}) allora è possibile utilizzare l'Algoritmo \ref{alg:calcolo_polinomio_interpolante} per calcolare $p(x)$.
+
+\begin{algorithm}\caption{Pseudo-codice calcolo $p(x)$.}\label{alg:calcolo_polinomio_interpolante}
+	\begin{algorithmic}
+		\State $w_0\equiv 1$
+		\State $p = 0$
+		\For{i = 0 : n}
+		\State $p = p + \omega_i * a_i$
+		\State $\omega_{i+1} = \omega_i *(x - x_i)$
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Nota sull'Algoritmo \ref{alg:calcolo_polinomio_interpolante}:} l'Algoritmo utilizza il fatto che le funzioni di base possano essere ottenute in modo iterativo, moltiplicando un termine di grado uno (il \gls{polinomio monico}). Pertanto, è meno efficiente dell'Algoritmo (di Horner generalizzato) \ref{alg:metodo_horner_modificato} in quanto effettua $4n\, flops$ ed utilizza una variabile di appoggio ($\omega$, la quale rappresenta $\omega_0,\,\omega_1,\,\omega_{i+1}$).
+
+\noindent Tuttavia, l'Algoritmo \ref{alg:calcolo_polinomio_interpolante} si presta facilmente per derivare un algoritmo per il calcolo della derivata prima di $p(x)$. E' spiegato come.
+%%%
+
+Dato il polinomio
+\begin{equation*}
+	p(x) = \sum_{i=0}^{n} a_i \omega_i(x),
+\end{equation*}
+in cui $\omega_i(x) = (x-x_i)\cdot \omega_{i-1}(x),\, i = 1, \hdots, n,\, \omega_0(x) \equiv 1 $, con le ascisse $x_0,\hdots, n$ non necessariamente distinte e i coefficienti $a_0,\hdots, a_n$ noti, l'obbiettivo e' calcolare la derivata prima del polinomio, ovvero
+\begin{equation*}
+	p'(x) = \sum_{i=0}^{n} a_i \omega_i'(x),
+\end{equation*}
+
+\paragraph{N.B.:} i coefficienti $a_0,\hdots, a_n$ da utilizzare sono le differenze divise.
+
+\noindent E' noto che il polinomio $p(x)$ puo' esser calcolato come:
+\begin{equation}\label{eq:iterazione_calcolo_derivata}
+	\begin{matrix}
+		p_n &=& a_n\\
+		p_i &=& (x-x_i)\cdot p_{i+1} + a_i, && i = n-1, \hdots, 0.
+	\end{matrix}
+\end{equation}
+
+\noindent Da questa iterazione e' ottenuto quanto segue:
+\begin{equation}\label{eq:iterazione_calcolo_derivata1}
+	\begin{matrix}
+		p_n' &=& 0\\
+		p_i' &=& p_{i+1} + (x-x_i) \cdot p_{i+1}', && i = n-1, \hdots, 0.
+	\end{matrix}
+\end{equation}
+
+\noindent Da (\ref{eq:iterazione_calcolo_derivata})-(\ref{eq:iterazione_calcolo_derivata1}) e' ottenuto l'Algoritmo \ref{alg:calcolo_derivata_polinomio_interpolante}.
+
 \begin{remark}
-    Nella tabella precedente, utilizzata per il calcolo delle differenze divise, il vettore delle ascisse uilizzato è del tipo $x=[x_0\, x_0\, x_1\, x_1 \hdots x_{\boldsymbol n}\, x_{\boldsymbol n}].$
+	Osservazioni sull'Algoritmo \ref{alg:calcolo_derivata_polinomio_interpolante}:
+	\begin{enumerate}
+		\item Non e' necessario conservare tutti i $p_i$ e $p_i'$, quindi sono necessarie due variabili, $p$ e $p_1$ (in questo caso, l'orine e' necessario sia quello specificato dall'Algoritmo \ref{alg:calcolo_derivata_polinomio_interpolante});
+		\item E' possibile ottenere una versione vettoriale dell'Algoritmo \ref{alg:calcolo_derivata_polinomio_interpolante} nel caso in cui $x$ sia un vettore di ascisse;
+		\item $p(x) \equiv p_0,\; p'(x)\equiv p_0'$.
+	\end{enumerate}
 \end{remark}
+
+\begin{algorithm}\caption{Algoritmo calcolo $p'(x)$.}\label{alg:calcolo_derivata_polinomio_interpolante}
+    \begin{algorithmic}
+	        \State $p_n = a_n$
+	        \State $p_n'=0$
+	        \For{$i=n-1:-1:0$}
+	            \State $p_i' = p_{i+1} + (x - x_i)\cdot p_{i+1}'$
+	            \State $p_i = (x - x_i) \cdot p_{i+1} + a_i$
+	        \EndFor
+	    \end{algorithmic}
+\end{algorithm}
 
 \subsection{Errore nell'interpolazione polinomiale}\label{ssec:errore_interpolazione_polinomiale}\footnote{Slide 2-23 PDF 19, PG 86-87.}
 È necessario studiare il comportamento della funzione errore $e$ definita come segue.
@@ -1247,7 +1317,7 @@ Data l'interpolazione di Hermite su $n+1$ ascisse (il polinomio interpolante di 
 
 Con funzioni "buone" è possibile aspettarsi che $p(x)$ approssimi sempre meglio $f(x)$, per $n\rightarrow\infty$.
 
-Come misura dell'errore, negli esempi che seguono, è considerata la norma infinito:
+\paragraph{Quale stima dell'errore utilizare (incluso nel progetto)?}Come misura dell'errore, negli esempi che seguono, è considerata la norma infinito:
 \begin{equation*}
     ||e||\overset{\footnotemark}{=} \overbrace{\underset{\boldsymbol{a\leq x\leq b}}{\max}|\underbrace{f(x)-p(x)}_{e(x)}|}^{\footnotemark}\approx \underset{\boldsymbol{x=a+i\frac{b-a}{N},\, i=0,\hdots,N}}{\max}|e(x_i)|,\quad N>>1\; (N=\boldsymbol{10000}).
 \end{equation*}
