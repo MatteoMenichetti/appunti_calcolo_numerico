@@ -1319,7 +1319,7 @@ Con funzioni "buone" è possibile aspettarsi che $p(x)$ approssimi sempre meglio
 
 \paragraph{Quale stima dell'errore utilizare (incluso nel progetto)?}Come misura dell'errore, negli esempi che seguono, è considerata la norma infinito:
 \begin{equation*}
-    ||e||\overset{\footnotemark}{=} \overbrace{\underset{\boldsymbol{a\leq x\leq b}}{\max}|\underbrace{f(x)-p(x)}_{e(x)}|}^{\footnotemark}\approx \underset{\boldsymbol{x=a+i\frac{b-a}{N},\, i=0,\hdots,N}}{\max}|e(x_i)|,\quad N>>1\; (N=\boldsymbol{10000}).
+    ||e||\overset{\footnotemark}{\approx} \overbrace{\underset{\boldsymbol{a\leq x\leq b}}{\max}|\underbrace{f(x)-p(x)}_{e(x)}|}^{\footnotemark}\approx \underset{\boldsymbol{x=a+i\cdot\frac{b-a}{N},\, i=0,\hdots,N}}{\max}|e(x_i)|,\quad N>>1\; (N=\boldsymbol{10000}).
 \end{equation*}
 \addtocounter{footnote}{-1}
 \footnotetext{Norma uniforme, ovvero continua nell'intervallo $[a,b]$.}
