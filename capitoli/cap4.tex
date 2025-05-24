@@ -2250,7 +2250,7 @@ dove
 		& b_2 & a_3 & c_3 & &\\
 		& & b_3 &\ddots & \ddots &\\
 		& & & \ddots & \ddots & c_{n-1}\\
-		& & & &  b_n & a_n
+		& & & &  b_{n-1} & a_n
 	\end{bmatrix}
 	\in\mathbb{R}^{n\times n}
 \end{equation*}
@@ -2373,21 +2373,26 @@ Per determinare un algoritmo efficiente per il calcolo di una spline cubica, olt
 
 In particolare saranno esaminati gli algoritmi per il calcolo delle spline cubiche naturali e not-a-knot. Sarà altresì trattato come, utilizzando questi argomenti, con piccoli cambiamenti, possono essere ottenute le spline naturali e complete. È necessario individuare quali siano le condizioni, in termini di $m_i$ definiti tramite (\ref{eq:s''3(xi)}), che caratterizzano l'un l'altra.
 
+\paragraph{Spline cubica naturale:}
 Il calcolo della spline cubica naturale è semplice ed, inoltre, è stato trattato come le condizioni imposte riguardino l'annullamento della derivata seconda, negli estremi $a$ e $b$. L'annullamento della derivata seconda e la notazione (\ref{eq:s''3(xi)}) implicano che, per una \textbf{spline cubica naturale}, le condizioni diventino
 \begin{equation}\label{eq:condizione_spline_naturale}
     \boldsymbol{m_0=0=m_n}.
 \end{equation}
 
-Imponendo (\ref{eq:ampiezza_partizione}), \textbf{le condizioni aggiuntive della spline not-a-knot}, ovvero degli estremi sinistro e destro (\ref{eq:condizione_spline_cubica_not_a_knot}), diventano
+\paragraph{Spline cubica not-a-knot:} Imponendo  \textbf{le condizioni aggiuntive della spline not-a-knot} (\ref{eq:condizione_spline_cubica_not_a_knot}) e considerando gli estremi sinistro e destro con la notazione (\ref{eq:ampiezza_partizione}), le condizioni aggiuntive diventano
 \begin{equation*}
     \frac{m_1-m_0}{h_1}=\frac{m_2-m_1}{h_2},\quad \frac{m_{n-1}-m_{n-2}}{h_{n-1}}=\frac{m_n-m_{n-1}}{h_n}
 \end{equation*}
-ovvero $h_2(m_1-m_0)=h_1(m_2-m_1),\, h_{n}(m_{n-1}-m_{n-2})=h_{n-1}(m_{n}-m_{n-1})$, dalle quali sono ottenute le condizioni
+ovvero
+\begin{equation*}
+	h_2(m_1-m_0)=h_1(m_2-m_1),\, h_{n}(m_{n-1}-m_{n-2})=h_{n-1}(m_{n}-m_{n-1}).
+\end{equation*}
+Da queste sono ottenute le condizioni aggiuntive della spline cubica not-a-knot
 \begin{equation}\label{eq:condizione_spline_cubica_not_a_knot2}
     \boldsymbol{h_2m_0-(h_1+h_2)m_1+h_1m_2=0}\quad\boldsymbol{h_{n-1}m_n-(h_{n-1}+h_n)m_{n-1}+h_nm_{n-2}=0}.
 \end{equation}
 
-\textbf{(\ref{eq:condizione_spline_cubica_not_a_knot2}) sono le condizioni aggiuntive per le spline not-a-knot}.
+\paragraph{Nota:} \textbf{Le condizioni aggiuntive della spline not-a-knot (\ref{eq:condizione_spline_cubica_not_a_knot2}) sono le condizioni da utilizzare per il calcolo pratico di una spline not-a-knot}.
 
 Riguardo le altre condizioni $\{m_i\}$, è possibile osservare che, se $s_3(x)$ è una spline cubica sulla partizione $\Delta$, allora $s'_3(x)$ è una spline di grado 2 sulla stessa partizione, e $s''_3(x)$ è una spline lineare su $\Delta$. Pertanto, essendo $s''(x)$ una spline lineare, da (\ref{eq:spline_lineare}) e (\ref{eq:s''3(xi)}), è ottenuto che
 \begin{equation*}
