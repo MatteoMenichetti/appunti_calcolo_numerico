@@ -388,8 +388,8 @@ Più passi vengono calcolati, più $x_i$ si avvicina a $x^*$.
 
 \paragraph{Osservazioni sul metodo:} La soluzione al problema (\ref{eq:radice_equazione}) è ottenuta risolvendo \gls{equazioni lineari}. Nel caso in cui $f(x)$ sia una \gls{funzione lineare} allora il metodo di Newton fornisce la soluzione in un solo passo.
 
-\paragraph{Costo computazionale:}È possibile osservare che il metodo di Newton ha un costo per iterazione di 2 valutazioni funzionali (il metodo di bisezione ne richiede una): è necessario calcolare $f(x)$ ed $f'(x)$, in quanto ad ogni passo/iterazione cambia l'input ($x_0, x_1, x_2, \hdots$).
-Inoltre, mentre il metodo di bisezione richiede solo la continuità della funzione $f$, per il metodo di Newton è richiesto che $f$ sia, oltre che continua, derivabile (ovvero $f\in C^{(2)}$).
+\paragraph{Costo computazionale:} È possibile osservare che il metodo di Newton ha un costo per iterazione di 2 valutazioni funzionali (il metodo di bisezione ne richiede una): è necessario calcolare $f(x)$ ed $f'(x)$, in quanto ad ogni passo/iterazione cambia l'input ($x_0, x_1, x_2, \hdots$).
+Inoltre, mentre il metodo di bisezione richiede solo la continuità della funzione $f$ nell'intorno della radice ($f\in C^0([a,b])$), per il metodo di Newton è richiesto che $f$ abbia derivata continua nell'intorno della radice (ovvero $f\in C^{(2)}([a,b])$).
 Il costo computazionale maggiore e maggiori requisiti del metodo, rispetto al metodo di bisezione, sono compensati dall'elevato ordine di convergenza del metodo.
 
 \subsubsection{Convergenza}
