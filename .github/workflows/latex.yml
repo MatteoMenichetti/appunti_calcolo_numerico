@@ -1,0 +1,66 @@
+name: Build LaTeX PDF
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-pdf:
+    name: Compile LaTeX to PDF
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up TeX Live environment
+    - name: Install TeX Live and required packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install texlive-full
+        
+    # Step 3: Compile LaTeX to PDF (First Pass)
+    - name: First LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode CN.tex || true
+
+    # Step 4: Run makeglossaries
+    - name: Run makeglossaries
+      run: makeglossaries CN || true
+    # Step 5: Compile LaTeX to PDF (Second Pass)
+    - name: Second LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode CN.tex || true
+
+    # Step 6: Compile LaTeX to PDF (Final Pass)
+    - name: Final LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode CN.tex || true
+
+    # Step 7: Upload the artifact
+    - name: Upload PDF
+      uses: actions/upload-artifact@v4
+      with:
+        name: CN-pdf
+        path: ./CN.pdf
+    # Step 8: Download the artifact (example usage of download-artifact)
+    - uses: actions/download-artifact@v5
+      with:
+        # Name of the artifact to download.
+        # If unspecified, all artifacts for the run are downloaded.
+        # Optional.
+        name: CN-pdf
+
+        # Destination path. Supports basic tilde expansion.
+        # Optional. Default is $GITHUB_WORKSPACE
+        path: $GITHUB_WORKSPACE
+        
+    - uses: ncipollo/release-action@v1
+      with:
+        tag: "build-${{ github.run_number }}"
+        name: "Rilascio build-${{ github.run_number }}"
+        artifacts: "./CN.pdf"
+        commit: ${{ github.sha }}
