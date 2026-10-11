@@ -61,9 +61,40 @@ dove $c$ è la costante asintotica dell'errore. Per $n>>1\Rightarrow e_{n+1}\app
 
 \paragraph{7.}\footnote{Slide 7 PDF 13.} Il metodo di Newton è ottenuto ricercando, ad ogni passo, la radice della retta tangente al grafico della funzione nell'approssimazione corrente (come in Figura \ref{fig:approxNewtEs10}).
 
-\begin{figure}
+%\begin{figure}
+	%\centering
+	%\includegraphics[width=0.5\textwidth]{immagini/approxNewtEs10.jpg}
+	%\caption{Approssimazione Esercizio 10.}\label{fig:approxNewtEs10}
+%\end{figure}
+
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{immagini/approxNewtEs10.jpg}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		line cap=round,
+		line join=round,
+		>=Stealth
+		]
+		% Assi cartesiani
+		\draw[very thick,->] (-0.75,0) -- (7.45,0) node[right] {$x$};
+		\draw[very thick,->] (0,-0.65) -- (0,6.20) node[above] {$y$};
+		
+		% Grafico crescente di f
+		% La curva resta sopra la tangente e la incontra solo per x=x_n=5.
+		% La curvatura è accentuata, mantenendo invariata la tangente in x_n.
+		\draw[red,very thick,domain=-0.75:6.50,samples=100]
+		plot (\x,{1.4*(\x-2.4)+(\x-5)^2*(0.12+0.09*exp(-0.25*(\x-5)^2))});
+		\node[font=\large,anchor=west] at (6.55,5.86) {$f(x)$};
+		
+		% Retta tangente nel punto (x_n,f(x_n))
+		\draw[black,very thick] (2.40,0) -- (6.72,6.048);
+		\draw[red,very thick] (5.00,-0.14) -- (5.00,0.14);
+		\node[red,below=4pt] at (5.00,0) {$x_n$};
+		\fill[black] (5.00,3.64) circle[radius=3pt];
+		\node[font=\large,anchor=west] at (5.18,3.48)
+		{$(x_n,f(x_n))$};
+	\end{tikzpicture}
 	\caption{Approssimazione Esercizio 10.}\label{fig:approxNewtEs10}
 \end{figure}
 

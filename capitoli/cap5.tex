@@ -187,10 +187,47 @@ ed utilizzando la seguente espressione
 	\end{definition}
 \end{enumerate}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/grafFormTrapezi.png}
-    \caption{Esempio del metodo dei trapezi ($f(a)$, $b-a$ ed $f(b)$ sono lunghezze).}\label{fig:grafico_formula_trapezi}
+%\begin{figure}
+   % \centering
+    %\includegraphics[width=0.5\textwidth]{immagini/grafFormTrapezi.png}
+    %\caption{Esempio del metodo dei trapezi ($f(a)$, $b-a$ ed $f(b)$ sono lunghezze).}\label{fig:grafico_formula_trapezi}
+%\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[
+		x=1.10cm,
+		y=1.00cm,
+		line cap=round,
+		line join=round,
+		>=Stealth
+		]
+		\draw[very thick,->] (-0.45,0) -- (7.05,0) node[right] {$x$};
+		\draw[very thick,->] (0,-0.58) -- (0,4.65) node[above] {$y$};
+		\begin{scope}
+			\clip (1.20,0) -- (6.20,0) -- (6.20,3.85) -- (1.20,1.90) -- cycle;
+			\foreach \s in {1.25,1.95,...,5.45}
+			\draw[blue,very thick] (\s,0.12) -- ({\s+1.65},3.45);
+		\end{scope}
+		\draw[very thick] (1.20,0) -- (1.20,1.90);
+		\draw[very thick] (6.20,0) -- (6.20,3.85);
+		\draw[black,very thick] (1.20,1.90) -- (6.20,3.85);
+		\draw[red!75,very thick]
+		(1.20,1.90) .. controls (1.70,3.05) and (2.30,4.05) .. (3.10,3.65)
+		.. controls (4.00,3.18) and (4.50,2.75) .. (5.15,3.10)
+		.. controls (5.65,3.38) and (5.92,3.67) .. (6.20,3.85);
+		\draw[green!65!black,very thick] (0.82,0) -- (0.82,1.90);
+		\draw[green!65!black,very thick] (6.55,0) -- (6.55,3.85);
+		\draw[green!65!black,very thick,<->] (1.30,-0.3) -- (6.10,-0.3);
+		\node[anchor=east] at (1.40,2.12) {$(a,f(a))$};
+		\node[anchor=west] at (5.78,4.08) {$(b,f(b))$};
+		\node[green!65!black,anchor=east] at (0.868,0.95) {$f(a)$};
+		\node[green!65!black,anchor=west] at (6.65,2.00) {$f(b)$};
+		\node[below=2pt] at (1.20,0) {$a$};
+		\node[below=2pt] at (6.20,0) {$b$};
+		\node[green!65!black,below=8pt] at (3.70,-0.25) {$b-a$};
+	\end{tikzpicture}
+	\caption{Esempio del metodo dei trapezi ($f(a)$, $b-a$ ed $f(b)$ sono lunghezze).}\label{fig:grafico_formula_trapezi}
 \end{figure}
 
 \subsubsection{Condizionamento di una formula di Newton-Cotes}
