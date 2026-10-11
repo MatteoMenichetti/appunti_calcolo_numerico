@@ -8,10 +8,48 @@ In molte applicazioni è richiesto di approssimare una funzione $f:[a,b]\rightar
 
 L'interpolazione polinomiale è l'interpolazione di una serie di valori (ad esempio dei dati sperimentali) con una funzione polinomiale che passa per i punti dati. Sono utilizzati i polinomi per approssimare una funzione in quanto appartengono sono funzioni facilmente calcolabili.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
-	\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
+%\begin{figure}
+	%\centering
+	%\includegraphics[width=0.5\textwidth]{immagini/GraficoAscisseInterpolazione.png}
+	%\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
+%\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+	x=1.935cm,
+	y=1.735cm,
+	line cap=round,
+	line join=round,
+	>=Stealth
+	]
+	% Assi cartesiani e curva interpolata
+	\draw[very thick,->] (-0.45,0) -- (4.10,0) node[right] {$x$};
+	\draw[very thick,->] (0,-0.48) -- (0,2.80);
+	
+	% Nodi iniziale e finale sulla curva
+	\coordinate (Xzero) at (1.25,1.48);
+	\coordinate (Xn) at (3.05,2.37);
+	\draw[red!75,very thick]
+	(0.78,0.88)
+	.. controls (0.95,1.12) and (1.06,1.37) .. (Xzero)
+	.. controls (1.82,1.92) and (2.52,2.25) .. (Xn)
+	.. controls (3.30,2.46) and (3.56,2.48) .. (3.72,2.49);
+	\fill[blue!75] (Xzero) circle[radius=3pt];
+	\fill[blue!75] (Xn) circle[radius=3pt];
+	
+	% Ascisse a, x_0, ..., x_n, b
+	\draw[very thick] (0.80,-0.09) -- (0.80,0.09);
+	\draw[blue!75,very thick] (1.25,-0.16) -- (1.25,0.16);
+	\draw[blue!75,very thick] (3.05,-0.16) -- (3.05,0.16);
+	\draw[very thick] (3.55,-0.09) -- (3.55,0.09);
+	\node[below=4pt] at (0.80,0) {$a$};
+	\node[blue!75,below=4pt] at (1.25,0) {$x_0$};
+	\node[blue!75,below=4pt] at (2.15,0) {$\cdots$};
+	\node[blue!75,below=4pt] at (3.05,0) {$x_n$};
+	\node[below=4pt] at (3.55,0) {$b$};
+\end{tikzpicture}
+\caption{\label{fig:GraficoAscisseInterp} Esempio delle ascisse (\ref{eq:ascisse_interpolazione})}
 \end{figure}
 
 \subsection{Polinomio Interpolante}
@@ -1173,12 +1211,107 @@ in cui $\omega_i(x) = (x-x_i)\cdot \omega_{i-1}(x),\, i = 1, \hdots, n,\, \omega
 	\end{equation}
 \end{definition}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/ErrorePolinomioHermite.png}
-    \caption{Esempio dell'errore $e$ del polinomio Hermite $p$ rispetto a $f$.}
-    \label{fig:errore_polinomio_hermite}
-\end{figure}
+%\begin{figure}
+   % \centering
+    %\includegraphics[width=0.5\textwidth]{immagini/ErrorePolinomioHermite.png}
+    %\caption{Esempio dell'errore $e$ del polinomio Hermite $p$ rispetto a $f$.}
+    %\label{fig:errore_polinomio_hermite}
+%\end{figure}
+ 
+ \begin{figure}[ht]
+ 	\centering
+ 	\begin{tikzpicture}[
+ 		x=1.15cm,
+ 		y=1.15cm,
+ 		line cap=round,
+ 		line join=round,
+ 		>=Stealth
+ 		]
+ 		% Assi cartesiani
+ 		\draw[very thick,->] (-0.45,0) -- (7.85,0);
+ 		\draw[very thick,->] (0,-0.62) -- (0,3.55);
+ 		
+ 		% Nodi di interpolazione
+ 		\coordinate (Xzero) at (1.55,1.10);
+ 		\coordinate (Xone)  at (3.35,2.15);
+ 		\coordinate (Xtwo)  at (5.15,2.08);
+ 		\coordinate (Xthree) at (6.95,2.62);
+ 		
+ 		% Errore nel primo intervallo: p(x) sopra f(x)
+ 		\begin{scope}
+ 			\clip
+ 			(Xzero)
+ 			.. controls (2.20,2.52) and (2.82,2.72) .. (Xone)
+ 			.. controls (2.80,2.05) and (2.20,1.80) .. (Xzero)
+ 			-- cycle;
+ 			\foreach \s in {1.25,1.58,...,3.42}
+ 			\draw[yellow!80!orange,very thick]
+ 			(\s,0.72) -- ({\s+0.62},2.92);
+ 		\end{scope}
+ 		
+ 		% Errore nel secondo intervallo: f(x) sopra p(x)
+ 		\begin{scope}
+ 			\clip
+ 			(Xone)
+ 			.. controls (4.00,2.35) and (4.65,1.95) .. (Xtwo)
+ 			.. controls (4.65,0.90) and (4.00,0.75) .. (Xone)
+ 			-- cycle;
+ 			\foreach \s in {3.10,3.43,...,5.35}
+ 			\draw[yellow!80!orange,very thick]
+ 			(\s,0.72) -- ({\s+0.62},2.92);
+ 		\end{scope}
+ 		
+ 		% Errore nel terzo intervallo: p(x) sopra f(x)
+ 		\begin{scope}
+ 			\clip
+ 			(Xtwo)
+ 			.. controls (5.80,3.30) and (6.45,3.25) .. (Xthree)
+ 			.. controls (6.45,2.35) and (5.80,1.95) .. (Xtwo)
+ 			-- cycle;
+ 			\foreach \s in {4.95,5.28,...,7.15}
+ 			\draw[yellow!80!orange,very thick]
+ 			(\s,1.52) -- ({\s+0.62},3.52);
+ 		\end{scope}
+ 		
+ 		% Funzione f(x)
+ 		\draw[green!65!black,very thick]
+ 		(-0.10,-0.55)
+ 		.. controls (0.40,0.25) and (0.85,0.70) .. (Xzero)
+ 		.. controls (2.20,1.80) and (2.80,2.05) .. (Xone)
+ 		.. controls (4.00,2.35) and (4.65,1.95) .. (Xtwo)
+ 		.. controls (5.80,1.95) and (6.45,2.35) .. (Xthree)
+ 		.. controls (7.25,2.72) and (7.48,2.86) .. (7.62,2.92);
+ 		
+ 		% Polinomio interpolante p(x)
+ 		\draw[blue,very thick]
+ 		(0.78,-0.55)
+ 		.. controls (1.12,-0.18) and (1.22,0.55) .. (Xzero)
+ 		.. controls (2.20,2.52) and (2.82,2.72) .. (Xone)
+ 		.. controls (4.00,0.75) and (4.65,0.90) .. (Xtwo)
+ 		.. controls (5.80,3.30) and (6.45,3.25) .. (Xthree)
+ 		.. controls (7.20,2.08) and (7.42,1.90) .. (7.55,1.82);
+ 		
+ 		% Punti comuni tra funzione e polinomio
+ 		\foreach \P in {Xzero,Xone,Xtwo,Xthree}
+ 		\fill[red!75] (\P) circle[radius=3pt];
+ 		
+ 		% Tacche e nomi dei nodi sull'asse x
+ 		\foreach \xx/\name in {1.55/x_0,3.35/x_1,5.15/x_2,6.95/x_3}{
+ 			\draw[red!70,very thick] (\xx,-0.12) -- (\xx,0.10);
+ 			\node[red!70,font=\large,below=5pt] at (\xx,0) {$\name$};
+ 		}
+ 		
+ 		% Etichette delle curve e dell'errore
+ 		\node[green!65!black,font=\Large,anchor=west]
+ 		at (7.40,3.10) {$f(x)$};
+ 		\node[blue,font=\Large,anchor=west]
+ 		at (7.38,1.55) {$p(x)$};
+ 		\node[yellow!70!orange,font=\Large,fill=white,inner sep=1pt]
+ 		at (4.28,1.78) {$e(x)$};
+ 	\end{tikzpicture}
+ 	\caption{Errore del polinomio interpolante di Hermite tra nodi consecutivi.}
+ 	\label{fig:errore_polinomio_hermite}
+ \end{figure}
  
 \begin{remark}
     \footnote{Slide 3, PDF 19. Da (\ref{eq:condizioni_interpolazione}) segue l'osservazione.} $e(x_i)=f(x_i)-p(x_i)=f(x_i)-f(x_i)=0,\; i=0,\hdots,n.$
@@ -1305,10 +1438,50 @@ Dal Teorema \ref{th:errore_interpolazione_forma_newton}, vale il seguente coroll
     \end{itemize}
 \end{remark}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{immagini/es. n=2.png}
-    \caption{\label{fig:osservazione_errore_interpolazione} Esempio con numero di ascisse $n=2$.}
+%\begin{figure}
+    %\centering
+    %\includegraphics[width=0.5\textwidth]{immagini/es. n=2.png}
+    %\caption{\label{fig:osservazione_errore_interpolazione} Esempio con numero di ascisse $n=2$.}
+%\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[
+		x=1.30cm,
+		y=0.95cm,
+		line cap=round,
+		line join=round,
+		>=Stealth
+		]
+		% Assi cartesiani
+		\draw[very thick,->] (-0.90,0) -- (7.70,0);
+		\draw[very thick,->] (0,-1.50) -- (0,3.55);
+		
+		% Curva cubica con tre zeri
+		\coordinate (Xzero) at (2.15,0);
+		\coordinate (Xone) at (4.45,0);
+		\coordinate (Xtwo) at (6.30,0);
+		\draw[blue,very thick]
+		(1.08,-1.35)
+		.. controls (1.36,-1.13) and (1.75,-0.35) .. (Xzero)
+		.. controls (2.55,0.55) and (2.80,1.47) .. (3.35,1.50)
+		.. controls (3.95,1.53) and (4.25,0.30) .. (Xone)
+		.. controls (4.65,-0.30) and (5.15,-1.20) .. (5.60,-1.20)
+		.. controls (5.95,-1.20) and (6.10,-0.35) .. (Xtwo)
+		.. controls (6.65,0.65) and (7.00,2.55) .. (7.35,3.18);
+		\draw[blue,very thick,densely dotted] (7.35,3.18) -- (7.58,3.52);
+		
+		% Tacche ed etichette degli zeri
+		\foreach \X/\lab in {2.15/x_0,4.45/x_1,6.30/x_2}{
+			\draw[red,very thick] (\X,-0.16) -- (\X,0.16);
+			\node[red,font=\large,below=4pt] at (\X,0) {$\lab$};
+		}
+		
+		% Annotazioni
+		\node[red,font=\Large,anchor=west] at (1.10,2.35) {Es. $n=2$};
+		\node[blue,font=\Large,anchor=west] at (0.08,-1.05) {$\approx x^3$};
+	\end{tikzpicture}
+	\caption{\label{fig:osservazione_errore_interpolazione} Esempio con numero di ascisse $n=2$.}
 \end{figure}
 
 Il polinomio interpolante coincide con la funzione $f$, come per il riquadro principale di $e(x)$ nell'Osservazione \ref{rem:consErrInterP4}, se $f$ è un polinomio di grado al più $n$ con la sua derivata $(n+1)$-esima che si annulla identicamente. Quindi, se la funzione $f$ è un polinomio di grado al più $n$ l'errore è identicamente nullo, il che significa che il polinomio interpolante coincide con la funzione di Hermite (ovvero l'uguaglianza (\ref{eq:errPolInterHer})).
